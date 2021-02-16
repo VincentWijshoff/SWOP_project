@@ -2,8 +2,10 @@ package gui;
 
 public class GUIRectangle implements GUIObject{
 
+    // Coords left-upper corner of rectangle
     int x;
     int y;
+
     int width;
     int heigth;
 
@@ -12,5 +14,12 @@ public class GUIRectangle implements GUIObject{
         this.y = y;
         this.width = width;
         this.heigth = heigth;
+    }
+
+    public boolean isInRectangle(int coordX, int coordY) {
+        return (coordX >= this.x &&
+                coordX <= this.x + this.width &&
+                coordY >= this.y &&
+                coordY <= this.y + this.heigth);
     }
 }
