@@ -3,14 +3,18 @@ package gui;
 import canvaswindow.CanvasWindow;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GUI extends CanvasWindow{
     ArrayList<GUIObject> drawnObjects = new ArrayList<>();
+    AddressBar addressBar;
+    DocumentArea docArea;
 
     public GUI(String title) {
         super(title);
+
+        this.addressBar = new AddressBar(this);
+        this.docArea = new DocumentArea(this);
     }
 
 
@@ -21,6 +25,7 @@ public class GUI extends CanvasWindow{
 
     @Override
     protected void paint(Graphics g) {
+        this.addressBar.paintAddressBar(g);
 
         for (GUIObject object: drawnObjects) {
             if (object instanceof GUIString) {
@@ -50,5 +55,12 @@ public class GUI extends CanvasWindow{
         repaint();
     }
 
+    @Override
+    protected void handleMouseEvent(int id, int x, int y, int clickCount) {
+        // If clicked in address bar:
+        if (this.addressBar.guiAddressBar.isInRectangle(x, y)) {
+            // start typing?
+        }
+    }
 
 }

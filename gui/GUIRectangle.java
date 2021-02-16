@@ -22,4 +22,16 @@ public class GUIRectangle implements GUIObject{
                 coordY >= this.y &&
                 coordY <= this.y + this.heigth);
     }
+
+    public void updateRectangle(int x, int y, int width, int heigth) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.heigth = heigth;
+    }
+
+    public void updateWidth(int width) {
+        this.width = width;
+    }
+
 }
