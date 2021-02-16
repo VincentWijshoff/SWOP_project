@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.*;
+
 public class GUIString implements GUIObject {
 
     String text;
@@ -12,4 +14,7 @@ public class GUIString implements GUIObject {
         this.y = y;
     }
 
+    public void draw(Graphics g) {
+        g.drawString(this.text, this.x, this.y);
+    }
 }

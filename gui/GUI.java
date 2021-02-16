@@ -28,14 +28,7 @@ public class GUI extends CanvasWindow{
         this.addressBar.paintAddressBar(g);
 
         for (GUIObject object: drawnObjects) {
-            if (object instanceof GUIString) {
-                GUIString string = (GUIString) object;
-                g.drawString(string.text, string.x, string.y);
-            }
-            if (object instanceof GUIRectangle) {
-                GUIRectangle rect = (GUIRectangle) object;
-                g.drawRect(rect.x, rect.y, rect.width, rect.heigth);
-            }
+            object.draw(g);
         }
     }
 
@@ -59,7 +52,7 @@ public class GUI extends CanvasWindow{
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
         // If clicked in address bar:
         if (this.addressBar.guiAddressBar.isInRectangle(x, y)) {
-            // start typing?
+            System.out.println("Clicked Address Bar!");
         }
     }
 

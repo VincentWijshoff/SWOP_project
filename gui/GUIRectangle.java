@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.*;
+
 public class GUIRectangle implements GUIObject{
 
     // Coords left-upper corner of rectangle
@@ -7,31 +9,34 @@ public class GUIRectangle implements GUIObject{
     int y;
 
     int width;
-    int heigth;
+    int height;
 
-    public GUIRectangle(int x, int y, int width, int heigth) {
+    public GUIRectangle(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
-        this.heigth = heigth;
+        this.height = height;
     }
 
     public boolean isInRectangle(int coordX, int coordY) {
         return (coordX >= this.x &&
                 coordX <= this.x + this.width &&
                 coordY >= this.y &&
-                coordY <= this.y + this.heigth);
+                coordY <= this.y + this.height);
+    }
+
+    public void draw(Graphics g) {
+        g.drawRect(this.x, this.y, this.width, this.height);
     }
 
     public void updateRectangle(int x, int y, int width, int heigth) {
         this.x = x;
         this.y = y;
         this.width = width;
-        this.heigth = heigth;
+        this.height = heigth;
     }
 
     public void updateWidth(int width) {
         this.width = width;
     }
-
 }

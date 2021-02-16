@@ -1,4 +1,5 @@
 out/
+compiler_output/
 .idea/
 SWOP_project.iml
 

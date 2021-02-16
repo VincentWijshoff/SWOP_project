@@ -33,8 +33,8 @@ public class AddressBar{
 
         if (guiAddressBar != null) {
             g.setColor(Color.BLACK);
-            g.drawRect(guiAddressBar.x, guiAddressBar.y, gwidth-13, guiAddressBar.heigth); // border
-            g.clearRect(guiAddressBar.x+1, guiAddressBar.y+1, gwidth-14, guiAddressBar.heigth-1); // actual address bar (white part)
+            g.drawRect(guiAddressBar.x, guiAddressBar.y, gwidth-13, guiAddressBar.height); // border
+            g.clearRect(guiAddressBar.x+1, guiAddressBar.y+1, gwidth-14, guiAddressBar.height-1); // actual address bar (white part)
             g.drawString(guiAddressBar.aBarText, abX+5, abY+((int) (height/1.5)));
         }
 
