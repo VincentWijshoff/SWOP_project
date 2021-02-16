@@ -1,3 +1,7 @@
+out/
+.idea/
+SWOP_project.iml
+
 # Compiled class file
 *.class
 
