@@ -23,14 +23,7 @@ public class GUI extends CanvasWindow{
     protected void paint(Graphics g) {
 
         for (GUIObject object: drawnObjects) {
-            if (object instanceof GUIString) {
-                GUIString string = (GUIString) object;
-                g.drawString(string.text, string.x, string.y);
-            }
-            if (object instanceof GUIRectangle) {
-                GUIRectangle rect = (GUIRectangle) object;
-                g.drawRect(rect.x, rect.y, rect.width, rect.heigth);
-            }
+            object.draw(g);
         }
     }
 
