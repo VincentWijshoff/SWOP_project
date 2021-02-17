@@ -28,6 +28,7 @@ public class AddressBar {
 
     public void paintAddressBar(Graphics g) {
         int gwidth = gui.getWidth();
+
         this.width = gwidth;
 
         Color oldColor = g.getColor();
@@ -47,6 +48,10 @@ public class AddressBar {
 
     public void setAddress(String aBarText) {
         this.address = aBarText;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public boolean isOnAddressBar(int coordX, int coordY){
