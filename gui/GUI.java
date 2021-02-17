@@ -52,14 +52,8 @@ public class GUI extends CanvasWindow{
         // If clicked in address bar:
         if (this.addressBar.isOnAddressBar(x, y)) {
             System.out.println("Clicked Address Bar!");
-            if (id == MouseEvent.MOUSE_PRESSED){
-                //select the HEADER in drawnObjects
-                //actions:
-                //  * the current HEADER is selected (blue background)
-                //  * keyboard focus (with text cursor)
-            }
+            this.addressBar.handleClick(id, x, y, clickCount);
 
-            //if in keyboard focus and clicked outside address bar -> same action as ENTER
         }
     }
 

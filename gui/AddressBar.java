@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class AddressBar {
 
@@ -59,6 +60,17 @@ public class AddressBar {
                 coordX <= this.abX + this.width &&
                 coordY >= this.abY &&
                 coordY <= this.abY + this.height);
+    }
+
+    public void handleClick(int id, int x, int y, int clickCount){
+        if (id == MouseEvent.MOUSE_PRESSED){
+            //select the HEADER in drawnObjects
+            //actions:
+            //  * the current HEADER is selected (blue background)
+            //  * keyboard focus (with text cursor)
+        }
+
+        //if in keyboard focus and clicked outside address bar -> same action as ENTER
     }
 }
 
