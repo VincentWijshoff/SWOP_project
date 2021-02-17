@@ -36,7 +36,4 @@ public class GUIRectangle implements GUIObject{
         this.height = heigth;
     }
 
-    public void updateWidth(int width) {
-        this.width = width;
-    }
 }

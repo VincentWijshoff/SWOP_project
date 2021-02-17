@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GUI extends CanvasWindow{
-    ArrayList<GUIObject> drawnObjects = new ArrayList<>();
+
     AddressBar addressBar;
     DocumentArea docArea;
 
@@ -14,7 +14,8 @@ public class GUI extends CanvasWindow{
         super(title);
 
         this.addressBar = new AddressBar(this);
-        this.docArea = new DocumentArea(this);
+        int relativeYpos = this.addressBar.yLimit;
+        this.docArea = new DocumentArea(this, relativeYpos);
     }
 
 
@@ -26,10 +27,7 @@ public class GUI extends CanvasWindow{
     @Override
     protected void paint(Graphics g) {
         this.addressBar.paintAddressBar(g);
-
-        for (GUIObject object: drawnObjects) {
-            object.draw(g);
-        }
+        this.docArea.paintDocArea(g);
     }
 
     @Override
@@ -38,20 +36,20 @@ public class GUI extends CanvasWindow{
     }
 
     public void draw(GUIObject object) {
-        drawnObjects.add(object);
+        // drawnObjects.add(object); //TODO handle adding new objects to the cancas area
         repaint();
     }
 
     //TODO: maak unieke ID om objecten bij te houden?
     public void delete(int index) {
-        drawnObjects.remove(index);
+       //  drawnObjects.remove(index); // TODO handle removing elements from the canvas area
         repaint();
     }
 
     @Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
         // If clicked in address bar:
-        if (this.addressBar.guiAddressBar.isInRectangle(x, y)) {
+        if (this.addressBar.isOnAddressBar(x, y)) {
             System.out.println("Clicked Address Bar!");
         }
     }
