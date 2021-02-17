@@ -23,7 +23,7 @@ public class AddressBar{
     void paintAddressBar(Graphics g) {
         int gwidth = gui.getWidth();
         this.guiAddressBar.updateWidth(gwidth); //TODO: find better place to update width of address bar (needed when canvaswindow resized).
-
+                                                //This belongs in the handleResize() method in GUI I think
         Color oldColor = g.getColor();
 
         g.setColor(Color.LIGHT_GRAY);
@@ -35,7 +35,12 @@ public class AddressBar{
             g.setColor(Color.BLACK);
             g.drawRect(guiAddressBar.x, guiAddressBar.y, gwidth-13, guiAddressBar.height); // border
             g.clearRect(guiAddressBar.x+1, guiAddressBar.y+1, gwidth-14, guiAddressBar.height-1); // actual address bar (white part)
-            g.drawString(guiAddressBar.aBarText, abX+5, abY+((int) (height/1.5)));
+
+            //create the HEADER as an GUIString object (and store it in drawnObjects)
+            GUIString header = new GUIString(guiAddressBar.getaBarText(), abX+5, abY+((int) (height/1.5)));
+            gui.drawnObjects.add(header);
+            header.draw(g);
+            //g.drawString(guiAddressBar.getaBarText(), abX+5, abY+((int) (height/1.5)));
         }
 
         g.setColor(oldColor);
