@@ -152,7 +152,31 @@ public class AddressBar implements GUIObject{
                 }
             } else {
                 // here the pressed button was not a char so the special button must be handled
-                debug("not a char");
+                if(keyCode == 32){
+                    // spacebar; needs a special case for when the full address is selected
+                    if (this.selectedText) {
+                        // now every bit off the current text must be replaced with the newly pressed character
+                        this.selectedText = false;
+                        this.address = " ";
+                        this.cursorPosition = this.address.length();
+                    } else {
+                        // now only input new chars on the position off the text cursor
+                        this.address = addChar(this.address, ' ', this.cursorPosition);
+                        this.cursorPosition += 1;
+                    }
+                } else if (keyCode == 37){
+                    //left arrow
+                } else if (keyCode == 39){
+                    //right arrow
+                } else if (keyCode == 8){
+                    //backspace
+                } else if (keyCode == 127){
+                    //delete
+                } else if (keyCode == 36){
+                    //home
+                } else if (keyCode == 35){
+                    //end
+                }
             }
 
         }
