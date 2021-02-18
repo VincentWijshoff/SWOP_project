@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.nio.file.FileAlreadyExistsException;
 
-public class AddressBar implements GUIObject{
+public class AddressBar {
 
     final int yLimit = 50;
 
