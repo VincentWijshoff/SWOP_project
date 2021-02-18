@@ -8,6 +8,8 @@ public class AddressBar implements GUIObject{
 
     final int yLimit = 50;
 
+    private boolean selectedText = false;
+    private boolean initialClick = true;
     private String address = "www.helemaalmooiV2.nl/smexie";
 
     //GUI elements
@@ -47,13 +49,28 @@ public class AddressBar implements GUIObject{
         g.setColor(Color.BLACK);
         g.drawRect(this.abX, this.abY, gwidth-(3*this.abX), this.height); // border
         g.clearRect(this.abX+1, this.abY+1, gwidth-(3*this.abX)-1, this.height-1); // actual address bar (white part)
+        if(this.selectedText){
+            //the text is selected so a blue background needs to be drawn
+            g.setColor(Color.CYAN);
+            int tmp = (int) g.getFontMetrics().getStringBounds(this.address, g).getHeight();
+            g.fillRect(abX+5,
+                    abY + 3 + ((int) (height/1.5)) - tmp,
+                    (int) g.getFontMetrics().getStringBounds(this.address, g).getWidth(),
+                    tmp); // text background
+            g.setColor(Color.BLACK);
+        }
         g.drawString(this.address, abX+5, abY+((int) (height/1.5)));
 
         g.setColor(oldColor);
     }
 
+    private void repaint(){
+        this.gui.handleShown();
+    }
+
     public void setAddress(String aBarText) {
         this.address = aBarText;
+        this.repaint();
     }
 
     public String getAddress() {
@@ -67,15 +84,34 @@ public class AddressBar implements GUIObject{
                 coordY <= this.abY + this.height);
     }
 
-    public void handleClick(int id, int x, int y, int clickCount){
-        if (id == MouseEvent.MOUSE_PRESSED){
-            //select the HEADER in drawnObjects
-            //actions:
-            //  * the current HEADER is selected (blue background)
-            //  * keyboard focus (with text cursor)
-        }
+    /**
+     * When this is called, a mouse event has happened on the address bar when the address bar is in focus
+     * @param id            The id off the mouse event
+     * @param x             The x coordinate off the mouse event
+     * @param y             The y coordinate off the mouse event
+     * @param clickCount    The click count off the user
+     * @post    When initially clicking the address bar, an insertion point will be shown ("text cursor")
+     *          When initially clicking the address bar, all text is selected ( Blue background )
+     */
+    public void handleMouseEvent(int id, int x, int y, int clickCount){
+        //the first click on the address bar
+        if (id == MouseEvent.MOUSE_PRESSED && this.initialClick){
+            System.out.println("initial click on the bar");
+            //the current url is selected (blue background)
+            this.selectedText = true;
 
-        //if in keyboard focus and clicked outside address bar -> same action as ENTER
+            // keyboard focus (with text cursor)
+
+
+            //reset the initial click variable
+            this.initialClick = false;
+
+        } else if (id == MouseEvent.MOUSE_PRESSED){
+            //now the text need no longer be selected
+            this.selectedText = false;
+        }
+        // repaint to actually see the changes
+        this.repaint();
     }
 
     public boolean isInFocus(){
@@ -87,7 +123,10 @@ public class AddressBar implements GUIObject{
     }
 
     public void setOutFocus(){
+        this.initialClick = true;
+        this.selectedText = false;
         this.inFocus = false;
+        this.repaint();
     }
 }
 
