@@ -2,20 +2,12 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.nio.file.FileAlreadyExistsException;
 
-public class AddressBar implements GUIObject{
+public class AddressBar extends GUIObject {
 
     final int yLimit = 50;
 
     private String address = "www.helemaalmooiV2.nl/smexie";
-
-    //GUI elements
-    GUI gui;
-    private int abX = 5;
-    private int abY = this.yLimit / 6;
-    private int height = this.yLimit * 2 / 3;
-    private int width = 0;
 
     //in focus element
     private boolean inFocus = false;
@@ -23,21 +15,26 @@ public class AddressBar implements GUIObject{
     /*
     * Class used to describe the entire Address Bar section of our GUI.
      */
-    public AddressBar(GUI gui, String startAddress) {
-        this.gui = gui;
+    public AddressBar(String startAddress) {
+        super();
+
         this.address = startAddress;
+        updateGUIPosAndDim(5, ((int) (this.yLimit / 6)), 0, ((int) this.yLimit * 2 / 3));
     }
 
-    public AddressBar(GUI gui) {
-        this.gui = gui;
+    public AddressBar() {
+        super();
+
+        updateGUIPosAndDim(5, ((int) (this.yLimit / 6)), 0, ((int) this.yLimit * 2 / 3));
     }
+
+
 
     public void draw(Graphics g) {
         int gwidth = gui.getWidth();
-
-        this.width = gwidth;
-
+        updateGUIDimensions(gwidth, height);
         Color oldColor = g.getColor();
+
         // first draw the grey enclosing area
         g.setColor(Color.LIGHT_GRAY);
         g.fillRect(0, 0, gwidth, this.yLimit);
@@ -45,9 +42,9 @@ public class AddressBar implements GUIObject{
         g.drawLine(0, this.yLimit, gwidth, this.yLimit);
 
         g.setColor(Color.BLACK);
-        g.drawRect(this.abX, this.abY, gwidth-(3*this.abX), this.height); // border
-        g.clearRect(this.abX+1, this.abY+1, gwidth-(3*this.abX)-1, this.height-1); // actual address bar (white part)
-        g.drawString(this.address, abX+5, abY+((int) (height/1.5)));
+        g.drawRect(coordX, coordY, gwidth-(3*coordX), height); // border
+        g.clearRect(coordX+1, coordY+1, gwidth-(3*coordX)-1, height-1); // actual address bar (white part)
+        g.drawString(this.address, coordX+5, coordY+((int) (height/1.5)));
 
         g.setColor(oldColor);
     }
@@ -60,19 +57,13 @@ public class AddressBar implements GUIObject{
         return address;
     }
 
-    public boolean isOnAddressBar(int coordX, int coordY){
-        return (coordX >= this.abX &&
-                coordX <= this.abX + this.width &&
-                coordY >= this.abY &&
-                coordY <= this.abY + this.height);
-    }
-
     public void handleClick(int id, int x, int y, int clickCount){
         if (id == MouseEvent.MOUSE_PRESSED){
             //select the HEADER in drawnObjects
             //actions:
             //  * the current HEADER is selected (blue background)
             //  * keyboard focus (with text cursor)
+
         }
 
         //if in keyboard focus and clicked outside address bar -> same action as ENTER
