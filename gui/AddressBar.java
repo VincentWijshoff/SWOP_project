@@ -49,6 +49,13 @@ public class AddressBar implements GUIObject{
         g.setColor(Color.BLACK);
         g.drawRect(this.abX, this.abY, gwidth-(3*this.abX), this.height); // border
         g.clearRect(this.abX+1, this.abY+1, gwidth-(3*this.abX)-1, this.height-1); // actual address bar (white part)
+
+        String viewedAddress = this.address;
+        if(this.isInFocus()){
+            // when the address bar is in focus, a text cursor needs to be shown at the end off the current string
+            viewedAddress += "|";
+        }
+
         if(this.selectedText){
             //the text is selected so a blue background needs to be drawn
             g.setColor(Color.CYAN);
@@ -59,7 +66,8 @@ public class AddressBar implements GUIObject{
                     tmp); // text background
             g.setColor(Color.BLACK);
         }
-        g.drawString(this.address, abX+5, abY+((int) (height/1.5)));
+
+        g.drawString(viewedAddress, abX+5, abY+((int) (height/1.5)));
 
         g.setColor(oldColor);
     }
@@ -96,17 +104,23 @@ public class AddressBar implements GUIObject{
     public void handleMouseEvent(int id, int x, int y, int clickCount){
         //the first click on the address bar
         if (id == MouseEvent.MOUSE_PRESSED && this.initialClick){
-            System.out.println("initial click on the bar");
+
             //the current url is selected (blue background)
             this.selectedText = true;
 
-            // keyboard focus (with text cursor)
-
+            // keyboard focus (with text cursor) is done with the inFocus variable and the "|" is added
+            // in the painting area
 
             //reset the initial click variable
             this.initialClick = false;
 
+        } else if (id == MouseEvent.MOUSE_PRESSED && clickCount % 2 == 0){
+
+            //a double click results in highlighted text as wel
+            this.selectedText = true;
+
         } else if (id == MouseEvent.MOUSE_PRESSED){
+
             //now the text need no longer be selected
             this.selectedText = false;
         }
