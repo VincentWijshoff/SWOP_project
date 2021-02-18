@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.nio.file.FileAlreadyExistsException;
 
@@ -11,6 +12,8 @@ public class AddressBar implements GUIObject{
     private boolean selectedText = false;
     private boolean initialClick = true;
     private String address = "www.helemaalmooiV2.nl/smexie";
+    private String prevAddress = "";
+    private int cursorPosition = address.length();
 
     //GUI elements
     GUI gui;
@@ -52,8 +55,8 @@ public class AddressBar implements GUIObject{
 
         String viewedAddress = this.address;
         if(this.isInFocus()){
-            // when the address bar is in focus, a text cursor needs to be shown at the end off the current string
-            viewedAddress += "|";
+            // when the address bar is in focus, a text cursor needs to be shown at the correct position off the current string
+            viewedAddress = this.addChar(viewedAddress, '|', cursorPosition);
         }
 
         if(this.selectedText){
@@ -126,19 +129,73 @@ public class AddressBar implements GUIObject{
         this.repaint();
     }
 
+    /**
+     * handles the keypresses while the address bar is in focus
+     * @param id        The id off the pressed button
+     * @param keyCode   The keycode for the pressed button
+     * @param keyChar   The char that was pressed
+     */
+    public void handleKeyboardEvent(int id, int keyCode, char keyChar){
+        if(id == 401){
+            // now every key event will only happen once
+            if(isChar(keyCode)) {
+                // this will only happen if the pressed button is an actual char
+                if (this.selectedText) {
+                    // now every bit off the current text must be replaced with the newly pressed character
+                    this.selectedText = false;
+                    this.address = "" + keyChar;
+                    this.cursorPosition = this.address.length();
+                } else {
+                    // now only input new chars on the position off the text cursor
+                    this.address = addChar(this.address, keyChar, this.cursorPosition);
+                    this.cursorPosition += 1;
+                }
+            } else {
+                // here the pressed button was not a char so the special button must be handled
+                debug("not a char");
+            }
+
+        }
+        this.repaint();
+    }
+
+    private String addChar(String str, char ch, int position) {
+        int len = str.length();
+        char[] updatedArr = new char[len + 1];
+        str.getChars(0, position, updatedArr, 0);
+        updatedArr[position] = ch;
+        str.getChars(position, len, updatedArr, position + 1);
+        return new String(updatedArr);
+    }
+
+    private boolean isChar(int code){
+        return KeyEvent.getKeyText(code).length() == 1;
+    }
+
+    private void debug(String a){
+        System.out.println("AddressBar: " + a);
+    }
+
     public boolean isInFocus(){
         return this.inFocus;
     }
 
     public void setInFocus(){
+        this.prevAddress = address;
         this.inFocus = true;
     }
 
     public void setOutFocus(){
+        this.search();
         this.initialClick = true;
         this.selectedText = false;
         this.inFocus = false;
         this.repaint();
+    }
+
+    public void search(){
+        this.prevAddress = address;
+        this.gui.load(address);
     }
 }
 

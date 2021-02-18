@@ -19,6 +19,9 @@ public class GUI extends CanvasWindow{
         this.docArea = new DocumentArea(this, relativeYpos);
     }
 
+    public void load(String url){
+
+    }
 
     @Override
     protected void handleShown() {
@@ -70,6 +73,7 @@ public class GUI extends CanvasWindow{
         // handle the key event accordingly
         if (this.addressBar.isInFocus()) {
             // handle the key event in the address bar area
+            this.addressBar.handleKeyboardEvent(id, keyCode, keyChar);
         } else {
             // handle the key event in the document area
         }
