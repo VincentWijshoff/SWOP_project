@@ -4,17 +4,21 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.nio.file.FileAlreadyExistsException;
 
-public class AddressBar {
+public class AddressBar implements GUIObject{
 
     final int yLimit = 50;
 
     private String address = "www.helemaalmooiV2.nl/smexie";
 
+    //GUI elements
     GUI gui;
     private int abX = 5;
     private int abY = this.yLimit / 6;
     private int height = this.yLimit * 2 / 3;
     private int width = 0;
+
+    //in focus element
+    private boolean inFocus = false;
 
     /*
     * Class used to describe the entire Address Bar section of our GUI.
@@ -28,7 +32,7 @@ public class AddressBar {
         this.gui = gui;
     }
 
-    public void paintAddressBar(Graphics g) {
+    public void draw(Graphics g) {
         int gwidth = gui.getWidth();
 
         this.width = gwidth;
@@ -75,15 +79,15 @@ public class AddressBar {
     }
 
     public boolean isInFocus(){
-        return false;
+        return this.inFocus;
     }
 
     public void setInFocus(){
-
+        this.inFocus = true;
     }
 
     public void setOutFocus(){
-
+        this.inFocus = false;
     }
 }
 

@@ -28,7 +28,7 @@ public class GUI extends CanvasWindow{
     @Override
     protected void paint(Graphics g) {
         this.docArea.paintDocArea(g);
-        this.addressBar.paintAddressBar(g);
+        this.addressBar.draw(g);
     }
 
     @Override
