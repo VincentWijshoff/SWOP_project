@@ -49,16 +49,30 @@ public class GUI extends CanvasWindow{
 
     @Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-        // If clicked in address bar:
+        // set the address barr in focus or out off focus
         if (this.addressBar.isOnAddressBar(x, y)) {
-            System.out.println("Clicked Address Bar!");
-            this.addressBar.handleClick(id, x, y, clickCount);
-
+            this.addressBar.setInFocus();
+            System.out.println("Clicked on Address Bar!");
+        } else {
+            this.addressBar.setOutFocus();
+            System.out.println("Clicked off Address Bar!");
+        }
+        // handle the click event accordingly
+        if (this.addressBar.isInFocus()) {
+            // handle the click in the address bar area
+        } else {
+            // handle the click in the document area
         }
     }
 
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
+        // handle the key event accordingly
+        if (this.addressBar.isInFocus()) {
+            // handle the key event in the address bar area
+        } else {
+            // handle the key event in the document area
+        }
         //if in keyboard focus:
         //actions:
         //  * on ENTER -> navigate to new URL                           [for header]

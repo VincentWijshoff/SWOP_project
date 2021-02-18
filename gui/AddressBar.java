@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.nio.file.FileAlreadyExistsException;
 
 public class AddressBar {
 
@@ -71,6 +72,18 @@ public class AddressBar {
         }
 
         //if in keyboard focus and clicked outside address bar -> same action as ENTER
+    }
+
+    public boolean isInFocus(){
+        return false;
+    }
+
+    public void setInFocus(){
+
+    }
+
+    public void setOutFocus(){
+
     }
 }
 
