@@ -59,7 +59,7 @@ public class GUI extends CanvasWindow{
         }
         // handle the click event accordingly
         if (this.addressBar.isInFocus()) {
-            this.addressBar.handleMouseEvent(id, x, y, clickCount);
+            this.addressBar.handleMouseEvent(id, clickCount);
         } else {
             // handle the click in the document area
         }

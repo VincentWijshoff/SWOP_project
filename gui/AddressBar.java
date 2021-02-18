@@ -95,13 +95,11 @@ public class AddressBar implements GUIObject{
     /**
      * When this is called, a mouse event has happened on the address bar when the address bar is in focus
      * @param id            The id off the mouse event
-     * @param x             The x coordinate off the mouse event
-     * @param y             The y coordinate off the mouse event
      * @param clickCount    The click count off the user
      * @post    When initially clicking the address bar, an insertion point will be shown ("text cursor")
      *          When initially clicking the address bar, all text is selected ( Blue background )
      */
-    public void handleMouseEvent(int id, int x, int y, int clickCount){
+    public void handleMouseEvent(int id, int clickCount){
         //the first click on the address bar
         if (id == MouseEvent.MOUSE_PRESSED && this.initialClick){
 
