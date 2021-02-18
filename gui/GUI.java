@@ -36,16 +36,11 @@ public class GUI extends CanvasWindow{
         repaint();
     }
 
-    public void draw(GUIObject object) {
-        // drawnObjects.add(object); //TODO handle adding new objects to the cancas area
+    public void draw(GUIObject obj) {
+        this.docArea.draw(obj);
         repaint();
     }
 
-    //TODO: maak unieke ID om objecten bij te houden?
-    public void delete(int index) {
-       //  drawnObjects.remove(index); // TODO handle removing elements from the canvas area
-        repaint();
-    }
 
     @Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
