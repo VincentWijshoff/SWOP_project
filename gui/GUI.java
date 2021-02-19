@@ -20,7 +20,7 @@ public class GUI extends CanvasWindow{
     }
 
     public void load(String url){
-
+        System.out.println("Loading webpage: " + url);
     }
 
     @Override

@@ -3,7 +3,6 @@ package gui;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.nio.file.FileAlreadyExistsException;
 
 public class AddressBar implements GUIObject{
 
@@ -218,6 +217,16 @@ public class AddressBar implements GUIObject{
                     if (this.selectedText) {
                         this.selectedText = false;
                     }
+                } else if (keyCode == 27){
+                    //escape
+                    this.address = prevAddress;
+                    this.cursorPosition = this.address.length();
+                    this.inFocus = false;
+                    this.initialClick = true;
+                    this.selectedText = false;
+                } else if (keyCode == 10){
+                    //enter
+                    this.setOutFocus();
                 }
             }
         }
@@ -271,6 +280,7 @@ public class AddressBar implements GUIObject{
 
     public void setInFocus(){
         this.prevAddress = address;
+        this.cursorPosition = this.address.length();
         this.inFocus = true;
     }
 
