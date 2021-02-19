@@ -9,13 +9,15 @@ public class AddressBar implements GUIObject{
     final int yLimit = 50;
 
     private boolean selectedText = false;
+    private int startSelected = 0;
+    private int endSelected = 0;
     private boolean initialClick = true;
     private String address = "www.helemaalmooiV2.nl/smexie";
     private String prevAddress = "";
     private int cursorPosition = address.length();
 
     //GUI elements
-    GUI gui;
+    private GUI gui;
     private int abX = 5;
     private int abY = this.yLimit / 6;
     private int height = this.yLimit * 2 / 3;
@@ -135,6 +137,9 @@ public class AddressBar implements GUIObject{
      * @param keyChar   The char that was pressed
      */
     public void handleKeyboardEvent(int id, int keyCode, char keyChar){
+        debug("" + id);
+        debug("" + keyCode);
+        debug("" + keyChar);
         if(id == 401){
             // now every key event will only happen once
             if(isChar(keyCode)) {
@@ -250,7 +255,6 @@ public class AddressBar implements GUIObject{
 
     private boolean isChar(int code){
         //is a char when normal keyboard input, slashes, points or Commas...
-        debug("" + code);
         return KeyEvent.getKeyText(code).length() == 1 ||
                 code == 47 || // the forward slash
                 code == 46 || // the point
