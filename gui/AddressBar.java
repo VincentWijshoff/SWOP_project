@@ -240,8 +240,25 @@ public class AddressBar implements GUIObject{
     }
 
     private boolean isChar(int code){
-        //is a char when normal keyboard input, slashes, points or Commas
-        return KeyEvent.getKeyText(code).length() == 1;
+        //is a char when normal keyboard input, slashes, points or Commas...
+        debug("" + code);
+        return KeyEvent.getKeyText(code).length() == 1 ||
+                code == 47 || // the forward slash
+                code == 46 || // the point
+                code == 44 || // the comma
+                code == 59 || // the double point
+                code == 45 || // the minus
+                code == 61 || // the equal sign
+                code == 91 || // open bracket
+                code == 93 || // close bracket
+                code == 92 || // the backslash
+                code == 222 || // the flying comma
+                code == 110 || // all numlock special items
+                code == 107 ||
+                code == 109 ||
+                code == 106 ||
+                code == 111 ||
+                code == 192;
     }
 
     private void debug(String a){
