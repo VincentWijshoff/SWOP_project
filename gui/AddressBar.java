@@ -153,7 +153,7 @@ public class AddressBar implements GUIObject{
             } else {
                 // here the pressed button was not a char so the special button must be handled
                 if(keyCode == 32){
-                    // spacebar; needs a special case for when the full address is selected
+                    // space bar
                     if (this.selectedText) {
                         // now every bit off the current text must be replaced with the newly pressed character
                         this.selectedText = false;
@@ -166,21 +166,68 @@ public class AddressBar implements GUIObject{
                     }
                 } else if (keyCode == 37){
                     //left arrow
+                    if (this.selectedText) {
+                        this.selectedText = false;
+                        this.cursorPosition = 0;
+                    } else {
+                        if (this.cursorPosition > 0) {
+                            this.cursorPosition--;
+                        }
+                    }
                 } else if (keyCode == 39){
                     //right arrow
+                    if(this.selectedText){
+                        this.selectedText = false;
+                        this.cursorPosition = this.address.length();
+                    } else {
+                        if (this.cursorPosition < this.address.length()) {
+                            this.cursorPosition++;
+                        }
+                    }
                 } else if (keyCode == 8){
                     //backspace
+                    if(this.selectedText){
+                        this.selectedText = false;
+                        this.address = "";
+                        this.cursorPosition = 0;
+                    } else {
+                        if (this.cursorPosition > 0) {
+                            this.address = this.removeAt(this.address, --this.cursorPosition);
+                        }
+                    }
                 } else if (keyCode == 127){
                     //delete
+                    if(this.selectedText){
+                        this.selectedText = false;
+                        this.address = "";
+                        this.cursorPosition = 0;
+                    } else {
+                        if (this.cursorPosition < this.address.length()) {
+                            this.address = this.removeAt(this.address, this.cursorPosition);
+                        }
+                    }
                 } else if (keyCode == 36){
                     //home
+                    this.cursorPosition = 0;
+                    if (this.selectedText) {
+                        this.selectedText = false;
+                    }
                 } else if (keyCode == 35){
                     //end
+                    this.cursorPosition = this.address.length();
+                    if (this.selectedText) {
+                        this.selectedText = false;
+                    }
                 }
             }
-
         }
         this.repaint();
+    }
+
+    private String removeAt(String str, int position){
+        StringBuilder sb = new StringBuilder(str);
+        sb.deleteCharAt(position);
+        return sb.toString();
     }
 
     private String addChar(String str, char ch, int position) {
@@ -193,6 +240,7 @@ public class AddressBar implements GUIObject{
     }
 
     private boolean isChar(int code){
+        //is a char when normal keyboard input, slashes, points or Commas
         return KeyEvent.getKeyText(code).length() == 1;
     }
 
