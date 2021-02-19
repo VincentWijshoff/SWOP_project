@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+//TODO need to implement the selecting with the moouse?
+//TODO shift has no release event, how to know when to stop selecting?
+
 public class AddressBar implements GUIObject{
 
     final int yLimit = 50;
