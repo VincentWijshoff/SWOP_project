@@ -1,6 +1,7 @@
 package gui;
 
 import browsrhtml.BrowsrDocumentValidator;
+import browsrhtml.HtmlLoader;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -36,17 +37,20 @@ class GUITests {
 		assertFalse(testName, rectangle.isInRectangle(9, 9));
 	}
 
-
-
-	//load html code from url: (copy paste from https://www.programcreek.com/java-api-examples/?class=java.net.URL&method=openStream)
-	/*
-	URL url = new URL("https://...")
-	InputStream is = url.openStream()
-	byte[] buf = new byte[1024];
-	StringBuffer sb = new StringBuffer();;
+	/**
+	 * Not a test, just to see what it returns
+	 */
+	@Test
+	void testing() throws IOException {
+		URL url = new URL(new URL("https://people.cs.kuleuven.be/~bart.jacobs/index.html"), "browsrtest.html");
+		InputStream inputStream = url.openStream();
+		byte[] buf = new byte[1024];
+		StringBuilder sb = new StringBuilder();;
 		while(-1 != inputStream.read(buf)) {
 			sb.append(new String(buf));
 		}
-	 */
-	//sb contains entire html code
+		System.out.println(sb.toString());
+
+	}
+
 }
