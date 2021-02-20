@@ -67,7 +67,66 @@ public class HtmlLoader {
     public void loadPage(){
         HtmlLexer lexer = new HtmlLexer(new StringReader(htmlCode));
         //case analysis on different objects (a, table, tr, td)
+        HtmlLexer.TokenType type = lexer.getTokenType();
+        String value = lexer.getTokenValue();
 
+        while(type != HtmlLexer.TokenType.END_OF_FILE){
+            if(type == HtmlLexer.TokenType.OPEN_START_TAG){
+                if(value.equals("a")){
+                    HtmlA aTag = new HtmlA();
+                    lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
+                    aTag.createHyperlink();
+                }
+            }
+            
+            lexer.eatToken();
+            type = lexer.getTokenType();
+            value = lexer.getTokenValue();
+        }
+
+    }
+
+    /**
+     * This method will update the aTag object (given the html code)
+     *
+     * @param lexer     the lexer for the html code
+     * @param aTag      the a-tag object
+     * @return the updated lexer (so it doesn't do the code again)
+     *
+     * The a-tag is restricted to only a "href" attribute inside the tag, to upgrade: add to if-statement
+     */
+    private HtmlLexer updateATag(HtmlLexer lexer, HtmlA aTag){
+        lexer.eatToken();
+        HtmlLexer.TokenType type = lexer.getTokenType();
+        String value = lexer.getTokenValue();
+        String currentIdentifier;
+        boolean insideTag = true;
+        while(type != HtmlLexer.TokenType.OPEN_END_TAG && !value.equals("a")){
+            if(type == HtmlLexer.TokenType.IDENTIFIER){
+                //Order: IDENTIFIER -> EQUALS -> QUOTED_STRING
+                currentIdentifier = value;
+                lexer.eatToken(); //This token is always EQUALS
+                lexer.eatToken(); //This token is QUOTED_STRING
+
+                if("href".equals(currentIdentifier)) {
+                    aTag.setHref(lexer.getTokenValue());
+                }else{
+                    throw new Error(currentIdentifier + " is not supported inside a-tag");
+                }
+            }else if(type == HtmlLexer.TokenType.CLOSE_TAG && insideTag){ //insideTag not needed right now (only text between <a>)
+                insideTag = false;
+            }else if(type == HtmlLexer.TokenType.TEXT){
+                if(!aTag.getText().equals(""))
+                    aTag.setText(aTag.getText() + " " + value); //Already been a TEXT token -> add space
+                else
+                    aTag.setText(value);
+            }
+
+            lexer.eatToken();
+            type = lexer.getTokenType();
+            value = lexer.getTokenValue();
+        }
+        return lexer;
     }
 
 
