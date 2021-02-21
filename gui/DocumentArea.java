@@ -3,6 +3,7 @@ package gui;
 import html.HtmlA;
 import html.HtmlElement;
 import html.HtmlTable;
+import html.HtmlText;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -47,9 +48,13 @@ public class DocumentArea {
                 currentY += row.getHeight();
             }
         }
+        else if (element instanceof HtmlText) {
+            HtmlText text = (HtmlText) element;
+            drawnObjects.add(new GUIString(text.getText(), 0, startY + text.getHeight()));
+        }
         else if (element instanceof HtmlA) {
             HtmlA link = (HtmlA) element;
-            drawnObjects.add(new GUIString(link.getText(), 0, startY));
+            drawnObjects.add(new GUIString(link.getText(), 0, startY + link.getHeight()));
             //TODO add hyperlink functionality: make GUILink instead of plain GUIString?
         }
     }

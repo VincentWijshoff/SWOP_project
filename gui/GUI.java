@@ -1,6 +1,7 @@
 package gui;
 
 import canvaswindow.CanvasWindow;
+import html.HtmlElement;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -36,11 +37,9 @@ public class GUI extends CanvasWindow{
         repaint();
     }
 
-    public void draw(GUIObject obj) {
-        this.docArea.draw(obj);
-        repaint();
+    public void renderHTML(HtmlElement element) {
+        this.docArea.renderHTML(element);
     }
-
 
     @Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
