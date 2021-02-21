@@ -4,23 +4,24 @@ import java.util.ArrayList;
 
 public class HtmlTable extends HtmlElement{
 
-    ArrayList<HtmlTableRow> tableRows; //List with all row elements of that table
+    ArrayList<HtmlElement> tableRows; //List with all row elements of that table
 
     public HtmlTable(){
         tableRows = new ArrayList<>();
     }
 
-    /**
-     * add a new row to the table
-     *
-     * @return a new HtmlTableRow object (so we can update this object)
-     */
-    public HtmlTableRow addRow(){
-        HtmlTableRow row = new HtmlTableRow();
-        tableRows.add(row);
-        return row;
+    public HtmlTable(ArrayList<HtmlElement> elements) {
+        this.tableRows = elements;
+    }
+
+    public ArrayList<HtmlElement> getTableRows() {
+        return tableRows;
     }
 
 
-
+    public HtmlElement addRow() {
+        HtmlElement row = new HtmlElement();
+        tableRows.add(row);
+        return row;
+    }
 }
