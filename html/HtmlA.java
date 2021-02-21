@@ -1,10 +1,10 @@
-package browsrhtml;
+package html;
 
 
 /**
  * Class representing an <a> tag
  */
-public class HtmlA {
+public class HtmlA extends HtmlElement{
 
     private String href; //the href <a href="...">
     private String text; //the string representing the hyperlink
@@ -34,6 +34,5 @@ public class HtmlA {
      * this method creates the hyperlink in the documentArea
      */
     public void createHyperlink(){
-
     }
 }
