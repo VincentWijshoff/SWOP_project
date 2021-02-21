@@ -29,16 +29,6 @@ public class GUIRectangle implements GUIObject{
         g.drawRect(this.x, this.y, this.width, this.height);
     }
 
-    @Override
-    public int getHeight() {
-        return this.height;
-    }
-
-    @Override
-    public int getWidth() {
-        return this.width;
-    }
-
     public void updateRectangle(int x, int y, int width, int heigth) {
         this.x = x;
         this.y = y;

@@ -18,6 +18,14 @@ public class HtmlTable extends HtmlElement{
         return tableRows;
     }
 
+    @Override
+    public int getHeight() {
+        int height = 0;
+        for (HtmlElement e:tableRows) {
+            height += e.getHeight();
+        }
+        return height;
+    }
 
     public HtmlElement addRow() {
         HtmlElement row = new HtmlElement();

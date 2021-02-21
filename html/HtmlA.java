@@ -35,4 +35,10 @@ public class HtmlA extends HtmlElement{
      */
     public void createHyperlink(){
     }
+
+    @Override
+    public int getHeight() {
+        return 16;
+    }
+
 }
