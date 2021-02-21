@@ -162,10 +162,10 @@ public class AddressBar implements GUIObject{
                 // this will only happen if the pressed button is an actual char
                 if (this.startSelected != this.endSelected) {
                     // now every bit off the current text must be replaced with the newly pressed character
+                    this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "" + keyChar);
+                    this.cursorPosition = this.address.length();
                     this.startSelected = 0;
                     this.endSelected = 0;
-                    this.address = "" + keyChar;
-                    this.cursorPosition = this.address.length();
                 } else {
                     // now only input new chars on the position off the text cursor
                     this.address = addChar(this.address, keyChar, this.cursorPosition);
