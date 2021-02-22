@@ -105,7 +105,6 @@ public class AddressBar implements GUIObject{
         int x0 = (int) g.getFontMetrics().getStringBounds(sub1, g).getWidth();
         String sub2 = word.substring(0, fin);
         int x1 = (int) g.getFontMetrics().getStringBounds(sub2, g).getWidth();
-        debug(x0 + " " + x1);
         return new int[] {x0, x1};
     }
 
