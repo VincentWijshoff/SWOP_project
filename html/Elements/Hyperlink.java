@@ -1,25 +1,25 @@
-package html;
+package html.Elements;
 
 
 /**
  * Class representing an <a> tag
  */
-public class HtmlA extends HtmlElement{
+public class Hyperlink extends ContentSpan {
 
     private String href; //the href <a href="...">
-    private String text; //the string representing the hyperlink
+    private final TextSpan text; //the string representing the hyperlink
 
-    public HtmlA(){
+    public Hyperlink(){
         this.href = "";
-        this.text = "";
+        this.text = new TextSpan("");
     }
 
     public String getText() {
-        return text;
+        return text.getText();
     }
 
     public void setText(String text) {
-        this.text = text;
+        this.text.setText(text);
     }
 
     public String getHref() {

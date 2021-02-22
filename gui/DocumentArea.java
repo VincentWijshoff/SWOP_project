@@ -1,9 +1,6 @@
 package gui;
 
-import html.HtmlA;
-import html.HtmlElement;
-import html.HtmlTable;
-import html.HtmlText;
+import html.Elements.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,27 +30,27 @@ public class DocumentArea {
         drawnObjects.add(obj);
     }
 
-    public void renderHTML(HtmlElement element) {
+    public void renderHTML(ContentSpan element) {
         renderHTML(element, relativeYPos);
     }
 
-    public void renderHTML(HtmlElement element, int startY) {
+    public void renderHTML(ContentSpan element, int startY) {
         if (element instanceof HtmlTable) {
             HtmlTable table = ((HtmlTable) element);
-            ArrayList<HtmlElement> tableRows = table.getTableRows();
+            ArrayList<HtmlTableRow> tableRows = table.getTableRows();
 
             int currentY = startY;
-            for (HtmlElement row: tableRows) {
+            for (ContentSpan row: tableRows) {
                 renderHTML(row, currentY);
                 currentY += row.getHeight();
             }
         }
-        else if (element instanceof HtmlText) {
-            HtmlText text = (HtmlText) element;
+        else if (element instanceof TextSpan) {
+            TextSpan text = (TextSpan) element;
             drawnObjects.add(new GUIString(text.getText(), 0, startY + text.getHeight()));
         }
-        else if (element instanceof HtmlA) {
-            HtmlA link = (HtmlA) element;
+        else if (element instanceof Hyperlink) {
+            Hyperlink link = (Hyperlink) element;
             drawnObjects.add(new GUIString(link.getText(), 0, startY + link.getHeight()));
             //TODO add hyperlink functionality: make GUILink instead of plain GUIString?
         }

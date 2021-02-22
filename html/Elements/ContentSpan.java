@@ -1,6 +1,6 @@
-package html;
+package html.Elements;
 
-public class HtmlElement {
+public class ContentSpan {
     public int getHeight() {
        return 0;
     }

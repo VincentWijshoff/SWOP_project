@@ -1,11 +1,9 @@
 package gui;
 
 import canvaswindow.CanvasWindow;
-import html.HtmlElement;
+import html.Elements.ContentSpan;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class GUI extends CanvasWindow{
 
@@ -37,7 +35,7 @@ public class GUI extends CanvasWindow{
         repaint();
     }
 
-    public void renderHTML(HtmlElement element) {
+    public void renderHTML(ContentSpan element) {
         this.docArea.renderHTML(element);
     }
 

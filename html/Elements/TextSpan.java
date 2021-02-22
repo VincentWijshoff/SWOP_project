@@ -1,13 +1,13 @@
-package html;
+package html.Elements;
 
-public class HtmlText extends HtmlElement{
+public class TextSpan extends ContentSpan {
 
     private String text;
 
-    public HtmlText(){
+    public TextSpan(){
     }
 
-    public HtmlText(String text) {
+    public TextSpan(String text) {
         this.text = text;
     }
 

@@ -1,6 +1,7 @@
 package html;
 
 import browsrhtml.HtmlLexer;
+import html.Elements.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +23,19 @@ public class HtmlLoader {
      */
     public void setHtmlCode(String htmlCode) {
         this.htmlCode = htmlCode;
+    }
+
+    /**
+     * called when loading a local document
+     *
+     * @param htmlCode
+     */
+    public HtmlLoader(String htmlCode) {
+        try {
+            this.htmlCode = htmlCode;
+        }catch(Exception e){
+            System.out.println("exception parsing URL"); //TODO error document in DocumentArea
+        }
     }
 
 
@@ -82,7 +96,7 @@ public class HtmlLoader {
         while(type != HtmlLexer.TokenType.END_OF_FILE){
             if(type == HtmlLexer.TokenType.OPEN_START_TAG){
                 if(value.equals("a")){
-                    HtmlA aTag = new HtmlA();
+                    Hyperlink aTag = new Hyperlink();
                     lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
                     aTag.createHyperlink();
                 }else if(value.equals("table")){
@@ -103,7 +117,7 @@ public class HtmlLoader {
         String value = lexer.getTokenValue();
         while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && value.equals("table"))){
             if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("tr")){
-                HtmlElement tr = tableTag.addRow();
+                HtmlTableRow tr = tableTag.addRow();
                 lexer = updateTableRowTag(lexer, tr);
             }
 
@@ -118,18 +132,18 @@ public class HtmlLoader {
      * this method will update the tableRow tag object
      *
      * @param lexer     the lexer for the html code
-     * @param element   the tableRow element
+     * @param tr   the tableRow object
      * @return the updated lexer
      */
-    private HtmlLexer updateTableRowTag(HtmlLexer lexer, HtmlElement element) {
+    private HtmlLexer updateTableRowTag(HtmlLexer lexer, HtmlTableRow tr) {
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
         while(!(type == HtmlLexer.TokenType.OPEN_START_TAG && (value.equals("tr") || value.equals("table")))){ //start of a new tr element or end table
             if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("td")){
-                lexer = updateTableDataTag(lexer, new HtmlElement());
+                HtmlTableCell td = tr.addData();
+                lexer = updateTableDataTag(lexer, td);
             }
-
             lexer.eatToken();
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
@@ -145,30 +159,30 @@ public class HtmlLoader {
      *      - the data object is a table object
      *      - the data object is a text object
      * @param lexer     the lexer of the html code
-     * @param element   the table data object
+     * @param td   the table data object
      * @return the updated lexer
      */
-    private HtmlLexer updateTableDataTag(HtmlLexer lexer, HtmlElement element) {
+    private HtmlLexer updateTableDataTag(HtmlLexer lexer, HtmlTableCell td) {
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
 
         if(type == HtmlLexer.TokenType.OPEN_START_TAG){
             if(value.equals("a")){ // td is an a object
-                HtmlA aTag = new HtmlA();
+                Hyperlink aTag = new Hyperlink();
                 lexer = updateATag(lexer, aTag);
                 aTag.createHyperlink(); //not sure if this is the right place to do this
-                element = aTag;
+                td.setData(aTag);
             }else if(value.equals("table")){ //td is a table
                 HtmlTable tableTag = new HtmlTable();
                 lexer = updateTableTag(lexer, tableTag);
-                element = tableTag;
+                td.setData(tableTag);
             }
         }else if(type == HtmlLexer.TokenType.TEXT){
-            HtmlText text = new HtmlText();
+            TextSpan text = new TextSpan();
             text.setText(value);
             lexer = updateText(lexer, text);
-            element = text;
+            td.setData(text);
         }
         return lexer;
     }
@@ -179,7 +193,7 @@ public class HtmlLoader {
      * @param text      the text object
      * @return the updated lexer
      */
-    private HtmlLexer updateText(HtmlLexer lexer, HtmlText text) {
+    private HtmlLexer updateText(HtmlLexer lexer, TextSpan text) {
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -202,7 +216,7 @@ public class HtmlLoader {
      *
      * The a-tag is restricted to only a "href" attribute inside the tag, to upgrade: add to if-statement
      */
-    private HtmlLexer updateATag(HtmlLexer lexer, HtmlA aTag){
+    private HtmlLexer updateATag(HtmlLexer lexer, Hyperlink aTag){
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -228,7 +242,6 @@ public class HtmlLoader {
                 else
                     aTag.setText(value);
             }
-
             lexer.eatToken();
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
