@@ -107,8 +107,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>296</x>
-      <y>744</y>
+      <x>80</x>
+      <y>640</y>
       <w>96</w>
       <h>24</h>
     </coordinates>
@@ -118,14 +118,14 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>336</x>
-      <y>656</y>
-      <w>64</w>
-      <h>104</h>
+      <x>168</x>
+      <y>632</y>
+      <w>112</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 extends</panel_attributes>
-    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -305,33 +305,38 @@ has &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>552</y>
-      <w>120</w>
-      <h>72</h>
+      <x>240</x>
+      <y>752</y>
+      <w>224</w>
+      <h>152</h>
     </coordinates>
     <panel_attributes>_AddressBar_
 --
-- address:String
---
-- draw(Graphics)
+- draw(Graphics) : void
+- setAddress(String) : void
+- getAddress() : String
+- handleMouseEvent(int, int) : void
+- handleKeyboardEvent(int, int, char) : void
+- isInFoucs() : boolean
+- setInFocus() : void
+- setOutFocus() : void
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>424</x>
-      <y>576</y>
-      <w>152</w>
-      <h>40</h>
+      <x>344</x>
+      <y>656</y>
+      <w>56</w>
+      <h>112</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1..1
 m2=1..1
 has &gt;
 </panel_attributes>
-    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
