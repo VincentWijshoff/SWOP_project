@@ -334,7 +334,7 @@ public class AddressBar extends GUIObject {
         this.repaint();
     }
 
-    public void search(){
+    private void search(){
         this.prevAddress = address;
         this.gui.load(address);
     }

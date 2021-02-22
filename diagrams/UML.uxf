@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <help_text/>
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>776</x>
+      <y>728</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>_GUIRectangle_
+--
+- x:int
+- y:int
+- width:int
+- height:int
+- id:int
+--
+- draw(Graphics)
+- getWidth()
+- getHeight()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>776</x>
+      <y>400</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;GUIObject&gt;&gt;
+--
+- x:int
+- y:int
+- width:int
+- height:int
+- id:int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>848</x>
+      <y>544</y>
+      <w>88</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>728</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>_GUIString_
+--
+- x:int
+- y:int
+- width:int
+- height:int
+- id:int
+- text:String
+--
+- draw(Graphics)
+- getWidth()
+- getHeight()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>680</x>
+      <y>544</y>
+      <w>192</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;230.0;220.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>264</x>
+      <y>512</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>_GUI_
+--
+- addressBar:AddressBar
+- documentArea:DocumentArea
+--
+- loadPage(URL)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>296</x>
+      <y>744</y>
+      <w>96</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>CanvasWindow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>656</y>
+      <w>64</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+extends</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>496</x>
+      <y>408</y>
+      <w>168</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>_DocumentArea_
+--
+- drawnObjects: GUIObject[]
+--
+- renderHTML(HtmlElement)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>432</y>
+      <w>176</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..1
+m2=1..1
+has &gt;
+</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>656</x>
+      <y>424</y>
+      <w>136</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..1
+m2=0..n
+contains</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>184</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;HtmlElement&gt;&gt;
+--
+
+--
+- getHeight()
+- getWidth()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>496</x>
+      <y>16</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>_HtmlA_
+--
+- href:String
+- text:String
+--
+- getHeight()
+- getWidth()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>760</x>
+      <y>16</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>_HtmlText_
+--
+- text:String
+--
+- getHeight()
+- getWidth()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>16</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>_HtmlTable_
+--
+
+--
+- getHeight()
+- getWidth()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>160</y>
+      <w>216</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>170.0;10.0;170.0;140.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>160</y>
+      <w>352</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>340.0;10.0;340.0;140.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>160</y>
+      <w>328</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>310.0;10.0;310.0;140.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>512</y>
+      <w>96</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>_Browsr_
+ 
+
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>88</x>
+      <y>512</y>
+      <w>192</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..1
+m2=1..1
+has &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>552</y>
+      <w>120</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>_AddressBar_
+--
+- address:String
+--
+- draw(Graphics)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>424</x>
+      <y>576</y>
+      <w>152</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..1
+m2=1..1
+has &gt;
+</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>656</x>
+      <y>80</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1
+contains</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1248</x>
+      <y>16</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>_HtmlTableRow_
+--
+
+--
+- getHeight()
+- getWidth()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1480</x>
+      <y>16</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>_HtmlTableCell_
+--
+
+--
+- getHeight()
+- getWidth()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1160</x>
+      <y>80</y>
+      <w>104</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..*
+contains</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1408</x>
+      <y>80</y>
+      <w>88</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..*
+contains</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>160</y>
+      <w>1176</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0
+contains</panel_attributes>
+    <additional_attributes>1400.0;10.0;1400.0;190.0;10.0;190.0</additional_attributes>
+  </element>
+</diagram>
