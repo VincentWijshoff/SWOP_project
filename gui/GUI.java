@@ -5,18 +5,34 @@ import canvaswindow.CanvasWindow;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GUI extends CanvasWindow{
 
     AddressBar addressBar;
     DocumentArea docArea;
 
+    //public Set<GUIObject> allGUIObjects = new HashSet<>();
+
+
     public GUI(String title) {
         super(title);
 
         this.addressBar = new AddressBar(this);
-        int relativeYpos = this.addressBar.yLimit;
-        this.docArea = new DocumentArea(this, relativeYpos);
+        this.docArea = (DocumentArea) initialiseGUI(new DocumentArea(this.addressBar.yLimit));
+    }
+
+    // Should be used only for objects that are not in the docArea:
+    public GUIObject initialiseGUI(GUIObject obj) {
+        return obj;
+    }
+
+    // Should be used for all other GUIObjects that should render in docArea:
+    public GUIObject createGUIObject(GUIObject obj) {
+        // obj.setGUI(this);
+        this.docArea.DocGUIObjects.add(obj);
+        return obj;
     }
 
     public void load(String url){
@@ -30,7 +46,12 @@ public class GUI extends CanvasWindow{
 
     @Override
     protected void paint(Graphics g) {
-        this.docArea.paintDocArea(g);
+        // Draw every GUIObject in the docArea
+        for (GUIObject obj : this.docArea.DocGUIObjects) {
+            obj.draw(g);
+        }
+
+        // Draw AddressBar
         this.addressBar.draw(g);
     }
 
@@ -52,11 +73,11 @@ public class GUI extends CanvasWindow{
 
     @Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-        // set the address barr in focus or out off focus
+        // Clicked inside the AddressBar
         if (this.addressBar.isOnAddressBar(x, y)) {
             this.addressBar.setInFocus();
             System.out.println("Clicked on Address Bar!");
-        } else {
+        } else if (this.addressBar.isInFocus()){
             this.addressBar.setOutFocus();
             System.out.println("Clicked off Address Bar!");
         }
@@ -64,7 +85,19 @@ public class GUI extends CanvasWindow{
         if (this.addressBar.isInFocus()) {
             this.addressBar.handleMouseEvent(id, clickCount);
         } else {
-            // handle the click in the document area
+            if (id == MouseEvent.MOUSE_PRESSED) {
+                for (GUIObject obj : this.docArea.DocGUIObjects) { // Loop through all GUIObjects in docArea
+                    if (obj.isInGUIObject(x, y)) {
+                        if (obj instanceof GUIString) {
+                            System.out.println("You clicked on a GUIString");
+                        } else if (obj instanceof GUIRectangle) {
+                            System.out.println("You clicked on a GUIRectangle");
+                        } else {
+                            System.out.println("You clicked on a GUIObject");
+                        }
+                    }
+                }
+            }
         }
     }
 

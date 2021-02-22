@@ -10,8 +10,8 @@ public class Browsr {
             gui.show();
         });
 
-        gui.draw(new GUIString("TEST", 200, 200));
-        gui.draw(new GUIRectangle(100, 100, 50, 100));
+        GUIString testString = (GUIString) gui.createGUIObject(new GUIString("TEST", 200, 200));
+        GUIRectangle testRectangle = (GUIRectangle) gui.createGUIObject(new GUIRectangle(100, 100, 50, 100));
 
         //gui.delete(0);
 

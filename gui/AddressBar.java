@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class AddressBar implements GUIObject{
+public class AddressBar extends GUIObject {
 
     final int yLimit = 50;
 
@@ -20,8 +20,8 @@ public class AddressBar implements GUIObject{
     private GUI gui;
     private int abX = 5;
     private int abY = this.yLimit / 6;
-    private int height = this.yLimit * 2 / 3;
-    private int width = 0;
+    private int h = this.yLimit * 2 / 3;
+    private int w = 0;
 
     //in focus element
     private boolean inFocus = false;
@@ -29,21 +29,25 @@ public class AddressBar implements GUIObject{
     /*
     * Class used to describe the entire Address Bar section of our GUI.
      */
-    public AddressBar(GUI gui, String startAddress) {
-        this.gui = gui;
+    public AddressBar(GUI g, String startAddress) {
+        super();
+        this.gui = g;
         this.address = startAddress;
+        // updateGUIPosAndDim(5, ((int) (this.yLimit / 6)), 0, ((int) this.yLimit * 2 / 3));
     }
 
-    public AddressBar(GUI gui) {
-        this.gui = gui;
+    public AddressBar(GUI g) {
+        super();
+        this.gui = g;
+        // updateGUIPosAndDim(5, ((int) (this.yLimit / 6)), 0, ((int) this.yLimit * 2 / 3));
     }
 
     public void draw(Graphics g) {
         int gwidth = gui.getWidth();
-
-        this.width = gwidth;
-
+        this.w = gwidth;
+        // updateGUIDimensions(gwidth, height);
         Color oldColor = g.getColor();
+
         // first draw the grey enclosing area
         g.setColor(Color.LIGHT_GRAY);
         g.fillRect(0, 0, gwidth, this.yLimit);
@@ -51,13 +55,13 @@ public class AddressBar implements GUIObject{
         g.drawLine(0, this.yLimit, gwidth, this.yLimit);
 
         g.setColor(Color.BLACK);
-        g.drawRect(this.abX, this.abY, gwidth-(3*this.abX), this.height); // border
-        g.clearRect(this.abX+1, this.abY+1, gwidth-(3*this.abX)-1, this.height-1); // actual address bar (white part)
+        g.drawRect(this.abX, this.abY, gwidth-(3*this.abX), this.h); // border
+        g.clearRect(this.abX+1, this.abY+1, gwidth-(3*this.abX)-1, this.h-1); // actual address bar (white part)
 
         String viewedAddress = this.address;
         if(this.isInFocus()){
             // when the address bar is in focus, a text cursor needs to be shown at the correct position off the current string
-            viewedAddress = this.addChar(viewedAddress, '|', cursorPosition);
+            viewedAddress = this.addChar(viewedAddress, '|', this.cursorPosition);
         }
 
         if(this.startSelected != this.endSelected){
@@ -66,13 +70,13 @@ public class AddressBar implements GUIObject{
             int tmp = (int) g.getFontMetrics().getStringBounds(this.address, g).getHeight();
             int xcoords[] = getSelectedPositions(this.startSelected, this.endSelected, this.address, g);
             g.fillRect(abX+5 + xcoords[0],
-                    abY + 3 + ((int) (height/1.5)) - tmp,
+                    abY + 3 + ((int) (this.h/1.5)) - tmp,
                     xcoords[1],
                     tmp); // text background
             g.setColor(Color.BLACK);
         }
 
-        g.drawString(viewedAddress, abX+5, abY+((int) (height/1.5)));
+        g.drawString(viewedAddress, abX+5, abY+((int) (this.h/1.5)));
 
         g.setColor(oldColor);
     }
@@ -90,11 +94,12 @@ public class AddressBar implements GUIObject{
         return address;
     }
 
-    public boolean isOnAddressBar(int coordX, int coordY){
-        return (coordX >= this.abX &&
-                coordX <= this.abX + this.width &&
-                coordY >= this.abY &&
-                coordY <= this.abY + this.height);
+
+    public boolean isOnAddressBar(int X, int Y){
+        return (X >= this.abX &&
+                X <= this.abX + this.w &&
+                Y >= this.abY &&
+                Y <= this.abY + this.h);
     }
 
     private int[] getSelectedPositions(int start, int fin, String word, Graphics g){
@@ -151,10 +156,10 @@ public class AddressBar implements GUIObject{
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
      */
-    public void handleKeyboardEvent(int id, int keyCode, char keyChar){
-        if(id == 401){
+    public void handleKeyboardEvent(int id, int keyCode, char keyChar) {
+        if (id == 401) {
             // now every key event will only happen once
-            if(isChar(keyCode)) {
+            if (isChar(keyCode)) {
                 // this will only happen if the pressed button is an actual char
                 if (this.startSelected != this.endSelected) {
                     // now every bit off the current text must be replaced with the newly pressed character
@@ -169,7 +174,7 @@ public class AddressBar implements GUIObject{
                 }
             } else {
                 // here the pressed button was not a char so the special button must be handled
-                if(keyCode == 32){
+                if (keyCode == 32) {
                     // space bar
                     if (this.startSelected != this.endSelected) {
                         // now every bit off the current selected text must be replaced with the newly pressed character
@@ -183,7 +188,7 @@ public class AddressBar implements GUIObject{
                         this.address = addChar(this.address, ' ', this.cursorPosition);
                         this.cursorPosition += 1;
                     }
-                } else if (keyCode == 37){
+                } else if (keyCode == 37) {
                     //left arrow
                     if (this.startSelected != this.endSelected) {
                         this.cursorPosition = Math.min(this.startSelected, this.endSelected);
@@ -194,9 +199,9 @@ public class AddressBar implements GUIObject{
                             this.cursorPosition--;
                         }
                     }
-                } else if (keyCode == 39){
+                } else if (keyCode == 39) {
                     //right arrow
-                    if(this.startSelected != this.endSelected){
+                    if (this.startSelected != this.endSelected) {
                         this.cursorPosition = Math.max(this.startSelected, this.endSelected);
                         this.startSelected = 0;
                         this.endSelected = 0;
@@ -205,9 +210,9 @@ public class AddressBar implements GUIObject{
                             this.cursorPosition++;
                         }
                     }
-                } else if (keyCode == 8){
+                } else if (keyCode == 8) {
                     //backspace
-                    if(this.startSelected != this.endSelected){
+                    if (this.startSelected != this.endSelected) {
                         this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "");
                         this.cursorPosition = Math.min(this.startSelected, this.endSelected);
                         this.startSelected = 0;
@@ -217,9 +222,9 @@ public class AddressBar implements GUIObject{
                             this.address = this.removeAt(this.address, --this.cursorPosition);
                         }
                     }
-                } else if (keyCode == 127){
+                } else if (keyCode == 127) {
                     //delete
-                    if(this.startSelected != this.endSelected){
+                    if (this.startSelected != this.endSelected) {
                         this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "");
                         this.cursorPosition = Math.min(this.startSelected, this.endSelected);
                         this.startSelected = 0;
@@ -229,21 +234,21 @@ public class AddressBar implements GUIObject{
                             this.address = this.removeAt(this.address, this.cursorPosition);
                         }
                     }
-                } else if (keyCode == 36){
+                } else if (keyCode == 36) {
                     //home
                     this.cursorPosition = 0;
                     if (this.startSelected != this.endSelected) {
                         this.startSelected = 0;
                         this.endSelected = 0;
                     }
-                } else if (keyCode == 35){
+                } else if (keyCode == 35) {
                     //end
                     this.cursorPosition = this.address.length();
                     if (this.startSelected != this.endSelected) {
                         this.startSelected = 0;
                         this.endSelected = 0;
                     }
-                } else if (keyCode == 27){
+                } else if (keyCode == 27) {
                     //escape
                     this.address = prevAddress;
                     this.cursorPosition = this.address.length();
@@ -251,7 +256,7 @@ public class AddressBar implements GUIObject{
                     this.initialClick = true;
                     this.startSelected = 0;
                     this.endSelected = 0;
-                } else if (keyCode == 10){
+                } else if (keyCode == 10) {
                     //enter
                     this.setOutFocus();
                 }
@@ -259,6 +264,7 @@ public class AddressBar implements GUIObject{
         }
         this.repaint();
     }
+
 
     private String replaceSelected(int start, int fin, String word, String replacement){
         if(start > fin){
