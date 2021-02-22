@@ -27,4 +27,7 @@ public class HtmlTableRow extends ContentSpan {
         this.table = table;
     }
 
+    public ArrayList<HtmlTableCell> getTableData() {
+        return tableData;
+    }
 }

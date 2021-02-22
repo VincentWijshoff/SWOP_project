@@ -1,6 +1,7 @@
 package html;
 
 import browsrhtml.HtmlLexer;
+import gui.DocumentArea;
 import html.Elements.*;
 
 import java.io.IOException;
@@ -17,6 +18,11 @@ public class HtmlLoader {
 
     private URL url;
     private String htmlCode;
+    private DocumentArea documentArea; //the documentArea object
+
+    public void setDocumentArea(DocumentArea documentArea) {
+        this.documentArea = documentArea;
+    }
 
     /**
     only for tests
@@ -97,11 +103,14 @@ public class HtmlLoader {
             if(type == HtmlLexer.TokenType.OPEN_START_TAG){
                 if(value.equals("a")){
                     Hyperlink aTag = new Hyperlink();
+                    lexer.eatToken();
                     lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
-                    aTag.createHyperlink();
-                }else if(value.equals("table")){
+                    documentArea.renderHTML(aTag);
+                }else if(value.equals("Table")){
                     HtmlTable tableTag = new HtmlTable();
+                    lexer.eatToken();
                     lexer = updateTableTag(lexer, tableTag);
+                    documentArea.renderHTML(tableTag);
                 }
             }
             lexer.eatToken();
@@ -112,16 +121,16 @@ public class HtmlLoader {
     }
 
     private HtmlLexer updateTableTag(HtmlLexer lexer, HtmlTable tableTag) {
-        lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
-        while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && value.equals("table"))){
+        while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && value.equals("Table"))){
             if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("tr")){
                 HtmlTableRow tr = tableTag.addRow();
+                lexer.eatToken(); //otherwise if statement in updateTableRowTag is falsely true
                 lexer = updateTableRowTag(lexer, tr);
+            }else {
+                lexer.eatToken();
             }
-
-            lexer.eatToken();
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
         }
@@ -136,15 +145,15 @@ public class HtmlLoader {
      * @return the updated lexer
      */
     private HtmlLexer updateTableRowTag(HtmlLexer lexer, HtmlTableRow tr) {
-        lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
-        while(!(type == HtmlLexer.TokenType.OPEN_START_TAG && (value.equals("tr") || value.equals("table")))){ //start of a new tr element or end table
+        while(!(type == HtmlLexer.TokenType.OPEN_START_TAG && (value.equals("tr"))) && !(value.equals("Table") && type == HtmlLexer.TokenType.OPEN_END_TAG)){ //start of a new tr element or end table
             if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("td")){
                 HtmlTableCell td = tr.addData();
                 lexer = updateTableDataTag(lexer, td);
+            }else {
+                lexer.eatToken();
             }
-            lexer.eatToken();
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
         }
@@ -166,6 +175,12 @@ public class HtmlLoader {
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
+
+        if(type == HtmlLexer.TokenType.CLOSE_TAG){
+            lexer.eatToken();
+            type = lexer.getTokenType();
+            value = lexer.getTokenValue();
+        }
 
         if(type == HtmlLexer.TokenType.OPEN_START_TAG){
             if(value.equals("a")){ // td is an a object
@@ -222,7 +237,7 @@ public class HtmlLoader {
         String value = lexer.getTokenValue();
         String currentIdentifier; //if there is an identifier in the tag
         boolean insideTag = true;
-        while(type != HtmlLexer.TokenType.OPEN_END_TAG && !value.equals("a")){
+        while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && value.equals("a"))){
             if(type == HtmlLexer.TokenType.IDENTIFIER){
                 //Order: IDENTIFIER -> EQUALS -> QUOTED_STRING
                 currentIdentifier = value;

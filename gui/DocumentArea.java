@@ -48,11 +48,23 @@ public class DocumentArea {
         else if (element instanceof TextSpan) {
             TextSpan text = (TextSpan) element;
             drawnObjects.add(new GUIString(text.getText(), 0, startY + text.getHeight()));
+            relativeYPos += text.getHeight();
         }
         else if (element instanceof Hyperlink) {
             Hyperlink link = (Hyperlink) element;
             drawnObjects.add(new GUIString(link.getText(), 0, startY + link.getHeight()));
+            relativeYPos += link.getHeight();
             //TODO add hyperlink functionality: make GUILink instead of plain GUIString?
+        }else if (element instanceof HtmlTableRow) {
+            HtmlTableRow tableRow = ((HtmlTableRow) element);
+            ArrayList<HtmlTableCell> tableCells = tableRow.getTableData();
+            //x-coord?
+            for(ContentSpan data : tableCells){
+                renderHTML(data, startY);
+            }
+        }else if (element instanceof HtmlTableCell){
+            HtmlTableCell tableCell = (HtmlTableCell) element;
+            renderHTML(tableCell.getData(), startY);
         }
     }
 

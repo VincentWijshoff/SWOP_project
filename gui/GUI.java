@@ -8,6 +8,11 @@ import java.awt.*;
 public class GUI extends CanvasWindow{
 
     AddressBar addressBar;
+
+    public DocumentArea getDocArea() {
+        return docArea;
+    }
+
     DocumentArea docArea;
 
     public GUI(String title) {

@@ -2,6 +2,6 @@ package html.Elements;
 
 public class ContentSpan {
     public int getHeight() {
-       return 0;
+       return 16;
     }
 }
