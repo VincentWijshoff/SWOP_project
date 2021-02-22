@@ -4,30 +4,33 @@ import html.Elements.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-public class DocumentArea {
+public class DocumentArea extends GUIObject {
 
-    ArrayList<GUIObject> drawnObjects = new ArrayList<>();
-
+    public Set<GUIObject> DocGUIObjects = new HashSet<>();
     private int relativeYPos;
     private GUI gui;
 
     /*
     * Class used to describe the entire Document section of our GUI.
      */
-    public DocumentArea(GUI gui, int relativeYpos) {
+    public DocumentArea(int relativeYpos) {
+        super();
+
         this.relativeYPos = relativeYpos;
         this.gui = gui;
     }
 
     public void paintDocArea(Graphics g){
-        for (GUIObject obj: drawnObjects ) {
+        for (GUIObject obj: DocGUIObjects ) {
             obj.draw(g);
         }
     }
 
     public void draw(GUIObject obj) {
-        drawnObjects.add(obj);
+        DocGUIObjects.add(obj);
     }
 
     public void renderHTML(ContentSpan element) {
@@ -38,7 +41,6 @@ public class DocumentArea {
         if (element instanceof HtmlTable) {
             HtmlTable table = ((HtmlTable) element);
             ArrayList<HtmlTableRow> tableRows = table.getTableRows();
-
             int currentY = startY;
             for (ContentSpan row: tableRows) {
                 renderHTML(row, currentY);
@@ -47,12 +49,12 @@ public class DocumentArea {
         }
         else if (element instanceof TextSpan) {
             TextSpan text = (TextSpan) element;
-            drawnObjects.add(new GUIString(text.getText(), 0, startY + text.getHeight()));
+            DocGUIObjects.add(new GUIString(text.getText(), 0, startY + text.getHeight()));
             relativeYPos += text.getHeight();
         }
         else if (element instanceof Hyperlink) {
             Hyperlink link = (Hyperlink) element;
-            drawnObjects.add(new GUIString(link.getText(), 0, startY + link.getHeight()));
+            DocGUIObjects.add(new GUIString(link.getText(), 0, startY + link.getHeight()));
             relativeYPos += link.getHeight();
             //TODO add hyperlink functionality: make GUILink instead of plain GUIString?
         }else if (element instanceof HtmlTableRow) {

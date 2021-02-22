@@ -37,8 +37,8 @@ public class Browsr {
         elements.add(new HtmlText("test tekst3"));
 
         //gui.renderHTML(new HtmlTable(elements));
-
         */
+
 
 
     }
