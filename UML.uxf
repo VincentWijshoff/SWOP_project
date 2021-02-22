@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
   <help_text/>
-  <zoom_level>6</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>996</x>
-      <y>606</y>
-      <w>126</w>
-      <h>114</h>
+      <x>981</x>
+      <y>882</y>
+      <w>189</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>_GUIRectangle_
 --
@@ -16,6 +16,7 @@
 - y:int
 - width:int
 - height:int
+- id:int
 --
 - draw(Graphics)
 - getWidth()
@@ -25,15 +26,18 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>996</x>
-      <y>360</y>
-      <w>126</w>
-      <h>114</h>
+      <x>981</x>
+      <y>513</y>
+      <w>189</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>&lt;&lt;GUIObject&gt;&gt;
 --
 - x:int
 - y:int
+- width:int
+- height:int
+- id:int
 --
 </panel_attributes>
     <additional_attributes/>
@@ -41,10 +45,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1050</x>
-      <y>468</y>
-      <w>72</w>
-      <h>150</h>
+      <x>1062</x>
+      <y>675</y>
+      <w>99</w>
+      <h>225</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;instanceOf&gt;&gt;</panel_attributes>
@@ -53,15 +57,18 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>864</x>
-      <y>606</y>
-      <w>126</w>
-      <h>114</h>
+      <x>783</x>
+      <y>882</y>
+      <w>189</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>_GUIString_
 --
 - x:int
 - y:int
+- width:int
+- height:int
+- id:int
 - text:String
 --
 - draw(Graphics)
@@ -72,10 +79,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>924</x>
-      <y>468</y>
-      <w>144</w>
-      <h>150</h>
+      <x>873</x>
+      <y>675</y>
+      <w>216</w>
+      <h>225</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;instanceOf&gt;&gt;</panel_attributes>
@@ -84,26 +91,26 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>612</x>
-      <y>444</y>
-      <w>126</w>
-      <h>114</h>
+      <x>405</x>
+      <y>639</y>
+      <w>189</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>_GUI_
 --
 - addressBar:AddressBar
 - documentArea:DocumentArea
 --
-- paint(Graphics)</panel_attributes>
+- loadPage(URL)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>636</x>
-      <y>618</y>
-      <w>72</w>
-      <h>18</h>
+      <x>441</x>
+      <y>900</y>
+      <w>108</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>CanvasWindow</panel_attributes>
     <additional_attributes/>
@@ -111,10 +118,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>666</x>
-      <y>552</y>
-      <w>48</w>
-      <h>78</h>
+      <x>486</x>
+      <y>801</y>
+      <w>72</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 extends</panel_attributes>
@@ -123,10 +130,10 @@ extends</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>786</x>
-      <y>366</y>
-      <w>126</w>
-      <h>60</h>
+      <x>666</x>
+      <y>522</y>
+      <w>189</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>_DocumentArea_
 --
@@ -139,10 +146,10 @@ extends</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>666</x>
-      <y>384</y>
-      <w>132</w>
-      <h>72</h>
+      <x>486</x>
+      <y>549</y>
+      <w>198</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1..1
@@ -154,10 +161,10 @@ has &gt;
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>906</x>
-      <y>378</y>
-      <w>102</w>
-      <h>30</h>
+      <x>846</x>
+      <y>540</y>
+      <w>153</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1..1
@@ -168,123 +175,250 @@ contains</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>630</x>
-      <y>198</y>
-      <w>126</w>
-      <h>114</h>
+      <x>432</x>
+      <y>270</y>
+      <w>189</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>&lt;&lt;HtmlElement&gt;&gt;
 --
 
 --
-- getHeight()</panel_attributes>
+- getHeight()
+- getWidth()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>828</x>
-      <y>72</y>
-      <w>126</w>
-      <h>114</h>
+      <x>666</x>
+      <y>81</y>
+      <w>189</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>_HtmlA_
 --
 - href:String
 - text:String
 --
-- getHeight()</panel_attributes>
+- getHeight()
+- getWidth()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>984</x>
-      <y>72</y>
-      <w>126</w>
-      <h>114</h>
+      <x>963</x>
+      <y>81</y>
+      <w>189</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>_HtmlText_
 --
 - text:String
 --
-- getHeight()</panel_attributes>
+- getHeight()
+- getWidth()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1134</x>
-      <y>72</y>
-      <w>126</w>
-      <h>114</h>
+      <x>1233</x>
+      <y>81</y>
+      <w>189</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>_HtmlTable_
 --
-- tableRows: HtmlElements[]
+
 --
-- getHeight()</panel_attributes>
+- getHeight()
+- getWidth()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>750</x>
-      <y>180</y>
-      <w>210</w>
-      <h>96</h>
+      <x>612</x>
+      <y>243</y>
+      <w>243</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;instanceOf&gt;&gt;</panel_attributes>
-    <additional_attributes>240.0;10.0;240.0;140.0;10.0;140.0</additional_attributes>
+    <additional_attributes>170.0;10.0;170.0;140.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>888</x>
-      <y>180</y>
-      <w>228</w>
-      <h>96</h>
+      <x>756</x>
+      <y>243</y>
+      <w>396</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;instanceOf&gt;&gt;</panel_attributes>
-    <additional_attributes>270.0;10.0;270.0;140.0;10.0;140.0</additional_attributes>
+    <additional_attributes>340.0;10.0;340.0;140.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1044</x>
-      <y>180</y>
-      <w>222</w>
-      <h>96</h>
+      <x>1053</x>
+      <y>243</y>
+      <w>369</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 &lt;&lt;instanceOf&gt;&gt;</panel_attributes>
-    <additional_attributes>260.0;10.0;260.0;140.0;10.0;140.0</additional_attributes>
+    <additional_attributes>310.0;10.0;310.0;140.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>432</x>
-      <y>450</y>
-      <w>60</w>
-      <h>18</h>
+      <x>108</x>
+      <y>639</y>
+      <w>108</w>
+      <h>45</h>
     </coordinates>
-    <panel_attributes>Browsr</panel_attributes>
+    <panel_attributes>_Browsr_
+ 
+
+--
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>486</x>
-      <y>444</y>
-      <w>138</w>
-      <h>30</h>
+      <x>207</x>
+      <y>639</y>
+      <w>216</w>
+      <h>45</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1..1
 m2=1..1
 has &gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>738</x>
+      <y>684</y>
+      <w>135</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>_AddressBar_
+--
+- address:String
+--
+- draw(Graphics)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>585</x>
+      <y>711</y>
+      <w>171</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..1
+m2=1..1
+has &gt;
+</panel_attributes>
+    <additional_attributes>10.0;20.0;170.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>846</x>
+      <y>153</y>
+      <w>135</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..1
+m2=1
+contains</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1512</x>
+      <y>81</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>_HtmlTableRow_
+--
+
+--
+- getHeight()
+- getWidth()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1773</x>
+      <y>81</y>
+      <w>189</w>
+      <h>171</h>
+    </coordinates>
+    <panel_attributes>_HtmlTableCell_
+--
+
+--
+- getHeight()
+- getWidth()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1413</x>
+      <y>153</y>
+      <w>117</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..*
+contains</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1692</x>
+      <y>153</y>
+      <w>99</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..*
+contains</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>612</x>
+      <y>243</y>
+      <w>1323</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0
+contains</panel_attributes>
+    <additional_attributes>1400.0;10.0;1400.0;190.0;10.0;190.0</additional_attributes>
   </element>
 </diagram>
