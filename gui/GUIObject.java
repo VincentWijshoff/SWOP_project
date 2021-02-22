@@ -9,18 +9,10 @@ import java.util.UUID;
  */
 public class GUIObject {
 
-    public GUI gui;
     private UUID id;
 
     public GUIObject() {
         this.id = UUID.randomUUID();
-    }
-
-    public GUI getGUI() {
-        return this.gui;
-    }
-    public void setGUI(GUI gui) {
-        this.gui = gui;
     }
 
     public String getId() {
