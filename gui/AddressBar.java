@@ -233,14 +233,12 @@ public class AddressBar implements GUIObject{
                 } else if (keyCode == 36){
                     //home
                     this.cursorPosition = 0;
-                    // TODO what has to happen here
                     if (this.startSelected != this.endSelected) {
                         this.startSelected = 0;
                         this.endSelected = 0;
                     }
                 } else if (keyCode == 35){
                     //end
-                    // TODO what has to happen here?
                     this.cursorPosition = this.address.length();
                     if (this.startSelected != this.endSelected) {
                         this.startSelected = 0;
