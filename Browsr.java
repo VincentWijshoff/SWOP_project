@@ -1,19 +1,45 @@
 import gui.GUI;
-import gui.GUIRectangle;
-import gui.GUIString;
+import html.HtmlLoader;
+
 
 public class Browsr {
 
     public static void main(String[] args) {
         GUI gui = new GUI("CoolBrowser");
-        java.awt.EventQueue.invokeLater(() -> {
-            gui.show();
-        });
+        java.awt.EventQueue.invokeLater(gui::show);
 
-        GUIString testString = (GUIString) gui.createGUIObject(new GUIString("TEST", 200, 200));
-        GUIRectangle testRectangle = (GUIRectangle) gui.createGUIObject(new GUIRectangle(100, 100, 50, 100));
+        String input = """
+                <Table>
+                    <tr><td>Welcome Document
+                    <tr>
+                    <tr>
+                    <tr><td>Type a valid URL in the address bar to navigate to that page.
+                </Table>
+                """;
+        HtmlLoader loader = new HtmlLoader(input);
+        loader.setDocumentArea(gui.getDocArea());
+        loader.loadPage();
 
-        //gui.delete(0);
+
+        /* 
+
+        /* kapot
+        //Demo om renderHTML() te testen
+        ArrayList<HtmlElement> elements = new ArrayList<>();
+        elements.add(new HtmlText("test tekst"));
+        elements.add(new HtmlText("test tekst2"));
+
+        //Geneste tabel in de 1ste tabel
+        ArrayList<HtmlTableRow> nestedElements = new ArrayList<>();
+        //nestedElements.add(new HtmlText("nested"));
+        elements.add(new HtmlTable(nestedElements));
+
+        elements.add(new HtmlText("test tekst3"));
+
+        //gui.renderHTML(new HtmlTable(elements));
+        */
+
+
 
     }
 }

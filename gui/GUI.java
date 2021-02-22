@@ -67,7 +67,7 @@ public class GUI extends CanvasWindow{
 
     //TODO: maak unieke ID om objecten bij te houden?
     public void delete(int index) {
-       //  drawnObjects.remove(index); // TODO handle removing elements from the canvas area
+        //  drawnObjects.remove(index); // TODO handle removing elements from the canvas area
         repaint();
     }
 
@@ -116,4 +116,7 @@ public class GUI extends CanvasWindow{
         //  * on ESC   -> abort (old URL back) + lose keyboard focus    [for header]
     }
 
+    public DocumentArea getDocArea() {
+        return docArea;
+    }
 }

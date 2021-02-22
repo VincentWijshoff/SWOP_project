@@ -31,4 +31,5 @@ class GUITests {
 		assertFalse(testName, rectangle.isInGUIObject(100, 150));
 		assertFalse(testName, rectangle.isInGUIObject(9, 9));
 	}
+
 }

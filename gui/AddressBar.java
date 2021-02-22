@@ -27,7 +27,7 @@ public class AddressBar extends GUIObject {
     private boolean inFocus = false;
 
     /*
-    * Class used to describe the entire Address Bar section of our GUI.
+     * Class used to describe the entire Address Bar section of our GUI.
      */
     public AddressBar(GUI g, String startAddress) {
         super();
@@ -332,6 +332,7 @@ public class AddressBar extends GUIObject {
         this.endSelected = 0;
         this.inFocus = false;
         this.repaint();
+
     }
 
     private void search(){
@@ -339,4 +340,3 @@ public class AddressBar extends GUIObject {
         this.gui.load(address);
     }
 }
-
