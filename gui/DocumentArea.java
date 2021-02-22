@@ -1,9 +1,6 @@
 package gui;
 
-import html.HtmlA;
-import html.HtmlElement;
-import html.HtmlTable;
-import html.HtmlText;
+import html.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -40,7 +37,7 @@ public class DocumentArea {
     public void renderHTML(HtmlElement element, int startY) {
         if (element instanceof HtmlTable) {
             HtmlTable table = ((HtmlTable) element);
-            ArrayList<HtmlElement> tableRows = table.getTableRows();
+            ArrayList<HtmlTableRow> tableRows = table.getTableRows();
 
             int currentY = startY;
             for (HtmlElement row: tableRows) {

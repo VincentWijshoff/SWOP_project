@@ -12,6 +12,7 @@ public class Browsr {
         java.awt.EventQueue.invokeLater(gui::show);
 
 
+        /* kapot
         //Demo om renderHTML() te testen
         ArrayList<HtmlElement> elements = new ArrayList<>();
         elements.add(new HtmlText("test tekst"));
@@ -25,6 +26,7 @@ public class Browsr {
         elements.add(new HtmlText("test tekst3"));
 
         gui.renderHTML(new HtmlTable(elements));
+        */
 
 
     }

@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public class HtmlTable extends HtmlElement{
 
-    ArrayList<HtmlElement> tableRows; //List with all row elements of that table
+    ArrayList<HtmlTableRow> tableRows; //List with all row elements of that table
 
     public HtmlTable(){
         tableRows = new ArrayList<>();
     }
 
-    public HtmlTable(ArrayList<HtmlElement> elements) {
+    public HtmlTable(ArrayList<HtmlTableRow> elements) {
         this.tableRows = elements;
     }
 
-    public ArrayList<HtmlElement> getTableRows() {
+    public ArrayList<HtmlTableRow> getTableRows() {
         return tableRows;
     }
 
@@ -27,8 +27,13 @@ public class HtmlTable extends HtmlElement{
         return height;
     }
 
-    public HtmlElement addRow() {
-        HtmlElement row = new HtmlElement();
+    /**
+     * add a new row to the table
+     *
+     * @return a new HtmlTableRow object (so we can update this object)
+     */
+    public HtmlTableRow addRow(){
+        HtmlTableRow row = new HtmlTableRow();
         tableRows.add(row);
         return row;
     }
