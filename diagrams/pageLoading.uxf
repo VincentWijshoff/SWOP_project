@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>27</x>
+      <y>63</y>
+      <w>729</w>
+      <h>333</h>
+    </coordinates>
+    <panel_attributes>title=Load page from pressing ENTER in addressbar
+obj=User~a ACTOR EXECUTION
+obj=:GUI~b ACTIVE
+obj=:AddressBar~c ACTIVE
+obj=:DocumentArea~d ACTIVE
+
+a-&gt;&gt;&gt;b : handleKeyEvent();
+b-&gt;&gt;&gt;c : handleKeyboardEvent();
+c-&gt;&gt;&gt;b : load(URL);
+b-&gt;&gt;&gt;c : setAddress(URL);
+b-&gt;&gt;&gt;d : loadAddress(URL);</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>27</x>
+      <y>414</y>
+      <w>702</w>
+      <h>333</h>
+    </coordinates>
+    <panel_attributes>title=Load page from clicking outside of addressbar after typing in adressbar
+obj=User~a ACTOR EXECUTION
+obj=:GUI~b ACTIVE
+obj=:AddressBar~c ACTIVE
+obj=:DocumentArea~d ACTIVE
+
+a-&gt;&gt;&gt;b : handleMouseEvent();
+b-&gt;&gt;&gt;c : setOutFocus();
+c-&gt;&gt;&gt;b : load(URL);
+b-&gt;&gt;&gt;c : setAddress(URL);
+b-&gt;&gt;&gt;d : loadAddress(URL);</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>774</x>
+      <y>63</y>
+      <w>702</w>
+      <h>333</h>
+    </coordinates>
+    <panel_attributes>title=Load page from clicking on a url in the document area
+obj=User~a ACTOR EXECUTION
+obj=:GUI~b ACTIVE
+obj=:AddressBar~c ACTIVE
+obj=:DocumentArea~d ACTIVE
+
+a-&gt;&gt;&gt;b : handleMouseEvent();
+b-&gt;&gt;&gt;d : handleMouseEvent();
+d-&gt;&gt;&gt;b : load(URL);
+b-&gt;&gt;&gt;c : setAddress(URL);
+b-&gt;&gt;&gt;d : loadAddress(URL);</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

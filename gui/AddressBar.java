@@ -332,6 +332,7 @@ public class AddressBar extends GUIObject {
         this.endSelected = 0;
         this.inFocus = false;
         this.repaint();
+
     }
 
     private void search(){
