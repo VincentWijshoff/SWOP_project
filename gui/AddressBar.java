@@ -4,9 +4,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-//TODO need to implement the selecting with the moouse?
-//TODO shift has no release event, how to know when to stop selecting?
-
 public class AddressBar implements GUIObject{
 
     final int yLimit = 50;
@@ -15,7 +12,7 @@ public class AddressBar implements GUIObject{
     private int startSelected = 0;
     private int endSelected = 0;
     private boolean initialClick = true;
-    private String address = "www.helemaalmooiV2.nl/smexie";
+    private String address = "www.startscherm.nl/team12";
     private String prevAddress = "";
     private int cursorPosition = address.length();
 
@@ -177,7 +174,6 @@ public class AddressBar implements GUIObject{
                     // space bar
                     if (this.startSelected != this.endSelected) {
                         // now every bit off the current selected text must be replaced with the newly pressed character
-                        // TODO make the replacement only in the selected area
                         this.address = this.replaceSelected(this.startSelected, this.endSelected, this.address, " ");
                         // this.address = " ";
                         this.cursorPosition = Math.min(this.startSelected, this.endSelected);
@@ -190,11 +186,10 @@ public class AddressBar implements GUIObject{
                     }
                 } else if (keyCode == 37){
                     //left arrow
-                    // TODO what has to happen here?
                     if (this.startSelected != this.endSelected) {
+                        this.cursorPosition = Math.min(this.startSelected, this.endSelected);
                         this.startSelected = 0;
                         this.endSelected = 0;
-                        this.cursorPosition = 0;
                     } else {
                         if (this.cursorPosition > 0) {
                             this.cursorPosition--;
@@ -202,11 +197,10 @@ public class AddressBar implements GUIObject{
                     }
                 } else if (keyCode == 39){
                     //right arrow
-                    // TODO what has to happen here?
                     if(this.startSelected != this.endSelected){
+                        this.cursorPosition = Math.max(this.startSelected, this.endSelected);
                         this.startSelected = 0;
                         this.endSelected = 0;
-                        this.cursorPosition = this.address.length();
                     } else {
                         if (this.cursorPosition < this.address.length()) {
                             this.cursorPosition++;
@@ -269,7 +263,6 @@ public class AddressBar implements GUIObject{
         this.repaint();
     }
 
-    // TODO make this work
     private String replaceSelected(int start, int fin, String word, String replacement){
         if(start > fin){
             return this.replaceSelected(fin, start, word, replacement);
