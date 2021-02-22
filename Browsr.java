@@ -9,6 +9,7 @@ public class Browsr {
 
         /* 
 
+        /* kapot
         //Demo om renderHTML() te testen
         ArrayList<HtmlElement> elements = new ArrayList<>();
         elements.add(new HtmlText("test tekst"));
@@ -23,7 +24,8 @@ public class Browsr {
 
         //gui.renderHTML(new HtmlTable(elements));
 
-    */
+        */
+
 
     }
 }
