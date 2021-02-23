@@ -4,6 +4,7 @@ import canvaswindow.CanvasWindow;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,7 +37,13 @@ public class GUI extends CanvasWindow{
     }
 
     public void load(String url){
+        this.addressBar.setAddress(url);
         System.out.println("Loading webpage: " + url);
+    }
+
+    public void load(URL url){
+        this.addressBar.setAddress(url.toString());
+        System.out.println("Loading webpage: " + url.toString());
     }
 
     @Override
