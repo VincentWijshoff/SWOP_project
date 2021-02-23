@@ -11,8 +11,8 @@ public class Browsr {
         String input = """
                 <Table>
                     <tr><td>Welcome Document
-                    <tr>
-                    <tr>
+                    <tr><td> -
+                    <tr><td> -
                     <tr><td>Type a valid URL in the address bar to navigate to that page.
                 </Table>
                 """;

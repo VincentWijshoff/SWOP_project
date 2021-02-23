@@ -38,7 +38,7 @@ public class Hyperlink extends ContentSpan {
 
     @Override
     public int getHeight() {
-        return 16;
+        return text.getHeight();
     }
 
 }
