@@ -1,0 +1,46 @@
+Uce Case UC1: Start-to-end
+
+Scope: Browsr application
+
+Level: user goal
+
+Primary actor: Browsr-user
+
+Stakeholders and Interests:
+    - Browsr-user: Wants a fast and correct usage of the Browsr application.
+
+Preconditions: User is able to access a Browsr application
+
+Main Success Scenario:
+1. User starts a Browsr application.
+2. Application shows a welcome document.
+3. User navigates to a desired webpage.
+4. Application shows the desired webpage.
+5. User reads the content of that webpage.
+User repeats steps 3-5 until indicates done.
+6. User presses the red X to close the Browsr application.
+
+Extensions (or Alternative Flows):
+*a. At any time, if Internet connection lost:
+    1. Stay on current webpage.
+    2. If user navigates to another webpage, show error document.
+3a. User presses a hyperlink:
+    1. System checks if the reference is valid.
+    2a. Reference is valid:
+        1. System loads the new webpage.
+    2b. Reference is not valid:
+        1. System shows error document.
+3b. User typed address in address bar and pressed ENTER (or clicked outside address bar)
+    1. System checks if given address is valid.
+    2a. Address is valid:
+            1. System loads the new webpage.
+    2b. Address is not valid:
+            1. System shows error document.
+
+Special Requirements:
+    - Monitor, keyboard and mouse
+
+Technology and Data Variations List:
+3a. User presses a hyperlink using a mouse
+3b. User types an address using a keyboard
+6.  User presses red X using a mouse

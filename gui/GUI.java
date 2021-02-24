@@ -1,9 +1,12 @@
 package gui;
 
 import canvaswindow.CanvasWindow;
+import html.HtmlLoader;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,8 +39,22 @@ public class GUI extends CanvasWindow{
         return obj;
     }
 
-    public void load(String url){
-        this.addressBar.setAddress(url);
+
+    public void load(String url) {
+        URL address = null;
+        try{
+            address = new URL(url);
+        }catch(MalformedURLException e){
+            System.out.println("loading URL failed!");
+        }
+        if(address != null){
+
+            docArea.DocGUIObjects.clear(); //remove guiobjects from previous page
+
+            HtmlLoader loader = new HtmlLoader(address);
+            loader.setDocumentArea(docArea);
+            loader.loadPage();
+        }
         System.out.println("Loading webpage: " + url);
     }
 
@@ -68,7 +85,7 @@ public class GUI extends CanvasWindow{
     }
 
     public void draw(GUIObject object) {
-        // drawnObjects.add(object); //TODO handle adding new objects to the cancas area
+        // drawnObjects.add(object); //TODO handle adding new objects to the canvas area
         repaint();
     }
 

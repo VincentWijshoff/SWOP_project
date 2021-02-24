@@ -12,7 +12,7 @@ public class AddressBar extends GUIObject {
     private int startSelected = 0;
     private int endSelected = 0;
     private boolean initialClick = true;
-    private String address = "www.startscherm.nl/team12";
+    private String address = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";//"www.startscherm.nl/team12";
     private String prevAddress = "";
     private int cursorPosition = address.length();
 
