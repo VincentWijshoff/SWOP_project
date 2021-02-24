@@ -91,6 +91,10 @@ public class HtmlLoader {
         return sb.toString();
     }
 
+    private boolean isTable(String s){
+        return s.equals("Table") || s.equals("table");
+    }
+
     /**
      * Load the page
      */
@@ -106,7 +110,7 @@ public class HtmlLoader {
                     lexer.eatToken();
                     lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
                     documentArea.renderHTML(aTag);
-                }else if(value.equals("Table")){
+                }else if(isTable(value)){
                     HtmlTable tableTag = new HtmlTable();
                     lexer.eatToken();
                     lexer = updateTableTag(lexer, tableTag);
@@ -123,7 +127,7 @@ public class HtmlLoader {
     private HtmlLexer updateTableTag(HtmlLexer lexer, HtmlTable tableTag) {
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
-        while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && value.equals("Table"))){
+        while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && isTable(value))){
             if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("tr")){
                 HtmlTableRow tr = tableTag.addRow();
                 lexer.eatToken(); //otherwise if statement in updateTableRowTag is falsely true
@@ -147,7 +151,7 @@ public class HtmlLoader {
     private HtmlLexer updateTableRowTag(HtmlLexer lexer, HtmlTableRow tr) {
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
-        while(!(type == HtmlLexer.TokenType.OPEN_START_TAG && (value.equals("tr"))) && !(value.equals("Table") && type == HtmlLexer.TokenType.OPEN_END_TAG)){ //start of a new tr element or end table
+        while(!(type == HtmlLexer.TokenType.OPEN_START_TAG && (value.equals("tr"))) && !(isTable(value) && type == HtmlLexer.TokenType.OPEN_END_TAG)){ //start of a new tr element or end table
             if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("td")){
                 HtmlTableCell td = tr.addData();
                 lexer = updateTableDataTag(lexer, td);
@@ -188,7 +192,7 @@ public class HtmlLoader {
                 lexer = updateATag(lexer, aTag);
                 aTag.createHyperlink(); //not sure if this is the right place to do this
                 td.setData(aTag);
-            }else if(value.equals("table")){ //td is a table
+            }else if(isTable(value)){ //td is a table
                 HtmlTable tableTag = new HtmlTable();
                 lexer = updateTableTag(lexer, tableTag);
                 td.setData(tableTag);
