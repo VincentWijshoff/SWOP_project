@@ -2,6 +2,8 @@ package gui;
 
 import org.junit.jupiter.api.Test;
 
+import java.awt.event.MouseEvent;
+
 
 class GUITests {
 
@@ -15,6 +17,7 @@ class GUITests {
 	void assertFalse(String testName, boolean b) {
 		if (b) fail(testName);
 	}
+	void assertEquals(String testName, String a, String b) {if(!a.equals(b)) fail(testName); }
 
 	@Test
 	void testRectangleBounds() throws  RuntimeException {
@@ -32,4 +35,145 @@ class GUITests {
 		assertFalse(testName, rectangle.isInGUIObject(9, 9));
 	}
 
+	@Test
+	void testAddressBarSetAndGetAddress() throws  RuntimeException {
+		final String testName = "testAddressBarSetAndGetAddress";
+
+		AddressBar a = new AddressBar(gui, "testAddressBar");
+
+		a.setAddress("www.newaddress.com");
+
+		assertEquals(testName, a.getAddress(), "www.newaddress.com");
+
+	}
+
+	@Test
+	void testAddressBarSetAndGetFocus() throws  RuntimeException {
+		final String testName = "testAddressBarSetAndGetFocus";
+
+		AddressBar a = new AddressBar(gui, "testAddressBar");
+
+		a.setInFocus();
+
+		assertTrue(testName, a.isInFocus());
+
+		a.setOutFocus();
+
+		assertFalse(testName, a.isInFocus());
+
+	}
+
+	@Test
+	void testAddressBarInitialChar() throws  RuntimeException {
+		final String testName = "testAddressBarInitialChar";
+		// when an initial char is given after given focus, the entire addres should be changed to the char
+
+		AddressBar a = new AddressBar(gui, "testAddressBar");
+
+		a.setInFocus();
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleKeyboardEvent(401, 47, '/');
+		a.setOutFocus();
+
+		assertEquals(testName, a.getAddress(), "/");
+
+	}
+
+	@Test
+	void testAddressBarInitialRemove() throws  RuntimeException {
+		final String testName = "testAddressBarInitialRemove";
+
+		AddressBar a = new AddressBar(gui, "testAddressBar");
+
+		a.setInFocus();
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleKeyboardEvent(401, 8, ' '); //backspace
+		a.setOutFocus();
+
+		assertEquals(testName, a.getAddress(), "");
+
+	}
+
+	@Test
+	void testAddressBarArrowUse() throws  RuntimeException {
+		final String testName = "testAddressBarArrowUse";
+
+		AddressBar a = new AddressBar(gui, "testAddressBar");
+
+		String initialAddress = a.getAddress();
+
+		a.setInFocus();
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleKeyboardEvent(401, 39, ' '); //right arrow
+		a.handleKeyboardEvent(401, 39, ' ');
+
+		assertEquals(testName, a.getAddress(), initialAddress);
+
+		a.handleKeyboardEvent(401, 37, ' '); //left arrow
+		a.handleKeyboardEvent(401, 37, ' ');
+
+		assertEquals(testName, a.getAddress(), initialAddress);
+
+		a.handleKeyboardEvent(401, 36, ' '); //home
+		a.handleKeyboardEvent(401, 36, ' ');
+
+		assertEquals(testName, a.getAddress(), initialAddress);
+
+		a.handleKeyboardEvent(401, 35, ' '); //end
+		a.handleKeyboardEvent(401, 35, ' ');
+
+		a.setOutFocus();
+
+		assertEquals(testName, a.getAddress(), initialAddress);
+
+	}
+
+	@Test
+	void testAddressBarDoubleClickRemove() throws  RuntimeException {
+		final String testName = "testAddressBarDoubleClickRemove";
+
+		AddressBar a = new AddressBar(gui, "testAddressBar");
+
+		String initialAddress = a.getAddress();
+
+		a.setInFocus();
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+
+		a.handleKeyboardEvent(401, 47, '/');
+		a.handleKeyboardEvent(401, 47, '/');
+		a.handleKeyboardEvent(401, 47, '/');
+		a.handleKeyboardEvent(401, 47, '/');
+		a.handleKeyboardEvent(401, 47, '/');
+
+		assertFalse(testName, a.getAddress().equals(initialAddress));
+
+		a.handleKeyboardEvent(401, 27, ' '); //escape
+
+		assertEquals(testName, a.getAddress(), initialAddress);
+
+	}
+
+	@Test
+	void testAddressBarEscapeOutTyping() throws  RuntimeException {
+		final String testName = "testAddressBarEscapeOutTyping";
+
+		AddressBar a = new AddressBar(gui, "testAddressBar");
+
+		a.setInFocus();
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+
+		a.handleKeyboardEvent(401, 47, '/');
+		a.handleKeyboardEvent(401, 47, '/');
+		a.handleKeyboardEvent(401, 47, '/');
+
+		assertEquals(testName, a.getAddress(), "///");
+
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 2); //double click
+		a.handleKeyboardEvent(401, 8, ' '); //backspace
+
+		assertEquals(testName, a.getAddress(), "");
+
+		a.setOutFocus();
+
+	}
 }

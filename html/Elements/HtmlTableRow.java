@@ -30,4 +30,12 @@ public class HtmlTableRow extends ContentSpan {
     public ArrayList<HtmlTableCell> getTableData() {
         return tableData;
     }
+
+    public int getHeight() {
+        int max = 0;
+        for (HtmlTableCell cell:tableData) {
+            if (cell.getHeight() > max) max = cell.getHeight();
+        }
+        return max;
+    }
 }

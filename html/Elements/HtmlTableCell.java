@@ -26,4 +26,8 @@ public class HtmlTableCell extends ContentSpan {
         this.row = row;
     }
 
+    public int getHeight() {
+        return data.getHeight();
+    }
+
 }

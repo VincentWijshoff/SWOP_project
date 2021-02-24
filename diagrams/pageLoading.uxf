@@ -64,4 +64,24 @@ b-&gt;&gt;&gt;c : setAddress(URL);
 b-&gt;&gt;&gt;d : loadAddress(URL);</panel_attributes>
     <additional_attributes/>
   </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>747</x>
+      <y>423</y>
+      <w>756</w>
+      <h>261</h>
+    </coordinates>
+    <panel_attributes>title= Load page from given URL
+obj=:GUI~a ACTIVE
+obj=:AddressBar~b ACTIVE
+obj=:DocumentArea~c ACTIVE
+
+
+a-&gt;&gt;&gt;b : setAddress(URL);
+b-&gt;&gt;&gt;b + : this.address = URL
+tick=
+a-&gt;&gt;&gt;c : loadAddress(URL);</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>

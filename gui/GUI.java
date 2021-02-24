@@ -6,6 +6,7 @@ import html.HtmlLoader;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,6 +39,7 @@ public class GUI extends CanvasWindow{
         return obj;
     }
 
+
     public void load(String url) {
         URL address = null;
         try{
@@ -53,8 +55,12 @@ public class GUI extends CanvasWindow{
             loader.setDocumentArea(docArea);
             loader.loadPage();
         }
-
         System.out.println("Loading webpage: " + url);
+    }
+
+    public void load(URL url){
+        this.addressBar.setAddress(url.toString());
+        System.out.println("Loading webpage: " + url.toString());
     }
 
     @Override
