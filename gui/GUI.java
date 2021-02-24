@@ -1,16 +1,9 @@
 package gui;
 
 import canvaswindow.CanvasWindow;
-import html.HtmlLoader;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.net.MalformedURLException;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class GUI extends CanvasWindow{
 
@@ -41,27 +34,12 @@ public class GUI extends CanvasWindow{
 
 
     public void load(String url) {
-        URL address = null;
-        try{
-            address = new URL(url);
-        }catch(MalformedURLException e){
-            System.out.println("loading URL failed!");
-        }
-        if(address != null){
-
-            docArea.DocGUIObjects.clear(); //remove guiobjects from previous page
-
-            HtmlLoader loader = new HtmlLoader(address);
-            loader.setDocumentArea(docArea);
-            loader.loadPage();
-        }
         System.out.println("Loading webpage: " + url);
+        this.addressBar.setAddress(url);
+        this.docArea.loadAddress(url);
+        this.repaint();
     }
 
-    public void load(URL url){
-        this.addressBar.setAddress(url.toString());
-        System.out.println("Loading webpage: " + url.toString());
-    }
 
     @Override
     protected void handleShown() {

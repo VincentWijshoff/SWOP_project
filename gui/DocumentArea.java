@@ -1,11 +1,14 @@
 package gui;
 
 import html.Elements.*;
+import html.HtmlLoader;
 
 import java.awt.*;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.net.URL;
 
 public class DocumentArea extends GUIObject {
 
@@ -35,6 +38,23 @@ public class DocumentArea extends GUIObject {
 
     public void renderHTML(ContentSpan element) {
         renderHTML(element, relativeYPos);
+    }
+
+    public void loadAddress(String url){
+        URL address = null;
+        try{
+            address = new URL(url);
+        }catch(MalformedURLException e){
+            System.out.println("loading URL failed!"); //TODO make an error page appear
+        }
+        if(address != null){
+
+            this.DocGUIObjects.clear(); //remove guiobjects from previous page
+
+            HtmlLoader loader = new HtmlLoader(address);
+            loader.setDocumentArea(this);
+            loader.loadPage();
+        }
     }
 
     public void renderHTML(ContentSpan element, int startY) {

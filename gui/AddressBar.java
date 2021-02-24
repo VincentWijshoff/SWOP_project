@@ -4,8 +4,12 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+/**
+ * The class for the addressbar, this contains all necesairy code for a functioning addressbar
+ */
 public class AddressBar extends GUIObject {
 
+    //graphic element
     final int yLimit = 50;
 
     // private boolean selectedText = false;
@@ -26,22 +30,30 @@ public class AddressBar extends GUIObject {
     //in focus element
     private boolean inFocus = false;
 
-    /*
-     * Class used to describe the entire Address Bar section of our GUI.
+    /**
+     * constructor for the addressbar
+     * @param g             The link to the gui which handles the connection between addressbar and documentarea
+     * @param startAddress  The addres that should be shown on startup off the addressbar
      */
     public AddressBar(GUI g, String startAddress) {
         super();
         this.gui = g;
         this.address = startAddress;
-        // updateGUIPosAndDim(5, ((int) (this.yLimit / 6)), 0, ((int) this.yLimit * 2 / 3));
     }
 
+    /**
+     * constructor for the addressbar
+     * @param g the link to the gui which handles the connection between addressbar and documentarea
+     */
     public AddressBar(GUI g) {
         super();
         this.gui = g;
-        // updateGUIPosAndDim(5, ((int) (this.yLimit / 6)), 0, ((int) this.yLimit * 2 / 3));
     }
 
+    /**
+     * an updator to redraw the addressbar in its current state, this includes text-cursor and selected text
+     * @param g the java drawing help
+     */
     public void draw(Graphics g) {
         int gwidth = gui.getWidth();
         this.w = gwidth;
@@ -81,20 +93,36 @@ public class AddressBar extends GUIObject {
         g.setColor(oldColor);
     }
 
+    /**
+     * repaint the entire file
+     */
     private void repaint(){
         this.gui.handleShown();
     }
 
+    /**
+     * sets the address in the addressbar
+     * @param aBarText  the address that will be set
+     */
     public void setAddress(String aBarText) {
         this.address = aBarText;
         this.repaint();
     }
 
+    /**
+     * gets the current address from the addressbar
+     * @return the address currently in the addressbar
+     */
     public String getAddress() {
         return address;
     }
 
-
+    /**
+     * checks if the givien position is on the addressbar
+     * @param X the given x coordinate
+     * @param Y the given y coordinate
+     * @return  a boolean representing is the position is on this address bar
+     */
     public boolean isOnAddressBar(int X, int Y){
         return (X >= this.abX &&
                 X <= this.abX + this.w &&
@@ -102,6 +130,14 @@ public class AddressBar extends GUIObject {
                 Y <= this.abY + this.h);
     }
 
+    /**
+     * gets the selected position from a word
+     * @param start the start off the selection
+     * @param fin   the end off the selection
+     * @param word  the word that is selected on
+     * @param g     the graphics to get the size off the words
+     * @return      the position off the selected part
+     */
     private int[] getSelectedPositions(int start, int fin, String word, Graphics g){
         if ( fin < start){
             return this.getSelectedPositions(fin, start, word, g);
@@ -265,7 +301,14 @@ public class AddressBar extends GUIObject {
         this.repaint();
     }
 
-
+    /**
+     * replaces selected text with other text
+     * @param start         the start off the selected text
+     * @param fin           the end off the selected text
+     * @param word          the word that is selected on
+     * @param replacement   the replacement for the selected part
+     * @return              the new word with the replacement in
+     */
     private String replaceSelected(int start, int fin, String word, String replacement){
         if(start > fin){
             return this.replaceSelected(fin, start, word, replacement);
@@ -275,12 +318,25 @@ public class AddressBar extends GUIObject {
         return beginword + replacement + endword;
     }
 
+    /**
+     * remove char at a position in a string
+     * @param str       the stirng to check
+     * @param position  the position to remove
+     * @return          the string without the char at the position
+     */
     private String removeAt(String str, int position){
         StringBuilder sb = new StringBuilder(str);
         sb.deleteCharAt(position);
         return sb.toString();
     }
 
+    /**
+     * adds a char at a position in a string
+     * @param str       the string that will be inserted in to
+     * @param ch        the char that will be inserted
+     * @param position  the position the char will be inserted
+     * @return          the string with the inserted char at the position
+     */
     private String addChar(String str, char ch, int position) {
         int len = str.length();
         char[] updatedArr = new char[len + 1];
@@ -290,6 +346,11 @@ public class AddressBar extends GUIObject {
         return new String(updatedArr);
     }
 
+    /**
+     * chacks if the given code is a normal char from the keyboard
+     * @param code  the char code that will be checked
+     * @return  true if the code is a normal char code, else false
+     */
     private boolean isChar(int code){
         //is a char when normal keyboard input, slashes, points or Commas...
         return KeyEvent.getKeyText(code).length() == 1 ||
@@ -311,20 +372,34 @@ public class AddressBar extends GUIObject {
                 code == 192;
     }
 
+    /**
+     * prints a string with a prefix to easily recognise it in the log
+     * @param a the string that will be printed
+     */
     private void debug(String a){
         System.out.println("AddressBar: " + a);
     }
 
+    /**
+     * chacks if the address bar is in focus
+     * @return  true if the address bar is in focus, else false
+     */
     public boolean isInFocus(){
         return this.inFocus;
     }
 
+    /**
+     * sets the address bar in focus
+     */
     public void setInFocus(){
         this.prevAddress = address;
         this.cursorPosition = this.address.length();
         this.inFocus = true;
     }
 
+    /**
+     * sets the address bar out of focus
+     */
     public void setOutFocus(){
         this.search();
         this.initialClick = true;
@@ -335,6 +410,9 @@ public class AddressBar extends GUIObject {
 
     }
 
+    /**
+     * when esscape is pressed, the precious address should reappear and be reloaded
+     */
     private void search(){
         this.prevAddress = address;
         this.gui.load(address);
