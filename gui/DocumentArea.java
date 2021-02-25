@@ -14,7 +14,6 @@ public class DocumentArea extends GUIObject {
 
     public Set<GUIObject> DocGUIObjects = new HashSet<>();
     private int relativeYPos;
-    private GUI gui;
 
     /*
     * Class used to describe the entire Document section of our GUI.
@@ -23,21 +22,10 @@ public class DocumentArea extends GUIObject {
         super();
 
         this.relativeYPos = relativeYpos;
-        this.gui = gui;
-    }
-
-    public void paintDocArea(Graphics g){
-        for (GUIObject obj: DocGUIObjects ) {
-            obj.draw(g);
-        }
     }
 
     public void draw(GUIObject obj) {
         DocGUIObjects.add(obj);
-    }
-
-    public void renderHTML(ContentSpan element) {
-        renderHTML(element, relativeYPos);
     }
 
     public void loadAddress(String url){
@@ -55,6 +43,10 @@ public class DocumentArea extends GUIObject {
             loader.setDocumentArea(this);
             loader.loadPage();
         }
+    }
+
+    public void renderHTML(ContentSpan element) {
+        renderHTML(element, relativeYPos);
     }
 
     public void renderHTML(ContentSpan element, int startY) {
