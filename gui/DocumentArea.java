@@ -42,39 +42,43 @@ public class DocumentArea {
     }
 
     public void renderHTML(ContentSpan element) {
-        renderHTML(element, relativeYPos);
+        renderHTML(element, relativeYPos, 0);
     }
 
-    public void renderHTML(ContentSpan element, int startY) {
+    public void renderHTML(ContentSpan element, int startY, int startX) {
         if (element instanceof HtmlTable) {
             HtmlTable table = ((HtmlTable) element);
             ArrayList<HtmlTableRow> tableRows = table.getTableRows();
             int currentY = startY;
             for (ContentSpan row: tableRows) {
-                renderHTML(row, currentY);
+                renderHTML(row, currentY, startX);
                 currentY += row.getHeight();
             }
         }
         else if (element instanceof TextSpan) {
             TextSpan text = (TextSpan) element;
-            DocGUIObjects.add(new GUIString(text.getText(), 0, startY + text.getHeight()));
+            DocGUIObjects.add(new GUIString(text.getText(), startX, startY + text.getHeight()));
             relativeYPos += text.getHeight();
         }
         else if (element instanceof Hyperlink) {
             Hyperlink link = (Hyperlink) element;
-            DocGUIObjects.add(new GUIString(link.getText(), 0, startY + link.getHeight()));
+            DocGUIObjects.add(new GUIString(link.getText(), startX, startY + link.getHeight()));
             relativeYPos += link.getHeight();
             //TODO add hyperlink functionality: make GUILink instead of plain GUIString?
-        }else if (element instanceof HtmlTableRow) {
+        }
+        else if (element instanceof HtmlTableRow) {
             HtmlTableRow tableRow = ((HtmlTableRow) element);
             ArrayList<HtmlTableCell> tableCells = tableRow.getTableData();
-            //x-coord?
-            for(ContentSpan data : tableCells){
-                renderHTML(data, startY);
+            int currentX = startX;
+            for(HtmlTableCell cell : tableCells){
+                renderHTML(cell, startY, currentX);
+                currentX += cell.getColumnWidth();
             }
-        }else if (element instanceof HtmlTableCell){
+        }
+        else if (element instanceof HtmlTableCell){
             HtmlTableCell tableCell = (HtmlTableCell) element;
-            renderHTML(tableCell.getData(), startY);
+            renderHTML(tableCell.getData(), startY, startX);
+            System.out.println("painting cell: " + startX + ", " + startY);
         }
     }
 

@@ -23,4 +23,9 @@ public class TextSpan extends ContentSpan {
     public int getHeight() {
         return 16;
     }
+
+    @Override
+    public int getWidth() {
+        return 16*text.length();
+    }
 }

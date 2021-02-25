@@ -27,10 +27,29 @@ public class HtmlTable extends ContentSpan {
         return height;
     }
 
+    @Override
+    public int getWidth() {
+        int max = 0;
+        for (HtmlTableRow row:tableRows) {
+            if (row.getWidth() > max) max = row.getWidth();
+        }
+        return max;
+    }
+
     public HtmlTableRow addRow() {
-        HtmlTableRow row = new HtmlTableRow();
+        HtmlTableRow row = new HtmlTableRow(this);
         row.setTable(this);
         tableRows.add(row);
         return row;
+    }
+
+    // width of column is the width of the widest cell in the column
+    public int getColumnWidth(int index) {
+        int max = 0;
+        for (HtmlTableRow row: tableRows) {
+            if (row.getTableData().get(index).getWidth() > max)
+                max = row.getTableData().get(index).getWidth();
+        }
+        return max;
     }
 }

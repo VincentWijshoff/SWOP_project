@@ -7,7 +7,8 @@ public class HtmlTableRow extends ContentSpan {
     private ArrayList<HtmlTableCell> tableData; //List with all data elements of that row
     private HtmlTable table; //The table this row belongs to
 
-    public HtmlTableRow(){
+    public HtmlTableRow(HtmlTable table){
+        this.table = table;
         tableData = new ArrayList<>();
     }
 
@@ -17,7 +18,7 @@ public class HtmlTableRow extends ContentSpan {
      * @return a new HtmlTableData object (so we can update this)
      */
     public HtmlTableCell addData(){
-        HtmlTableCell td = new HtmlTableCell();
+        HtmlTableCell td = new HtmlTableCell(this);
         td.setRow(this);
         tableData.add(td);
         return td;
@@ -26,11 +27,15 @@ public class HtmlTableRow extends ContentSpan {
     public void setTable(HtmlTable table){
         this.table = table;
     }
+    public HtmlTable getTable() {
+        return this.table;
+    }
 
     public ArrayList<HtmlTableCell> getTableData() {
         return tableData;
     }
 
+    @Override
     public int getHeight() {
         int max = 0;
         for (HtmlTableCell cell:tableData) {

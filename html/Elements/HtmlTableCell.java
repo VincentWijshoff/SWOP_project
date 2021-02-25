@@ -6,8 +6,11 @@ public class HtmlTableCell extends ContentSpan {
 
     private ContentSpan data;
     private HtmlTableRow row; //the row this belongs to
+    private HtmlTable table; //table this belongs to
 
-    public HtmlTableCell(){
+    public HtmlTableCell(HtmlTableRow row){
+        this.row = row;
+        this.table = row.getTable();
     }
 
     public void setData(ContentSpan data) {
@@ -26,8 +29,20 @@ public class HtmlTableCell extends ContentSpan {
         this.row = row;
     }
 
+    @Override
     public int getHeight() {
         return data.getHeight();
+    }
+
+    @Override
+    public int getWidth() {
+        return data.getWidth();
+    }
+
+    //Get width of the column this cell is in
+    public int getColumnWidth() {
+        int index = row.getTableData().indexOf(this);
+        return table.getColumnWidth(index);
     }
 
 }
