@@ -17,13 +17,6 @@ public class GUI extends CanvasWindow{
         this.docArea = new DocumentArea(this.addressBar.yLimit);
     }
 
-    // Should be used for all other GUIObjects that should render in docArea:
-    public GUIObject createGUIObject(GUIObject obj) {
-        // obj.setGUI(this);
-        this.docArea.DocGUIObjects.add(obj);
-        return obj;
-    }
-
 
     public void load(String url) {
         System.out.println("Loading webpage: " + url);
@@ -110,6 +103,6 @@ public class GUI extends CanvasWindow{
     }
 
     public DocumentArea getDocArea() {
-        return docArea;
+        return this.docArea;
     }
 }

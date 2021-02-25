@@ -3,6 +3,7 @@ package html;
 import browsrhtml.HtmlLexer;
 import gui.DocumentArea;
 import html.Elements.*;
+import localDocuments.Docs;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +32,7 @@ public class HtmlLoader {
         this.htmlCode = htmlCode;
     }
 
+
     /**
      * called when loading a local document
      *
@@ -40,7 +42,7 @@ public class HtmlLoader {
         try {
             this.htmlCode = htmlCode;
         }catch(Exception e){
-            System.out.println("exception parsing URL"); //TODO error document in DocumentArea
+            this.htmlCode = Docs.getErrorPage();
         }
     }
 
@@ -55,7 +57,7 @@ public class HtmlLoader {
             this.url = new URL(url, "");
             this.htmlCode = loadHtml();
         }catch(Exception e){
-            System.out.println("exception parsing URL"); //TODO error document in DocumentArea
+            this.htmlCode = Docs.getErrorPage();
         }
     }
 
@@ -70,7 +72,7 @@ public class HtmlLoader {
             this.url = new URL(url, href);
             this.htmlCode = loadHtml();
         }catch(Exception e){
-            System.out.println("exception parsing URL"); //TODO error document in DocumentArea
+            this.htmlCode = Docs.getErrorPage();
         }
     }
 
@@ -267,7 +269,5 @@ public class HtmlLoader {
         }
         return lexer;
     }
-
-
 
 }
