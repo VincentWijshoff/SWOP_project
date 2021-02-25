@@ -58,12 +58,10 @@ public class DocumentArea {
         else if (element instanceof TextSpan) {
             TextSpan text = (TextSpan) element;
             DocGUIObjects.add(new GUIString(text.getText(), startX, startY + text.getHeight()));
-            relativeYPos += text.getHeight();
         }
         else if (element instanceof Hyperlink) {
             Hyperlink link = (Hyperlink) element;
             DocGUIObjects.add(new GUIString(link.getText(), startX, startY + link.getHeight()));
-            relativeYPos += link.getHeight();
             //TODO add hyperlink functionality: make GUILink instead of plain GUIString?
         }
         else if (element instanceof HtmlTableRow) {
