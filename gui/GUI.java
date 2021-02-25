@@ -17,11 +17,6 @@ public class GUI extends CanvasWindow{
         this.docArea = new DocumentArea(this.addressBar.yLimit);
     }
 
-    // Should be used only for objects that are not in the docArea:
-    public GUIObject initialiseGUI(GUIObject obj) {
-        return obj;
-    }
-
     // Should be used for all other GUIObjects that should render in docArea:
     public GUIObject createGUIObject(GUIObject obj) {
         // obj.setGUI(this);
