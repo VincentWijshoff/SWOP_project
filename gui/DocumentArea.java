@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.net.URL;
 
-public class DocumentArea extends GUIObject {
+public class DocumentArea {
 
     public Set<GUIObject> DocGUIObjects = new HashSet<>();
     private int relativeYPos;
@@ -22,10 +22,6 @@ public class DocumentArea extends GUIObject {
         super();
 
         this.relativeYPos = relativeYpos;
-    }
-
-    public void draw(GUIObject obj) {
-        DocGUIObjects.add(obj);
     }
 
     public void loadAddress(String url){

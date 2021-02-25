@@ -10,14 +10,11 @@ public class GUI extends CanvasWindow{
     AddressBar addressBar;
     DocumentArea docArea;
 
-    //public Set<GUIObject> allGUIObjects = new HashSet<>();
-
-
     public GUI(String title) {
         super(title);
 
         this.addressBar = new AddressBar(this);
-        this.docArea = (DocumentArea) initialiseGUI(new DocumentArea(this.addressBar.yLimit));
+        this.docArea = new DocumentArea(this.addressBar.yLimit);
     }
 
     // Should be used only for objects that are not in the docArea:
@@ -39,7 +36,6 @@ public class GUI extends CanvasWindow{
         this.docArea.loadAddress(url);
         this.repaint();
     }
-
 
     @Override
     protected void handleShown() {
