@@ -5,7 +5,6 @@ import html.Elements.*;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -32,6 +31,16 @@ public class DocumentArea {
         return obj;
     }
 
+    public void loadAddress(String url, String href) throws IOException {
+        URL address = generateAddress(url, href);
+        this.DocGUIObjects.clear(); //remove GUIObjects from previous page
+        isValisBrowsrPage(address);
+
+        HtmlLoader loader = new HtmlLoader(address);
+        loader.setDocumentArea(this);
+        loader.loadPage();
+    }
+
     /**
      * loads a page given the url as string
      *
@@ -39,13 +48,15 @@ public class DocumentArea {
      *
      * @post    The new page is loaded if the given url is valid, otherwise the errorDoc is loaded
      */
-    public void loadAddress(String url){
-        URL address = generateAddress(url);
+    public void loadAddress(String url) throws IOException {
+        URL address = generateAddress(url, "");
         this.DocGUIObjects.clear(); //remove GUIObjects from previous page
-        HtmlLoader loader = generateLoader(address);
+        isValisBrowsrPage(address);
 
+        HtmlLoader loader = new HtmlLoader(address);
         loader.setDocumentArea(this);
         loader.loadPage();
+
     }
 
     /**
@@ -54,35 +65,19 @@ public class DocumentArea {
      * @param   url string format of the URL of the next page
      * @return  the new URL (is null if an error occurred)
      */
-    private URL generateAddress(String url) {
-        URL address = null;
-        try{
-            address = new URL(url);
-        }catch(MalformedURLException e){
-            System.out.println("loading URL failed!");
-        }
-        return address;
+    private URL generateAddress(String url, String href) throws MalformedURLException {
+        return new URL(new URL(url), href);
     }
 
     /**
-     * generates the HtmlLoader object given the URL
+     * checks if given address is a valid browsr page
      *
      * @param   address the URL of the new page (or null if loading URL failed)
      *
-     * @return a new HtmlLoader object with the corresponding browsr page (url or errorDoc)
      */
-    private HtmlLoader generateLoader(URL address) {
-        HtmlLoader loader;
-        if (address != null) {
-            try{
-                BrowsrDocumentValidator.assertIsValidBrowsrDocument(address); //check if new page is valid Browsr page
-                loader = new HtmlLoader(address);
-            } catch (Exception e) {
-                loader = new HtmlLoader(Docs.getErrorPage());
-            }
-        }else
-            loader = new HtmlLoader(Docs.getErrorPage());
-        return loader;
+    private void isValisBrowsrPage(URL address) throws IOException {
+        BrowsrDocumentValidator.assertIsValidBrowsrDocument(address); //check if new page is valid Browsr page
+
     }
 
     public void renderHTML(ContentSpan element) {
@@ -105,7 +100,7 @@ public class DocumentArea {
         }
         else if (element instanceof Hyperlink) {
             Hyperlink link = (Hyperlink) element;
-            addGUIObject(new GUILink(link.getText(), startX, startY + link.getHeight()));
+            addGUIObject(new GUILink(link.getText(), startX, startY + link.getHeight(), ((Hyperlink) element).getHref()));
         }
         else if (element instanceof HtmlTableRow) {
             HtmlTableRow tableRow = ((HtmlTableRow) element);
@@ -123,5 +118,11 @@ public class DocumentArea {
         }
     }
 
+    public void loadErrorDoc() {
+        this.DocGUIObjects.clear();
+        HtmlLoader loader = new HtmlLoader(Docs.getErrorPage());
+        loader.setDocumentArea(this);
+        loader.loadPage();
+    }
 }
 

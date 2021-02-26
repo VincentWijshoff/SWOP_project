@@ -4,8 +4,15 @@ import java.awt.*;
 
 public class GUILink extends GUIString {
 
-    public GUILink(String text, int x, int y) {
+    private String href;
+
+    public GUILink(String text, int x, int y, String href) {
         super(text, x, y);
+        this.href = href;
+    }
+
+    public String getHref() {
+        return href;
     }
 
     public void draw(Graphics g) {

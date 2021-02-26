@@ -3,9 +3,12 @@ package gui;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Arrays;
 
 /**
- * The class for the addressbar, this contains all necesairy code for a functioning addressbar
+ * The class for the address bar, this contains all necessary code for a functioning address bar
  */
 public class AddressBar extends GUIObject {
 
@@ -31,9 +34,9 @@ public class AddressBar extends GUIObject {
     private boolean inFocus = false;
 
     /**
-     * constructor for the addressbar
-     * @param g             The link to the gui which handles the connection between addressbar and documentarea
-     * @param startAddress  The addres that should be shown on startup off the addressbar
+     * constructor for the address bar
+     * @param g             The link to the gui which handles the connection between address bar and DocumentArea
+     * @param startAddress  The address that should be shown on startup off the address bar
      */
     public AddressBar(GUI g, String startAddress) {
         super();
@@ -42,8 +45,8 @@ public class AddressBar extends GUIObject {
     }
 
     /**
-     * constructor for the addressbar
-     * @param g the link to the gui which handles the connection between addressbar and documentarea
+     * constructor for the address bar
+     * @param g the link to the gui which handles the connection between address bar and DocumentArea
      */
     public AddressBar(GUI g) {
         super();
@@ -51,7 +54,7 @@ public class AddressBar extends GUIObject {
     }
 
     /**
-     * an updator to redraw the addressbar in its current state, this includes text-cursor and selected text
+     * an updater to redraw the address bar in its current state, this includes text-cursor and selected text
      * @param g the java drawing help
      */
     public void draw(Graphics g) {
@@ -101,7 +104,7 @@ public class AddressBar extends GUIObject {
     }
 
     /**
-     * sets the address in the addressbar
+     * sets the address in the address bar
      * @param aBarText  the address that will be set
      */
     public void setAddress(String aBarText) {
@@ -110,15 +113,70 @@ public class AddressBar extends GUIObject {
     }
 
     /**
-     * gets the current address from the addressbar
-     * @return the address currently in the addressbar
+     * sets the address in the address bar when pressed a HYPERLINK
+     *
+     * @param   aBarText    the current address
+     * @param   href        the href of the hyperlink
+     */
+    public void setAddress(String aBarText, String href){
+        String text = getModifiedAddress(aBarText, href);
+        this.address = text;
+        System.out.println("new webpage: " + text);
+        this.repaint();
+    }
+
+    /**
+     * creates the new address.
+     * a new address, when pressed a HYPERLINK is:
+     *      the current address until the last '/' followed by href
+     * example: "https://google.be/wikipedia/swop.html" with href = "p&o.html"
+     * becomes: "https://google.be/wikipedia/p&o.html"
+     *
+     * @param   aBarText    the current address
+     * @param   href        the href of the hyperlink
+     * @return the new address as string
+     */
+    private String getModifiedAddress(String aBarText, String href) {
+        char[] chars = aBarText.toCharArray();
+        for(int i = chars.length-1; i>=0; i--){
+            if(chars[i] == '/'){
+                return createAddress(chars) + href;
+            }else{
+                chars[i] = ' ';
+            }
+        }
+        return href;
+
+    }
+
+    /**
+     * creates the new address given an array of chars
+     * since there cannot be any space in an address -> when space return
+     *
+     * @param   chars the array of characters of the address
+     * @return the new address (without spaces)
+     */
+    private String createAddress(char[] chars) {
+        StringBuffer stringBuffer = new StringBuffer();
+        for(int i=0; i<chars.length; i++){
+            if(chars[i] == ' ')
+                return stringBuffer.toString(); //no spaces in addressbar
+            else
+                stringBuffer.append(chars[i]);
+        }
+        return stringBuffer.toString();
+    }
+
+    /**
+     * gets the current address from the address bar
+     * @return the address currently in the address bar
      */
     public String getAddress() {
         return address;
     }
 
     /**
-     * checks if the givien position is on the addressbar
+     * checks if the given position is on the address bar
      * @param X the given x coordinate
      * @param Y the given y coordinate
      * @return  a boolean representing is the position is on this address bar
@@ -187,7 +245,7 @@ public class AddressBar extends GUIObject {
     }
 
     /**
-     * handles the keypresses while the address bar is in focus
+     * handles the key-presses while the address bar is in focus
      * @param id        The id off the pressed button
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
@@ -412,10 +470,10 @@ public class AddressBar extends GUIObject {
     }
 
     /**
-     * when esscape is pressed, the precious address should reappear and be reloaded
+     * when escape is pressed, the precious address should reappear and be reloaded
      */
     private void search(){
         this.prevAddress = address;
-        this.gui.load(address);
+        this.gui.load(address, "");
     }
 }

@@ -29,6 +29,7 @@ class BrowsrDocumentValidatorTest {
 	@Test
 	void testWithURL() throws MalformedURLException, IOException {
 		BrowsrDocumentValidator.assertIsValidBrowsrDocument(new URL(new URL("https://people.cs.kuleuven.be/~bart.jacobs/index.html"), "browsrtest.html"));
+		System.out.println(new URL(new URL("https://people.cs.kuleuven.be/~bart.jacobs/index.html"), "browsrtest.html") .toString());
 	}
 
 }
