@@ -113,19 +113,6 @@ public class AddressBar extends GUIObject {
     }
 
     /**
-     * sets the address in the address bar when pressed a HYPERLINK
-     *
-     * @param   aBarText    the current address
-     * @param   href        the href of the hyperlink
-     */
-//    public void setAddress(String aBarText, String href){
-//        String text = getModifiedAddress(aBarText, href);
-//        this.address = text;
-//        System.out.println("new webpage: " + text);
-//        this.repaint();
-//    }
-
-    /**
      * gets the current address from the address bar
      * @return the address currently in the address bar
      */

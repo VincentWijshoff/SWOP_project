@@ -68,7 +68,7 @@ public class GUILink extends GUIString {
         StringBuffer stringBuffer = new StringBuffer();
         for(int i=0; i<chars.length; i++){
             if(chars[i] == ' ')
-                return stringBuffer.toString(); //no spaces in addressbar
+                return stringBuffer.toString(); //no spaces in address bar
             else
                 stringBuffer.append(chars[i]);
         }

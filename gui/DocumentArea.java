@@ -70,7 +70,7 @@ public class DocumentArea {
     }
 
     /**
-     * checks if given address is a valid browsr page
+     * checks if given address is a valid Browsr page
      *
      * @param   address the URL of the new page (or null if loading URL failed)
      *
