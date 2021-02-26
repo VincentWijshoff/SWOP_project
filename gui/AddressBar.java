@@ -369,7 +369,8 @@ public class AddressBar extends GUIObject {
                 code == 109 ||
                 code == 106 ||
                 code == 111 ||
-                code == 192;
+                code == 192 ||
+                code == 513; //slash and double point
     }
 
     /**

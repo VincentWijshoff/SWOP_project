@@ -1,10 +1,12 @@
 package gui;
 
+import browsrhtml.BrowsrDocumentValidator;
 import html.Elements.*;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,23 +32,57 @@ public class DocumentArea {
         return obj;
     }
 
+    /**
+     * loads a page given the url as string
+     *
+     * @param   url the URL we need to navigate to
+     *
+     * @post    The new page is loaded if the given url is valid, otherwise the errorDoc is loaded
+     */
     public void loadAddress(String url){
+        URL address = generateAddress(url);
+        this.DocGUIObjects.clear(); //remove GUIObjects from previous page
+        HtmlLoader loader = generateLoader(address);
+
+        loader.setDocumentArea(this);
+        loader.loadPage();
+    }
+
+    /**
+     * generates the URL given the url (in string format)
+     *
+     * @param   url string format of the URL of the next page
+     * @return  the new URL (is null if an error occurred)
+     */
+    private URL generateAddress(String url) {
         URL address = null;
         try{
             address = new URL(url);
         }catch(MalformedURLException e){
-            System.out.println("loading URL failed!"); //TODO make an error page appear
+            System.out.println("loading URL failed!");
         }
-        this.DocGUIObjects.clear(); //remove guiobjects from previous page
+        return address;
+    }
 
+    /**
+     * generates the HtmlLoader object given the URL
+     *
+     * @param   address the URL of the new page (or null if loading URL failed)
+     *
+     * @return a new HtmlLoader object with the corresponding browsr page (url or errorDoc)
+     */
+    private HtmlLoader generateLoader(URL address) {
         HtmlLoader loader;
-        if (address != null)
-            loader = new HtmlLoader(address);
-        else
+        if (address != null) {
+            try{
+                BrowsrDocumentValidator.assertIsValidBrowsrDocument(address); //check if new page is valid Browsr page
+                loader = new HtmlLoader(address);
+            } catch (Exception e) {
+                loader = new HtmlLoader(Docs.getErrorPage());
+            }
+        }else
             loader = new HtmlLoader(Docs.getErrorPage());
-
-        loader.setDocumentArea(this);
-        loader.loadPage();
+        return loader;
     }
 
     public void renderHTML(ContentSpan element) {

@@ -253,7 +253,7 @@ public class HtmlLoader {
                 if("href".equals(currentIdentifier)) {
                     aTag.setHref(lexer.getTokenValue());
                 }else{
-                    throw new Error(currentIdentifier + " is not supported inside a-tag");
+ //                   throw new Error(currentIdentifier + " is not supported inside a-tag");
                 }
             }else if(type == HtmlLexer.TokenType.CLOSE_TAG && insideTag){ //insideTag not needed right now (only text between <a>)
                 insideTag = false;
