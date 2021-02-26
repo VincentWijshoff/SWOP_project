@@ -31,11 +31,13 @@ public class HtmlTableCell extends ContentSpan {
 
     @Override
     public int getHeight() {
+        if (data == null) return 0;
         return data.getHeight();
     }
 
     @Override
     public int getWidth() {
+        if (data == null) return 0;
         return data.getWidth();
     }
 

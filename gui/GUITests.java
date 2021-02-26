@@ -24,7 +24,7 @@ class GUITests {
 		final String testName = "RectangleBounds";
 
 
-		GUIRectangle rectangle = (GUIRectangle) gui.createGUIObject(new GUIRectangle(10, 10, 100, 100));
+		GUIRectangle rectangle = (GUIRectangle) gui.getDocArea().addGUIObject(new GUIRectangle(10, 10, 100, 100));
 
 		assertTrue(testName, rectangle.isInGUIObject(50, 50));
 		assertTrue(testName, rectangle.isInGUIObject(10, 10));
