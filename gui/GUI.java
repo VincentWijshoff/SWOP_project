@@ -18,30 +18,34 @@ public class GUI extends CanvasWindow{
     }
 
 
-    public void load(String url, String href) {
+    public void load(String url) {
         //experimenting with local docs
-        if(url.startsWith("localDocuments")){
-            if(href.equals("ErrorDoc.html")){
-
-            }
-
-        }else {
-            try {
-                if (href.equals("")) {
-                    System.out.println("Loading webpage: " + url);
-                    this.addressBar.setAddress(url);
-                    this.docArea.loadAddress(url);
-                } else {
-                    System.out.println("Loading webpage: " + url + " with href: " + href);
-                    this.addressBar.setAddress(url, href);
-                    this.docArea.loadAddress(url, href);
-                }
-            } catch (Exception e) {
-                System.out.println("loading Error Page");
-                this.addressBar.setAddress("localDocuments/ErrorDoc.html");
-                this.docArea.loadErrorDoc();
-            }
+//        if(url.startsWith("localDocuments")){
+//            if(href.equals("ErrorDoc.html")){
+//
+//            }
+//
+//        }else {
+        try {
+//            if (href.equals("")) {
+                System.out.println("Loading webpage: " + url);
+                this.addressBar.setAddress(url);
+                this.docArea.loadAddress(url);
+//            } else {
+//                System.out.println("Loading webpage: " + url + " with href: " + href);
+//                this.addressBar.setAddress(url, href);
+//                this.docArea.loadAddress(url, href);
+//            }
+        } catch (Exception e) {
+            System.out.println("loading Error Page");
+//            this.addressBar.setAddress("localDocuments/ErrorDoc.html");
+            /*
+            als de error doc geladen wordt is het mss niet zo een goed idee dat de user de link ook al kwijt is door
+            deze in de address bar weg te doen
+             */
+            this.docArea.loadErrorDoc();
         }
+//        }
         this.repaint();
     }
 
@@ -96,7 +100,8 @@ public class GUI extends CanvasWindow{
                     if (obj.isInGUIObject(x, y)) {
                         if(obj instanceof GUILink) {
                             System.out.println("You clicked on a GUILink, href = " + ((GUILink) obj).getHref());
-                            this.load(this.addressBar.getAddress(), ((GUILink) obj).getHref());
+                            ((GUILink) obj).load(this.addressBar.getAddress(), this);
+                            // this.load(this.addressBar.getAddress(), ((GUILink) obj).getHref());
                             break;
                         }else if (obj instanceof GUIString) {
                             System.out.println("You clicked on a GUIString");
