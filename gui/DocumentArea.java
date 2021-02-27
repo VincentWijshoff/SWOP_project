@@ -80,8 +80,10 @@ public class DocumentArea {
 
     }
 
+    private final int xOffset = 10;
+
     public void renderHTML(ContentSpan element) {
-        renderHTML(element, relativeYPos, 0);
+        renderHTML(element, relativeYPos, xOffset);
     }
 
     public void renderHTML(ContentSpan element, int startY, int startX) {
