@@ -34,7 +34,7 @@ public class DocumentArea {
     public void loadAddress(String url, String href) throws IOException {
         URL address = generateAddress(url, href);
         this.DocGUIObjects.clear(); //remove GUIObjects from previous page
-        isValisBrowsrPage(address);
+        isValidBrowsrPage(address);
 
         HtmlLoader loader = new HtmlLoader(address);
         loader.setDocumentArea(this);
@@ -51,7 +51,7 @@ public class DocumentArea {
     public void loadAddress(String url) throws IOException {
         URL address = generateAddress(url, "");
         this.DocGUIObjects.clear(); //remove GUIObjects from previous page
-        isValisBrowsrPage(address);
+        isValidBrowsrPage(address);
 
         HtmlLoader loader = new HtmlLoader(address);
         loader.setDocumentArea(this);
@@ -75,7 +75,7 @@ public class DocumentArea {
      * @param   address the URL of the new page (or null if loading URL failed)
      *
      */
-    private void isValisBrowsrPage(URL address) throws IOException {
+    private void isValidBrowsrPage(URL address) throws IOException {
         BrowsrDocumentValidator.assertIsValidBrowsrDocument(address); //check if new page is valid Browsr page
 
     }
