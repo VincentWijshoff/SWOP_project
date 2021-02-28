@@ -76,6 +76,7 @@ public class GUI extends CanvasWindow{
         if (this.addressBar.isInFocus()) {
             this.addressBar.handleMouseEvent(id, clickCount);
         } else {
+            //TODO should this not be in documentArea?
             if (id == MouseEvent.MOUSE_PRESSED) {
                 for (GUIObject obj : this.docArea.DocGUIObjects) { // Loop through all GUIObjects in docArea
                     if (obj.isInGUIObject(x, y)) {
@@ -101,7 +102,7 @@ public class GUI extends CanvasWindow{
         // handle the key event accordingly
         if (this.addressBar.isInFocus()) {
             // handle the key event in the address bar area
-            this.addressBar.handleKeyboardEvent(id, keyCode, keyChar);
+            this.addressBar.handleKeyboardEvent(id, keyCode, keyChar, modifiersEx);
         } else {
             // handle the key event in the document area
         }

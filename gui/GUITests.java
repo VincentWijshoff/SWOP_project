@@ -72,7 +72,7 @@ class GUITests {
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
-		a.handleKeyboardEvent(401, 47, '/');
+		a.handleKeyboardEvent(401, 47, '/', 0);
 		a.setOutFocus();
 
 		assertEquals(testName, a.getAddress(), "/");
@@ -87,7 +87,7 @@ class GUITests {
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
-		a.handleKeyboardEvent(401, 8, ' '); //backspace
+		a.handleKeyboardEvent(401, 8, ' ', 0); //backspace
 		a.setOutFocus();
 
 		assertEquals(testName, a.getAddress(), "");
@@ -104,23 +104,23 @@ class GUITests {
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
-		a.handleKeyboardEvent(401, 39, ' '); //right arrow
-		a.handleKeyboardEvent(401, 39, ' ');
+		a.handleKeyboardEvent(401, 39, ' ', 0); //right arrow
+		a.handleKeyboardEvent(401, 39, ' ', 0);
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
-		a.handleKeyboardEvent(401, 37, ' '); //left arrow
-		a.handleKeyboardEvent(401, 37, ' ');
+		a.handleKeyboardEvent(401, 37, ' ', 0); //left arrow
+		a.handleKeyboardEvent(401, 37, ' ', 0);
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
-		a.handleKeyboardEvent(401, 36, ' '); //home
-		a.handleKeyboardEvent(401, 36, ' ');
+		a.handleKeyboardEvent(401, 36, ' ', 0); //home
+		a.handleKeyboardEvent(401, 36, ' ', 0);
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
-		a.handleKeyboardEvent(401, 35, ' '); //end
-		a.handleKeyboardEvent(401, 35, ' ');
+		a.handleKeyboardEvent(401, 35, ' ', 0); //end
+		a.handleKeyboardEvent(401, 35, ' ', 0);
 
 		a.setOutFocus();
 
@@ -139,15 +139,15 @@ class GUITests {
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
 
-		a.handleKeyboardEvent(401, 47, '/');
-		a.handleKeyboardEvent(401, 47, '/');
-		a.handleKeyboardEvent(401, 47, '/');
-		a.handleKeyboardEvent(401, 47, '/');
-		a.handleKeyboardEvent(401, 47, '/');
+		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(401, 47, '/', 0);
 
 		assertFalse(testName, a.getAddress().equals(initialAddress));
 
-		a.handleKeyboardEvent(401, 27, ' '); //escape
+		a.handleKeyboardEvent(401, 27, ' ', 0); //escape
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
@@ -162,14 +162,14 @@ class GUITests {
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
 
-		a.handleKeyboardEvent(401, 47, '/');
-		a.handleKeyboardEvent(401, 47, '/');
-		a.handleKeyboardEvent(401, 47, '/');
+		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(401, 47, '/', 0);
 
 		assertEquals(testName, a.getAddress(), "///");
 
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 2); //double click
-		a.handleKeyboardEvent(401, 8, ' '); //backspace
+		a.handleKeyboardEvent(401, 8, ' ', 0); //backspace
 
 		assertEquals(testName, a.getAddress(), "");
 

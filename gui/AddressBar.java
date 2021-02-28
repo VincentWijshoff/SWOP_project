@@ -32,6 +32,7 @@ public class AddressBar extends GUIObject {
 
     //in focus element
     private boolean inFocus = false;
+    private boolean shifting = false;
 
     /**
      * constructor for the address bar
@@ -195,7 +196,13 @@ public class AddressBar extends GUIObject {
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
      */
-    public void handleKeyboardEvent(int id, int keyCode, char keyChar) {
+    public void handleKeyboardEvent(int id, int keyCode, char keyChar, int modifier) {
+        debug("" + modifier);
+        if(modifier == 64){
+            this.shifting = true;
+        }else if(modifier == 0){
+            this.shifting = false;
+        }
         if (id == 401) {
             // now every key event will only happen once
             if (isChar(keyCode)) {
@@ -229,24 +236,28 @@ public class AddressBar extends GUIObject {
                     }
                 } else if (keyCode == 37) {
                     //left arrow
-                    if (this.startSelected != this.endSelected) {
-                        this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-                        this.startSelected = 0;
-                        this.endSelected = 0;
-                    } else {
-                        if (this.cursorPosition > 0) {
-                            this.cursorPosition--;
+                    if(!this.shifting) {
+                        if (this.startSelected != this.endSelected) {
+                            this.cursorPosition = Math.min(this.startSelected, this.endSelected);
+                            this.startSelected = 0;
+                            this.endSelected = 0;
+                        } else {
+                            if (this.cursorPosition > 0) {
+                                this.cursorPosition--;
+                            }
                         }
                     }
                 } else if (keyCode == 39) {
                     //right arrow
-                    if (this.startSelected != this.endSelected) {
-                        this.cursorPosition = Math.max(this.startSelected, this.endSelected);
-                        this.startSelected = 0;
-                        this.endSelected = 0;
-                    } else {
-                        if (this.cursorPosition < this.address.length()) {
-                            this.cursorPosition++;
+                    if(!this.shifting) {
+                        if (this.startSelected != this.endSelected) {
+                            this.cursorPosition = Math.max(this.startSelected, this.endSelected);
+                            this.startSelected = 0;
+                            this.endSelected = 0;
+                        } else {
+                            if (this.cursorPosition < this.address.length()) {
+                                this.cursorPosition++;
+                            }
                         }
                     }
                 } else if (keyCode == 8) {
@@ -276,16 +287,20 @@ public class AddressBar extends GUIObject {
                 } else if (keyCode == 36) {
                     //home
                     this.cursorPosition = 0;
-                    if (this.startSelected != this.endSelected) {
-                        this.startSelected = 0;
-                        this.endSelected = 0;
+                    if(!this.shifting) {
+                        if (this.startSelected != this.endSelected) {
+                            this.startSelected = 0;
+                            this.endSelected = 0;
+                        }
                     }
                 } else if (keyCode == 35) {
                     //end
                     this.cursorPosition = this.address.length();
-                    if (this.startSelected != this.endSelected) {
-                        this.startSelected = 0;
-                        this.endSelected = 0;
+                    if(!this.shifting) {
+                        if (this.startSelected != this.endSelected) {
+                            this.startSelected = 0;
+                            this.endSelected = 0;
+                        }
                     }
                 } else if (keyCode == 27) {
                     //escape
