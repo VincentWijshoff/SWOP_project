@@ -75,7 +75,7 @@ public class AddressBar extends GUIObject {
         g.clearRect(this.abX+1, this.abY+1, gwidth-(3*this.abX)-1, this.h-1); // actual address bar (white part)
 
         String viewedAddress = this.address;
-        if(this.isInFocus()){
+        if(this.isInFocus() && this.startSelected == this.endSelected){
             // when the address bar is in focus, a text cursor needs to be shown at the correct position off the current string
             viewedAddress = this.addChar(viewedAddress, '|', this.cursorPosition);
         }
@@ -87,7 +87,7 @@ public class AddressBar extends GUIObject {
             int xcoords[] = getSelectedPositions(this.startSelected, this.endSelected, this.address, g);
             g.fillRect(abX+5 + xcoords[0],
                     abY + 3 + ((int) (this.h/1.5)) - tmp,
-                    xcoords[1],
+                    xcoords[1] - xcoords[0],
                     tmp); // text background
             g.setColor(Color.BLACK);
         }
@@ -210,13 +210,15 @@ public class AddressBar extends GUIObject {
                 if (this.startSelected != this.endSelected) {
                     // now every bit off the current text must be replaced with the newly pressed character
                     this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "" + keyChar);
-                    this.cursorPosition = this.address.length();
-                    this.startSelected = 0;
-                    this.endSelected = 0;
+                    this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
+                    this.startSelected = this.cursorPosition;
+                    this.endSelected = this.cursorPosition;
                 } else {
                     // now only input new chars on the position off the text cursor
                     this.address = addChar(this.address, keyChar, this.cursorPosition);
                     this.cursorPosition += 1;
+                    this.startSelected = this.cursorPosition;
+                    this.endSelected = this.cursorPosition;
                 }
             } else {
                 // here the pressed button was not a char so the special button must be handled
@@ -226,25 +228,34 @@ public class AddressBar extends GUIObject {
                         // now every bit off the current selected text must be replaced with the newly pressed character
                         this.address = this.replaceSelected(this.startSelected, this.endSelected, this.address, " ");
                         // this.address = " ";
-                        this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-                        this.startSelected = 0;
-                        this.endSelected = 0;
+                        this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
+                        this.startSelected = this.cursorPosition;
+                        this.endSelected = this.cursorPosition;
                     } else {
                         // now only input new chars on the position off the text cursor
                         this.address = addChar(this.address, ' ', this.cursorPosition);
                         this.cursorPosition += 1;
+                        this.startSelected = this.cursorPosition;
+                        this.endSelected = this.cursorPosition;
                     }
                 } else if (keyCode == 37) {
                     //left arrow
                     if(!this.shifting) {
                         if (this.startSelected != this.endSelected) {
                             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-                            this.startSelected = 0;
-                            this.endSelected = 0;
+                            this.startSelected = this.cursorPosition;
+                            this.endSelected = this.cursorPosition;
                         } else {
                             if (this.cursorPosition > 0) {
                                 this.cursorPosition--;
+                                this.startSelected = this.cursorPosition;
+                                this.endSelected = this.cursorPosition;
                             }
+                        }
+                    } else{
+                        //left arrow while pressing shift
+                        if(this.endSelected > 0){
+                            this.endSelected--;
                         }
                     }
                 } else if (keyCode == 39) {
@@ -252,12 +263,18 @@ public class AddressBar extends GUIObject {
                     if(!this.shifting) {
                         if (this.startSelected != this.endSelected) {
                             this.cursorPosition = Math.max(this.startSelected, this.endSelected);
-                            this.startSelected = 0;
-                            this.endSelected = 0;
+                            this.startSelected = this.cursorPosition;
+                            this.endSelected = this.cursorPosition;
                         } else {
                             if (this.cursorPosition < this.address.length()) {
                                 this.cursorPosition++;
+                                this.startSelected = this.cursorPosition;
+                                this.endSelected = this.cursorPosition;
                             }
+                        }
+                    } else{
+                        if(this.endSelected < this.address.length()){
+                            this.endSelected++;
                         }
                     }
                 } else if (keyCode == 8) {
@@ -265,11 +282,13 @@ public class AddressBar extends GUIObject {
                     if (this.startSelected != this.endSelected) {
                         this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "");
                         this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-                        this.startSelected = 0;
-                        this.endSelected = 0;
+                        this.startSelected = this.cursorPosition;
+                        this.endSelected = this.cursorPosition;
                     } else {
                         if (this.cursorPosition > 0) {
                             this.address = this.removeAt(this.address, --this.cursorPosition);
+                            this.startSelected = this.cursorPosition;
+                            this.endSelected = this.cursorPosition;
                         }
                     }
                 } else if (keyCode == 127) {
@@ -277,30 +296,32 @@ public class AddressBar extends GUIObject {
                     if (this.startSelected != this.endSelected) {
                         this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "");
                         this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-                        this.startSelected = 0;
-                        this.endSelected = 0;
+                        this.startSelected = this.cursorPosition;
+                        this.endSelected = this.cursorPosition;
                     } else {
                         if (this.cursorPosition < this.address.length()) {
                             this.address = this.removeAt(this.address, this.cursorPosition);
+                            this.startSelected = this.cursorPosition;
+                            this.endSelected = this.cursorPosition;
                         }
                     }
                 } else if (keyCode == 36) {
                     //home
                     this.cursorPosition = 0;
                     if(!this.shifting) {
-                        if (this.startSelected != this.endSelected) {
-                            this.startSelected = 0;
-                            this.endSelected = 0;
-                        }
+                        this.startSelected = this.cursorPosition;
+                        this.endSelected = this.cursorPosition;
+                    } else{
+                        this.endSelected = 0;
                     }
                 } else if (keyCode == 35) {
                     //end
                     this.cursorPosition = this.address.length();
                     if(!this.shifting) {
-                        if (this.startSelected != this.endSelected) {
-                            this.startSelected = 0;
-                            this.endSelected = 0;
-                        }
+                        this.startSelected = this.cursorPosition;
+                        this.endSelected = this.cursorPosition;
+                    } else {
+                        this.endSelected = this.cursorPosition;
                     }
                 } else if (keyCode == 27) {
                     //escape
@@ -308,8 +329,8 @@ public class AddressBar extends GUIObject {
                     this.cursorPosition = this.address.length();
                     this.inFocus = false;
                     this.initialClick = true;
-                    this.startSelected = 0;
-                    this.endSelected = 0;
+                    this.startSelected = this.cursorPosition;
+                    this.endSelected = this.cursorPosition;
                 } else if (keyCode == 10) {
                     //enter
                     this.setOutFocus();
@@ -413,6 +434,8 @@ public class AddressBar extends GUIObject {
     public void setInFocus(){
         this.prevAddress = address;
         this.cursorPosition = this.address.length();
+        this.startSelected = this.cursorPosition;
+        this.endSelected = this.cursorPosition;
         this.inFocus = true;
     }
 
