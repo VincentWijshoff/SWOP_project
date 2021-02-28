@@ -197,7 +197,6 @@ public class AddressBar extends GUIObject {
      * @param keyChar   The char that was pressed
      */
     public void handleKeyboardEvent(int id, int keyCode, char keyChar, int modifier) {
-        debug("" + modifier);
         if(modifier == 64){
             this.shifting = true;
         }else if(modifier == 0){
@@ -416,7 +415,7 @@ public class AddressBar extends GUIObject {
      * prints a string with a prefix to easily recognise it in the log
      * @param a the string that will be printed
      */
-    private void debug(String a){
+    private void debug(int a){
         System.out.println("AddressBar: " + a);
     }
 
@@ -434,8 +433,6 @@ public class AddressBar extends GUIObject {
     public void setInFocus(){
         this.prevAddress = address;
         this.cursorPosition = this.address.length();
-        this.startSelected = this.cursorPosition;
-        this.endSelected = this.cursorPosition;
         this.inFocus = true;
     }
 
