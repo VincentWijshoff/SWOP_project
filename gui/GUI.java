@@ -63,7 +63,7 @@ public class GUI extends CanvasWindow{
     }
 
     @Override
-    protected void handleMouseEvent(int id, int x, int y, int clickCount) {
+    protected void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
         // Clicked inside the AddressBar
         if (this.addressBar.isOnAddressBar(x, y)) {
             this.addressBar.setInFocus();
@@ -97,7 +97,7 @@ public class GUI extends CanvasWindow{
     }
 
     @Override
-    protected void handleKeyEvent(int id, int keyCode, char keyChar) {
+    protected void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
         // handle the key event accordingly
         if (this.addressBar.isInFocus()) {
             // handle the key event in the address bar area

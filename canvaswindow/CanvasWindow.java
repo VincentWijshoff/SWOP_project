@@ -55,12 +55,16 @@ class MouseEventItem extends RecordingItem {
 	int x;
 	int y;
 	int clickCount;
+	int button;
+	int modifiersEx;
 	
-	MouseEventItem(int id, int x, int y, int clickCount) {
+	MouseEventItem(int id, int x, int y, int clickCount, int button, int modifiersEx) {
 		this.id = id;
 		this.x = x;
 		this.y = y;
 		this.clickCount = clickCount;
+		this.button = button;
+		this.modifiersEx = modifiersEx;
 	}
 
 	@Override
@@ -73,23 +77,25 @@ class MouseEventItem extends RecordingItem {
 		case MouseEvent.MOUSE_DRAGGED: id = "MOUSE_DRAGGED"; break;
 		default: id = "unknown"; break;
 		}
-		writer.println("MouseEvent " + id + " " + x + " " + y + " " + clickCount);
+		writer.println("MouseEvent " + id + " " + x + " " + y + " " + clickCount + " " + button + " " + modifiersEx);
 	}
 
 	@Override
 	void replay(int itemIndex, CanvasWindow window) {
-		window.handleMouseEvent(id, x, y, clickCount);
+		window.handleMouseEvent(id, x, y, clickCount, button, modifiersEx);
 	}
 }
 class KeyEventItem extends RecordingItem {
 	int id;
 	int keyCode;
 	char keyChar;
+	int modifiersEx;
 	
-	KeyEventItem(int id, int keyCode, char keyChar) {
+	KeyEventItem(int id, int keyCode, char keyChar, int modifiersEx) {
 		this.id = id;
 		this.keyCode = keyCode;
 		this.keyChar = keyChar;
+		this.modifiersEx = modifiersEx;
 	}
 
 	@Override
@@ -98,14 +104,15 @@ class KeyEventItem extends RecordingItem {
 		switch (this.id) {
 		case KeyEvent.KEY_PRESSED: id = "KEY_PRESSED"; break;
 		case KeyEvent.KEY_TYPED: id = "KEY_TYPED"; break;
+		case KeyEvent.KEY_RELEASED: id = "KEY_RELEASED"; break;
 		default: id = "unknown"; break;
 		}
-		writer.println("KeyEvent " + id + " " + keyCode + " " + (int)keyChar);
+		writer.println("KeyEvent " + id + " " + keyCode + " " + (int)keyChar + " " + modifiersEx);
 	}
 
 	@Override
 	void replay(int itemIndex, CanvasWindow window) {
-		window.handleKeyEvent(id, keyCode, keyChar);
+		window.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
 	}
 }
 class PaintItem extends RecordingItem {
@@ -189,7 +196,9 @@ class CanvasWindowRecording {
 				int x = Integer.parseInt(words[2]);
 				int y = Integer.parseInt(words[3]);
 				int clickCount = Integer.parseInt(words[4]);
-				items.add(new MouseEventItem(id, x, y, clickCount));
+				int button = Integer.parseInt(words[5]);
+				int modifiersEx = Integer.parseInt(words[6]);
+				items.add(new MouseEventItem(id, x, y, clickCount, button, modifiersEx));
 				break;
 			}
 			case "KeyEvent": {
@@ -197,11 +206,13 @@ class CanvasWindowRecording {
 				switch (words[1]) {
 				case "KEY_PRESSED": id = KeyEvent.KEY_PRESSED; break;
 				case "KEY_TYPED": id = KeyEvent.KEY_TYPED; break;
+				case "KEY_RELEASED": id = KeyEvent.KEY_RELEASED; break;
 				default: throw new AssertionError();
 				}
 				int keyCode = Integer.parseInt(words[2]);
 				char keyChar = (char)Integer.parseInt(words[3]);
-				items.add(new KeyEventItem(id, keyCode, keyChar));
+				int modifiersEx = Integer.parseInt(words[4]);
+				items.add(new KeyEventItem(id, keyCode, keyChar, modifiersEx));
 				break;
 			}
 			case "Paint": {
@@ -279,23 +290,35 @@ public class CanvasWindow {
 	private void handleMouseEvent_(MouseEvent e) {
 		System.out.println(e);
 		if (recording != null)
-			recording.items.add(new MouseEventItem(e.getID(), e.getX(), e.getY(), e.getClickCount()));
-		handleMouseEvent(e.getID(), e.getX(), e.getY(), e.getClickCount());
+			recording.items.add(new MouseEventItem(e.getID(), e.getX(), e.getY(), e.getClickCount(), e.getButton(), e.getModifiersEx()));
+		handleMouseEvent(e.getID(), e.getX(), e.getY(), e.getClickCount(), e.getButton(), e.getModifiersEx());
+	}
+	
+	public static String modifiersExToString(int modifiersEx) {
+		String result = "";
+		if ((modifiersEx & MouseEvent.SHIFT_DOWN_MASK) != 0)
+			result += " (Shift key was down)";
+		if ((modifiersEx & MouseEvent.CTRL_DOWN_MASK) != 0)
+			result += " (Ctrl key was down)";
+		if ((modifiersEx & MouseEvent.ALT_DOWN_MASK) != 0)
+			result += " (Alt key was down)";
+		return result;
 	}
 	
 	/**
 	 * Called when the user presses (id == MouseEvent.MOUSE_PRESSED), releases (id == MouseEvent.MOUSE_RELEASED), or drags (id == MouseEvent.MOUSE_DRAGGED) the mouse.
-	 * 
+	 *  
 	 * @param e Details about the event
 	 */
-	protected void handleMouseEvent(int id, int x, int y, int clickCount) {
+	protected void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
+		System.out.println("Mouse event " + id + " (x=" + x + ", y = " + y + ", clickCount=" + clickCount + ", button=" + button + ")" + modifiersExToString(modifiersEx));
 	}
 	
 	private void handleKeyEvent_(KeyEvent e) {
 		System.out.println(e);
 		if (recording != null)
-			recording.items.add(new KeyEventItem(e.getID(), e.getKeyCode(), e.getKeyChar()));
-		handleKeyEvent(e.getID(), e.getKeyCode(), e.getKeyChar());
+			recording.items.add(new KeyEventItem(e.getID(), e.getKeyCode(), e.getKeyChar(), e.getModifiersEx()));
+		handleKeyEvent(e.getID(), e.getKeyCode(), e.getKeyChar(), e.getModifiersEx());
 	}
 	
 	/**
@@ -303,7 +326,8 @@ public class CanvasWindow {
 	 * 
 	 * @param e
 	 */
-	protected void handleKeyEvent(int id, int keyCode, char keyChar) {
+	protected void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
+		System.out.println("Key event " + id + " (keyCode=" + keyCode + ", keyChar='" + keyChar + "'=" + (int)keyChar + ")" + modifiersExToString(modifiersEx));
 	}
 
 	BufferedImage captureImage() {
@@ -360,6 +384,11 @@ public class CanvasWindow {
 	
 				@Override
 				public void keyPressed(KeyEvent e) {
+					handleKeyEvent_(e);
+				}
+				
+				@Override
+				public void keyReleased(KeyEvent e) {
 					handleKeyEvent_(e);
 				}
 				
