@@ -1,7 +1,6 @@
 package gui;
 
 import browsrhtml.BrowsrDocumentValidator;
-import html.Elements.*;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
@@ -23,7 +22,6 @@ public class DocumentArea {
      */
     public DocumentArea(int relativeYpos) {
         super();
-
         this.relativeYPos = relativeYpos;
     }
 
