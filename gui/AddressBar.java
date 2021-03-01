@@ -12,7 +12,6 @@ public class AddressBar extends GUIObject {
     //graphic element
     final int yLimit = 50;
 
-    // private boolean selectedText = false;
     private int startSelected = 0;
     private int endSelected = 0;
     private boolean initialClick = true;
@@ -21,7 +20,6 @@ public class AddressBar extends GUIObject {
     private int cursorPosition = address.length();
 
     //GUI elements
-    // private final Window gui;
     private final int abX = 5;
     private final int abY = this.yLimit / 6;
     private final int h = this.yLimit * 2 / 3;
@@ -54,7 +52,6 @@ public class AddressBar extends GUIObject {
     public void draw(Graphics g, Window gui) {
         int gwidth = gui.getWidth();
         this.w = gwidth;
-        // updateGUIDimensions(gwidth, height);
         Color oldColor = g.getColor();
 
         // first draw the grey enclosing area
@@ -96,7 +93,6 @@ public class AddressBar extends GUIObject {
      */
     public void setAddress(String aBarText) {
         this.address = aBarText;
-        // this.repaint();
     }
 
     /**
@@ -423,7 +419,6 @@ public class AddressBar extends GUIObject {
      */
     private boolean search(){
         this.prevAddress = address;
-        // this.gui.load(address);
         return true;
     }
 }

@@ -3,7 +3,6 @@ package gui;
 import canvaswindow.CanvasWindow;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 public class Window extends CanvasWindow{
 
