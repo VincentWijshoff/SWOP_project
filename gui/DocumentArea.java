@@ -27,9 +27,19 @@ public class DocumentArea {
         this.relativeYPos = relativeYpos;
     }
 
+    public int getRelativeYPos() {
+        return this.relativeYPos;
+    }
+
     public GUIObject addGUIObject(GUIObject obj) {
         this.DocGUIObjects.add(obj);
         return obj;
+    }
+
+    public void addGUIObjects(ArrayList<GUIObject> objects) {
+        for (GUIObject obj: objects) {
+            addGUIObject(obj);
+        }
     }
 
     public void loadAddress(String url, String href) throws IOException {
@@ -79,46 +89,6 @@ public class DocumentArea {
     private void isValidBrowsrPage(URL address) throws IOException {
         BrowsrDocumentValidator.assertIsValidBrowsrDocument(address); //check if new page is valid Browsr page
 
-    }
-
-    private final int xOffset = 10;
-
-    public void renderHTML(ContentSpan element) {
-        renderHTML(element, relativeYPos, xOffset);
-    }
-
-    public void renderHTML(ContentSpan element, int startY, int startX) {
-        if (element instanceof HtmlTable) {
-            HtmlTable table = ((HtmlTable) element);
-            ArrayList<HtmlTableRow> tableRows = table.getTableRows();
-            int currentY = startY;
-            for (ContentSpan row: tableRows) {
-                renderHTML(row, currentY, startX);
-                currentY += row.getHeight();
-            }
-        }
-        else if (element instanceof TextSpan) {
-            TextSpan text = (TextSpan) element;
-            addGUIObject(new GUIString(text.getText(), startX, startY + text.getHeight()));
-        }
-        else if (element instanceof Hyperlink) {
-            Hyperlink link = (Hyperlink) element;
-            addGUIObject(new GUILink(link.getText(), startX, startY + link.getHeight(), ((Hyperlink) element).getHref()));
-        }
-        else if (element instanceof HtmlTableRow) {
-            HtmlTableRow tableRow = ((HtmlTableRow) element);
-            ArrayList<HtmlTableCell> tableCells = tableRow.getTableData();
-            int currentX = startX;
-            for(HtmlTableCell cell : tableCells){
-                renderHTML(cell, startY, currentX);
-                currentX += cell.getColumnWidth();
-            }
-        }
-        else if (element instanceof HtmlTableCell){
-            HtmlTableCell tableCell = (HtmlTableCell) element;
-            renderHTML(tableCell.getData(), startY, startX);
-            System.out.println("painting cell: " + startX + ", " + startY);
-        }
     }
 
     public void loadErrorDoc() {
