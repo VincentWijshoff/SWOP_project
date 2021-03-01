@@ -52,14 +52,15 @@ public class GUI extends CanvasWindow{
     }
 
     public void draw(GUIObject object) {
-        // drawnObjects.add(object); //TODO handle adding new objects to the canvas area
         repaint();
     }
 
-    //TODO: maak unieke ID om objecten bij te houden?
     public void delete(int index) {
-        //  drawnObjects.remove(index); // TODO handle removing elements from the canvas area
         repaint();
+    }
+
+    public String getAddress(){
+        return this.addressBar.getAddress();
     }
 
     @Override
@@ -76,24 +77,7 @@ public class GUI extends CanvasWindow{
         if (this.addressBar.isInFocus()) {
             this.addressBar.handleMouseEvent(id, clickCount);
         } else {
-            //TODO should this not be in documentArea?
-            if (id == MouseEvent.MOUSE_PRESSED) {
-                for (GUIObject obj : this.docArea.DocGUIObjects) { // Loop through all GUIObjects in docArea
-                    if (obj.isInGUIObject(x, y)) {
-                        if(obj instanceof GUILink) {
-                            System.out.println("You clicked on a GUILink, href = " + ((GUILink) obj).getHref());
-                            ((GUILink) obj).load(this.addressBar.getAddress(), this);
-                            break;
-                        }else if (obj instanceof GUIString) {
-                            System.out.println("You clicked on a GUIString");
-                        } else if (obj instanceof GUIRectangle) {
-                            System.out.println("You clicked on a GUIRectangle");
-                        } else {
-                            System.out.println("You clicked on a GUIObject");
-                        }
-                    }
-                }
-            }
+            this.docArea.handleMouseEvent(id, x, y, this);
         }
     }
 

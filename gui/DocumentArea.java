@@ -5,6 +5,7 @@ import html.Elements.*;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -125,6 +126,26 @@ public class DocumentArea {
         HtmlLoader loader = new HtmlLoader(Docs.getErrorPage());
         loader.setDocumentArea(this);
         loader.loadPage();
+    }
+
+    public void handleMouseEvent(int id, int x, int y, GUI gui){
+        if (id == MouseEvent.MOUSE_PRESSED) {
+            for (GUIObject obj : this.DocGUIObjects) { // Loop through all GUIObjects in docArea
+                if (obj.isInGUIObject(x, y)) {
+                    if(obj instanceof GUILink) {
+                        System.out.println("You clicked on a GUILink, href = " + ((GUILink) obj).getHref());
+                        ((GUILink) obj).load(gui.getAddress(), gui);
+                        break;
+                    }else if (obj instanceof GUIString) {
+                        System.out.println("You clicked on a GUIString");
+                    } else if (obj instanceof GUIRectangle) {
+                        System.out.println("You clicked on a GUIRectangle");
+                    } else {
+                        System.out.println("You clicked on a GUIObject");
+                    }
+                }
+            }
+        }
     }
 }
 
