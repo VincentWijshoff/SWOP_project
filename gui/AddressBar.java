@@ -3,9 +3,6 @@ package gui;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Arrays;
 
 /**
  * The class for the address bar, this contains all necessary code for a functioning address bar
@@ -19,15 +16,15 @@ public class AddressBar extends GUIObject {
     private int startSelected = 0;
     private int endSelected = 0;
     private boolean initialClick = true;
-    private String address = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";//"www.startscherm.nl/team12";
+    private String address = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
     private String prevAddress = "";
     private int cursorPosition = address.length();
 
     //GUI elements
-    private GUI gui;
-    private int abX = 5;
-    private int abY = this.yLimit / 6;
-    private int h = this.yLimit * 2 / 3;
+    private final GUI gui;
+    private final int abX = 5;
+    private final int abY = this.yLimit / 6;
+    private final int h = this.yLimit * 2 / 3;
     private int w = 0;
 
     //in focus element
@@ -84,10 +81,10 @@ public class AddressBar extends GUIObject {
             //the text is selected so a blue background needs to be drawn
             g.setColor(Color.CYAN);
             int tmp = (int) g.getFontMetrics().getStringBounds(this.address, g).getHeight();
-            int xcoords[] = getSelectedPositions(this.startSelected, this.endSelected, this.address, g);
-            g.fillRect(abX+5 + xcoords[0],
+            int[] xCords = getSelectedPositions(this.startSelected, this.endSelected, this.address, g);
+            g.fillRect(abX+5 + xCords[0],
                     abY + 3 + ((int) (this.h/1.5)) - tmp,
-                    xcoords[1] - xcoords[0],
+                    xCords[1] - xCords[0],
                     tmp); // text background
             g.setColor(Color.BLACK);
         }
@@ -157,7 +154,7 @@ public class AddressBar extends GUIObject {
      * When this is called, a mouse event has happened on the address bar when the address bar is in focus
      * @param id            The id off the mouse event
      * @param clickCount    The click count off the user
-     * @post    When initially clicking the address bar, an insertion point will be shown ("text cursor")
+     *  post    When initially clicking the address bar, an insertion point will be shown ("text cursor")
      *          When initially clicking the address bar, all text is selected ( Blue background )
      */
     public void handleMouseEvent(int id, int clickCount){
@@ -210,15 +207,13 @@ public class AddressBar extends GUIObject {
                     // now every bit off the current text must be replaced with the newly pressed character
                     this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "" + keyChar);
                     this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
-                    this.startSelected = this.cursorPosition;
-                    this.endSelected = this.cursorPosition;
                 } else {
                     // now only input new chars on the position off the text cursor
                     this.address = addChar(this.address, keyChar, this.cursorPosition);
                     this.cursorPosition += 1;
-                    this.startSelected = this.cursorPosition;
-                    this.endSelected = this.cursorPosition;
                 }
+                this.startSelected = this.cursorPosition;
+                this.endSelected = this.cursorPosition;
             } else {
                 // here the pressed button was not a char so the special button must be handled
                 if (keyCode == 32) {
@@ -228,15 +223,13 @@ public class AddressBar extends GUIObject {
                         this.address = this.replaceSelected(this.startSelected, this.endSelected, this.address, " ");
                         // this.address = " ";
                         this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
-                        this.startSelected = this.cursorPosition;
-                        this.endSelected = this.cursorPosition;
                     } else {
                         // now only input new chars on the position off the text cursor
                         this.address = addChar(this.address, ' ', this.cursorPosition);
                         this.cursorPosition += 1;
-                        this.startSelected = this.cursorPosition;
-                        this.endSelected = this.cursorPosition;
                     }
+                    this.startSelected = this.cursorPosition;
+                    this.endSelected = this.cursorPosition;
                 } else if (keyCode == 37) {
                     //left arrow
                     if(!this.shifting) {
@@ -318,10 +311,8 @@ public class AddressBar extends GUIObject {
                     this.cursorPosition = this.address.length();
                     if(!this.shifting) {
                         this.startSelected = this.cursorPosition;
-                        this.endSelected = this.cursorPosition;
-                    } else {
-                        this.endSelected = this.cursorPosition;
                     }
+                    this.endSelected = this.cursorPosition;
                 } else if (keyCode == 27) {
                     //escape
                     this.address = prevAddress;
@@ -351,14 +342,14 @@ public class AddressBar extends GUIObject {
         if(start > fin){
             return this.replaceSelected(fin, start, word, replacement);
         }
-        String beginword = word.substring(0, start);
-        String endword = word.substring(fin, word.length());
-        return beginword + replacement + endword;
+        String beginWord = word.substring(0, start);
+        String endWord = word.substring(fin);
+        return beginWord + replacement + endWord;
     }
 
     /**
      * remove char at a position in a string
-     * @param str       the stirng to check
+     * @param str       the string to check
      * @param position  the position to remove
      * @return          the string without the char at the position
      */
@@ -385,7 +376,7 @@ public class AddressBar extends GUIObject {
     }
 
     /**
-     * chacks if the given code is a normal char from the keyboard
+     * checks if the given code is a normal char from the keyboard
      * @param code  the char code that will be checked
      * @return  true if the code is a normal char code, else false
      */
@@ -402,7 +393,7 @@ public class AddressBar extends GUIObject {
                 code == 93 || // close bracket
                 code == 92 || // the backslash
                 code == 222 || // the flying comma
-                code == 110 || // all numlock special items
+                code == 110 || // all num lock special items
                 code == 107 ||
                 code == 109 ||
                 code == 106 ||
@@ -412,15 +403,7 @@ public class AddressBar extends GUIObject {
     }
 
     /**
-     * prints a string with a prefix to easily recognise it in the log
-     * @param a the string that will be printed
-     */
-    private void debug(int a){
-        System.out.println("AddressBar: " + a);
-    }
-
-    /**
-     * chacks if the address bar is in focus
+     * checks if the address bar is in focus
      * @return  true if the address bar is in focus, else false
      */
     public boolean isInFocus(){
