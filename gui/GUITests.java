@@ -176,4 +176,70 @@ class GUITests {
 		a.setOutFocus();
 
 	}
+
+	@Test
+	void testAddressBarPartialSelectingArrows() throws  RuntimeException {
+		final String testName = "testAddressBarPartialSelectingArrows";
+
+		AddressBar a = new AddressBar(gui, "testAddressBar");
+
+		a.setInFocus();
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+
+		a.handleKeyboardEvent(401, 39, ' ', 0);//right arrow
+
+		a.handleKeyboardEvent(0, 0, ' ', 64); //start shifting
+		a.handleKeyboardEvent(401, 37, ' ', 64);//left arrow shifting
+		a.handleKeyboardEvent(401, 37, ' ', 64);
+		a.handleKeyboardEvent(401, 37, ' ', 64);
+		a.handleKeyboardEvent(0, 0, ' ', 0); //end shifting
+		a.handleKeyboardEvent(401, 47, '/', 0);
+
+		//only the selected bit should be changed
+		assertFalse(testName, a.getAddress().length() == 0);
+
+		a.handleKeyboardEvent(401, 36, ' ', 0);//go to beginning
+		a.handleKeyboardEvent(0, 0, ' ', 64); //start shifting
+		a.handleKeyboardEvent(401, 39, ' ', 64);//right arrow shifting
+		a.handleKeyboardEvent(401, 39, ' ', 64);
+		a.handleKeyboardEvent(401, 39, ' ', 64);
+		a.handleKeyboardEvent(0, 0, ' ', 0); //end shifting
+
+		//the address should still be partially there
+		assertFalse(testName, a.getAddress().length() == 0);
+	}
+
+	@Test
+	void testAddressBarPartialSelectingHomeEnd() throws  RuntimeException {
+		final String testName = "testAddressBarPartialSelectingHomeEnd";
+
+		AddressBar a = new AddressBar(gui, "testAddressBar");
+
+		a.setInFocus();
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+
+		a.handleKeyboardEvent(401, 39, ' ', 0);//right arrow
+
+		a.handleKeyboardEvent(0, 0, ' ', 64); //start shifting
+		a.handleKeyboardEvent(401, 36, ' ', 64);//home shifting
+		a.handleKeyboardEvent(0, 0, ' ', 0); //end shifting
+		a.handleKeyboardEvent(401, 47, '/', 0);
+
+		//the entire address should have been selected and replaced
+		assertTrue(testName, a.getAddress().length() == 1);
+
+		a.setAddress("testAddressBar");
+
+		a.handleKeyboardEvent(401, 36, ' ', 0);//go to beginning
+		a.handleKeyboardEvent(401, 39, ' ', 0);//go right 3 spaces
+		a.handleKeyboardEvent(401, 39, ' ', 0);
+		a.handleKeyboardEvent(401, 39, ' ', 0);
+		a.handleKeyboardEvent(0, 0, ' ', 64); //start shifting
+		a.handleKeyboardEvent(401, 35, ' ', 64);//to end shifting
+		a.handleKeyboardEvent(0, 0, ' ', 0); //end shifting
+		a.handleKeyboardEvent(401, 8, ' ', 0); //backspace
+
+		//only the 3 skipped bits should be there
+		assertTrue(testName, a.getAddress().length() == 3);
+	}
 }
