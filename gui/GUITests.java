@@ -39,7 +39,7 @@ class GUITests {
 	void testAddressBarSetAndGetAddress() throws  RuntimeException {
 		final String testName = "testAddressBarSetAndGetAddress";
 
-		AddressBar a = new AddressBar(window, "testAddressBar");
+		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setAddress("www.newaddress.com");
 
@@ -51,7 +51,7 @@ class GUITests {
 	void testAddressBarSetAndGetFocus() throws  RuntimeException {
 		final String testName = "testAddressBarSetAndGetFocus";
 
-		AddressBar a = new AddressBar(window, "testAddressBar");
+		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setInFocus();
 
@@ -68,7 +68,7 @@ class GUITests {
 		final String testName = "testAddressBarInitialChar";
 		// when an initial char is given after given focus, the entire addres should be changed to the char
 
-		AddressBar a = new AddressBar(window, "testAddressBar");
+		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
@@ -83,7 +83,7 @@ class GUITests {
 	void testAddressBarInitialRemove() throws  RuntimeException {
 		final String testName = "testAddressBarInitialRemove";
 
-		AddressBar a = new AddressBar(window, "testAddressBar");
+		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
@@ -98,7 +98,7 @@ class GUITests {
 	void testAddressBarArrowUse() throws  RuntimeException {
 		final String testName = "testAddressBarArrowUse";
 
-		AddressBar a = new AddressBar(window, "testAddressBar");
+		AddressBar a = new AddressBar("testAddressBar");
 
 		String initialAddress = a.getAddress();
 
@@ -132,7 +132,7 @@ class GUITests {
 	void testAddressBarDoubleClickRemove() throws  RuntimeException {
 		final String testName = "testAddressBarDoubleClickRemove";
 
-		AddressBar a = new AddressBar(window, "testAddressBar");
+		AddressBar a = new AddressBar("testAddressBar");
 
 		String initialAddress = a.getAddress();
 
@@ -157,7 +157,7 @@ class GUITests {
 	void testAddressBarEscapeOutTyping() throws  RuntimeException {
 		final String testName = "testAddressBarEscapeOutTyping";
 
-		AddressBar a = new AddressBar(window, "testAddressBar");
+		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
@@ -181,7 +181,7 @@ class GUITests {
 	void testAddressBarPartialSelectingArrows() throws  RuntimeException {
 		final String testName = "testAddressBarPartialSelectingArrows";
 
-		AddressBar a = new AddressBar(window, "testAddressBar");
+		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
@@ -213,7 +213,7 @@ class GUITests {
 	void testAddressBarPartialSelectingHomeEnd() throws  RuntimeException {
 		final String testName = "testAddressBarPartialSelectingHomeEnd";
 
-		AddressBar a = new AddressBar(window, "testAddressBar");
+		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);

@@ -21,7 +21,7 @@ public class AddressBar extends GUIObject {
     private int cursorPosition = address.length();
 
     //GUI elements
-    private final Window gui;
+    // private final Window gui;
     private final int abX = 5;
     private final int abY = this.yLimit / 6;
     private final int h = this.yLimit * 2 / 3;
@@ -33,29 +33,25 @@ public class AddressBar extends GUIObject {
 
     /**
      * constructor for the address bar
-     * @param g             The link to the gui which handles the connection between address bar and DocumentArea
      * @param startAddress  The address that should be shown on startup off the address bar
      */
-    public AddressBar(Window g, String startAddress) {
+    public AddressBar(String startAddress) {
         super();
-        this.gui = g;
         this.address = startAddress;
     }
 
     /**
      * constructor for the address bar
-     * @param g the link to the gui which handles the connection between address bar and DocumentArea
      */
-    public AddressBar(Window g) {
+    public AddressBar() {
         super();
-        this.gui = g;
     }
 
     /**
      * an updater to redraw the address bar in its current state, this includes text-cursor and selected text
      * @param g the java drawing help
      */
-    public void draw(Graphics g) {
+    public void draw(Graphics g, Window gui) {
         int gwidth = gui.getWidth();
         this.w = gwidth;
         // updateGUIDimensions(gwidth, height);
@@ -95,19 +91,12 @@ public class AddressBar extends GUIObject {
     }
 
     /**
-     * repaint the entire file
-     */
-    private void repaint(){
-        this.gui.handleShown();
-    }
-
-    /**
      * sets the address in the address bar
      * @param aBarText  the address that will be set
      */
     public void setAddress(String aBarText) {
         this.address = aBarText;
-        this.repaint();
+        // this.repaint();
     }
 
     /**
@@ -183,8 +172,6 @@ public class AddressBar extends GUIObject {
             this.startSelected = 0;
             this.endSelected = 0;
         }
-        // repaint to actually see the changes
-        this.repaint();
     }
 
     /**
@@ -192,8 +179,9 @@ public class AddressBar extends GUIObject {
      * @param id        The id off the pressed button
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
+     * @return          true if the gui should load the webpage
      */
-    public void handleKeyboardEvent(int id, int keyCode, char keyChar, int modifier) {
+    public boolean handleKeyboardEvent(int id, int keyCode, char keyChar, int modifier) {
         if(modifier == 64){
             this.shifting = true;
         }else if(modifier == 0){
@@ -323,11 +311,11 @@ public class AddressBar extends GUIObject {
                     this.endSelected = this.cursorPosition;
                 } else if (keyCode == 10) {
                     //enter
-                    this.setOutFocus();
+                    return this.setOutFocus();
                 }
             }
         }
-        this.repaint();
+        return false;
     }
 
     /**
@@ -422,21 +410,20 @@ public class AddressBar extends GUIObject {
     /**
      * sets the address bar out of focus
      */
-    public void setOutFocus(){
-        this.search();
+    public boolean setOutFocus(){
         this.initialClick = true;
         this.startSelected = 0;
         this.endSelected = 0;
         this.inFocus = false;
-        this.repaint();
-
+        return this.search();
     }
 
     /**
      * when escape is pressed, the precious address should reappear and be reloaded
      */
-    private void search(){
+    private boolean search(){
         this.prevAddress = address;
-        this.gui.load(address);
+        // this.gui.load(address);
+        return true;
     }
 }

@@ -13,7 +13,7 @@ public class Window extends CanvasWindow{
     public Window(String title) {
         super(title);
 
-        this.addressBar = new AddressBar(this);
+        this.addressBar = new AddressBar();
         this.docArea = new DocumentArea(this.addressBar.yLimit);
     }
 
@@ -43,7 +43,7 @@ public class Window extends CanvasWindow{
         }
 
         // Draw AddressBar
-        this.addressBar.draw(g);
+        this.addressBar.draw(g, this);
     }
 
     @Override
@@ -70,7 +70,9 @@ public class Window extends CanvasWindow{
             this.addressBar.setInFocus();
             System.out.println("Clicked on Address Bar!");
         } else if (this.addressBar.isInFocus()){
-            this.addressBar.setOutFocus();
+            if(this.addressBar.setOutFocus()){
+                this.load(this.getAddress());
+            }
             System.out.println("Clicked off Address Bar!");
         }
         // handle the click event accordingly
@@ -79,6 +81,7 @@ public class Window extends CanvasWindow{
         } else {
             this.docArea.handleMouseEvent(id, x, y, this);
         }
+        this.repaint();
     }
 
     @Override
@@ -86,7 +89,10 @@ public class Window extends CanvasWindow{
         // handle the key event accordingly
         if (this.addressBar.isInFocus()) {
             // handle the key event in the address bar area
-            this.addressBar.handleKeyboardEvent(id, keyCode, keyChar, modifiersEx);
+            if(this.addressBar.handleKeyboardEvent(id, keyCode, keyChar, modifiersEx)){
+                this.load(this.getAddress());
+            }
+            this.repaint();
         } else {
             // handle the key event in the document area
         }
