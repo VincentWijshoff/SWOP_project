@@ -1,6 +1,7 @@
 package html;
 
 import browsrhtml.HtmlLexer;
+import gui.Window;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -10,6 +11,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class HtmlTests {
+
+    Window window = new Window("TestBrowser");
 
     void fail(String testName) { throw new RuntimeException(testName + " failed."); }
 
@@ -33,6 +36,7 @@ public class HtmlTests {
                 """;
         URL url = new URL("https://people.cs.kuleuven.be/~bart.jacobs/index.html");
         HtmlLoader loader = new HtmlLoader(url, "browsrtest.html");
+        loader.setDocumentArea(window.getDocArea());
         loader.setHtmlCode(htmlCode);
         loader.loadPage();
     }

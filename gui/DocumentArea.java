@@ -128,7 +128,7 @@ public class DocumentArea {
         loader.loadPage();
     }
 
-    public void handleMouseEvent(int id, int x, int y, GUI gui){
+    public void handleMouseEvent(int id, int x, int y, Window gui){
         if (id == MouseEvent.MOUSE_PRESSED) {
             for (GUIObject obj : this.DocGUIObjects) { // Loop through all GUIObjects in docArea
                 if (obj.isInGUIObject(x, y)) {

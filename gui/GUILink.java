@@ -28,7 +28,7 @@ public class GUILink extends GUIString {
         g.setColor(oldColor);
     }
 
-    public void load(String currURL, GUI gui) {
+    public void load(String currURL, Window gui) {
         String nextURL = getModifiedAddress(currURL, this.href);
         gui.load(nextURL);
     }

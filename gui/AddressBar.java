@@ -21,7 +21,7 @@ public class AddressBar extends GUIObject {
     private int cursorPosition = address.length();
 
     //GUI elements
-    private final GUI gui;
+    private final Window gui;
     private final int abX = 5;
     private final int abY = this.yLimit / 6;
     private final int h = this.yLimit * 2 / 3;
@@ -36,7 +36,7 @@ public class AddressBar extends GUIObject {
      * @param g             The link to the gui which handles the connection between address bar and DocumentArea
      * @param startAddress  The address that should be shown on startup off the address bar
      */
-    public AddressBar(GUI g, String startAddress) {
+    public AddressBar(Window g, String startAddress) {
         super();
         this.gui = g;
         this.address = startAddress;
@@ -46,7 +46,7 @@ public class AddressBar extends GUIObject {
      * constructor for the address bar
      * @param g the link to the gui which handles the connection between address bar and DocumentArea
      */
-    public AddressBar(GUI g) {
+    public AddressBar(Window g) {
         super();
         this.gui = g;
     }

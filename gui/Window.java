@@ -5,12 +5,12 @@ import canvaswindow.CanvasWindow;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class GUI extends CanvasWindow{
+public class Window extends CanvasWindow{
 
     AddressBar addressBar;
     DocumentArea docArea;
 
-    public GUI(String title) {
+    public Window(String title) {
         super(title);
 
         this.addressBar = new AddressBar(this);
