@@ -52,7 +52,7 @@ public class HtmlTableCell extends ContentSpan {
 
     @Override
     public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
-        objects.addAll(getData().render(startX, startY, objects));
+        objects = getData().render(startX, startY, objects);
         return objects;
     }
 }

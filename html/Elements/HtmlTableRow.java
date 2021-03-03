@@ -51,7 +51,7 @@ public class HtmlTableRow extends ContentSpan {
         ArrayList<HtmlTableCell> tableCells = getTableData();
         int currentX = startX;
         for(HtmlTableCell cell : tableCells){
-            objects.addAll(cell.render(currentX, startY, objects));
+            objects = cell.render(currentX, startY, objects);
             currentX += cell.getColumnWidth();
         }
         return objects;
