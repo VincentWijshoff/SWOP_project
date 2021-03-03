@@ -1,5 +1,10 @@
 package html.Elements;
 
+import gui.GUIObject;
+import gui.GUIString;
+
+import java.util.ArrayList;
+
 public class TextSpan extends ContentSpan {
 
     private String text;
@@ -27,5 +32,11 @@ public class TextSpan extends ContentSpan {
     @Override
     public int getWidth() {
         return 16*text.length();
+    }
+
+    @Override
+    public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
+        objects.add(new GUIString(getText(), startX, startY + getHeight()));
+        return objects;
     }
 }

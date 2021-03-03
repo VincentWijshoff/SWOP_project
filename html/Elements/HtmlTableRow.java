@@ -1,5 +1,7 @@
 package html.Elements;
 
+import gui.GUIObject;
+
 import java.util.ArrayList;
 
 public class HtmlTableRow extends ContentSpan {
@@ -42,5 +44,16 @@ public class HtmlTableRow extends ContentSpan {
             if (cell.getHeight() > max) max = cell.getHeight();
         }
         return max;
+    }
+
+    @Override
+    public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
+        ArrayList<HtmlTableCell> tableCells = getTableData();
+        int currentX = startX;
+        for(HtmlTableCell cell : tableCells){
+            objects.addAll(cell.render(currentX, startY, objects));
+            currentX += cell.getColumnWidth();
+        }
+        return objects;
     }
 }

@@ -1,6 +1,11 @@
 package html.Elements;
 
 
+import gui.GUILink;
+import gui.GUIObject;
+
+import java.util.ArrayList;
+
 /**
  * Class representing an <a> tag
  */
@@ -46,4 +51,9 @@ public class Hyperlink extends ContentSpan {
         return text.getWidth();
     }
 
+    @Override
+    public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
+        objects.add(new GUILink(getText(), startX, startY + getHeight(), getHref()));
+        return objects;
+    }
 }

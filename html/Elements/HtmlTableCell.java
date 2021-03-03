@@ -1,6 +1,9 @@
 package html.Elements;
 
+import gui.GUIObject;
 import html.Elements.ContentSpan;
+
+import java.util.ArrayList;
 
 public class HtmlTableCell extends ContentSpan {
 
@@ -47,4 +50,9 @@ public class HtmlTableCell extends ContentSpan {
         return table.getColumnWidth(index);
     }
 
+    @Override
+    public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
+        objects.addAll(getData().render(startX, startY, objects));
+        return objects;
+    }
 }
