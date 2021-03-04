@@ -96,14 +96,14 @@ public class DocumentArea {
         loader.loadPage();
     }
 
-    public void handleMouseEvent(int id, int x, int y, Window gui){
+    public GUILink handleMouseEvent(int id, int x, int y){
+        GUILink objct = null;
         if (id == MouseEvent.MOUSE_PRESSED) {
             for (GUIObject obj : this.DocGUIObjects) { // Loop through all GUIObjects in docArea
                 if (obj.isInGUIObject(x, y)) {
                     if(obj instanceof GUILink) {
                         System.out.println("You clicked on a GUILink, href = " + ((GUILink) obj).getHref());
-                        ((GUILink) obj).load(gui.getAddress(), gui);
-                        break;
+                        objct = (GUILink) obj;
                     }else if (obj instanceof GUIString) {
                         System.out.println("You clicked on a GUIString");
                     } else if (obj instanceof GUIRectangle) {
@@ -114,6 +114,7 @@ public class DocumentArea {
                 }
             }
         }
+        return objct;
     }
 }
 

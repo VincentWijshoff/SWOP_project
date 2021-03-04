@@ -78,7 +78,11 @@ public class Window extends CanvasWindow{
         if (this.addressBar.isInFocus()) {
             this.addressBar.handleMouseEvent(id, clickCount);
         } else {
-            this.docArea.handleMouseEvent(id, x, y, this);
+            GUILink obj = this.docArea.handleMouseEvent(id, x, y);
+            if (obj != null){
+                String address = obj.getFullAddress(this.getAddress());
+                this.load(address);
+            }
         }
         this.repaint();
     }

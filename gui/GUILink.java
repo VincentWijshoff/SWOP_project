@@ -28,6 +28,10 @@ public class GUILink extends GUIString {
         g.setColor(oldColor);
     }
 
+    public String getFullAddress(String currURL) {
+        return getModifiedAddress(currURL, this.href);
+    }
+
     public void load(String currURL, Window gui) {
         String nextURL = getModifiedAddress(currURL, this.href);
         gui.load(nextURL);
