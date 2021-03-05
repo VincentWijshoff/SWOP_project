@@ -15,7 +15,7 @@ public abstract class HtmlRenderer {
         return renderHTML(element, relativeYPos, xOffset);
     }
 
-    public static ArrayList<GUIObject> renderHTML(ContentSpan element, int startY, int startX) {
+    private static ArrayList<GUIObject> renderHTML(ContentSpan element, int startY, int startX) {
         return element.render(startX, startY, new ArrayList<>());
     }
 
