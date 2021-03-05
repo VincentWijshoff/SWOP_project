@@ -28,7 +28,8 @@ public class GUILink extends GUIString {
         g.setColor(oldColor);
     }
 
-    public String getFullAddress(String currURL) {
+    public String getFullAddress() {
+        String currURL = this.documentArea.getWindow().getAddress();
         return getModifiedAddress(currURL, this.href);
     }
 
@@ -79,4 +80,9 @@ public class GUILink extends GUIString {
         return stringBuffer.toString();
     }
 
+    @Override
+    public void handleClick() {
+        System.out.println("You clicked on a GUILink, href = " + this.getFullAddress());
+        this.documentArea.getWindow().load(this.getFullAddress());
+    }
 }

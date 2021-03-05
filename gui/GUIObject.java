@@ -10,6 +10,7 @@ import java.util.UUID;
 public class GUIObject {
 
     private UUID id;
+    protected DocumentArea documentArea;
 
     public GUIObject() {
         this.id = UUID.randomUUID();
@@ -19,8 +20,9 @@ public class GUIObject {
         return this.id.toString();
     }
 
-
-
+    public void setDocumentArea(DocumentArea documentArea) {
+        this.documentArea = documentArea;
+    }
 
     public int width;
     public int height;
@@ -52,4 +54,8 @@ public class GUIObject {
 
 
     public void draw(Graphics g) { }
+
+    public void handleClick() {
+        System.out.println("You clicked on a GUIObject");
+    }
 }

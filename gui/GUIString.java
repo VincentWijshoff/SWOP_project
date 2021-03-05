@@ -33,4 +33,9 @@ public class GUIString extends GUIObject {
                 y <= this.coordY &&
                 y >= this.coordY - this.height);
     }
+
+    @Override
+    public void handleClick() {
+        System.out.println("You clicked on a GUIString");
+    }
 }

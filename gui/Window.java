@@ -13,7 +13,7 @@ public class Window extends CanvasWindow{
         super(title);
 
         this.addressBar = new AddressBar();
-        this.docArea = new DocumentArea(this.addressBar.yLimit);
+        this.docArea = new DocumentArea(this, this.addressBar.yLimit);
     }
 
 
@@ -78,11 +78,7 @@ public class Window extends CanvasWindow{
         if (this.addressBar.isInFocus()) {
             this.addressBar.handleMouseEvent(id, clickCount);
         } else {
-            GUILink obj = this.docArea.handleMouseEvent(id, x, y);
-            if (obj != null){
-                String address = obj.getFullAddress(this.getAddress());
-                this.load(address);
-            }
+            this.docArea.handleMouseEvent(id, x, y);
         }
         this.repaint();
     }

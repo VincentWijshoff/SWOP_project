@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 /**
  * The class for the address bar, this contains all necessary code for a functioning address bar
  */
-public class AddressBar extends GUIObject {
+public class AddressBar {
 
     //graphic element
     final int yLimit = 50;
@@ -34,7 +34,6 @@ public class AddressBar extends GUIObject {
      * @param startAddress  The address that should be shown on startup off the address bar
      */
     public AddressBar(String startAddress) {
-        super();
         this.address = startAddress;
     }
 
@@ -42,7 +41,7 @@ public class AddressBar extends GUIObject {
      * constructor for the address bar
      */
     public AddressBar() {
-        super();
+
     }
 
     /**

@@ -16,15 +16,19 @@ public class DocumentArea {
 
     public Set<GUIObject> DocGUIObjects = new HashSet<>();
     private int relativeYPos;
+    private Window window;
 
     /*
     * Class used to describe the entire Document section of our GUI.
      */
-    public DocumentArea(int relativeYpos) {
-        super();
+    public DocumentArea(Window window, int relativeYpos) {
+        this.window = window;
         this.relativeYPos = relativeYpos;
     }
 
+    public Window getWindow() {
+        return this.window;
+    }
     public int getRelativeYPos() {
         return this.relativeYPos;
     }
@@ -37,6 +41,7 @@ public class DocumentArea {
     public void addGUIObjects(ArrayList<GUIObject> objects) {
         for (GUIObject obj: objects) {
             addGUIObject(obj);
+            obj.setDocumentArea(this);
         }
     }
 
@@ -96,25 +101,16 @@ public class DocumentArea {
         loader.loadPage();
     }
 
-    public GUILink handleMouseEvent(int id, int x, int y){
+    public void handleMouseEvent(int id, int x, int y){
         GUILink objct = null;
         if (id == MouseEvent.MOUSE_PRESSED) {
             for (GUIObject obj : this.DocGUIObjects) { // Loop through all GUIObjects in docArea
                 if (obj.isInGUIObject(x, y)) {
-                    if(obj instanceof GUILink) {
-                        System.out.println("You clicked on a GUILink, href = " + ((GUILink) obj).getHref());
-                        objct = (GUILink) obj;
-                    }else if (obj instanceof GUIString) {
-                        System.out.println("You clicked on a GUIString");
-                    } else if (obj instanceof GUIRectangle) {
-                        System.out.println("You clicked on a GUIRectangle");
-                    } else {
-                        System.out.println("You clicked on a GUIObject");
+                    obj.handleClick();
+                    return;
                     }
                 }
             }
-        }
-        return objct;
     }
 }
 

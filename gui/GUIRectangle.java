@@ -14,4 +14,9 @@ public class GUIRectangle extends GUIObject{
     public void draw(Graphics g) {
         g.drawRect(coordX, coordY, width, height);
     }
+
+    @Override
+    public void handleClick() {
+        System.out.println("You clicked on a GUIRectangle");
+    }
 }
