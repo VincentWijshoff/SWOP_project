@@ -45,6 +45,10 @@ public class DocumentArea {
         }
     }
 
+    public void deleteDocGUIObjects(){
+        this.DocGUIObjects.clear();
+    }
+
     public void loadAddress(String url, String href) throws IOException {
         URL address = generateAddress(url, href);
         this.DocGUIObjects.clear(); //remove GUIObjects from previous page

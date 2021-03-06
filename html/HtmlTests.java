@@ -23,39 +23,47 @@ public class HtmlTests {
         if (b) fail(testName);
     }
 
-    /**
-     * set debug at aTag.createHyperlink in loadPage()
-     *
-     * There is not yet a way to create a real test of this
-     */
     @Test
-    void htmlATag() throws MalformedURLException {
-        String testName = "htmlATag";
+    void html_1_aTag(){
+        String testName = "html_1_aTag";
         String htmlCode = """
                 <a href="a.html">TEXT</a>
                 """;
-        URL url = new URL("https://people.cs.kuleuven.be/~bart.jacobs/index.html");
-        HtmlLoader loader = new HtmlLoader(url, "browsrtest.html");
+        HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
-        loader.setHtmlCode(htmlCode);
         loader.loadPage();
+        assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 1);
     }
 
-    /**
-     * Not a test, just to see what it returns
-     */
     @Test
-    void testing() throws IOException {
-        URL url = new URL(new URL("https://people.cs.kuleuven.be/~bart.jacobs/index.html"), "browsrtest.html");
-        InputStream inputStream = url.openStream();
-        byte[] buf = new byte[1024];
-        StringBuilder sb = new StringBuilder();;
-        while(-1 != inputStream.read(buf)) {
-            sb.append(new String(buf));
-        }
-        System.out.println(sb.toString());
-
+    void html_3_aTag(){
+        String testName = "html_3_aTag";
+        String htmlCode = """
+                <a href="a.html">TEXT</a>
+                <a>TEXT</a>
+                <a href="b.html">Text</a>
+                """;
+        HtmlLoader loader = new HtmlLoader(htmlCode);
+        loader.setDocumentArea(window.getDocArea());
+        loader.loadPage();
+        assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 3);
     }
+
+    @Test
+    void html_1_tableTag(){
+        String testName = "html_1_tableTag";
+        String htmlCode = """
+                <table>
+                    <tr><td>DATA
+                    <tr><td>DATA<td>SECOND COLUMN
+                </table>
+                """;
+        HtmlLoader loader = new HtmlLoader(htmlCode);
+        loader.setDocumentArea(window.getDocArea());
+        loader.loadPage();
+        assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 3);
+    }
+
 
     @Test
     void test() throws IOException {
