@@ -49,6 +49,7 @@ public class HtmlTable extends ContentSpan {
     public int getColumnWidth(int index) {
         int max = 0;
         for (HtmlTableRow row: tableRows) {
+            if (row.getTableData().size() <= index) continue; // if this row doesnt have a cell at this index
             if (row.getTableData().get(index).getWidth() > max)
                 max = row.getTableData().get(index).getWidth();
         }
