@@ -1,6 +1,7 @@
 package html;
 
 import browsrhtml.HtmlLexer;
+import gui.GUIObject;
 import gui.Window;
 import html.Elements.*;
 import org.junit.jupiter.api.Test;
@@ -63,7 +64,28 @@ public class HtmlTests {
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
-        assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 3);
+        assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 3); //3 GUIStrings
+    }
+
+    @Test
+    void html_2_tableTag(){
+        String testName = "html_2_tableTag";
+        String htmlCode = """
+				<table>
+				  <tr><td>HTML elements partially supported by Browsr:
+				  <tr><td>
+				    <table>
+				      <tr><td><a href="a.html">a</a><td>Hyperlink anchors
+				      <tr><td><a href="table.html">table</a><td>Tables
+				      <tr><td><a href="tr.html">tr</a><td>Table rows
+				      <tr><td><a href="td.html">td</a><td>Table cells containing table data
+				    </table>
+				</table>
+				""";
+        HtmlLoader loader = new HtmlLoader(htmlCode);
+        loader.setDocumentArea(window.getDocArea());
+        loader.loadPage();
+        assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 9); //9 GUIString
     }
 
     @Test
@@ -84,30 +106,4 @@ public class HtmlTests {
         assertTrue(testname, table.getColumnWidth(1) == 16*6); // 6 chars * 16 lengte per char
 
     }
-
-    @Test
-    void test() {
-        String input = """
-				<table>
-				  <tr><td>HTML elements partially supported by Browsr:
-				  <tr><td>
-				    <table>
-				      <tr><td><a href="a.html">a</a><td>Hyperlink anchors
-				      <tr><td><a href="table.html">table</a><td>Tables
-				      <tr><td><a href="tr.html">tr</a><td>Table rows
-				      <tr><td><a href="td.html">td</a><td>Table cells containing table data
-				    </table>
-				</table>
-				""";
-        HtmlLexer lexer = new HtmlLexer(new StringReader(input));
-        while(lexer.getTokenType() != HtmlLexer.TokenType.END_OF_FILE){
-            System.out.println(lexer.getTokenType() + "\n" + lexer.getTokenValue() + "\n");
-            lexer.eatToken();
-        }
-
-
-    }
-
-
-
 }
