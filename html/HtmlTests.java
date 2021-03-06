@@ -2,6 +2,7 @@ package html;
 
 import browsrhtml.HtmlLexer;
 import gui.Window;
+import html.Elements.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class HtmlTests {
 
@@ -64,9 +66,27 @@ public class HtmlTests {
         assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 3);
     }
 
+    @Test
+    void getcolumnwidth_1() {
+        String testname = "getcolumnwidth_1";
+
+        HtmlTable table = new HtmlTable();
+        HtmlTableRow row1 = table.addRow();
+        HtmlTableRow row2 = table.addRow();
+        HtmlTableCell cell1a = row1.addData();
+        HtmlTableCell cell2 = row2.addData();
+        HtmlTableCell cell1b = row1.addData();
+        cell1a.setData(new TextSpan("JAJAJAJAJA")); // 10 chars
+        cell2.setData(new TextSpan("JAJA")); // 4 chars
+        cell1b.setData(new TextSpan("JAJAJA")); // 6 chars
+
+        assertTrue(testname, table.getColumnWidth(0) == 16*10); // 10 chars * 16 lengte per char
+        assertTrue(testname, table.getColumnWidth(1) == 16*6); // 6 chars * 16 lengte per char
+
+    }
 
     @Test
-    void test() throws IOException {
+    void test() {
         String input = """
 				<table>
 				  <tr><td>HTML elements partially supported by Browsr:
