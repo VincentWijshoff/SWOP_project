@@ -1,7 +1,7 @@
 package html.Elements;
 
 import gui.GUIObject;
-import gui.GUIString;
+import html.HtmlRenderer;
 
 import java.util.ArrayList;
 
@@ -36,7 +36,7 @@ public class TextSpan extends ContentSpan {
 
     @Override
     public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
-        objects.add(new GUIString(getText(), startX, startY + getHeight()));
+        HtmlRenderer.addGUIString(this.getText(), startX, startY + getHeight(), objects);
         return objects;
     }
 }

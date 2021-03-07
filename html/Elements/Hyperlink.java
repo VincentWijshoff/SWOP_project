@@ -1,8 +1,7 @@
 package html.Elements;
 
-
-import gui.GUILink;
 import gui.GUIObject;
+import html.HtmlRenderer;
 
 import java.util.ArrayList;
 
@@ -53,7 +52,7 @@ public class Hyperlink extends ContentSpan {
 
     @Override
     public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
-        objects.add(new GUILink(getText(), startX, startY + getHeight(), getHref()));
+        HtmlRenderer.addGUILink(this.getText(), this.getHref(), startX, startY + getHeight(), objects );
         return objects;
     }
 }

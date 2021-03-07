@@ -19,4 +19,12 @@ public abstract class HtmlRenderer {
         return element.render(startX, startY, new ArrayList<>());
     }
 
+    public static void addGUIString(String text, int x, int y, ArrayList<GUIObject> objects) {
+        objects.add(new GUIString(text, x, y));
+    }
+
+    public static void addGUILink(String text, String href, int x, int y, ArrayList<GUIObject> objects) {
+        objects.add(new GUILink(text, x, y, href));
+    }
+
 }
