@@ -1,7 +1,6 @@
 package html.Elements;
 
 import gui.GUIObject;
-import html.Elements.ContentSpan;
 
 import java.util.ArrayList;
 

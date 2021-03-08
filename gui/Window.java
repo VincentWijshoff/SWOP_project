@@ -50,14 +50,6 @@ public class Window extends CanvasWindow{
         repaint();
     }
 
-    public void draw(GUIObject object) {
-        repaint();
-    }
-
-    public void delete(int index) {
-        repaint();
-    }
-
     public String getAddress(){
         return this.addressBar.getAddress();
     }

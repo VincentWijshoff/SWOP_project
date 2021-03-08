@@ -45,20 +45,6 @@ public class DocumentArea {
         }
     }
 
-    public void deleteDocGUIObjects(){
-        this.DocGUIObjects.clear();
-    }
-
-    public void loadAddress(String url, String href) throws IOException {
-        URL address = generateAddress(url, href);
-        this.DocGUIObjects.clear(); //remove GUIObjects from previous page
-        isValidBrowsrPage(address);
-
-        HtmlLoader loader = new HtmlLoader(address);
-        loader.setDocumentArea(this);
-        loader.loadPage();
-    }
-
     /**
      * loads a page given the url as string
      *
@@ -106,7 +92,6 @@ public class DocumentArea {
     }
 
     public void handleMouseEvent(int id, int x, int y){
-        GUILink objct = null;
         if (id == MouseEvent.MOUSE_PRESSED) {
             for (GUIObject obj : this.DocGUIObjects) { // Loop through all GUIObjects in docArea
                 if (obj.isInGUIObject(x, y)) {

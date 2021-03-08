@@ -15,5 +15,5 @@ public class ContentSpan {
 
     public ArrayList<GUIObject> render(int x, int y, ArrayList<GUIObject> objects) {
         return objects;
-    };
+    }
 }

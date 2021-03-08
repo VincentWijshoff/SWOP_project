@@ -30,12 +30,7 @@ public class GUILink extends GUIString {
 
     public String getFullAddress() {
         String currURL = this.documentArea.getWindow().getAddress();
-        return getModifiedAddress(currURL, this.href);
-    }
-
-    public void load(String currURL, Window gui) {
-        String nextURL = getModifiedAddress(currURL, this.href);
-        gui.load(nextURL);
+        return getModifiedAddress(currURL, this.getHref());
     }
 
     /**

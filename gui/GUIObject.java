@@ -16,10 +16,6 @@ public class GUIObject {
         this.id = UUID.randomUUID();
     }
 
-    public String getId() {
-        return this.id.toString();
-    }
-
     public void setDocumentArea(DocumentArea documentArea) {
         this.documentArea = documentArea;
     }
