@@ -192,7 +192,6 @@ public class HtmlLoader {
             if(value.equals("a")){ // td is an a object
                 Hyperlink aTag = new Hyperlink();
                 lexer = updateATag(lexer, aTag);
-                aTag.createHyperlink(); //not sure if this is the right place to do this
                 td.setData(aTag);
             }else if(isTable(value)){ //td is a table
                 HtmlTable tableTag = new HtmlTable();
