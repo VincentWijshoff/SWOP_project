@@ -1,5 +1,8 @@
-package gui;
+package Tests;
 
+import gui.AddressBar;
+import gui.GUIRectangle;
+import gui.Window;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.MouseEvent;

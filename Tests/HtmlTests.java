@@ -1,9 +1,10 @@
-package html;
+package Tests;
 
 import browsrhtml.HtmlLexer;
 import gui.GUIObject;
 import gui.Window;
 import html.Elements.*;
+import html.HtmlLoader;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

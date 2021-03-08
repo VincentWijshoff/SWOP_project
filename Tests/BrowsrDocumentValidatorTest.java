@@ -1,4 +1,4 @@
-package browsrhtml;
+package Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import browsrhtml.BrowsrDocumentValidator;
 import org.junit.jupiter.api.Test;
 
 class BrowsrDocumentValidatorTest {
