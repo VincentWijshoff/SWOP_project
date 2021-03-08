@@ -1,115 +1,216 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>4</zoom_level>
+  <zoom_level>2</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>80</x>
-      <y>24</y>
-      <w>736</w>
-      <h>164</h>
+      <x>390</x>
+      <y>0</y>
+      <w>294</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>title=Load page from pressing ENTER in addressbar
 obj=User~a ACTOR EXECUTION
-obj=:CanvasWindow~e ACTIVE
-obj=:Window~b ACTIVE
-obj=:AddressBar~c ACTIVE
+obj=:CanvasWindow~e
+obj=:Window~b
+obj=:AddressBar~c
 
-a-&gt;&gt;&gt;e : ENTER
-e-&gt;&gt;&gt;b : handleKeyEvent(401, 10, , 0);
+a-&gt;&gt;&gt;e : ENTER; on=e
+e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers); on=b;
 
-b-&gt;&gt;&gt;c : handleKeyboardEvent(401, 10, , 0);
-c.&gt;b : True;
-b-&gt;&gt;&gt;b + : this.load(this.getAddress())
+b-&gt;&gt;&gt;c : handleKeyboardEvent(keyID, keyCode, keyChar, modifiers);on=c;
+c.&gt;b : True;off=c;
+b-&gt;&gt;&gt;c : getAddress(); on=c;
+c.&gt;b : address;off=c;
+b-&gt;&gt;&gt;b + : this.load(address)
 tick=
-continuation=b c:goto Load page from given URL </panel_attributes>
+ref=b c :Load page from given URL
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>80</x>
-      <y>200</y>
-      <w>736</w>
-      <h>164</h>
+      <x>388</x>
+      <y>114</y>
+      <w>294</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>title=Load page from clicking outside of addressbar after typing in adressbar
 obj=User~a ACTOR EXECUTION
-obj=:CanvasWindow~e ACTIVE
-obj=:Window~b ACTIVE
-obj=:AddressBar~c ACTIVE
+obj=:CanvasWindow~e 
+obj=:Window~b
+obj=:AddressBar~c 
 
 
-a-&gt;&gt;&gt;e : Mouse Click
-e-&gt;&gt;&gt;b : handleMouseEvent(501, 298, 280, 1, 1, 1024);
-b-&gt;&gt;&gt;c : setOutFocus();
-c.&gt;b : True;
-b-&gt;&gt;&gt;b + : this.load(this.getAddress())
+a-&gt;&gt;&gt;e : Mouse Click;on=e;
+e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);on=b;
+b-&gt;&gt;&gt;c : setOutFocus();on=c;
+c.&gt;b : True;off=c;
+b-&gt;&gt;&gt;c : getAddress(); on=c;
+c.&gt;b : address;off=c;
+b-&gt;&gt;&gt;b + : this.load(address)
 tick=
-continuation=b c:goto Load page from given URL </panel_attributes>
+ref=b c :Load page from given URL</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>80</x>
-      <y>368</y>
-      <w>800</w>
-      <h>196</h>
+      <x>388</x>
+      <y>220</y>
+      <w>276</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>title=Load page from clicking on a url in the document area
 obj=User~a ACTOR EXECUTION
-obj=:CanvasWindow~e ACTIVE
-obj=:Window~b ACTIVE
-obj=:DocumentArea~d ACTIVE
-obj=:GUILink~f ACTIVE
+obj=:CanvasWindow~e 
+obj=:Window~b
+obj=:DocumentArea~d
+obj=:GUIObject {abstract}~c
 
-a-&gt;&gt;&gt;e : Mouse Click
-e-&gt;&gt;&gt;b : handleMouseEvent(501, 21, 96, 1, 1, 1024);
-b-&gt;&gt;&gt;d : handleMouseEvent(501, 21, 96);
-d.&gt;b : GUILink;
-b-&gt;&gt;&gt;f : getFullAddress(this.getAddress());
-f.&gt;b : webAddress;
-b-&gt;&gt;&gt;b + : this.load(webAddress)
-tick=
-
-continuation=b f:goto Load page from given URL </panel_attributes>
+a-&gt;&gt;&gt;e : Mouse Click; on=e;
+e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);on=b;
+b-&gt;&gt;&gt;d : handleMouseEvent(ID, x, y);on=d;
+combinedFragment=loop~loopid d c
+		d:GUIObject obj : this.DocGUIObjects
+		combinedFragment=opt~l2 d c
+		c:isInGUIObject(x, Y);on=c;
+		d-&gt;&gt;&gt;c : handleClick(); 
+		ref=c c :GUIObject handleClick
+		off=c;
+		--=l2
+	--=loopid
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>80</x>
-      <y>572</y>
-      <w>1088</w>
-      <h>276</h>
+      <x>388</x>
+      <y>524</y>
+      <w>568</w>
+      <h>196</h>
     </coordinates>
     <panel_attributes>title= Load page from given URL
-obj=:Window~a ACTIVE
-obj=:AddressBar~b ACTIVE
-obj=:DocumentArea~c ACTIVE
+obj=:Window~a
+obj=:AddressBar~b
+obj=:DocumentArea~c
 obj=BrowsrDocumentValidator~f
 obj=:HtmlLoader~d CREATED_LATER
 obj=:HtmlLexer~e CREATED_LATER
 
-found-&gt;a : load(URL);
+found-&gt;a : load(URL);on=a;
 
-a-&gt;&gt;&gt;b : setAddress(URL);
-b-&gt;b + : this.address = URL
+a-&gt;&gt;&gt;b : setAddress(URL);on=b;
+b-&gt;b + : this.address = URL;
 tick=
-a-&gt;&gt;&gt;c : loadAddress(URL);
+off=b
+a-&gt;&gt;&gt;c : loadAddress(URL);on=c;
 c-&gt;c + : this.DocGUIObjects.clear();
 tick=
-c-&gt;&gt;&gt;f : assertIsValidBrowsrDocument(URL);
+c-&gt;&gt;&gt;f : assertIsValidBrowsrDocument(URL);on=f;
+off=f;
 c-&gt;&gt;&gt;d : new HtmlLoader(URL);
+on=d;
 d-&gt;&gt;&gt;d + : loadHtml(URL);
 tick=
-c-&gt;&gt;&gt;d : loadPage();
+off=d;
+c-&gt;&gt;&gt;d : loadPage();on=d;
 d-&gt;&gt;&gt;e : new HtmlLexer();
+on=e;
+ref=d e : Load and Lex html
+off=e;
+off=d;
+off=c;
 a-&gt;&gt;&gt;a + : this.repaint();
 tick=
-a-&gt;&gt;&gt;b : draw(Graphics);
-a-&gt;&gt;&gt;c : draw(Graphics);</panel_attributes>
+a-&gt;&gt;&gt;b : draw(Graphics);on=b;
+off=b;
+a-&gt;&gt;&gt;c : draw(Graphics);on=c;
+off=c;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>388</x>
+      <y>348</y>
+      <w>76</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>title=GUIObject handleClick
+obj=:GUIString~a
+
+found-&gt;a : handleClick();on=a;
+a-&gt;lost: return;off=a;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>470</x>
+      <y>348</y>
+      <w>76</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>title=GUIObject handleClick
+obj=:GUIRectangle~a
+
+found-&gt;a : handleClick();on=a;
+a-&gt;lost: return;off=a;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>388</x>
+      <y>392</y>
+      <w>462</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>title=GUIObject handleClick
+obj=:GUILink~a
+obj=:DocumentArea~b
+obj=:Window~c
+obj=:AddressBar~d
+
+found-&gt;a : handleClick();on=a;
+a-&gt;&gt;&gt;b: getAddress();on=b
+b-&gt;&gt;&gt;c: getAddress();on=c;
+c-&gt;&gt;&gt;d: getAddress();on=d;
+d.&gt;c: address;off=d
+c.&gt;b: address;off=c
+b.&gt;a:address;off=b
+a-&gt;&gt;&gt;a + :newAddress = this.getModifiedAddress(address, this.href)
+on=a;
+off=a;
+a-&gt;&gt;&gt;b: load(newAddress);on=b;
+b-&gt;&gt;&gt;c:load(newAddress);on=c;
+ref=b d :Load page from given URL</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>388</x>
+      <y>722</y>
+      <w>134</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>title=Load and Lex html
+obj=:HtmlLoader~a
+obj=:HtmlLexer~b CREATED_LATER
+
+found-&gt;a : loadPage();on=a;
+a-&gt;&gt;&gt;b : new HtmlLexer();
+on=b;
+
+off=b;
+a-&gt;lost: return;off=a;
+</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
