@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>2</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>390</x>
+      <x>16</x>
       <y>0</y>
-      <w>294</w>
-      <h>110</h>
+      <w>1176</w>
+      <h>440</h>
     </coordinates>
     <panel_attributes>title=Load page from pressing ENTER in addressbar
 obj=User~a ACTOR EXECUTION
@@ -31,10 +31,10 @@ ref=b c :Load page from given URL
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>388</x>
-      <y>114</y>
-      <w>294</w>
-      <h>104</h>
+      <x>8</x>
+      <y>456</y>
+      <w>1176</w>
+      <h>416</h>
     </coordinates>
     <panel_attributes>title=Load page from clicking outside of addressbar after typing in adressbar
 obj=User~a ACTOR EXECUTION
@@ -57,10 +57,10 @@ ref=b c :Load page from given URL</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>388</x>
-      <y>220</y>
-      <w>276</w>
-      <h>126</h>
+      <x>0</x>
+      <y>872</y>
+      <w>1104</w>
+      <h>504</h>
     </coordinates>
     <panel_attributes>title=Load page from clicking on a url in the document area
 obj=User~a ACTOR EXECUTION
@@ -87,10 +87,10 @@ combinedFragment=loop~loopid d c
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>388</x>
-      <y>524</y>
-      <w>568</w>
-      <h>196</h>
+      <x>8</x>
+      <y>2096</y>
+      <w>2272</w>
+      <h>784</h>
     </coordinates>
     <panel_attributes>title= Load page from given URL
 obj=:Window~a
@@ -134,10 +134,10 @@ off=c;</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>388</x>
-      <y>348</y>
-      <w>76</w>
-      <h>42</h>
+      <x>8</x>
+      <y>1392</y>
+      <w>304</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>title=GUIObject handleClick
 obj=:GUIString~a
@@ -150,10 +150,10 @@ a-&gt;lost: return;off=a;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>470</x>
-      <y>348</y>
-      <w>76</w>
-      <h>42</h>
+      <x>336</x>
+      <y>1392</y>
+      <w>304</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>title=GUIObject handleClick
 obj=:GUIRectangle~a
@@ -166,10 +166,10 @@ a-&gt;lost: return;off=a;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>388</x>
-      <y>392</y>
-      <w>462</w>
-      <h>130</h>
+      <x>8</x>
+      <y>1568</y>
+      <w>1848</w>
+      <h>520</h>
     </coordinates>
     <panel_attributes>title=GUIObject handleClick
 obj=:GUILink~a
@@ -195,19 +195,51 @@ ref=b d :Load page from given URL</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>388</x>
-      <y>722</y>
-      <w>134</w>
-      <h>60</h>
+      <x>8</x>
+      <y>2904</y>
+      <w>1928</w>
+      <h>1104</h>
     </coordinates>
     <panel_attributes>title=Load and Lex html
 obj=:HtmlLoader~a
 obj=:HtmlLexer~b CREATED_LATER
+obj=:Hyperlink~c CREATED_LATER
+obj=:HtmlTable~e CREATED_LATER
+obj=:DocumentArea~d 
 
 found-&gt;a : loadPage();on=a;
-a-&gt;&gt;&gt;b : new HtmlLexer();
+a-&gt;&gt;&gt;b : lexer = new HtmlLexer(htmlCode);
 on=b;
 
+a-&gt;&gt;&gt;b : type = getTokenType();
+a-&gt;&gt;&gt;b : value = getTokenValue();
+combinedFragment=loop~loopid a b
+	a : type != HtmlLexer.TokenType.END_OF_FILE
+	combinedFragment=opt~loop1 a b;
+	a: type == HtmlLexer.TokenType.OPEN_START_TAG
+		combinedFragment=alt~loop2 a b; a: value.equals("a")
+			a-&gt;&gt;&gt;c : tag = new Hyperlink();
+			a-&gt;&gt;&gt;a + : lexer = updateATag(lexer, tag);
+			on=a;
+			ref=a a : updateATag
+			off=a;
+			a-&gt;&gt;&gt;d : addGUIObjects(tag); on=d;
+			off=d;
+		..=loop2 ; a : isTable(value)
+			a-&gt;&gt;&gt;e : table = new HtmlTable();
+			a-&gt;&gt;&gt;b :eatToken();
+			a-&gt;&gt;&gt;a + : lexer = updateTableTag(lexer, table;
+			on=a;
+			ref=a a : updateTableTag
+			off=a;
+			a-&gt;&gt;&gt;d : addGUIObjects(table); on=d;
+			off=d;
+		--=loop2
+	--=loop1
+	a-&gt;&gt;&gt;b : eatToken();
+	a-&gt;&gt;&gt;b : type = getTokenType();
+	a-&gt;&gt;&gt;b : value = getTokenValue();
+	--=loopid
 off=b;
 a-&gt;lost: return;off=a;
 </panel_attributes>
