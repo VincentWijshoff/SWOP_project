@@ -17,26 +17,22 @@ import java.net.URL;
  */
 public class HtmlLoader {
 
-    private URL url;
-    private String htmlCode;
+    private URL url; //the URL of the page
+    private String htmlCode; //the string format of the html code
     private DocumentArea documentArea; //the documentArea object
 
+    /**
+     * Setter of the documentArea
+     */
     public void setDocumentArea(DocumentArea documentArea) {
         this.documentArea = documentArea;
     }
 
-    /**
-    only for tests
-     */
-    public void setHtmlCode(String htmlCode) {
-        this.htmlCode = htmlCode;
-    }
-
 
     /**
-     * called when loading a local document
+     * Create a new HtmlLoader object, initialized with the given html code (as string format)
      *
-     * @param htmlCode
+     * Called when loading a local document
      */
     public HtmlLoader(String htmlCode) {
         try {
@@ -48,7 +44,9 @@ public class HtmlLoader {
 
 
     /**
-     * called when new url has been entered in address bar
+     * Create a new HtmlLoader object, initialized with the given URL
+     *
+     * Called when new url has been entered in address bar
      *
      * @param url  The url typed in the address bar
      */
@@ -62,7 +60,9 @@ public class HtmlLoader {
     }
 
     /**
-     *called when pressed a hyperlink
+     * Create a new HtmlLoader object, initialized with the given URL and href
+     *
+     * Called when pressed a hyperlink
      *
      * @param url     The current url
      * @param href    The href (given in html code) -> example: <a href="a.html">
@@ -79,7 +79,7 @@ public class HtmlLoader {
     /**
      * Method for loading html code from URL
      *
-     * @return    The entire html code of the page
+     * @return    The entire html code of the page as string format
      *
      * inspiration from https://www.programcreek.com/java-api-examples/?class=java.net.URL&method=openStream
      */
@@ -93,12 +93,23 @@ public class HtmlLoader {
         return sb.toString();
     }
 
+    /**
+     * Check if the string is equal to "table" (sometimes with capital T)
+     */
     private boolean isTable(String s){
         return s.equals("Table") || s.equals("table");
     }
 
     /**
      * Load the page
+     *
+     * Basic idea:
+     *      - Use the given HtmlLexer to scan the html code
+     *      - As long as the next token isn't "END_OF_FILE", check if it is an open tag
+     *          * if not, go to the next token
+     *          * if true, check if the tag is <a> or <table> and create a new ContentSpan (resp. Hyperlink or HtmlTable)
+     *            And update that object in the corresponding method
+     *            Finally add the object to the list in documentArea
      */
     public void loadPage(){
         HtmlLexer lexer = new HtmlLexer(new StringReader(htmlCode));
@@ -126,6 +137,18 @@ public class HtmlLoader {
 
     }
 
+    /**
+     * This method will update the given HtmlTable object
+     *
+     * Basic idea:
+     *      - As long as the </table> tag isn't the next token, use the lexer to get the next tag
+     *      - If the next tag is <tr>, create a new HtmlTableRow and add it to the given HtmlTable object
+     *      - Update this HtmlTableRow object in its corresponding method
+     *
+     * @param lexer     the lexer for the html code
+     * @param tableTag  the given HtmlTable object
+     * @return the updated lexer
+     */
     private HtmlLexer updateTableTag(HtmlLexer lexer, HtmlTable tableTag) {
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -144,10 +167,15 @@ public class HtmlLoader {
     }
 
     /**
-     * this method will update the tableRow tag object
+     * This method will update the HtmlTableRow object
+     *
+     * Basic idea:
+     *      - As long as the next tag isn't <tr> or </table>, use the lexer to get the next tag
+     *      - If this next tag is equal to <td>, create a new HtmlTableCell and add it to the HtmlTableRow object
+     *      - Update the new object in its corresponding method
      *
      * @param lexer     the lexer for the html code
-     * @param tr   the tableRow object
+     * @param tr        the tableRow object
      * @return the updated lexer
      */
     private HtmlLexer updateTableRowTag(HtmlLexer lexer, HtmlTableRow tr) {
@@ -167,14 +195,22 @@ public class HtmlLoader {
     }
 
     /**
-     * updates the table data object
+     * This method will update the HtmlTableCell object
+     *
+     * Basic idea:
+     *      - Get the next token of the lexer, if it is equal to ">", get the next one
+     *      - If the next token is "<", check the corresponding tag ("a" or "table")
+     *              * Create a new (corresponding) ContentSpan and update it and set it as the data of the
+     *                HtmlTableCell object
+     *      - Else the data is a text object, so create a new TextSpan object and update it and set it as the data
+     *        of the HtmlTableCell object
      *
      * 3 possibilities:
      *      - the data object is a hyperlink (a tag)
      *      - the data object is a table object
      *      - the data object is a text object
      * @param lexer     the lexer of the html code
-     * @param td   the table data object
+     * @param td        the table data object
      * @return the updated lexer
      */
     private HtmlLexer updateTableDataTag(HtmlLexer lexer, HtmlTableCell td) {
@@ -182,7 +218,7 @@ public class HtmlLoader {
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
 
-        if(type == HtmlLexer.TokenType.CLOSE_TAG){
+        if(type == HtmlLexer.TokenType.CLOSE_TAG){ //get the next token
             lexer.eatToken();
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
@@ -228,32 +264,36 @@ public class HtmlLoader {
     }
 
     /**
-     * This method will update the aTag object (given the html code)
+     * This method will update the Hyperlink object (given the html code)
+     *
+     * Basic idea:
+     *      - As long as the next token isn't </a>, use the lexer to get the next token
+     *      - If the next token is an IDENTIFIER, get the value of the attribute (QUOTED_STRING)
+     *        (IDENTIFIER -> EQUALS -> QUOTED_STRING)
+     *          * update the Hyperlink object
+     *      - If the next token is TEXT, update the Hyperlink object
      *
      * @param lexer     the lexer for the html code
      * @param aTag      the a-tag object
      * @return the updated lexer (so it doesn't do the code again)
-     *
-     * The a-tag is restricted to only a "href" attribute inside the tag, to upgrade: add to if-statement
      */
     private HtmlLexer updateATag(HtmlLexer lexer, Hyperlink aTag){
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
-        String currentIdentifier; //if there is an identifier in the tag
-        boolean insideTag = true;
+        String currentIdentifier; //Checks if there is an identifier in the tag
+        boolean insideTag = true; //Checks if its inside the <a> tag (e.g. <a ...)
         while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && value.equals("a"))){
             if(type == HtmlLexer.TokenType.IDENTIFIER){
                 //Order: IDENTIFIER -> EQUALS -> QUOTED_STRING
                 currentIdentifier = value;
                 lexer.eatToken(); //This token is always EQUALS
                 lexer.eatToken(); //This token is QUOTED_STRING
-
+                //The a-tag is restricted to only a "href" attribute inside the tag, to upgrade: add to if-statement
                 if("href".equals(currentIdentifier)) {
                     aTag.setHref(lexer.getTokenValue());
-                }else{
- //                   throw new Error(currentIdentifier + " is not supported inside a-tag");
                 }
+
             }else if(type == HtmlLexer.TokenType.CLOSE_TAG && insideTag){ //insideTag not needed right now (only text between <a>)
                 insideTag = false;
             }else if(type == HtmlLexer.TokenType.TEXT){
