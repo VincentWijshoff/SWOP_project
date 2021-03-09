@@ -245,4 +245,16 @@ class GUITests {
 		//only the 3 skipped bits should be there
 		assertTrue(testName, a.getAddress().length() == 3);
 	}
+
+	@Test
+	void testAddressBarCreationAndHandlingViaWindow() throws  RuntimeException {
+		final String testName = "testAddressBarCreationAndHandlingViaWindow";
+
+		Window w = new Window("TestWindow");
+
+		String startAddress = w.getAddress();
+
+		assertFalse(testName, startAddress == null);
+		// all other things to handle are protected in the window class so not accessible from this file
+	}
 }
