@@ -14,9 +14,9 @@ public class HtmlTests {
     void assertTrue(String testName, boolean b) {
         if (!b) fail(testName);
     }
-    void assertFalse(String testName, boolean b) {
-        if (b) fail(testName);
-    }
+//    void assertFalse(String testName, boolean b) {
+//        if (b) fail(testName);
+//    }
 
     @Test
     void html_1_aTag(){

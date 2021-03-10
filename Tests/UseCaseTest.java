@@ -22,7 +22,7 @@ public class UseCaseTest {
     void assertFalse(String testName, boolean b) {
         if (b) fail(testName);
     }
-    void assertEquals(String testName, Object a, Object b) {if(!a.equals(b)) fail(testName); }
+//    void assertEquals(String testName, Object a, Object b) {if(!a.equals(b)) fail(testName); }
 
     void typeString(Window window, String string) {
         for (char c: string.toCharArray()) {

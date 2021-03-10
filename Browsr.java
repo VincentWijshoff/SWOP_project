@@ -1,6 +1,4 @@
 import gui.Window;
-import html.HtmlLoader;
-import localDocuments.Docs;
 
 public class Browsr {
 
