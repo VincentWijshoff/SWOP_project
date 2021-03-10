@@ -198,7 +198,7 @@ ref=b d :Load page from given URL</panel_attributes>
       <x>8</x>
       <y>2904</y>
       <w>1928</w>
-      <h>1104</h>
+      <h>1128</h>
     </coordinates>
     <panel_attributes>title=Load and Lex html
 obj=:HtmlLoader~a
@@ -219,6 +219,7 @@ combinedFragment=loop~loopid a b
 	a: type == HtmlLexer.TokenType.OPEN_START_TAG
 		combinedFragment=alt~loop2 a b; a: value.equals("a")
 			a-&gt;&gt;&gt;c : tag = new Hyperlink();
+			a-&gt;&gt;&gt;b :eatToken();
 			a-&gt;&gt;&gt;a + : lexer = updateATag(lexer, tag);
 			on=a;
 			ref=a a : updateATag
