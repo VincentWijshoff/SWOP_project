@@ -99,7 +99,12 @@ public class GUILink extends GUIString {
      */
     @Override
     public void handleClick() {
-        System.out.println("You clicked on a GUILink, href = " + this.getFullAddress());
-        this.documentArea.getWindow().load(this.getFullAddress());
+        //href is an absolute URL
+        if(this.getHref().startsWith("http")){
+            this.documentArea.getWindow().load(getHref());
+        }else{
+            System.out.println("You clicked on a GUILink, href = " + this.getFullAddress());
+            this.documentArea.getWindow().load(this.getFullAddress());
+            }
     }
 }
