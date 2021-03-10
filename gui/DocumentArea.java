@@ -65,6 +65,13 @@ public class DocumentArea {
     }
 
     /**
+     * Clears the DocGUIObjects so a new page can be loaded
+     */
+    public void clearDocObjects(){
+        this.DocGUIObjects.clear();
+    }
+
+    /**
      * loads a page given the url as string
      *
      * @param   url the URL we need to navigate to

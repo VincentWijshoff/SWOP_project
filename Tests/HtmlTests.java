@@ -33,6 +33,7 @@ public class HtmlTests {
         String htmlCode = """
                 <a href="a.html">TEXT</a>
                 """;
+        window.getDocArea().clearDocObjects();
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
@@ -47,6 +48,7 @@ public class HtmlTests {
                 <a>TEXT</a>
                 <a href="b.html">Text</a>
                 """;
+        window.getDocArea().clearDocObjects();
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
@@ -62,6 +64,7 @@ public class HtmlTests {
                     <tr><td>DATA<td>SECOND COLUMN
                 </table>
                 """;
+        window.getDocArea().clearDocObjects();
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
@@ -83,6 +86,7 @@ public class HtmlTests {
 				    </table>
 				</table>
 				""";
+        window.getDocArea().clearDocObjects();
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();

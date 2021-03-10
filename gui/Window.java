@@ -1,6 +1,8 @@
 package gui;
 
 import canvaswindow.CanvasWindow;
+import html.HtmlLoader;
+import localDocuments.Docs;
 
 import java.awt.*;
 
@@ -16,8 +18,12 @@ public class Window extends CanvasWindow{
     public Window(String title) {
         super(title);
 
-        this.addressBar = new AddressBar();
+        this.addressBar = new AddressBar("WelcomeDoc.html");
         this.docArea = new DocumentArea(this, this.addressBar.yLimit);
+
+        HtmlLoader loader = new HtmlLoader(Docs.getWelcomePage());
+        loader.setDocumentArea(docArea);
+        loader.loadPage();
     }
 
     /**
