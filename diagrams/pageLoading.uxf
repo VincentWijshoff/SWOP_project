@@ -198,7 +198,7 @@ ref=b d :Load page from given URL</panel_attributes>
       <x>8</x>
       <y>2904</y>
       <w>1928</w>
-      <h>1128</h>
+      <h>1232</h>
     </coordinates>
     <panel_attributes>title=Load and Lex html
 obj=:HtmlLoader~a
@@ -209,17 +209,19 @@ obj=:DocumentArea~d
 
 found-&gt;a : loadPage();on=a;
 a-&gt;&gt;&gt;b : lexer = new HtmlLexer(htmlCode);
-on=b;
 
-a-&gt;&gt;&gt;b : type = getTokenType();
-a-&gt;&gt;&gt;b : value = getTokenValue();
+a-&gt;&gt;&gt;b : type = getTokenType();on=b;
+off=b;
+a-&gt;&gt;&gt;b : value = getTokenValue();on=b;
+off=b;
 combinedFragment=loop~loopid a b
 	a : type != HtmlLexer.TokenType.END_OF_FILE
 	combinedFragment=opt~loop1 a b;
 	a: type == HtmlLexer.TokenType.OPEN_START_TAG
 		combinedFragment=alt~loop2 a b; a: value.equals("a")
 			a-&gt;&gt;&gt;c : tag = new Hyperlink();
-			a-&gt;&gt;&gt;b :eatToken();
+			a-&gt;&gt;&gt;b :eatToken();on=b;
+			off=b;
 			a-&gt;&gt;&gt;a + : lexer = updateATag(lexer, tag);
 			on=a;
 			ref=a a : updateATag
@@ -228,7 +230,8 @@ combinedFragment=loop~loopid a b
 			off=d;
 		..=loop2 ; a : isTable(value)
 			a-&gt;&gt;&gt;e : table = new HtmlTable();
-			a-&gt;&gt;&gt;b :eatToken();
+			a-&gt;&gt;&gt;b :eatToken();on=b;
+			off=b;
 			a-&gt;&gt;&gt;a + : lexer = updateTableTag(lexer, table;
 			on=a;
 			ref=a a : updateTableTag
@@ -237,11 +240,13 @@ combinedFragment=loop~loopid a b
 			off=d;
 		--=loop2
 	--=loop1
-	a-&gt;&gt;&gt;b : eatToken();
-	a-&gt;&gt;&gt;b : type = getTokenType();
-	a-&gt;&gt;&gt;b : value = getTokenValue();
-	--=loopid
+	a-&gt;&gt;&gt;b : eatToken();on=b;
 off=b;
+	a-&gt;&gt;&gt;b : type = getTokenType();on=b;
+off=b;
+	a-&gt;&gt;&gt;b : value = getTokenValue();on=b;
+off=b;
+	--=loopid
 a-&gt;lost: return;off=a;
 </panel_attributes>
     <additional_attributes/>
