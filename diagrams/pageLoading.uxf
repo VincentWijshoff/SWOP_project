@@ -197,8 +197,8 @@ ref=b d :Load page from given URL</panel_attributes>
     <coordinates>
       <x>8</x>
       <y>2904</y>
-      <w>1928</w>
-      <h>1232</h>
+      <w>1832</w>
+      <h>1192</h>
     </coordinates>
     <panel_attributes>title=Load and Lex html
 obj=:HtmlLoader~a
@@ -223,9 +223,8 @@ combinedFragment=loop~loopid a b
 			a-&gt;&gt;&gt;b :eatToken();on=b;
 			off=b;
 			a-&gt;&gt;&gt;a + : lexer = updateATag(lexer, tag);
-			on=a;
+			tick=
 			ref=a a : updateATag
-			off=a;
 			a-&gt;&gt;&gt;d : addGUIObjects(tag); on=d;
 			off=d;
 		..=loop2 ; a : isTable(value)
@@ -233,9 +232,8 @@ combinedFragment=loop~loopid a b
 			a-&gt;&gt;&gt;b :eatToken();on=b;
 			off=b;
 			a-&gt;&gt;&gt;a + : lexer = updateTableTag(lexer, table;
-			on=a;
+			tick=
 			ref=a a : updateTableTag
-			off=a;
 			a-&gt;&gt;&gt;d : addGUIObjects(table); on=d;
 			off=d;
 		--=loop2
