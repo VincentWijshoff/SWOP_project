@@ -85,7 +85,7 @@ public class Window extends CanvasWindow{
      * @param modifiersEx   The modifiers active on the mouse
      */
     @Override
-    protected void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
+    public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
         // Clicked inside the AddressBar
         if (this.addressBar.isOnAddressBar(x, y)) {
             this.addressBar.setInFocus();
@@ -113,7 +113,7 @@ public class Window extends CanvasWindow{
      * @param modifiersEx   The active modifiers on the key
      */
     @Override
-    protected void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
+    public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
         // handle the key event accordingly
         if (this.addressBar.isInFocus()) {
             // handle the key event in the address bar area
@@ -132,5 +132,13 @@ public class Window extends CanvasWindow{
      */
     public DocumentArea getDocArea() {
         return this.docArea;
+    }
+
+    /**
+     * Get the addressbar of this window
+     * @return addressbar
+     */
+    public AddressBar getAddressBar() {
+        return this.addressBar;
     }
 }

@@ -92,4 +92,36 @@ public class GUIObject {
     public void handleClick() {
         System.out.println("You clicked on a GUIObject");
     }
+
+    @Override
+    public String toString() {
+        return "GUIObject{" +
+                "width=" + width +
+                ", height=" + height +
+                ", coordX=" + coordX +
+                ", coordY=" + coordY +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GUIObject guiObject = (GUIObject) o;
+
+        if (width != guiObject.width) return false;
+        if (height != guiObject.height) return false;
+        if (coordX != guiObject.coordX) return false;
+        return coordY == guiObject.coordY;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = width;
+        result = 31 * result + height;
+        result = 31 * result + coordX;
+        result = 31 * result + coordY;
+        return result;
+    }
 }

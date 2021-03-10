@@ -59,4 +59,34 @@ public class GUIString extends GUIObject {
     public void handleClick() {
         System.out.println("You clicked on a GUIString");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GUIString guiString = (GUIString) o;
+
+        return this.text.equals(guiString.text) &&
+        this.coordX == guiString.coordX &&
+        this.coordY == guiString.coordY;
+    }
+
+    @Override
+    public String toString() {
+        return "GUIString{" +
+                "coordX=" + coordX +
+                ", coordY=" + coordY +
+                ", text='" + text + '\'' +
+                '}';
+    }
+
+
+    @Override
+    public int hashCode() {
+        int result = this.coordX;
+        result = 31 * result + this.coordY;
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        return result;
+    }
 }
