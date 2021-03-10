@@ -6,15 +6,30 @@ public class GUILink extends GUIString {
 
     private String href;
 
+    /**
+     * Create a GUILink
+     * @param text  the text that represents the GUILink
+     * @param x     the x coordinate off the GUILink
+     * @param y     the y coordinate off the GUILink
+     * @param href  The href off the link
+     */
     public GUILink(String text, int x, int y, String href) {
         super(text, x, y);
         this.href = href;
     }
 
+    /**
+     * Get the href representing this GUILink
+     * @return  the href off this link
+     */
     public String getHref() {
         return href;
     }
 
+    /**
+     * draw the GUILink
+     * @param g the graphics needed to draw the GUILink
+     */
     public void draw(Graphics g) {
         // Bounds needed for click event
         int textWidth = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
@@ -28,6 +43,10 @@ public class GUILink extends GUIString {
         g.setColor(oldColor);
     }
 
+    /**
+     * Calculate the full address with addition off this href
+     * @return  the full address with this href
+     */
     public String getFullAddress() {
         String currURL = this.documentArea.getWindow().getAddress();
         return getModifiedAddress(currURL, this.getHref());
@@ -75,6 +94,9 @@ public class GUILink extends GUIString {
         return stringBuffer.toString();
     }
 
+    /**
+     * handle the click event, because this is a Link, when it is clicked on, a new page should load with this href
+     */
     @Override
     public void handleClick() {
         System.out.println("You clicked on a GUILink, href = " + this.getFullAddress());

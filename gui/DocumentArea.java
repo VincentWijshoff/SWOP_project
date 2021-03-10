@@ -26,18 +26,37 @@ public class DocumentArea {
         this.relativeYPos = relativeYpos;
     }
 
+    /**
+     * Get the Window
+     * @return The window linked to this document area
+     */
     public Window getWindow() {
         return this.window;
     }
+
+    /**
+     * Get the relative y position for the document area, this is not 0 because off the address bar
+     * @return the relative y position
+     */
     public int getRelativeYPos() {
         return this.relativeYPos;
     }
 
+    /**
+     * add a GUIObject to the list off gui objects
+     * @param obj the object that needs to be added
+     * @return the object
+     */
     public GUIObject addGUIObject(GUIObject obj) {
         this.DocGUIObjects.add(obj);
         return obj;
     }
 
+    /**
+     * Add a list off gui objects to the current list off gui objects, also set the document area for each off these
+     * GUIObjects to this
+     * @param objects the array off GUIObjects
+     */
     public void addGUIObjects(ArrayList<GUIObject> objects) {
         for (GUIObject obj: objects) {
             addGUIObject(obj);
@@ -84,6 +103,9 @@ public class DocumentArea {
 
     }
 
+    /**
+     * Load the error document because an error occurred whit the loading
+     */
     public void loadErrorDoc() {
         this.DocGUIObjects.clear();
         HtmlLoader loader = new HtmlLoader(Docs.getErrorPage());
@@ -91,6 +113,12 @@ public class DocumentArea {
         loader.loadPage();
     }
 
+    /**
+     * Handle the mouse event if the document area is in focus
+     * @param id the id off the mouse event
+     * @param x the x position off the mouse event
+     * @param y the y position off the mouse event
+     */
     public void handleMouseEvent(int id, int x, int y){
         if (id == MouseEvent.MOUSE_PRESSED) {
             for (GUIObject obj : this.DocGUIObjects) { // Loop through all GUIObjects in docArea
