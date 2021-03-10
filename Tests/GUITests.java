@@ -1,6 +1,8 @@
 package Tests;
 
-import gui.*;
+import gui.AddressBar;
+import gui.GUIRectangle;
+import gui.Window;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.MouseEvent;
@@ -18,7 +20,7 @@ class GUITests {
 	void assertFalse(String testName, boolean b) {
 		if (b) fail(testName);
 	}
-	void assertEquals(String testName, Object a, Object b) {if(!a.equals(b)) fail(testName); }
+	void assertEquals(String testName, String a, String b) {if(!a.equals(b)) fail(testName); }
 
 	@Test
 	void testRectangleBounds() throws  RuntimeException {

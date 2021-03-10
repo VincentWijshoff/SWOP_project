@@ -65,14 +65,6 @@ public class DocumentArea {
     }
 
     /**
-     * Get all GUIObjects currently rendered in this document area
-     * @return set of GUIObjects
-     */
-    public Set<GUIObject> getDocGUIObjects() {
-        return DocGUIObjects;
-    }
-
-    /**
      * loads a page given the url as string
      *
      * @param   url the URL we need to navigate to
