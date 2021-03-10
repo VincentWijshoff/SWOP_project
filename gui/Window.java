@@ -57,7 +57,7 @@ public class Window extends CanvasWindow{
     @Override
     protected void paint(Graphics g) {
         // Draw every GUIObject in the docArea
-        for (GUIObject obj : this.docArea.DocGUIObjects) {
+        for (GUIObject obj : this.docArea.getDrawnGUIObjects()) {
             obj.draw(g);
         }
 
@@ -120,7 +120,6 @@ public class Window extends CanvasWindow{
      */
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
-        System.out.println("ID: " + id + " KEYCODE: " + keyCode + " KEYCHAR: " + keyChar + " MODIFIERS: " + modifiersEx);
         // handle the key event accordingly
         if (this.addressBar.isInFocus()) {
             // handle the key event in the address bar area

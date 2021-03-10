@@ -20,6 +20,14 @@ public class GUIString extends GUIObject {
     }
 
     /**
+     * Get text of this string
+     * @return text
+     */
+    public String getText() {
+        return text;
+    }
+
+    /**
      * Draw the GUIString
      * @param g the graphics needed to draw each object
      */

@@ -14,7 +14,7 @@ import java.net.URL;
 
 public class DocumentArea {
 
-    public Set<GUIObject> DocGUIObjects = new HashSet<>();
+    private Set<GUIObject> drawnGUIObjects = new HashSet<>();
     private int relativeYPos;
     private Window window;
 
@@ -43,12 +43,20 @@ public class DocumentArea {
     }
 
     /**
+     * Return currently rendered GUIObjects
+     * @return Set of GUIObjects
+     */
+    public Set<GUIObject> getDrawnGUIObjects() {
+        return drawnGUIObjects;
+    }
+
+    /**
      * add a GUIObject to the list off gui objects
      * @param obj the object that needs to be added
      * @return the object
      */
     public GUIObject addGUIObject(GUIObject obj) {
-        this.DocGUIObjects.add(obj);
+        this.drawnGUIObjects.add(obj);
         return obj;
     }
 
@@ -68,7 +76,7 @@ public class DocumentArea {
      * Clears the DocGUIObjects so a new page can be loaded
      */
     public void clearDocObjects(){
-        this.DocGUIObjects.clear();
+        this.drawnGUIObjects.clear();
     }
 
     /**
@@ -80,7 +88,7 @@ public class DocumentArea {
      */
     public void loadAddress(String url) throws IOException {
         URL address = generateAddress(url, "");
-        this.DocGUIObjects.clear(); //remove GUIObjects from previous page
+        this.clearDocObjects(); //remove GUIObjects from previous page
         isValidBrowsrPage(address);
 
         HtmlLoader loader = new HtmlLoader(address);
@@ -114,7 +122,7 @@ public class DocumentArea {
      * Load the error document because an error occurred whit the loading
      */
     public void loadErrorDoc() {
-        this.DocGUIObjects.clear();
+        this.drawnGUIObjects.clear();
         HtmlLoader loader = new HtmlLoader(Docs.getErrorPage());
         loader.setDocumentArea(this);
         loader.loadPage();
@@ -128,7 +136,7 @@ public class DocumentArea {
      */
     public void handleMouseEvent(int id, int x, int y){
         if (id == MouseEvent.MOUSE_PRESSED) {
-            for (GUIObject obj : this.DocGUIObjects) { // Loop through all GUIObjects in docArea
+            for (GUIObject obj : this.getDrawnGUIObjects()) { // Loop through all GUIObjects in docArea
                 if (obj.isInGUIObject(x, y)) {
                     obj.handleClick();
                     return;

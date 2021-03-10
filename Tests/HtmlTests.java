@@ -1,18 +1,9 @@
 package Tests;
 
-import browsrhtml.HtmlLexer;
-import gui.GUIObject;
 import gui.Window;
 import html.Elements.*;
 import html.HtmlLoader;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 
 public class HtmlTests {
 
@@ -37,7 +28,7 @@ public class HtmlTests {
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
-        assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 1);
+        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 1);
     }
 
     @Test
@@ -52,7 +43,7 @@ public class HtmlTests {
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
-        assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 3);
+        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 3);
     }
 
     @Test
@@ -68,7 +59,7 @@ public class HtmlTests {
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
-        assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 3); //3 GUIStrings
+        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 3); //3 GUIStrings
     }
 
     @Test
@@ -90,7 +81,7 @@ public class HtmlTests {
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
-        assertTrue(testName, window.getDocArea().DocGUIObjects.size() == 9); //9 GUIString
+        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 9); //9 GUIString
     }
 
     @Test

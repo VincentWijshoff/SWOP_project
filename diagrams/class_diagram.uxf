@@ -120,11 +120,12 @@ extends</panel_attributes>
     <panel_attributes>DocumentArea
 --
 - drawnObjects : GUIObject [0..*]
-- gui : GUI
+- window : Window
 - relativeYPos : Int
 --
 + renderHTML(HtmlElement) : void
-+ paintDocArea() : void</panel_attributes>
++ paintDocArea() : void
++ getDrawnGUIObjects(): Set&lt;GUIObjects&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
