@@ -7,6 +7,9 @@ import html.Elements.*;
 
 import java.util.ArrayList;
 
+/**
+ * Contains static functions that will transform HtmlElements into GUIObjects that can be drawn
+ */
 public abstract class HtmlRenderer {
 
     //The offset in horizontal direction (from left)

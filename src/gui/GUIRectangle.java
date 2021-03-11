@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.*;
 
+/**
+ * A GUIObject that represents a rectangle drawn on the canvas
+ */
 public class GUIRectangle extends GUIObject{
 
     /**

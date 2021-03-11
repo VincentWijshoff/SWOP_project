@@ -1,5 +1,10 @@
 import gui.Window;
 
+/**
+ * The main class for our Browsr
+ *
+ * running main will start the browsr program
+ */
 public class Browsr {
 
     /**

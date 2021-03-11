@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.*;
 
+/**
+ * A GUIObject that represents a string drawn on the canvas
+ */
 public class GUIString extends GUIObject {
 
     String text;

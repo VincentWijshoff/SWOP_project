@@ -12,6 +12,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.net.URL;
 
+/**
+ * The documentarea manages all GUIObjects that are drawn on the canvas
+ */
 public class DocumentArea {
 
     private Set<GUIObject> drawnGUIObjects = new HashSet<>();

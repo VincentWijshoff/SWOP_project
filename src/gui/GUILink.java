@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.*;
 
+/**
+ * A GUIObject that represents a hyperlink that is drawn on the canvas
+ */
 public class GUILink extends GUIString {
 
     private String href;

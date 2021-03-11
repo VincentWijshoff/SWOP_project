@@ -6,6 +6,10 @@ import localDocuments.Docs;
 
 import java.awt.*;
 
+/**
+ * Class that manages the window for our browsr
+ * This class contains 2 large parts, the addressbar and the documentarea
+ */
 public class Window extends CanvasWindow{
 
     AddressBar addressBar;
