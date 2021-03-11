@@ -13,7 +13,6 @@ public abstract class Docs {
      *
      * @param path    The path to the file
      * @return        The content of the file in a String object.
-     * @throws Exception when our ErrorPage can't be loaded.
      */
     public static String getPage(String path) {
         String content = "";
