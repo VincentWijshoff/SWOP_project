@@ -1,5 +1,3 @@
-package Tests;
-
 import gui.GUILink;
 import gui.GUIObject;
 import gui.GUIString;

@@ -1,5 +1,3 @@
-package Tests;
-
 import gui.Window;
 import html.Elements.*;
 import html.HtmlLoader;
