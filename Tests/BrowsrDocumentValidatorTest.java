@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class BrowsrDocumentValidatorTest {
 
-	@org.junit.Test
+	@Test
 	void testWithString() {
 		BrowsrDocumentValidator.assertIsValidBrowsrDocument("""
 				<table>
