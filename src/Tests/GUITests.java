@@ -251,7 +251,6 @@ class GUITests {
 		String startAddress = w.getAddress();
 
 		assertFalse(testName, startAddress == null);
-		// all other things to handle are protected in the window class so not accessible from this file
 	}
 
 }
