@@ -137,8 +137,9 @@ class GUITests {
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
 
-		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(401, 32, '/', 0);
 		a.handleKeyboardEvent(401, 47, '/', 0);
 		a.handleKeyboardEvent(401, 47, '/', 0);
 		a.handleKeyboardEvent(401, 47, '/', 0);
@@ -156,7 +157,7 @@ class GUITests {
 	void testAddressBarEscapeOutTyping() throws  RuntimeException {
 		final String testName = "testAddressBarEscapeOutTyping";
 
-		AddressBar a = new AddressBar("testAddressBar");
+		AddressBar a = new AddressBar();
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
@@ -236,7 +237,7 @@ class GUITests {
 		a.handleKeyboardEvent(0, 0, ' ', 64); //start shifting
 		a.handleKeyboardEvent(401, 35, ' ', 64);//to end shifting
 		a.handleKeyboardEvent(0, 0, ' ', 0); //end shifting
-		a.handleKeyboardEvent(401, 8, ' ', 0); //backspace
+		a.handleKeyboardEvent(401, 127, ' ', 0); //backspace
 
 		//only the 3 skipped bits should be there
 		assertTrue(testName, a.getAddress().length() == 3);
