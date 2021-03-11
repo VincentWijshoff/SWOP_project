@@ -15,25 +15,25 @@ public abstract class Docs {
      * @return        The content of the file in a String object.
      */
     public static String getPage(String path) {
-        String content = "";
+        StringBuilder content = new StringBuilder();
         try {
             File welcomePageHtmlFile = new File(path);
             Scanner myReader = new Scanner(welcomePageHtmlFile);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                content += data;
+                content.append(data);
             }
             myReader.close();
 
         } catch (Exception e) {
             if (path != null && path.equals(errorPath)) {
-                content = "Couldn't load ErrorPage...";
+                content = new StringBuilder("Couldn't load ErrorPage...");
                 e.printStackTrace();
             } else {
-                content = getErrorPage();
+                content = new StringBuilder(getErrorPage());
             }
         }
-        return content;
+        return content.toString();
     }
 
     public static String getWelcomePage() {

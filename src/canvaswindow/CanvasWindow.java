@@ -68,7 +68,7 @@ class MouseEventItem extends RecordingItem {
 	}
 
 	@Override
-	void save(String path, int itemIndex, PrintWriter writer) throws IOException {
+	void save(String path, int itemIndex, PrintWriter writer) {
 		String id;
 		switch (this.id) {
 		case MouseEvent.MOUSE_CLICKED: id = "MOUSE_CLICKED"; break;
@@ -99,7 +99,7 @@ class KeyEventItem extends RecordingItem {
 	}
 
 	@Override
-	void save(String path, int itemIndex, PrintWriter writer) throws IOException {
+	void save(String path, int itemIndex, PrintWriter writer) {
 		String id;
 		switch (this.id) {
 		case KeyEvent.KEY_PRESSED: id = "KEY_PRESSED"; break;
