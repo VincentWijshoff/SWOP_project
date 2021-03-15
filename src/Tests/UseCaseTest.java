@@ -20,7 +20,7 @@ public class UseCaseTest {
     void assertFalse(String testName, boolean b) {
         if (b) fail(testName);
     }
-//    void assertEquals(String testName, Object a, Object b) {if(!a.equals(b)) fail(testName); }
+    void assertEquals(String testName, Object a, Object b) {if(!a.equals(b)) fail(testName); }
 
     void typeString(Window window, String string) {
         for (char c: string.toCharArray()) {
@@ -77,7 +77,7 @@ public class UseCaseTest {
         typeString(window, "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html\n");
 
         //4. Application shows the desired webpage.
-        assertTrue("UC_4.a", window.getAddress().equals("https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html"));
+        assertEquals("UC_4.a", window.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
         Set<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue("UC_4.b", renderedObjects.size() == 9);
         assertTrue("UC_4.c", containsGUIStringWith(90, 98, "Tables", renderedObjects));
@@ -91,7 +91,7 @@ public class UseCaseTest {
         assertTrue("UC_4.h", containsGUILinkWith(10, 114, "tr", "tr.html", renderedObjects));
         //This page has 4 GUILinks and 5 GUIStrings
 
-        //3. User navigates to a desired webpage. (using hyperlink)
+        //5 User navigates to a desired webpage. (using hyperlink)
         String href = "";
         for(GUIObject obj : window.getDocArea().getDrawnGUIObjects()){
             if(obj instanceof GUILink){
@@ -102,8 +102,8 @@ public class UseCaseTest {
                 break;
             }
         }
-        //4. Application shows the desired webpage.
-        assertTrue("UC_4.c", window.getAddress().equals("https://people.cs.kuleuven.be/~bart.jacobs/" + href));
+        //6 Application shows the desired webpage.
+        assertEquals("UC_4.c", window.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/" + href);
         assertTrue("UC_4.d", window.getDocArea().getDrawnGUIObjects().size() == 2);
         //error document has 2 GUIStrings
         for(GUIObject obj : window.getDocArea().getDrawnGUIObjects()){
