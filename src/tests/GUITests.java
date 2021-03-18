@@ -1,22 +1,14 @@
+package tests;
+
 import gui.*;
 import org.junit.jupiter.api.Test;
-
 import java.awt.event.MouseEvent;
+import static tests.TestUtil.*;
 
 
 class GUITests {
 
 	Window window = new Window("TestBrowser");
-
-	void fail(String testName) { throw new RuntimeException(testName + " failed."); }
-
-	void assertTrue(String testName, boolean b) {
-		if (!b) fail(testName);
-	}
-	void assertFalse(String testName, boolean b) {
-		if (b) fail(testName);
-	}
-	void assertEquals(String testName, String a, String b) {if(!a.equals(b)) fail(testName); }
 
 	@Test
 	void testRectangleBounds() throws  RuntimeException {
@@ -196,7 +188,7 @@ class GUITests {
 		a.handleKeyboardEvent(401, 47, '/', 0);
 
 		//only the selected bit should be changed
-		assertFalse(testName, a.getAddress().length() == 0);
+		assertTrue(testName, a.getAddress().equals("testAddress/"));
 
 		a.handleKeyboardEvent(401, 36, ' ', 0);//go to beginning
 		a.handleKeyboardEvent(0, 0, ' ', 64); //start shifting
@@ -206,7 +198,7 @@ class GUITests {
 		a.handleKeyboardEvent(0, 0, ' ', 0); //end shifting
 
 		//the address should still be partially there
-		assertFalse(testName, a.getAddress().length() == 0);
+		assertTrue(testName, a.getAddress().equals("testAddress/"));
 	}
 
 	@Test
@@ -226,7 +218,7 @@ class GUITests {
 		a.handleKeyboardEvent(401, 47, '/', 0);
 
 		//the entire address should have been selected and replaced
-		assertTrue(testName, a.getAddress().length() == 1);
+		assertTrue(testName, a.getAddress().equals("/"));
 
 		a.setAddress("testAddressBar");
 
@@ -240,7 +232,7 @@ class GUITests {
 		a.handleKeyboardEvent(401, 127, ' ', 0); //backspace
 
 		//only the 3 skipped bits should be there
-		assertTrue(testName, a.getAddress().length() == 3);
+		assertTrue(testName, a.getAddress().equals("tes"));
 	}
 
 	@Test
@@ -251,7 +243,7 @@ class GUITests {
 
 		String startAddress = w.getAddress();
 
-		assertFalse(testName, startAddress == null);
+		assertTrue(testName, startAddress.equals("WelcomeDoc.html"));
 	}
 
 }

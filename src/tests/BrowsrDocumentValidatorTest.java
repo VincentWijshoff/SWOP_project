@@ -1,4 +1,4 @@
-import static org.junit.jupiter.api.Assertions.*;
+package tests;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -26,7 +26,7 @@ class BrowsrDocumentValidatorTest {
 	}
 	
 	@Test
-	void testWithURL() throws MalformedURLException, IOException {
+	void testWithURL() throws IOException {
 		BrowsrDocumentValidator.assertIsValidBrowsrDocument(new URL(new URL("https://people.cs.kuleuven.be/~bart.jacobs/index.html"), "browsrtest.html"));
 		System.out.println(new URL(new URL("https://people.cs.kuleuven.be/~bart.jacobs/index.html"), "browsrtest.html") .toString());
 	}

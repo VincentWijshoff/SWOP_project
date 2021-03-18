@@ -1,3 +1,5 @@
+package tests;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
@@ -12,14 +14,14 @@ class HtmlLexerTest {
 
 	HtmlLexer lexer;
 	
-	void assertToken(TokenType tokenType, String tokenValue) throws IOException {
+	void assertToken(TokenType tokenType, String tokenValue) {
 		assertEquals(tokenType, lexer.getTokenType());
 		assertEquals(tokenValue, lexer.getTokenValue());
 		lexer.eatToken();
 	}
 	
 	@Test
-	void test() throws IOException {
+	void test() {
 		String input = """
 				<a>
 				  <b x="foo"><cc xx="foo" yy="baz">Some text</c></b>

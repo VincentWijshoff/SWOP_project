@@ -1,20 +1,17 @@
+package tests;
+
+import gui.GUIObject;
 import gui.Window;
 import html.Elements.*;
 import html.HtmlLoader;
 import org.junit.jupiter.api.Test;
+import java.util.Set;
+
+import static tests.TestUtil.*;
 
 public class HtmlTests {
 
     Window window = new Window("TestBrowser");
-
-    void fail(String testName) { throw new RuntimeException(testName + " failed."); }
-
-    void assertTrue(String testName, boolean b) {
-        if (!b) fail(testName);
-    }
-//    void assertFalse(String testName, boolean b) {
-//        if (b) fail(testName);
-//    }
 
     @Test
     void html_1_aTag(){
@@ -26,22 +23,32 @@ public class HtmlTests {
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
+
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 1);
+        assertTrue(testName, containsGUILinkWith(10, 66, "TEXT", "", window.getDocArea().getDrawnGUIObjects()));
     }
 
     @Test
     void html_3_aTag(){
         String testName = "html_3_aTag";
         String htmlCode = """
-                <a href="a.html">TEXT</a>
-                <a>TEXT</a>
-                <a href="b.html">Text</a>
+                <table>
+                    <tr> <td><a href="a.html">TEXT</a>
+                    <tr> <td><a>TEXT</a>
+                    <tr> <td><a href="b.html">Text</a>
+                </table>
                 """;
         window.getDocArea().clearDocObjects();
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
+
+        Set<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 3);
+        assertTrue(testName, containsGUILinkWith(10, 66, "TEXT", "a.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(10, 98, "Text", "b.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(10, 82, "TEXT", "", renderedObjects));
+
     }
 
     @Test
@@ -57,7 +64,12 @@ public class HtmlTests {
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
+
+        Set<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 3); //3 GUIStrings
+        assertTrue(testName, containsGUIStringWith(10, 82, "DATA", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(74, 82, "SECOND COLUMN", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(10, 66, "DATA", renderedObjects));
     }
 
     @Test
@@ -79,7 +91,18 @@ public class HtmlTests {
         HtmlLoader loader = new HtmlLoader(htmlCode);
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
+
+        Set<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 9); //9 GUIString
+        assertTrue(testName, containsGUIStringWith(90, 98, "Tables", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(10, 82, "a", "a.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(10, 98, "table", "table.html", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(90, 130, "Table cells containing table data", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(90, 82, "Hyperlink anchors", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(10, 130, "td", "td.html", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(90, 114, "Table rows", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(10, 66, "HTML elements partially supported by Browsr:", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(10, 114, "tr", "tr.html", renderedObjects));
     }
 
     @Test

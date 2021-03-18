@@ -1,3 +1,5 @@
+package tests;
+
 import gui.GUILink;
 import gui.GUIObject;
 import gui.GUIString;
@@ -8,7 +10,7 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Set;
-
+import static tests.TestUtil.*;
 
 public class UseCaseTest {
 
