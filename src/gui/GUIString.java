@@ -19,7 +19,7 @@ public class GUIString extends GUIObject {
         super();
 
         this.text = text;
-        updateGUIPos(x, y); // Width and height are calculated during drawing (fonts?)
+        setPosition(x, y); // Width and height are calculated during drawing (fonts?)
     }
 
     /**
@@ -35,13 +35,7 @@ public class GUIString extends GUIObject {
      * @param g the graphics needed to draw each object
      */
     public void draw(Graphics g) {
-        // Bounds needed for click event
-        int textWidth = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
-        int textHeight = (int) g.getFontMetrics().getStringBounds(text, g).getHeight();
-        updateGUIDimensions(textWidth, textHeight);
-
         g.drawString(this.text, coordX, coordY);
-
     }
 
     /*
@@ -69,5 +63,18 @@ public class GUIString extends GUIObject {
     @Override
     public void handleClick() {
         System.out.println("You clicked on a GUIString");
+    }
+
+    /**
+     * set the document area for a GUIObject
+     * @param documentArea  the document area that needs to be set
+     */
+    @Override
+    public void setDocumentArea(DocumentArea documentArea) {
+        this.documentArea = documentArea;
+
+        int textWidth = this.documentArea.getWindow().getFontMetrics().stringWidth(text);
+        int textHeight = this.documentArea.getWindow().getFontMetrics().getHeight();
+        setDimensions(textWidth, textHeight);
     }
 }

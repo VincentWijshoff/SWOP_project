@@ -2,71 +2,23 @@ package tests;
 
 import gui.GUILink;
 import gui.GUIObject;
-import gui.GUIString;
 import gui.Window;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
-import java.awt.event.KeyEvent;
+
 import java.awt.event.MouseEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 import static tests.TestUtil.*;
 
 public class UseCaseTest {
 
-    void fail(String testName) { throw new RuntimeException(testName + " failed."); }
-
-    void assertTrue(String testName, boolean b) {
-        if (!b) fail(testName);
-    }
-    void assertFalse(String testName, boolean b) {
-        if (b) fail(testName);
-    }
-    void assertEquals(String testName, Object a, Object b) {if(!a.equals(b)) fail(testName); }
-
-    void typeString(Window window, String string) {
-        for (char c: string.toCharArray()) {
-            KeyStroke keyStroke = KeyStroke.getKeyStroke(c);
-            int keyCode = KeyEvent.getExtendedKeyCodeForChar(c);
-
-            window.handleKeyEvent(401, keyCode , keyStroke.getKeyChar(), 0);
-            window.handleKeyEvent(400, 0, keyStroke.getKeyChar(), 0);
-            window.handleKeyEvent(402, keyCode, keyStroke.getKeyChar(), 0);
-        }
-    }
-
-    boolean containsGUIStringWith(int x, int y, String text, Set<GUIObject> set) {
-        for (GUIObject obj: set) {
-            if (obj instanceof  GUIString) {
-                GUIString guiString = (GUIString) obj;
-                if (guiString.coordX == x &&
-                        guiString.coordY == y &&
-                        guiString.getText().equals(text))
-                    return true;
-            }
-        }
-        return false;
-    }
-
-    boolean containsGUILinkWith(int x, int y, String text, String href, Set<GUIObject> set) {
-        for (GUIObject obj: set) {
-            if (obj instanceof GUILink) {
-                GUILink guiLink = (GUILink) obj;
-                if (guiLink.coordX == x &&
-                        guiLink.coordY == y &&
-                        guiLink.getText().equals(text) &&
-                        guiLink.getHref().equals(href))
-                    return true;
-            }
-        }
-        return false;
-    }
-
-
     @Test
-    void testUseCase(){
+    void testUseCase() throws InvocationTargetException, InterruptedException {
         //1. User starts a Browsr application.
         Window window = new Window("useCase");
+        java.awt.EventQueue.invokeAndWait(window::show);
+
 
         //2. Application shows a welcome document.
         assertTrue("UC_2.a", window.getAddress().equals("WelcomeDoc.html"));

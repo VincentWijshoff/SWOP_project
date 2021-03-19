@@ -18,7 +18,8 @@ public class GUIRectangle extends GUIObject{
         super();
 
         // Initialise dimensions of rectangle
-        updateGUIPosAndDim(x, y, width, height);
+        setDimensions(width, height);
+        setPosition(x, y);
     }
 
     /**

@@ -15,6 +15,9 @@ public class Window extends CanvasWindow{
     AddressBar addressBar;
     DocumentArea docArea;
 
+    Font font = new Font(Font.DIALOG, Font.PLAIN, 12);
+    FontMetrics fontMetrics;
+
     /**
      * Create a new window
      * @param title The title off the window
@@ -25,9 +28,6 @@ public class Window extends CanvasWindow{
         this.addressBar = new AddressBar("WelcomeDoc.html");
         this.docArea = new DocumentArea(this, this.addressBar.yLimit);
 
-        HtmlLoader loader = new HtmlLoader(Docs.getWelcomePage());
-        loader.setDocumentArea(docArea);
-        loader.loadPage();
     }
 
     /**
@@ -47,10 +47,16 @@ public class Window extends CanvasWindow{
     }
 
     /**
-     * Repaint the canvas
+     * Runs when the canvas is shown
      */
     @Override
     protected void handleShown() {
+        this.fontMetrics = getFontMetrics(font);
+
+        HtmlLoader loader = new HtmlLoader(Docs.getWelcomePage());
+        loader.setDocumentArea(docArea);
+        loader.loadPage();
+
         repaint();
     }
 
@@ -60,6 +66,7 @@ public class Window extends CanvasWindow{
      */
     @Override
     protected void paint(Graphics g) {
+        g.setFont(font);
         // Draw every GUIObject in the docArea
         for (GUIObject obj : this.docArea.getDrawnGUIObjects()) {
             obj.draw(g);
@@ -150,5 +157,9 @@ public class Window extends CanvasWindow{
      */
     public AddressBar getAddressBar() {
         return addressBar;
+    }
+
+    public FontMetrics getFontMetrics() {
+        return this.fontMetrics;
     }
 }

@@ -11,6 +11,10 @@ public class GUIObject {
 
     private UUID id;
     protected DocumentArea documentArea;
+    public int width;
+    public int height;
+    public int coordX;
+    public int coordY;
 
     /**
      * constructor off an object, it assigns a unique id
@@ -26,11 +30,6 @@ public class GUIObject {
     public void setDocumentArea(DocumentArea documentArea) {
         this.documentArea = documentArea;
     }
-
-    public int width;
-    public int height;
-    public int coordX;
-    public int coordY;
 
     /**
      * Check if the given coordinates collide with the position off this object
@@ -50,7 +49,7 @@ public class GUIObject {
      * @param x the new x coordinate
      * @param y the new y coordinate
      */
-    public void updateGUIPos(int x, int y) {
+    public void setPosition(int x, int y) {
         this.coordX = x;
         this.coordY = y;
     }
@@ -60,25 +59,10 @@ public class GUIObject {
      * @param width     The new width off this object
      * @param height    The new height off this object
      */
-    public void updateGUIDimensions(int width, int height) {
+    public void setDimensions(int width, int height) {
         this.width = width;
         this.height = height;
     }
-
-    /**
-     * update the position and dimension off this object
-     * @param x         the new x position
-     * @param y         the new y position
-     * @param width     the new width
-     * @param height    the new height
-     */
-    public void updateGUIPosAndDim(int x, int y, int width, int height) {
-        this.coordX = x;
-        this.coordY = y;
-        this.width = width;
-        this.height = height;
-    }
-
 
     /**
      * draw the object, this function should be overridden by each specific object
