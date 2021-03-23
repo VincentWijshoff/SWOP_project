@@ -177,140 +177,204 @@ public class AddressBar {
      * @return          true if the gui should load the webpage
      */
     public boolean handleKeyboardEvent(int id, int keyCode, char keyChar, int modifier) {
-        if(modifier == 64){
+        if(modifier == KeyEvent.SHIFT_DOWN_MASK){
             this.shifting = true;
         }else if(modifier == 0){
             this.shifting = false;
         }
-        if (id == 401) {
+        if (id == KeyEvent.KEY_PRESSED) {
             // now every key event will only happen once
-            if (isChar(keyCode)) {
-                // this will only happen if the pressed button is an actual char
-                if (this.startSelected != this.endSelected) {
-                    // now every bit off the current text must be replaced with the newly pressed character
-                    this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "" + keyChar);
-                    this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
-                } else {
-                    // now only input new chars on the position off the text cursor
-                    this.address = addChar(this.address, keyChar, this.cursorPosition);
-                    this.cursorPosition += 1;
-                }
-                this.startSelected = this.cursorPosition;
-                this.endSelected = this.cursorPosition;
+            if (KeyEvent.getKeyText(keyCode).length() == 1) {
+                this.onCharPress(keyChar);
             } else {
                 // here the pressed button was not a char so the special button must be handled
-                if (keyCode == 32) {
-                    // space bar
-                    if (this.startSelected != this.endSelected) {
-                        // now every bit off the current selected text must be replaced with the newly pressed character
-                        this.address = this.replaceSelected(this.startSelected, this.endSelected, this.address, " ");
-                        // this.address = " ";
-                        this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
-                    } else {
-                        // now only input new chars on the position off the text cursor
-                        this.address = addChar(this.address, ' ', this.cursorPosition);
-                        this.cursorPosition += 1;
-                    }
-                    this.startSelected = this.cursorPosition;
-                    this.endSelected = this.cursorPosition;
-                } else if (keyCode == 37) {
-                    //left arrow
-                    if(!this.shifting) {
-                        if (this.startSelected != this.endSelected) {
-                            this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-                            this.startSelected = this.cursorPosition;
-                            this.endSelected = this.cursorPosition;
-                        } else {
-                            if (this.cursorPosition > 0) {
-                                this.cursorPosition--;
-                                this.startSelected = this.cursorPosition;
-                                this.endSelected = this.cursorPosition;
-                            }
-                        }
-                    } else{
-                        //left arrow while pressing shift
-                        if(this.endSelected > 0){
-                            this.endSelected--;
-                        }
-                    }
-                } else if (keyCode == 39) {
-                    //right arrow
-                    if(!this.shifting) {
-                        if (this.startSelected != this.endSelected) {
-                            this.cursorPosition = Math.max(this.startSelected, this.endSelected);
-                            this.startSelected = this.cursorPosition;
-                            this.endSelected = this.cursorPosition;
-                        } else {
-                            if (this.cursorPosition < this.address.length()) {
-                                this.cursorPosition++;
-                                this.startSelected = this.cursorPosition;
-                                this.endSelected = this.cursorPosition;
-                            }
-                        }
-                    } else{
-                        if(this.endSelected < this.address.length()){
-                            this.endSelected++;
-                        }
-                    }
-                } else if (keyCode == 8) {
-                    //backspace
-                    if (this.startSelected != this.endSelected) {
-                        this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "");
-                        this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-                        this.startSelected = this.cursorPosition;
-                        this.endSelected = this.cursorPosition;
-                    } else {
-                        if (this.cursorPosition > 0) {
-                            this.address = this.removeAt(this.address, --this.cursorPosition);
-                            this.startSelected = this.cursorPosition;
-                            this.endSelected = this.cursorPosition;
-                        }
-                    }
-                } else if (keyCode == 127) {
-                    //delete
-                    if (this.startSelected != this.endSelected) {
-                        this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "");
-                        this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-                        this.startSelected = this.cursorPosition;
-                        this.endSelected = this.cursorPosition;
-                    } else {
-                        if (this.cursorPosition < this.address.length()) {
-                            this.address = this.removeAt(this.address, this.cursorPosition);
-                            this.startSelected = this.cursorPosition;
-                            this.endSelected = this.cursorPosition;
-                        }
-                    }
-                } else if (keyCode == 36) {
-                    //home
-                    this.cursorPosition = 0;
-                    if(!this.shifting) {
-                        this.startSelected = this.cursorPosition;
-                        this.endSelected = this.cursorPosition;
-                    } else{
-                        this.endSelected = 0;
-                    }
-                } else if (keyCode == 35) {
-                    //end
-                    this.cursorPosition = this.address.length();
-                    if(!this.shifting) {
-                        this.startSelected = this.cursorPosition;
-                    }
-                    this.endSelected = this.cursorPosition;
-                } else if (keyCode == 27) {
-                    //escape
-                    this.address = prevAddress;
-                    this.cursorPosition = this.address.length();
-                    this.inFocus = false;
-                    this.initialClick = true;
-                    this.startSelected = this.cursorPosition;
-                    this.endSelected = this.cursorPosition;
-                } else if (keyCode == 10) {
+                if (keyCode == KeyEvent.VK_SPACE) {
+                    this.onSpacePress();
+                } else if (keyCode == KeyEvent.VK_LEFT) {
+                    this.onLeftArrow();
+                } else if (keyCode == KeyEvent.VK_RIGHT) {
+                    this.onRightArrow();
+                } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
+                    this.onBackSpace();
+                } else if (keyCode == KeyEvent.VK_DELETE) {
+                    this.onDelete();
+                } else if (keyCode == KeyEvent.VK_HOME) {
+                    this.onHome();
+                } else if (keyCode == KeyEvent.VK_END) {
+                    this.onEnd();
+                } else if (keyCode == KeyEvent.VK_ESCAPE) {
+                    this.onEscape();
+                } else if (keyCode == KeyEvent.VK_ENTER) {
                     //enter
                     return this.setOutFocus();
                 }
             }
         }
         return false;
+    }
+
+    /**
+     * When the user pressed a char on the keyboard
+     * @param keyChar the char that was pressed
+     */
+    private void onCharPress(char keyChar){
+        // this will only happen if the pressed button is an actual char
+        if (this.startSelected != this.endSelected) {
+            // now every bit off the current text must be replaced with the newly pressed character
+            this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "" + keyChar);
+            this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
+        } else {
+            // now only input new chars on the position off the text cursor
+            this.address = addChar(this.address, keyChar, this.cursorPosition);
+            this.cursorPosition += 1;
+        }
+        this.startSelected = this.cursorPosition;
+        this.endSelected = this.cursorPosition;
+    }
+
+    /**
+     * When the user pressed the space bar
+     */
+    private void onSpacePress(){
+        // space bar
+        if (this.startSelected != this.endSelected) {
+            // now every bit off the current selected text must be replaced with the newly pressed character
+            this.address = this.replaceSelected(this.startSelected, this.endSelected, this.address, " ");
+            // this.address = " ";
+            this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
+        } else {
+            // now only input new chars on the position off the text cursor
+            this.address = addChar(this.address, ' ', this.cursorPosition);
+            this.cursorPosition += 1;
+        }
+        this.startSelected = this.cursorPosition;
+        this.endSelected = this.cursorPosition;
+    }
+
+    /**
+     * When the user pressed the left arrow button
+     */
+    private void onLeftArrow(){
+        //left arrow
+        if(!this.shifting) {
+            if (this.startSelected != this.endSelected) {
+                this.cursorPosition = Math.min(this.startSelected, this.endSelected);
+                this.startSelected = this.cursorPosition;
+                this.endSelected = this.cursorPosition;
+            } else {
+                if (this.cursorPosition > 0) {
+                    this.cursorPosition--;
+                    this.startSelected = this.cursorPosition;
+                    this.endSelected = this.cursorPosition;
+                }
+            }
+        } else{
+            //left arrow while pressing shift
+            if(this.endSelected > 0){
+                this.endSelected--;
+            }
+        }
+    }
+
+    /**
+     * When the user presses the right arrow button
+     */
+    private void onRightArrow(){
+        //right arrow
+        if(!this.shifting) {
+            if (this.startSelected != this.endSelected) {
+                this.cursorPosition = Math.max(this.startSelected, this.endSelected);
+                this.startSelected = this.cursorPosition;
+                this.endSelected = this.cursorPosition;
+            } else {
+                if (this.cursorPosition < this.address.length()) {
+                    this.cursorPosition++;
+                    this.startSelected = this.cursorPosition;
+                    this.endSelected = this.cursorPosition;
+                }
+            }
+        } else{
+            if(this.endSelected < this.address.length()){
+                this.endSelected++;
+            }
+        }
+    }
+
+    /**
+     * When the user pressed the backspace button
+     */
+    private void onBackSpace(){
+        //backspace
+        if (this.startSelected != this.endSelected) {
+            this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "");
+            this.cursorPosition = Math.min(this.startSelected, this.endSelected);
+            this.startSelected = this.cursorPosition;
+            this.endSelected = this.cursorPosition;
+        } else {
+            if (this.cursorPosition > 0) {
+                this.address = this.removeAt(this.address, --this.cursorPosition);
+                this.startSelected = this.cursorPosition;
+                this.endSelected = this.cursorPosition;
+            }
+        }
+    }
+
+    /**
+     * When the user pressed the delete button
+     */
+    private void onDelete(){
+        //delete
+        if (this.startSelected != this.endSelected) {
+            this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "");
+            this.cursorPosition = Math.min(this.startSelected, this.endSelected);
+            this.startSelected = this.cursorPosition;
+            this.endSelected = this.cursorPosition;
+        } else {
+            if (this.cursorPosition < this.address.length()) {
+                this.address = this.removeAt(this.address, this.cursorPosition);
+                this.startSelected = this.cursorPosition;
+                this.endSelected = this.cursorPosition;
+            }
+        }
+    }
+
+    /**
+     * When the user pressed the home button
+     */
+    private void onHome(){
+        //home
+        this.cursorPosition = 0;
+        if(!this.shifting) {
+            this.startSelected = this.cursorPosition;
+            this.endSelected = this.cursorPosition;
+        } else{
+            this.endSelected = 0;
+        }
+    }
+
+    /**
+     * When the user pressed the end button
+     */
+    private void onEnd(){
+        //end
+        this.cursorPosition = this.address.length();
+        if(!this.shifting) {
+            this.startSelected = this.cursorPosition;
+        }
+        this.endSelected = this.cursorPosition;
+    }
+
+    /**
+     * When the user pressed the escape button
+     */
+    private void onEscape(){
+        //escape
+        this.address = prevAddress;
+        this.cursorPosition = this.address.length();
+        this.inFocus = false;
+        this.initialClick = true;
+        this.startSelected = this.cursorPosition;
+        this.endSelected = this.cursorPosition;
     }
 
     /**
@@ -356,33 +420,6 @@ public class AddressBar {
         updatedArr[position] = ch;
         str.getChars(position, len, updatedArr, position + 1);
         return new String(updatedArr);
-    }
-
-    /**
-     * checks if the given code is a normal char from the keyboard
-     * @param code  the char code that will be checked
-     * @return  true if the code is a normal char code, else false
-     */
-    private boolean isChar(int code){
-        //is a char when normal keyboard input, slashes, points or Commas...
-        return KeyEvent.getKeyText(code).length() == 1 ||
-                code == 47 || // the forward slash
-                code == 46 || // the point
-                code == 44 || // the comma
-                code == 59 || // the double point
-                code == 45 || // the minus
-                code == 61 || // the equal sign
-                code == 91 || // open bracket
-                code == 93 || // close bracket
-                code == 92 || // the backslash
-                code == 222 || // the flying comma
-                code == 110 || // all num lock special items
-                code == 107 ||
-                code == 109 ||
-                code == 106 ||
-                code == 111 ||
-                code == 192 ||
-                code == 513; //slash and double point
     }
 
     /**
