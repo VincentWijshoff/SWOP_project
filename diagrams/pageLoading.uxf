@@ -11,20 +11,20 @@
     </coordinates>
     <panel_attributes>title=Load page from pressing ENTER in addressbar
 obj=User~a ACTOR EXECUTION
-obj=:CanvasWindow~e
-obj=:Window~b
-obj=:AddressBar~c
+obj=:CanvasWindow~e EXECUTION
+obj=:Window~b EXECUTION
+obj=:AddressBar~c EXECUTION
 
-a-&gt;&gt;&gt;e : ENTER; on=e
-e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers); on=b;
+a-&gt;&gt;&gt;e : ENTER;
+e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 
-b-&gt;&gt;&gt;c : handleKeyboardEvent(keyID, keyCode, keyChar, modifiers);on=c;
-c.&gt;b : True;off=c;
-b-&gt;&gt;&gt;c : getAddress(); on=c;
-c.&gt;b : address;off=c;
+b-&gt;&gt;&gt;c : handleKeyboardEvent(keyID, keyCode, keyChar, modifiers);
+c.&gt;b : True;
+b-&gt;&gt;&gt;c : getAddress(); 
+c.&gt;b : address;
 b-&gt;&gt;&gt;b + : this.load(address)
 tick=
-ref=b c :Load page from given URL
+ref=b b :Load page from given URL
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -38,20 +38,20 @@ ref=b c :Load page from given URL
     </coordinates>
     <panel_attributes>title=Load page from clicking outside of addressbar after typing in adressbar
 obj=User~a ACTOR EXECUTION
-obj=:CanvasWindow~e 
-obj=:Window~b
-obj=:AddressBar~c 
+obj=:CanvasWindow~e EXECUTION
+obj=:Window~b EXECUTION
+obj=:AddressBar~c EXECUTION
 
 
-a-&gt;&gt;&gt;e : Mouse Click;on=e;
-e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);on=b;
-b-&gt;&gt;&gt;c : setOutFocus();on=c;
-c.&gt;b : True;off=c;
-b-&gt;&gt;&gt;c : getAddress(); on=c;
-c.&gt;b : address;off=c;
+a-&gt;&gt;&gt;e : Mouse Click;
+e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
+b-&gt;&gt;&gt;c : setOutFocus();
+c.&gt;b : True;
+b-&gt;&gt;&gt;c : getAddress();
+c.&gt;b : address;
 b-&gt;&gt;&gt;b + : this.load(address)
 tick=
-ref=b c :Load page from given URL</panel_attributes>
+ref=b b :Load page from given URL</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -60,25 +60,24 @@ ref=b c :Load page from given URL</panel_attributes>
       <x>0</x>
       <y>872</y>
       <w>1104</w>
-      <h>504</h>
+      <h>488</h>
     </coordinates>
     <panel_attributes>title=Load page from clicking on a url in the document area
 obj=User~a ACTOR EXECUTION
-obj=:CanvasWindow~e 
-obj=:Window~b
-obj=:DocumentArea~d
-obj=:GUIObject {abstract}~c
+obj=:CanvasWindow~e EXECUTION
+obj=:Window~b EXECUTION
+obj=:DocumentArea~d EXECUTION
+obj=:GUIObject {abstract}~c EXECUTION
 
-a-&gt;&gt;&gt;e : Mouse Click; on=e;
-e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);on=b;
-b-&gt;&gt;&gt;d : handleMouseEvent(ID, x, y);on=d;
+a-&gt;&gt;&gt;e : Mouse Click;
+e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
+b-&gt;&gt;&gt;d : handleMouseEvent(ID, x, y);
 combinedFragment=loop~loopid d c
-		d:GUIObject obj : this.DocGUIObjects
+		d:[ GUIObject obj : this.DocGUIObjects ]
 		combinedFragment=opt~l2 d c
-		c:isInGUIObject(x, Y);on=c;
+		d:[ isInGUIObject(X, Y) ];
 		d-&gt;&gt;&gt;c : handleClick(); 
 		ref=c c :GUIObject handleClick
-		off=c;
 		--=l2
 	--=loopid
 </panel_attributes>
@@ -90,45 +89,43 @@ combinedFragment=loop~loopid d c
       <x>8</x>
       <y>2096</y>
       <w>2272</w>
-      <h>784</h>
+      <h>576</h>
     </coordinates>
     <panel_attributes>title= Load page from given URL
-obj=:Window~a
-obj=:AddressBar~b
-obj=:DocumentArea~c
-obj=BrowsrDocumentValidator~f
-obj=:HtmlLoader~d CREATED_LATER
-obj=:HtmlLexer~e CREATED_LATER
+obj=:Window~a EXECUTION
+obj=:AddressBar~b EXECUTION
+obj=:DocumentArea~c EXECUTION
+obj=BrowsrDocumentValidator~f 
+obj=:HtmlLoader~d CREATED_LATER EXECUTION
+obj=:HtmlLexer~e CREATED_LATER EXECUTION
 
-found-&gt;a : load(URL);on=a;
+found-&gt;a : load(URL);
 
-a-&gt;&gt;&gt;b : setAddress(URL);on=b;
+a-&gt;&gt;&gt;b : setAddress(URL);
 b-&gt;b + : this.address = URL;
 tick=
-off=b
-a-&gt;&gt;&gt;c : loadAddress(URL);on=c;
+
+a-&gt;&gt;&gt;c : loadAddress(URL);
 c-&gt;c + : this.DocGUIObjects.clear();
 tick=
-c-&gt;&gt;&gt;f : assertIsValidBrowsrDocument(URL);on=f;
-off=f;
+c-&gt;&gt;&gt;f : assertIsValidBrowsrDocument(URL);
+
 c-&gt;&gt;&gt;d : new HtmlLoader(URL);
-on=d;
+
 d-&gt;&gt;&gt;d + : loadHtml(URL);
 tick=
-off=d;
-c-&gt;&gt;&gt;d : loadPage();on=d;
+
+c-&gt;&gt;&gt;d : loadPage();
 d-&gt;&gt;&gt;e : new HtmlLexer();
-on=e;
+
 ref=d e : Load and Lex html
-off=e;
-off=d;
-off=c;
+
 a-&gt;&gt;&gt;a + : this.repaint();
 tick=
-a-&gt;&gt;&gt;b : draw(Graphics);on=b;
-off=b;
-a-&gt;&gt;&gt;c : draw(Graphics);on=c;
-off=c;</panel_attributes>
+a-&gt;&gt;&gt;b : draw(Graphics);
+
+a-&gt;&gt;&gt;c : draw(Graphics);
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -140,10 +137,10 @@ off=c;</panel_attributes>
       <h>168</h>
     </coordinates>
     <panel_attributes>title=GUIObject handleClick
-obj=:GUIString~a
+obj=:GUIString~a EXECUTION
 
-found-&gt;a : handleClick();on=a;
-a-&gt;lost: return;off=a;
+found-&gt;a : handleClick();
+a-&gt;lost: return;
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -156,10 +153,10 @@ a-&gt;lost: return;off=a;
       <h>168</h>
     </coordinates>
     <panel_attributes>title=GUIObject handleClick
-obj=:GUIRectangle~a
+obj=:GUIRectangle~a EXECUTION
 
-found-&gt;a : handleClick();on=a;
-a-&gt;lost: return;off=a;
+found-&gt;a : handleClick();
+a-&gt;lost: return;
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -168,28 +165,27 @@ a-&gt;lost: return;off=a;
     <coordinates>
       <x>8</x>
       <y>1568</y>
-      <w>1848</w>
-      <h>520</h>
+      <w>1768</w>
+      <h>496</h>
     </coordinates>
     <panel_attributes>title=GUIObject handleClick
-obj=:GUILink~a
-obj=:DocumentArea~b
-obj=:Window~c
-obj=:AddressBar~d
+obj=:GUILink~a EXECUTION
+obj=:DocumentArea~b EXECUTION
+obj=:Window~c EXECUTION
+obj=:AddressBar~d EXECUTION
 
-found-&gt;a : handleClick();on=a;
-a-&gt;&gt;&gt;b: getAddress();on=b
-b-&gt;&gt;&gt;c: getAddress();on=c;
-c-&gt;&gt;&gt;d: getAddress();on=d;
-d.&gt;c: address;off=d
-c.&gt;b: address;off=c
-b.&gt;a:address;off=b
-a-&gt;&gt;&gt;a + :newAddress = this.getModifiedAddress(address, this.href)
-on=a;
-off=a;
-a-&gt;&gt;&gt;b: load(newAddress);on=b;
-b-&gt;&gt;&gt;c:load(newAddress);on=c;
-ref=b d :Load page from given URL</panel_attributes>
+found-&gt;a : handleClick();
+a-&gt;&gt;&gt;b: getAddress();
+b-&gt;&gt;&gt;c: getAddress();
+c-&gt;&gt;&gt;d: getAddress();
+d.&gt;c: address;
+c.&gt;b: address;
+b.&gt;a:address;
+a-&gt;&gt;&gt;a + :newAddress = this.getModifiedAddress(address, this.href);
+tick=
+a-&gt;&gt;&gt;b: load(newAddress);
+b-&gt;&gt;&gt;c:load(newAddress);
+ref=c c :Load page from given URL</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -198,52 +194,52 @@ ref=b d :Load page from given URL</panel_attributes>
       <x>8</x>
       <y>2904</y>
       <w>1832</w>
-      <h>1144</h>
+      <h>952</h>
     </coordinates>
     <panel_attributes>title=Load and Lex html
-obj=:HtmlLoader~a
-obj=:HtmlLexer~b CREATED_LATER
-obj=:Hyperlink~c CREATED_LATER
-obj=:HtmlTable~e CREATED_LATER
-obj=:DocumentArea~d 
+obj=:HtmlLoader~a EXECUTION
+obj=:HtmlLexer~b CREATED_LATER EXECUTION
+obj=:Hyperlink~c CREATED_LATER EXECUTION
+obj=:HtmlTable~e CREATED_LATER EXECUTION
+obj=:DocumentArea~d EXECUTION
 
-found-&gt;a : loadPage();on=a;
+found-&gt;a : loadPage();
 a-&gt;&gt;&gt;b : lexer = new HtmlLexer(htmlCode);
 
-a-&gt;&gt;&gt;b : type = getTokenType();on=b;
-off=b;
-a-&gt;&gt;&gt;b : value = getTokenValue();on=b;
-off=b;
+a-&gt;&gt;&gt;b : type = getTokenType();
+
+a-&gt;&gt;&gt;b : value = getTokenValue();
+
 combinedFragment=loop~loopid a b
-	a : type != HtmlLexer.TokenType.END_OF_FILE
+	a : [ type != HtmlLexer.TokenType.END_OF_FILE ]
 	combinedFragment=opt~loop1 a b;
-	a: type == HtmlLexer.TokenType.OPEN_START_TAG
-		combinedFragment=alt~loop2 a b; a: value.equals("a")
+	a: [ type == HtmlLexer.TokenType.OPEN_START_TAG ]
+		combinedFragment=alt~loop2 a b; a: [ value.equals("a") ]
 			a-&gt;&gt;&gt;c : tag = new Hyperlink();
-			a-&gt;&gt;&gt;b :eatToken();on=b;
-			off=b;
+			a-&gt;&gt;&gt;b :eatToken();
+			
 			a-&gt;&gt;&gt;a + : lexer = updateATag(lexer, tag);
 			tick=
-			a-&gt;&gt;&gt;d : addGUIObjects(tag); on=d;
-			off=d;
-		..=loop2 ; a : isTable(value)
+			a-&gt;&gt;&gt;d : addGUIObjects(tag); 
+			
+		..=loop2 ; a : [ isTable(value) ]
 			a-&gt;&gt;&gt;e : table = new HtmlTable();
-			a-&gt;&gt;&gt;b :eatToken();on=b;
-			off=b;
+			a-&gt;&gt;&gt;b :eatToken();
+			
 			a-&gt;&gt;&gt;a + : lexer = updateTableTag(lexer, table;
 			tick=
-			a-&gt;&gt;&gt;d : addGUIObjects(table); on=d;
-			off=d;
+			a-&gt;&gt;&gt;d : addGUIObjects(table); 
+			
 		--=loop2
 	--=loop1
-	a-&gt;&gt;&gt;b : eatToken();on=b;
-off=b;
-	a-&gt;&gt;&gt;b : type = getTokenType();on=b;
-off=b;
-	a-&gt;&gt;&gt;b : value = getTokenValue();on=b;
-off=b;
+	a-&gt;&gt;&gt;b : eatToken();
+
+	a-&gt;&gt;&gt;b : type = getTokenType();
+
+	a-&gt;&gt;&gt;b : value = getTokenValue();
+
 	--=loopid
-a-&gt;lost: return;off=a;
+a-&gt;lost: return;
 </panel_attributes>
     <additional_attributes/>
   </element>
