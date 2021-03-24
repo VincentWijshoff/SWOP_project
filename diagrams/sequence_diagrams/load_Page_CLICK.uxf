@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>88</x>
+      <y>152</y>
+      <w>1176</w>
+      <h>416</h>
+    </coordinates>
+    <panel_attributes>title=Load page from clicking outside of addressbar after typing in adressbar
+obj=User~a ACTOR EXECUTION
+obj=:CanvasWindow~e EXECUTION
+obj=:Window~b EXECUTION
+obj=:AddressBar~c EXECUTION
+
+
+a-&gt;&gt;&gt;e : Mouse Click;
+e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
+b-&gt;&gt;&gt;c : setOutFocus();
+c.&gt;b : True;
+b-&gt;&gt;&gt;c : getAddress();
+c.&gt;b : address;
+b-&gt;&gt;&gt;b + : this.load(address)
+tick=
+ref=b b :Load page from given URL</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

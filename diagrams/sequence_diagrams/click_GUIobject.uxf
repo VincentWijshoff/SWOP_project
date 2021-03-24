@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>468</x>
+      <y>162</y>
+      <w>228</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>title=GUIObject handleClick
+obj=:GUIString~a EXECUTION
+
+found-&gt;a : handleClick();
+a-&gt;lost: return;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>204</x>
+      <y>162</y>
+      <w>228</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>title=GUIObject handleClick
+obj=:GUIRectangle~a EXECUTION
+
+found-&gt;a : handleClick();
+a-&gt;lost: return;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>6</x>
+      <y>306</y>
+      <w>1326</w>
+      <h>372</h>
+    </coordinates>
+    <panel_attributes>title=GUIObject handleClick
+obj=:GUILink~a EXECUTION
+obj=:DocumentArea~b EXECUTION
+obj=:Window~c EXECUTION
+obj=:AddressBar~d EXECUTION
+
+found-&gt;a : handleClick();
+a-&gt;&gt;&gt;b: getAddress();
+b-&gt;&gt;&gt;c: getAddress();
+c-&gt;&gt;&gt;d: getAddress();
+d.&gt;c: address;
+c.&gt;b: address;
+b.&gt;a:address;
+a-&gt;&gt;&gt;a + :newAddress = this.getModifiedAddress(address, this.href);
+tick=
+a-&gt;&gt;&gt;b: load(newAddress);
+b-&gt;&gt;&gt;c:load(newAddress);
+ref=c c :Load page from given URL</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

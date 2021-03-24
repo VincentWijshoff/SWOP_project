@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>56</x>
+      <y>160</y>
+      <w>1176</w>
+      <h>440</h>
+    </coordinates>
+    <panel_attributes>title=Load page from pressing ENTER in addressbar
+obj=User~a ACTOR EXECUTION
+obj=:CanvasWindow~e EXECUTION
+obj=:Window~b EXECUTION
+obj=:AddressBar~c EXECUTION
+
+a-&gt;&gt;&gt;e : ENTER;
+e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+
+b-&gt;&gt;&gt;c : handleKeyboardEvent(keyID, keyCode, keyChar, modifiers);
+c.&gt;b : True;
+b-&gt;&gt;&gt;c : getAddress(); 
+c.&gt;b : address;
+b-&gt;&gt;&gt;b + : this.load(address)
+tick=
+ref=b b :Load page from given URL
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

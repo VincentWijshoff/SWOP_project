@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>2290</w>
+      <h>1190</h>
+    </coordinates>
+    <panel_attributes>title=Load and Lex html
+obj=:HtmlLoader~a EXECUTION
+obj=:HtmlLexer~b CREATED_LATER EXECUTION
+obj=:Hyperlink~c CREATED_LATER EXECUTION
+obj=:HtmlTable~e CREATED_LATER EXECUTION
+obj=:DocumentArea~d EXECUTION
+
+found-&gt;a : loadPage();
+a-&gt;&gt;&gt;b : lexer = new HtmlLexer(htmlCode);
+
+a-&gt;&gt;&gt;b : type = getTokenType();
+
+a-&gt;&gt;&gt;b : value = getTokenValue();
+
+combinedFragment=loop~loopid a b
+	a : [ type != HtmlLexer.TokenType.END_OF_FILE ]
+	combinedFragment=opt~loop1 a b;
+	a: [ type == HtmlLexer.TokenType.OPEN_START_TAG ]
+		combinedFragment=alt~loop2 a b; a: [ value.equals("a") ]
+			a-&gt;&gt;&gt;c : tag = new Hyperlink();
+			a-&gt;&gt;&gt;b :eatToken();
+			
+			a-&gt;&gt;&gt;a + : lexer = updateATag(lexer, tag);
+			tick=
+			a-&gt;&gt;&gt;d : addGUIObjects(tag); 
+			
+		..=loop2 ; a : [ isTable(value) ]
+			a-&gt;&gt;&gt;e : table = new HtmlTable();
+			a-&gt;&gt;&gt;b :eatToken();
+			
+			a-&gt;&gt;&gt;a + : lexer = updateTableTag(lexer, table;
+			tick=
+			a-&gt;&gt;&gt;d : addGUIObjects(table); 
+			
+		--=loop2
+	--=loop1
+	a-&gt;&gt;&gt;b : eatToken();
+
+	a-&gt;&gt;&gt;b : type = getTokenType();
+
+	a-&gt;&gt;&gt;b : value = getTokenValue();
+
+	--=loopid
+a-&gt;lost: return;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
