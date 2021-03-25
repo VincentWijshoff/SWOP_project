@@ -45,7 +45,8 @@ public class GUIString extends GUIObject {
         int textHeight = (int) g.getFontMetrics().getStringBounds(text, g).getHeight();
         setDimensions(textWidth, textHeight);
 
-        g.drawString(this.text, coordX, coordY);
+        g.drawRect(this.coordX, this.coordY, this.width, this.height);
+        g.drawString(this.text, coordX, coordY + height);
     }
 
     /*
@@ -69,7 +70,7 @@ public class GUIString extends GUIObject {
 
     @Override
     public void setPosition(int x, int y) {
-        super.setPosition(x, y+this.height);
+        super.setPosition(x, y);
     }
 
     /**

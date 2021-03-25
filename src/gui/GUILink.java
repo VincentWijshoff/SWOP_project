@@ -46,8 +46,8 @@ public class GUILink extends GUIString {
 
         Color oldColor = g.getColor();
         g.setColor(Color.BLUE);
-        g.drawString(text, coordX, coordY);
-        g.drawLine(coordX, coordY, coordX+this.width, coordY);
+        g.drawString(text, coordX, coordY + height);
+        g.drawLine(coordX, coordY+height, coordX+this.width, coordY+height);
         g.setColor(oldColor);
     }
 
