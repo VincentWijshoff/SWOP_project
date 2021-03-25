@@ -4,6 +4,7 @@ import browsrhtml.BrowsrDocumentValidator;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,6 +20,7 @@ public class DocumentArea {
 
     private Set<GUIObject> drawnGUIObjects = new HashSet<>();
     private int relativeYPos;
+    private final int xOffset = 5;
     private Window window;
 
     /*
@@ -76,10 +78,12 @@ public class DocumentArea {
     }
 
     public void draw(Graphics g) {
+        g.translate(xOffset,relativeYPos);
         // Draw every GUIObject in the docArea
         for (GUIObject obj : this.getDrawnGUIObjects()) {
             obj.draw(g);
         }
+        g.translate(-xOffset,-relativeYPos);
     }
 
      /**
@@ -145,6 +149,9 @@ public class DocumentArea {
      * @param y the y position off the mouse event
      */
     public void handleMouseEvent(int id, int x, int y){
+        x -= xOffset;
+        y -= relativeYPos;
+
         if (id == MouseEvent.MOUSE_PRESSED) {
             for (GUIObject obj : this.getDrawnGUIObjects()) { // Loop through all GUIObjects in docArea
                 if (obj.isInGUIObject(x, y)) {
