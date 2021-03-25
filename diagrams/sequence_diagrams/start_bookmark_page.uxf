@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>0</x>
-      <y>120</y>
-      <w>1970</w>
-      <h>760</h>
+      <x>8</x>
+      <y>136</y>
+      <w>1272</w>
+      <h>632</h>
     </coordinates>
     <panel_attributes>title=Start bookmark adding page
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:Window~b EXECUTION
-obj=:BookmarkBar~c EXECUTION
-obj=:DialogScreen~d 
+obj=:DialogScreen~c EXECUTION
 
 a-&gt;&gt;&gt;e : CTRL;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
@@ -23,12 +22,13 @@ c.&gt;b : False;
 a-&gt;&gt;&gt;e : D;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+c-&gt;c + : setScreen = "addBookmark";
+tick=
 c.&gt;b : True;
 b-&gt;b + : this.dialogScreening = True;
 tick=
-b-&gt;&gt;&gt;d : startDialogScreen(String);on=d;
 
-ref=d d :Bookmark page</panel_attributes>
+ref=c c :Bookmark page</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
