@@ -253,11 +253,12 @@ has &gt;</panel_attributes>
     </coordinates>
     <panel_attributes>AddressBar
 --
-- draw(Graphics) : void
+- draw(Graphics, Window) : void
 - setAddress(String) : void
 - getAddress() : String
+- isOnAddressBar(int, int) : boolean
 - handleMouseEvent(int, int) : void
-- handleKeyboardEvent(int, int, char) : void
+- handleKeyboardEvent(int, int, char, int) : boolean
 - isInFoucs() : boolean
 - setInFocus() : void
 - setOutFocus() : void
@@ -629,12 +630,22 @@ has &gt;
     <coordinates>
       <x>306</x>
       <y>1557</y>
-      <w>252</w>
+      <w>270</w>
       <h>171</h>
     </coordinates>
     <panel_attributes>InputField
 --
-- handleKeyEvent(int, int, char, string) : string
+- handleKeyEvent(int, int, char, int) : boolean
+- getText() : String
+- setText(String) : void
+- getCursorPosition() : int
+- isSelecting() : boolean
+- getSelectedPositions(Graphics) : int[]
+- selectAll() : void
+- selectNone() : void
+- start() : void
+- draw(Graphics, int, int, int, int, boolean) : void
+
 </panel_attributes>
     <additional_attributes/>
   </element>

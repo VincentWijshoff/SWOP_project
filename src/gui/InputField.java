@@ -36,7 +36,7 @@ public class InputField {
      * @return          true if the ENTER key was pressed
      *                  false a any other key press
      */
-    public boolean handleKeyboardEvent(int id, int keyCode, char keyChar, int modifier) {
+    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
         if(modifier == KeyEvent.SHIFT_DOWN_MASK){
             this.shifting = true;
         }else if(modifier == 0){

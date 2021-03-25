@@ -129,7 +129,7 @@ public class AddressBar {
      * @return          true if the gui should load the webpage
      */
     public boolean handleKeyboardEvent(int id, int keyCode, char keyChar, int modifier) {
-        if(this.inputField.handleKeyboardEvent(id, keyCode, keyChar, modifier)){
+        if(this.inputField.handleKeyEvent(id, keyCode, keyChar, modifier)){
             return this.setOutFocus();
         }
         if (id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_ESCAPE) {
