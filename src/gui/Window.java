@@ -13,6 +13,7 @@ import java.awt.*;
 public class Window extends CanvasWindow{
 
     AddressBar addressBar;
+    BookmarkBar bookmarkBar;
     DocumentArea docArea;
 
     Font font = new Font(Font.DIALOG, Font.PLAIN, 12);
@@ -26,7 +27,8 @@ public class Window extends CanvasWindow{
         super(title);
 
         this.addressBar = new AddressBar("WelcomeDoc.html");
-        this.docArea = new DocumentArea(this, this.addressBar.yLimit);
+        this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit);
+        this.docArea = new DocumentArea(this, this.addressBar.yLimit + this.bookmarkBar.getHeight());
 
     }
 
@@ -73,6 +75,7 @@ public class Window extends CanvasWindow{
         }
 
         // Draw AddressBar
+        this.bookmarkBar.draw(g, this.getWidth());
         this.addressBar.draw(g, this);
     }
 
@@ -117,6 +120,7 @@ public class Window extends CanvasWindow{
         if (this.addressBar.isInFocus()) {
             this.addressBar.handleMouseEvent(id, clickCount);
         } else {
+            this.bookmarkBar.handleMouseEvent(id, x, y);
             this.docArea.handleMouseEvent(id, x, y);
         }
         this.repaint();

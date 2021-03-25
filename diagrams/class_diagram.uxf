@@ -593,8 +593,10 @@ m2=</panel_attributes>
     </coordinates>
     <panel_attributes>BookmarkBar
 --
-- draw(Graphics) : void
-- handleMouseEvent(int, int, char) : void</panel_attributes>
+- draw(Graphics, int) : void
+- handleMouseEvent(int, int) : void
+- addBookmark(string, string) : void
+- getHeight() : int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
