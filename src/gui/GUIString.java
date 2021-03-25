@@ -76,8 +76,8 @@ public class GUIString extends GUIObject {
      * Handle the click on this string
      */
     @Override
-    public void handleClick() {
-        System.out.println("You clicked on a GUIString");
+    public void handleClick(int x, int y) {
+        System.out.println("You clicked on a GUIString: "+ this.text);
     }
 
     /**

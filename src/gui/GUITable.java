@@ -5,31 +5,42 @@ import java.util.ArrayList;
 
 public class GUITable extends GUIObject {
 
-    ArrayList<ArrayList<GUIObject>> tableObjects; //list of rows
+    ArrayList<ArrayList<GUIObject>> tableRows; //list of rows
 
     public GUITable(int x, int y) {
         super();
 
-        this.tableObjects = new ArrayList<>();
+        this.tableRows = new ArrayList<>();
         setPosition(x, y);
     }
 
     public GUITable(ArrayList<ArrayList<GUIObject>> rows) {
         super();
 
-        this.tableObjects = rows;
+        this.tableRows = rows;
     }
 
-    public void setTableObjects(ArrayList<ArrayList<GUIObject>> tableObjects) {
-        this.tableObjects = tableObjects;
+    public void setTableRows(ArrayList<ArrayList<GUIObject>> tableRows) {
+        this.tableRows = tableRows;
 
+    }
+
+    @Override
+    public void setDocumentArea(DocumentArea documentArea) {
+        super.setDocumentArea(documentArea);
+
+        for (ArrayList<GUIObject> row: tableRows) {
+            for (GUIObject obj: row) {
+                obj.setDocumentArea(documentArea);
+            }
+        }
     }
 
     @Override
     public void draw(Graphics g) {
         int currentY = this.coordY;
 
-        for (ArrayList<GUIObject> row: tableObjects) {
+        for (ArrayList<GUIObject> row: tableRows) {
 
             int currentX = this.coordX;
             for(GUIObject obj: row) {
@@ -37,7 +48,7 @@ public class GUITable extends GUIObject {
                 obj.draw(g); //We draw before setting the position to make sure all values (width & height) of the GUIObject have been initialized
                 obj.setPosition(currentX, currentY);
 
-                currentX += getColumnWidth(tableObjects, row.indexOf(obj));
+                currentX += getColumnWidth(tableRows, row.indexOf(obj));
             }
             currentY += getRowHeight(row);
         }
@@ -47,7 +58,7 @@ public class GUITable extends GUIObject {
 
     private int calculateHeight() {
         int sum = 0;
-        for (ArrayList<GUIObject> row: tableObjects ) {
+        for (ArrayList<GUIObject> row: tableRows) {
             sum += getRowHeight(row);
         }
         return sum;
@@ -58,12 +69,12 @@ public class GUITable extends GUIObject {
 
         // Get length of longest row in table
         int longestRow = 0;
-        for (ArrayList<GUIObject> row: tableObjects ) {
+        for (ArrayList<GUIObject> row: tableRows) {
             if (row.size() > longestRow) longestRow = row.size();
         }
 
         for (int i = 0; i < longestRow; i++) {
-            sum += getColumnWidth(tableObjects, i);
+            sum += getColumnWidth(tableRows, i);
         }
 
         return sum;
@@ -87,6 +98,22 @@ public class GUITable extends GUIObject {
         return max;
     }
 
+    @Override
+    public void handleClick(int x, int y) {
+        int cumulativeHeight = 0;
+        int cumulativeWidth = 0;
 
-
+        for (ArrayList<GUIObject> row: tableRows) { //find row that was clicked
+            cumulativeHeight += getRowHeight(row);
+            if (cumulativeHeight >= y) {
+                for (GUIObject obj: row) {
+                    cumulativeWidth += getColumnWidth(tableRows, row.indexOf(obj));
+                    if (cumulativeWidth >= x) {
+                        obj.handleClick(x, y);
+                        return;
+                    }
+                }
+            }
+        }
+    }
 }

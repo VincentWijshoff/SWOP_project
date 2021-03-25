@@ -50,7 +50,7 @@ public class UseCaseTest {
         for(GUIObject obj : window.getDocArea().getDrawnGUIObjects()){
             if(obj instanceof GUILink){
                 //press a hyperlink
-                obj.handleClick();
+                obj.handleClick(0,0);
                 //all hyperlinks will navigate to a non-browsr webpage -> show error document
                 href = ((GUILink) obj).getHref();
                 break;

@@ -62,6 +62,8 @@ public class DocumentArea {
      */
     public GUIObject addGUIObject(GUIObject obj) {
         this.drawnGUIObjects.add(obj);
+        obj.setDocumentArea(this);
+
         return obj;
     }
 
@@ -73,7 +75,6 @@ public class DocumentArea {
     public void addGUIObjects(ArrayList<GUIObject> objects) {
         for (GUIObject obj: objects) {
             addGUIObject(obj);
-            obj.setDocumentArea(this);
         }
     }
 
@@ -155,7 +156,7 @@ public class DocumentArea {
         if (id == MouseEvent.MOUSE_PRESSED) {
             for (GUIObject obj : this.getDrawnGUIObjects()) { // Loop through all GUIObjects in docArea
                 if (obj.isInGUIObject(x, y)) {
-                    obj.handleClick();
+                    obj.handleClick(x, y);
                     return;
                     }
                 }
