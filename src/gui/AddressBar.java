@@ -139,23 +139,6 @@ public class AddressBar {
         return false;
     }
 
-
-    /**
-     * adds a char at a position in a string
-     * @param str       the string that will be inserted in to
-     * @param ch        the char that will be inserted
-     * @param position  the position the char will be inserted
-     * @return          the string with the inserted char at the position
-     */
-    private String addChar(String str, char ch, int position) {
-        int len = str.length();
-        char[] updatedArr = new char[len + 1];
-        str.getChars(0, position, updatedArr, 0);
-        updatedArr[position] = ch;
-        str.getChars(position, len, updatedArr, position + 1);
-        return new String(updatedArr);
-    }
-
     /**
      * checks if the address bar is in focus
      * @return  true if the address bar is in focus, else false
