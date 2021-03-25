@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>24</x>
+      <y>96</y>
+      <w>1272</w>
+      <h>632</h>
+    </coordinates>
+    <panel_attributes>title=Start save HTML page
+obj=User~a ACTOR EXECUTION
+obj=:CanvasWindow~e EXECUTION
+obj=:Window~b EXECUTION
+obj=:DialogScreen~c EXECUTION
+
+a-&gt;&gt;&gt;e : CTRL;
+e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+c.&gt;b : False;
+a-&gt;&gt;&gt;e : S;
+e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+c-&gt;c + : setScreen = "saveHTML";
+tick=
+c.&gt;b : True;
+b-&gt;b + : this.dialogScreening = True;
+tick=
+
+ref=c c :Save HTML page</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
