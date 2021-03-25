@@ -54,29 +54,7 @@ public class AddressBar {
         g.setColor(Color.BLACK);
         g.drawLine(0, this.yLimit, gwidth, this.yLimit);
 
-        g.setColor(Color.BLACK);
-        g.drawRect(this.abX, this.abY, gwidth-(3*this.abX), this.h); // border
-        g.clearRect(this.abX+1, this.abY+1, gwidth-(3*this.abX)-1, this.h-1); // actual address bar (white part)
-
-        String viewedAddress = this.inputField.getText();
-        if(this.isInFocus() && !this.inputField.isSelecting()){
-            // when the address bar is in focus, a text cursor needs to be shown at the correct position off the current string
-            viewedAddress = this.addChar(viewedAddress, '|', this.inputField.getCursorPosition());
-        }
-
-        if(this.inputField.isSelecting()){
-            //the text is selected so a blue background needs to be drawn
-            g.setColor(Color.CYAN);
-            int tmp = (int) g.getFontMetrics().getStringBounds(this.inputField.getText(), g).getHeight();
-            int[] xCords = this.inputField.getSelectedPositions(g);
-            g.fillRect(abX+5 + xCords[0],
-                    abY + 3 + ((int) (this.h/1.5)) - tmp,
-                    xCords[1] - xCords[0],
-                    tmp); // text background
-            g.setColor(Color.BLACK);
-        }
-
-        g.drawString(viewedAddress, abX+5, abY+((int) (this.h/1.5)));
+        this.inputField.draw(g, this.abX, this.abY, gwidth-(3*this.abX), this.h, this.isInFocus());
 
         g.setColor(oldColor);
     }

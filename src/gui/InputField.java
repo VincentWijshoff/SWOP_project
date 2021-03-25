@@ -363,4 +363,39 @@ public class InputField {
         int x1 = (int) g.getFontMetrics().getStringBounds(sub2, g).getWidth();
         return new int[] {x0, x1};
     }
+
+    /**
+     * Draw the input box and only the input box containing the current text
+     * @param g         the java drawing graphics
+     * @param x         The starting x coordinate for the input field
+     * @param y         The starting y coordinate for the input field
+     * @param width     The width off the input field
+     * @param height    The height off the input field
+     * @param inFocus   Checks if the vertical line on the cursor position is drawn
+     */
+    public void draw(Graphics g, int x, int y, int width, int height, boolean inFocus){
+        g.setColor(Color.BLACK);
+        g.drawRect(x, y, width, height); // border
+        g.clearRect(x+1, y+1, width-1, height-1); // actual address bar (white part)
+
+        String viewedAddress = this.getText();
+        if(inFocus && !this.isSelecting()){
+            // when the address bar is in focus, a text cursor needs to be shown at the correct position off the current string
+            viewedAddress = this.addChar(viewedAddress, '|', this.getCursorPosition());
+        }
+
+        if(this.isSelecting()){
+            //the text is selected so a blue background needs to be drawn
+            g.setColor(Color.CYAN);
+            int tmp = (int) g.getFontMetrics().getStringBounds(this.getText(), g).getHeight();
+            int[] xCords = this.getSelectedPositions(g);
+            g.fillRect(x+5 + xCords[0],
+                    y + 3 + ((int) (height/1.5)) - tmp,
+                    xCords[1] - xCords[0],
+                    tmp); // text background
+            g.setColor(Color.BLACK);
+        }
+
+        g.drawString(viewedAddress, x+5, y+((int) (height/1.5)));
+    }
 }
