@@ -75,7 +75,14 @@ public class DocumentArea {
         }
     }
 
-    /**
+    public void draw(Graphics g) {
+        // Draw every GUIObject in the docArea
+        for (GUIObject obj : this.getDrawnGUIObjects()) {
+            obj.draw(g);
+        }
+    }
+
+     /**
      * Clears the DocGUIObjects so a new page can be loaded
      */
     public void clearDocObjects(){

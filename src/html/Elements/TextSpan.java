@@ -38,32 +38,14 @@ public class TextSpan extends ContentSpan {
     }
 
     /**
-     * Returns the height of the object
-     */
-    @Override
-    public int getHeight() {
-        return 16;
-    }
-
-    /**
-     * Returns the width of the object
-     */
-    @Override
-    public int getWidth() {
-        return 16*text.length();
-    }
-
-    /**
      * Render the TextSpan object (add it to the DocGUIObjects list of the DocumentArea)
      *
-     * @param startX         x-coordinate
-     * @param startY         y-coordinate
      * @param objects   the current DocGUIObjects of the DocumentArea
      * @return          the updated DocGUIObjects
      */
     @Override
-    public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
-        HtmlRenderer.addGUIString(this.getText(), startX, startY + getHeight(), objects);
+    public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
+        HtmlRenderer.addGUIString(this.getText(), objects);
         return objects;
     }
 }

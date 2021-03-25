@@ -40,42 +40,14 @@ public class HtmlTableCell extends ContentSpan {
     }
 
     /**
-     * Returns the height of the object
-     */
-    @Override
-    public int getHeight() {
-        if (data == null) return 0;
-        return data.getHeight();
-    }
-
-    /**
-     * Returns the width of the object
-     */
-    @Override
-    public int getWidth() {
-        if (data == null) return 0;
-        return data.getWidth();
-    }
-
-    /**
-     * Returns the width of the column
-     */
-    public int getColumnWidth() {
-        int index = row.getTableData().indexOf(this);
-        return table.getColumnWidth(index);
-    }
-
-    /**
      * Render the HtmlTableCell object (add it to the DocGUIObjects list of the DocumentArea)
      *
-     * @param startX         x-coordinate
-     * @param startY         y-coordinate
      * @param objects   the current DocGUIObjects of the DocumentArea
      * @return          the updated DocGUIObjects
      */
     @Override
-    public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
-        objects = getData().render(startX, startY, objects);
+    public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
+        objects = getData().render(objects);
         return objects;
     }
 }

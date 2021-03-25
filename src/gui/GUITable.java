@@ -14,6 +14,12 @@ public class GUITable extends GUIObject {
         setPosition(x, y);
     }
 
+    public GUITable(ArrayList<ArrayList<GUIObject>> rows) {
+        super();
+
+        this.tableObjects = rows;
+    }
+
     public void setTableObjects(ArrayList<ArrayList<GUIObject>> tableObjects) {
         this.tableObjects = tableObjects;
 

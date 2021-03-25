@@ -21,6 +21,11 @@ public class GUILink extends GUIString {
         this.href = href;
     }
 
+    public GUILink(String text, String href) {
+        super(text);
+        this.href = href;
+    }
+
     /**
      * Get the href representing this GUILink
      * @return  the href off this link

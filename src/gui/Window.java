@@ -67,10 +67,8 @@ public class Window extends CanvasWindow{
     @Override
     protected void paint(Graphics g) {
         g.setFont(font);
-        // Draw every GUIObject in the docArea
-        for (GUIObject obj : this.docArea.getDrawnGUIObjects()) {
-            obj.draw(g);
-        }
+
+        this.docArea.draw(g);
 
         // Draw AddressBar
         this.addressBar.draw(g, this);

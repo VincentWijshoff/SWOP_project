@@ -50,37 +50,20 @@ public class HtmlTableRow extends ContentSpan {
         return tableData;
     }
 
-    /**
-     * Returns the height of the object
-     *
-     * The height is equal to the maximum height of its HtmlTableCell objects
-     */
-    @Override
-    public int getHeight() {
-        int max = 0;
-        for (HtmlTableCell cell:tableData) {
-            if (cell.getHeight() > max) max = cell.getHeight();
-        }
-        return max;
-    }
 
     /**
      * Render the HtmlTableRow object (add it to the DocGUIObjects list of the DocumentArea)
      *
      * Also call the render method on all its HtmlTableCells
      *
-     * @param startX         x-coordinate
-     * @param startY         y-coordinate
      * @param objects   the current DocGUIObjects of the DocumentArea
      * @return          the updated DocGUIObjects
      */
     @Override
-    public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
+    public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
         ArrayList<HtmlTableCell> tableCells = getTableData();
-        int currentX = startX;
         for(HtmlTableCell cell : tableCells){
-            objects = cell.render(currentX, startY, objects);
-            currentX += cell.getColumnWidth();
+            objects = cell.render(objects);
         }
         return objects;
     }

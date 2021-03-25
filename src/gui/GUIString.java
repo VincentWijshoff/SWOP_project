@@ -22,6 +22,12 @@ public class GUIString extends GUIObject {
         setPosition(x, y); // Width and height are calculated during drawing (fonts?)
     }
 
+    public GUIString(String text) {
+        super();
+
+        this.text = text;
+    }
+
     /**
      * Get text of this string
      * @return text
@@ -59,6 +65,11 @@ public class GUIString extends GUIObject {
                 x <= this.coordX + this.width &&
                 y <= this.coordY &&
                 y >= this.coordY - this.height);
+    }
+
+    @Override
+    public void setPosition(int x, int y) {
+        super.setPosition(x, y+this.height);
     }
 
     /**
