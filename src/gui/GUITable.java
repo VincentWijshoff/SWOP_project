@@ -100,18 +100,10 @@ public class GUITable extends GUIObject {
 
     @Override
     public void handleClick(int x, int y) {
-        int cumulativeHeight = 0;
-        int cumulativeWidth = 0;
-
-        for (ArrayList<GUIObject> row: tableRows) { //find row that was clicked
-            cumulativeHeight += getRowHeight(row);
-            if (cumulativeHeight >= y) {
-                for (GUIObject obj: row) {
-                    cumulativeWidth += getColumnWidth(tableRows, row.indexOf(obj));
-                    if (cumulativeWidth >= x) {
-                        obj.handleClick(x, y);
-                        return;
-                    }
+        for (ArrayList<GUIObject> row: tableRows) {
+            for (GUIObject obj: row) {
+                if (obj.isInGUIObject(x, y)) {
+                    obj.handleClick(x, y);
                 }
             }
         }

@@ -54,20 +54,6 @@ public class GUIString extends GUIObject {
      with the (x,y) position as their bottom left corner, instead of their top left corner, like other objects.
      */
 
-    /**
-     * Strings have a slightly altered definition for this method, since they are rendered
-     *  with the (x,y) position as their bottom left corner, instead of their top left corner, like other objects.
-     * @param x the x coordinate
-     * @param y the y coordinate
-     * @return true if the click is on this string
-     */
-    public boolean isInGUIObject(int x, int y) {
-        return (x >= this.coordX &&
-                x <= this.coordX + this.width &&
-                y <= this.coordY &&
-                y >= this.coordY - this.height);
-    }
-
     @Override
     public void setPosition(int x, int y) {
         super.setPosition(x, y);
