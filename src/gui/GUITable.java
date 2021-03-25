@@ -45,8 +45,8 @@ public class GUITable extends GUIObject {
             int currentX = this.coordX;
             for(GUIObject obj: row) {
 
-                obj.draw(g); //We draw before setting the position to make sure all values (width & height) of the GUIObject have been initialized
                 obj.setPosition(currentX, currentY);
+                obj.draw(g);
 
                 currentX += getColumnWidth(tableRows, row.indexOf(obj));
             }
