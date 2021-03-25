@@ -12,12 +12,7 @@ public class AddressBar {
     //graphic element
     final int yLimit = 50;
 
-    private int startSelected = 0;
-    private int endSelected = 0;
-    private boolean initialClick = true;
-    private String address = "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html";
-    private String prevAddress = "";
-    private int cursorPosition = address.length();
+    private final InputField inputField;
 
     //GUI elements
     private final int abX = 5;
@@ -27,21 +22,21 @@ public class AddressBar {
 
     //in focus element
     private boolean inFocus = false;
-    private boolean shifting = false;
+    private boolean initialClick = true;
 
     /**
      * constructor for the address bar
      * @param startAddress  The address that should be shown on startup off the address bar
      */
     public AddressBar(String startAddress) {
-        this.address = startAddress;
+        this.inputField = new InputField(startAddress);
     }
 
     /**
      * constructor for the address bar
      */
     public AddressBar() {
-
+        this.inputField = new InputField();
     }
 
     /**
@@ -63,17 +58,17 @@ public class AddressBar {
         g.drawRect(this.abX, this.abY, gwidth-(3*this.abX), this.h); // border
         g.clearRect(this.abX+1, this.abY+1, gwidth-(3*this.abX)-1, this.h-1); // actual address bar (white part)
 
-        String viewedAddress = this.address;
-        if(this.isInFocus() && this.startSelected == this.endSelected){
+        String viewedAddress = this.inputField.getText();
+        if(this.isInFocus() && !this.inputField.isSelecting()){
             // when the address bar is in focus, a text cursor needs to be shown at the correct position off the current string
-            viewedAddress = this.addChar(viewedAddress, '|', this.cursorPosition);
+            viewedAddress = this.addChar(viewedAddress, '|', this.inputField.getCursorPosition());
         }
 
-        if(this.startSelected != this.endSelected){
+        if(this.inputField.isSelecting()){
             //the text is selected so a blue background needs to be drawn
             g.setColor(Color.CYAN);
-            int tmp = (int) g.getFontMetrics().getStringBounds(this.address, g).getHeight();
-            int[] xCords = getSelectedPositions(this.startSelected, this.endSelected, this.address, g);
+            int tmp = (int) g.getFontMetrics().getStringBounds(this.inputField.getText(), g).getHeight();
+            int[] xCords = this.inputField.getSelectedPositions(g);
             g.fillRect(abX+5 + xCords[0],
                     abY + 3 + ((int) (this.h/1.5)) - tmp,
                     xCords[1] - xCords[0],
@@ -91,7 +86,7 @@ public class AddressBar {
      * @param aBarText  the address that will be set
      */
     public void setAddress(String aBarText) {
-        this.address = aBarText;
+        this.inputField.setText(aBarText);
     }
 
     /**
@@ -99,7 +94,7 @@ public class AddressBar {
      * @return the address currently in the address bar
      */
     public String getAddress() {
-        return address;
+        return this.inputField.getText();
     }
 
     /**
@@ -116,25 +111,6 @@ public class AddressBar {
     }
 
     /**
-     * gets the selected position from a word
-     * @param start the start off the selection
-     * @param fin   the end off the selection
-     * @param word  the word that is selected on
-     * @param g     the graphics to get the size off the words
-     * @return      the position off the selected part
-     */
-    private int[] getSelectedPositions(int start, int fin, String word, Graphics g){
-        if ( fin < start){
-            return this.getSelectedPositions(fin, start, word, g);
-        }
-        String sub1 = word.substring(0, start);
-        int x0 = (int) g.getFontMetrics().getStringBounds(sub1, g).getWidth();
-        String sub2 = word.substring(0, fin);
-        int x1 = (int) g.getFontMetrics().getStringBounds(sub2, g).getWidth();
-        return new int[] {x0, x1};
-    }
-
-    /**
      * When this is called, a mouse event has happened on the address bar when the address bar is in focus
      * @param id            The id off the mouse event
      * @param clickCount    The click count off the user
@@ -146,8 +122,7 @@ public class AddressBar {
         if (id == MouseEvent.MOUSE_PRESSED && this.initialClick){
 
             //the current url is selected (blue background)
-            this.startSelected = 0;
-            this.endSelected = this.address.length();
+            this.inputField.selectAll();
 
             // keyboard focus (with text cursor) is done with the inFocus variable and the "|" is added
             // in the painting area
@@ -158,14 +133,12 @@ public class AddressBar {
         } else if (id == MouseEvent.MOUSE_PRESSED && clickCount % 2 == 0){
 
             //a double click results in highlighted text as wel
-            this.startSelected = 0;
-            this.endSelected = this.address.length();
+            this.inputField.selectAll();
 
         } else if (id == MouseEvent.MOUSE_PRESSED){
 
             //now the text need no longer be selected
-            this.startSelected = 0;
-            this.endSelected = 0;
+            this.inputField.selectNone();
         }
     }
 
@@ -174,237 +147,20 @@ public class AddressBar {
      * @param id        The id off the pressed button
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
+     * @param modifier  The modifier on the pressed key
      * @return          true if the gui should load the webpage
      */
     public boolean handleKeyboardEvent(int id, int keyCode, char keyChar, int modifier) {
-        if(modifier == KeyEvent.SHIFT_DOWN_MASK){
-            this.shifting = true;
-        }else if(modifier == 0){
-            this.shifting = false;
+        if(this.inputField.handleKeyboardEvent(id, keyCode, keyChar, modifier)){
+            return this.setOutFocus();
         }
-        if (id == KeyEvent.KEY_PRESSED) {
-            // now every key event will only happen once
-            if (KeyEvent.getKeyText(keyCode).length() == 1) {
-                this.onCharPress(keyChar);
-            } else {
-                // here the pressed button was not a char so the special button must be handled
-                if (keyCode == KeyEvent.VK_SPACE) {
-                    this.onSpacePress();
-                } else if (keyCode == KeyEvent.VK_LEFT) {
-                    this.onLeftArrow();
-                } else if (keyCode == KeyEvent.VK_RIGHT) {
-                    this.onRightArrow();
-                } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
-                    this.onBackSpace();
-                } else if (keyCode == KeyEvent.VK_DELETE) {
-                    this.onDelete();
-                } else if (keyCode == KeyEvent.VK_HOME) {
-                    this.onHome();
-                } else if (keyCode == KeyEvent.VK_END) {
-                    this.onEnd();
-                } else if (keyCode == KeyEvent.VK_ESCAPE) {
-                    this.onEscape();
-                } else if (keyCode == KeyEvent.VK_ENTER) {
-                    //enter
-                    return this.setOutFocus();
-                }
-            }
+        if (id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_ESCAPE) {
+            this.inFocus = false;
+            this.initialClick = true;
         }
         return false;
     }
 
-    /**
-     * When the user pressed a char on the keyboard
-     * @param keyChar the char that was pressed
-     */
-    private void onCharPress(char keyChar){
-        // this will only happen if the pressed button is an actual char
-        if (this.startSelected != this.endSelected) {
-            // now every bit off the current text must be replaced with the newly pressed character
-            this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "" + keyChar);
-            this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
-        } else {
-            // now only input new chars on the position off the text cursor
-            this.address = addChar(this.address, keyChar, this.cursorPosition);
-            this.cursorPosition += 1;
-        }
-        this.startSelected = this.cursorPosition;
-        this.endSelected = this.cursorPosition;
-    }
-
-    /**
-     * When the user pressed the space bar
-     */
-    private void onSpacePress(){
-        // space bar
-        if (this.startSelected != this.endSelected) {
-            // now every bit off the current selected text must be replaced with the newly pressed character
-            this.address = this.replaceSelected(this.startSelected, this.endSelected, this.address, " ");
-            // this.address = " ";
-            this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
-        } else {
-            // now only input new chars on the position off the text cursor
-            this.address = addChar(this.address, ' ', this.cursorPosition);
-            this.cursorPosition += 1;
-        }
-        this.startSelected = this.cursorPosition;
-        this.endSelected = this.cursorPosition;
-    }
-
-    /**
-     * When the user pressed the left arrow button
-     */
-    private void onLeftArrow(){
-        //left arrow
-        if(!this.shifting) {
-            if (this.startSelected != this.endSelected) {
-                this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-                this.startSelected = this.cursorPosition;
-                this.endSelected = this.cursorPosition;
-            } else {
-                if (this.cursorPosition > 0) {
-                    this.cursorPosition--;
-                    this.startSelected = this.cursorPosition;
-                    this.endSelected = this.cursorPosition;
-                }
-            }
-        } else{
-            //left arrow while pressing shift
-            if(this.endSelected > 0){
-                this.endSelected--;
-            }
-        }
-    }
-
-    /**
-     * When the user presses the right arrow button
-     */
-    private void onRightArrow(){
-        //right arrow
-        if(!this.shifting) {
-            if (this.startSelected != this.endSelected) {
-                this.cursorPosition = Math.max(this.startSelected, this.endSelected);
-                this.startSelected = this.cursorPosition;
-                this.endSelected = this.cursorPosition;
-            } else {
-                if (this.cursorPosition < this.address.length()) {
-                    this.cursorPosition++;
-                    this.startSelected = this.cursorPosition;
-                    this.endSelected = this.cursorPosition;
-                }
-            }
-        } else{
-            if(this.endSelected < this.address.length()){
-                this.endSelected++;
-            }
-        }
-    }
-
-    /**
-     * When the user pressed the backspace button
-     */
-    private void onBackSpace(){
-        //backspace
-        if (this.startSelected != this.endSelected) {
-            this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "");
-            this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-            this.startSelected = this.cursorPosition;
-            this.endSelected = this.cursorPosition;
-        } else {
-            if (this.cursorPosition > 0) {
-                this.address = this.removeAt(this.address, --this.cursorPosition);
-                this.startSelected = this.cursorPosition;
-                this.endSelected = this.cursorPosition;
-            }
-        }
-    }
-
-    /**
-     * When the user pressed the delete button
-     */
-    private void onDelete(){
-        //delete
-        if (this.startSelected != this.endSelected) {
-            this.address = replaceSelected(this.startSelected, this.endSelected, this.address, "");
-            this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-            this.startSelected = this.cursorPosition;
-            this.endSelected = this.cursorPosition;
-        } else {
-            if (this.cursorPosition < this.address.length()) {
-                this.address = this.removeAt(this.address, this.cursorPosition);
-                this.startSelected = this.cursorPosition;
-                this.endSelected = this.cursorPosition;
-            }
-        }
-    }
-
-    /**
-     * When the user pressed the home button
-     */
-    private void onHome(){
-        //home
-        this.cursorPosition = 0;
-        if(!this.shifting) {
-            this.startSelected = this.cursorPosition;
-            this.endSelected = this.cursorPosition;
-        } else{
-            this.endSelected = 0;
-        }
-    }
-
-    /**
-     * When the user pressed the end button
-     */
-    private void onEnd(){
-        //end
-        this.cursorPosition = this.address.length();
-        if(!this.shifting) {
-            this.startSelected = this.cursorPosition;
-        }
-        this.endSelected = this.cursorPosition;
-    }
-
-    /**
-     * When the user pressed the escape button
-     */
-    private void onEscape(){
-        //escape
-        this.address = prevAddress;
-        this.cursorPosition = this.address.length();
-        this.inFocus = false;
-        this.initialClick = true;
-        this.startSelected = this.cursorPosition;
-        this.endSelected = this.cursorPosition;
-    }
-
-    /**
-     * replaces selected text with other text
-     * @param start         the start off the selected text
-     * @param fin           the end off the selected text
-     * @param word          the word that is selected on
-     * @param replacement   the replacement for the selected part
-     * @return              the new word with the replacement in
-     */
-    private String replaceSelected(int start, int fin, String word, String replacement){
-        if(start > fin){
-            return this.replaceSelected(fin, start, word, replacement);
-        }
-        String beginWord = word.substring(0, start);
-        String endWord = word.substring(fin);
-        return beginWord + replacement + endWord;
-    }
-
-    /**
-     * remove char at a position in a string
-     * @param str       the string to check
-     * @param position  the position to remove
-     * @return          the string without the char at the position
-     */
-    private String removeAt(String str, int position){
-        StringBuilder sb = new StringBuilder(str);
-        sb.deleteCharAt(position);
-        return sb.toString();
-    }
 
     /**
      * adds a char at a position in a string
@@ -434,8 +190,7 @@ public class AddressBar {
      * sets the address bar in focus
      */
     public void setInFocus(){
-        this.prevAddress = address;
-        this.cursorPosition = this.address.length();
+        this.inputField.start();
         this.inFocus = true;
     }
 
@@ -444,17 +199,10 @@ public class AddressBar {
      */
     public boolean setOutFocus(){
         this.initialClick = true;
-        this.startSelected = 0;
-        this.endSelected = 0;
+        this.inputField.selectNone();
         this.inFocus = false;
-        return this.search();
-    }
-
-    /**
-     * when escape is pressed, the precious address should reappear and be reloaded
-     */
-    private boolean search(){
-        this.prevAddress = address;
+        this.inputField.start();
         return true;
     }
+
 }
