@@ -122,12 +122,12 @@ public class HtmlLoader {
                     Hyperlink aTag = new Hyperlink();
                     lexer.eatToken();
                     lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
-                    documentArea.addGUIObjects(HtmlRenderer.renderHTML(aTag, documentArea.getRelativeYPos()));
+                    documentArea.addGUIObjects(HtmlRenderer.renderHTML(aTag));
                 }else if(isTable(value)){
                     HtmlTable tableTag = new HtmlTable();
                     lexer.eatToken();
                     lexer = updateTableTag(lexer, tableTag);
-                    documentArea.addGUIObjects(HtmlRenderer.renderHTML(tableTag, documentArea.getRelativeYPos()));
+                    documentArea.addGUIObjects(HtmlRenderer.renderHTML(tableTag));
                 }
             }
             lexer.eatToken();

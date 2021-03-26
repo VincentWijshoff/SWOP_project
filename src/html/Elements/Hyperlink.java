@@ -50,34 +50,16 @@ public class Hyperlink extends ContentSpan {
     }
 
     /**
-     * Returns the height of the object
-     */
-    @Override
-    public int getHeight() {
-        return text.getHeight();
-    }
-
-    /**
-     * Returns the width of the object
-     */
-    @Override
-    public int getWidth() {
-        return text.getWidth();
-    }
-
-    /**
      * Render the Hyperlink object (add it to the DocGUIObjects list of the DocumentArea)
      *
      * Also call the render method on all its HtmlTableCells
      *
-     * @param startX         x-coordinate
-     * @param startY         y-coordinate
      * @param objects   the current DocGUIObjects of the DocumentArea
      * @return          the updated DocGUIObjects
      */
     @Override
-    public ArrayList<GUIObject> render(int startX, int startY, ArrayList<GUIObject> objects) {
-        HtmlRenderer.addGUILink(this.getText(), this.getHref(), startX, startY + getHeight(), objects );
+    public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
+        HtmlRenderer.addGUILink(this.getText(), this.getHref(), objects );
         return objects;
     }
 }

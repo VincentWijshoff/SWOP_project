@@ -34,7 +34,7 @@ public class GUIRectangle extends GUIObject{
      * Handle a click on the rectangle
      */
     @Override
-    public void handleClick() {
+    public void handleClick(int x, int y) {
         System.out.println("You clicked on a GUIRectangle");
     }
 }

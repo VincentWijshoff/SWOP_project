@@ -21,6 +21,11 @@ public class GUILink extends GUIString {
         this.href = href;
     }
 
+    public GUILink(String text, String href) {
+        super(text);
+        this.href = href;
+    }
+
     /**
      * Get the href representing this GUILink
      * @return  the href off this link
@@ -34,10 +39,15 @@ public class GUILink extends GUIString {
      * @param g the graphics needed to draw the GUILink
      */
     public void draw(Graphics g) {
+        // Bounds needed for click event
+        int textWidth = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
+        int textHeight = (int) g.getFontMetrics().getStringBounds(text, g).getHeight();
+        setDimensions(textWidth, textHeight);
+
         Color oldColor = g.getColor();
         g.setColor(Color.BLUE);
-        g.drawString(text, coordX, coordY);
-        g.drawLine(coordX, coordY, coordX+this.width, coordY);
+        g.drawString(text, coordX, coordY + height);
+        g.drawLine(coordX, coordY+height, coordX+this.width, coordY+height);
         g.setColor(oldColor);
     }
 
@@ -96,7 +106,7 @@ public class GUILink extends GUIString {
      * handle the click event, because this is a Link, when it is clicked on, a new page should load with this href
      */
     @Override
-    public void handleClick() {
+    public void handleClick(int x, int y) {
         //href is an absolute URL
         if(this.getHref().startsWith("http")){
             this.documentArea.getWindow().load(getHref());

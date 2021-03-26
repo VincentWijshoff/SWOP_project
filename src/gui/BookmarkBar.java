@@ -6,33 +6,34 @@ import java.util.ArrayList;
 
 public class BookmarkBar {
 
-    private ArrayList<GUILink> bookmarks = new ArrayList<GUILink>();
     private int relativeYPos;
     private int height = 25;
-    private int nextX = 5;
-    private int w;
+    private int width;
+    private GUITable bookmarks;
 
     public BookmarkBar(int relpos){
         this.relativeYPos = relpos;
+
+        this.bookmarks = new GUITable(0, relativeYPos);
+        this.bookmarks.addRow(new ArrayList<>());
+
         this.addBookmark("home page Bart Jacobs", "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
         this.addBookmark("home page Bart Jacobs 2.0", "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
     }
 
     public void draw(Graphics g, int width){
-        this.w = width;
+        this.width = width;
         Color oldColor = g.getColor();
         int actHeight = this.height + this.relativeYPos;
 
         // first draw the grey enclosing area
         g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(0, this.relativeYPos, this.w, this.height);
+        g.fillRect(0, this.relativeYPos, this.width, this.height);
         g.setColor(Color.BLACK);
-        g.drawLine(0, actHeight, this.w, actHeight);
+        g.drawLine(0, actHeight, this.width, actHeight);
 
-        //draw each bookamrk
-        for(GUILink link : bookmarks){
-            link.draw(g);
-        }
+
+        bookmarks.draw(g);
 
 
         g.setColor(oldColor);
@@ -40,20 +41,13 @@ public class BookmarkBar {
 
     public void handleMouseEvent(int id, int x, int y){
         if(id == MouseEvent.MOUSE_PRESSED) {
-            for (GUIObject link : bookmarks) {
-                System.out.println("" +x +" "+ y +" "+ link.coordX +" "+ link.coordY);
-                if (link.isInGUIObject(x, y)) {
-                    link.handleClick();
-                    return;
-                }
-            }
+            bookmarks.handleClick(x, y);
         }
     }
 
     public void addBookmark(String name, String address){
-        GUILink link = new GUILink(name, this.nextX, this.relativeYPos + 15, address);
-        bookmarks.add(link);
-        this.nextX += link.width + 5;
+        GUILink link = new GUILink(name, address);
+        bookmarks.appendToRow(link, 0);
     }
 
     public int getHeight(){

@@ -73,7 +73,7 @@ public class GUIObject {
     /**
      * Handle the click on this Object, if a special action is needed, this should be overridden
      */
-    public void handleClick() {
+    public void handleClick(int x, int y) {
         System.out.println("You clicked on a GUIObject");
     }
 }

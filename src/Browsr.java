@@ -1,4 +1,4 @@
-import gui.Window;
+import gui.*;
 
 /**
  * The main class for our Browsr
