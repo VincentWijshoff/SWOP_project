@@ -27,13 +27,6 @@ public class HtmlTable extends ContentSpan {
     }
 
     /**
-     * Returns the tableRows of the HtmlTable object
-     */
-    public ArrayList<HtmlTableRow> getTableRows() {
-        return tableRows;
-    }
-
-    /**
      * Add a new (empty) row to the table
      */
     public HtmlTableRow addRow() {

@@ -1,7 +1,5 @@
 import gui.*;
 
-import java.util.ArrayList;
-
 /**
  * The main class for our Browsr
  *
