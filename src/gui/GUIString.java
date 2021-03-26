@@ -45,7 +45,6 @@ public class GUIString extends GUIObject {
         int textHeight = (int) g.getFontMetrics().getStringBounds(text, g).getHeight();
         setDimensions(textWidth, textHeight);
 
-        g.drawRect(this.coordX, this.coordY, this.width, this.height);
         g.drawString(this.text, coordX, coordY + height);
     }
 
