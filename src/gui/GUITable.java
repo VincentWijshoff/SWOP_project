@@ -20,6 +20,10 @@ public class GUITable extends GUIObject {
         this.tableRows = rows;
     }
 
+    public void addRow(ArrayList<GUIObject> row) {
+        this.tableRows.add(row);
+    }
+
     @Override
     public void setDocumentArea(DocumentArea documentArea) {
         super.setDocumentArea(documentArea);
@@ -29,6 +33,10 @@ public class GUITable extends GUIObject {
                 obj.setDocumentArea(documentArea);
             }
         }
+    }
+
+    public void appendToRow(GUIObject obj, int index) {
+        tableRows.get(index).add(obj);
     }
 
     @Override
