@@ -14,8 +14,8 @@ public class BookmarkBar {
 
     public BookmarkBar(int relpos){
         this.relativeYPos = relpos;
-        this.addBookmark("home page Bart Jacobs", "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
-        this.addBookmark("home page Bart Jacobs 2.0", "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
+        //this.addBookmark("home page Bart Jacobs", "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
+        //this.addBookmark("home page Bart Jacobs 2.0", "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
     }
 
     public void draw(Graphics g, int width){
@@ -43,7 +43,7 @@ public class BookmarkBar {
             for (GUIObject link : bookmarks) {
                 System.out.println("" +x +" "+ y +" "+ link.coordX +" "+ link.coordY);
                 if (link.isInGUIObject(x, y)) {
-                    link.handleClick();
+                    link.handleClick(x, y);
                     return;
                 }
             }
