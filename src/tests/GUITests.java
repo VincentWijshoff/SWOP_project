@@ -2,6 +2,8 @@ package tests;
 
 import gui.*;
 import org.junit.jupiter.api.Test;
+
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import static tests.TestUtil.*;
 
@@ -63,7 +65,7 @@ class GUITests {
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
-		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 		a.setOutFocus();
 
 		assertEquals(testName, a.getAddress(), "/");
@@ -78,7 +80,7 @@ class GUITests {
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
-		a.handleKeyboardEvent(401, 8, ' ', 0); //backspace
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
 		a.setOutFocus();
 
 		assertEquals(testName, a.getAddress(), "");
@@ -95,23 +97,23 @@ class GUITests {
 
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
-		a.handleKeyboardEvent(401, 39, ' ', 0); //right arrow
-		a.handleKeyboardEvent(401, 39, ' ', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0); //right arrow
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
-		a.handleKeyboardEvent(401, 37, ' ', 0); //left arrow
-		a.handleKeyboardEvent(401, 37, ' ', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0); //left arrow
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0);
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
-		a.handleKeyboardEvent(401, 36, ' ', 0); //home
-		a.handleKeyboardEvent(401, 36, ' ', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0); //home
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0);
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
-		a.handleKeyboardEvent(401, 35, ' ', 0); //end
-		a.handleKeyboardEvent(401, 35, ' ', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_END, ' ', 0); //end
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_END, ' ', 0);
 
 		a.setOutFocus();
 
@@ -131,15 +133,15 @@ class GUITests {
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
 
-		a.handleKeyboardEvent(401, 32, '/', 0);
-		a.handleKeyboardEvent(401, 47, '/', 0);
-		a.handleKeyboardEvent(401, 47, '/', 0);
-		a.handleKeyboardEvent(401, 47, '/', 0);
-		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SPACE, ' ', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 
 		assertFalse(testName, a.getAddress().equals(initialAddress));
 
-		a.handleKeyboardEvent(401, 27, ' ', 0); //escape
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ESCAPE, ' ', 0); //escape
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
@@ -154,14 +156,14 @@ class GUITests {
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
 
-		a.handleKeyboardEvent(401, 47, '/', 0);
-		a.handleKeyboardEvent(401, 47, '/', 0);
-		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 
 		assertEquals(testName, a.getAddress(), "///");
 
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 2); //double click
-		a.handleKeyboardEvent(401, 8, ' ', 0); //backspace
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
 
 		assertEquals(testName, a.getAddress(), "");
 
@@ -178,23 +180,23 @@ class GUITests {
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
 
-		a.handleKeyboardEvent(401, 39, ' ', 0);//right arrow
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, 39, ' ', 0);//right arrow
 
-		a.handleKeyboardEvent(0, 0, ' ', 64); //start shifting
-		a.handleKeyboardEvent(401, 37, ' ', 64);//left arrow shifting
-		a.handleKeyboardEvent(401, 37, ' ', 64);
-		a.handleKeyboardEvent(401, 37, ' ', 64);
+		a.handleKeyboardEvent(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', KeyEvent.SHIFT_DOWN_MASK);//left arrow shifting
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', KeyEvent.SHIFT_DOWN_MASK);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', KeyEvent.SHIFT_DOWN_MASK);
 		a.handleKeyboardEvent(0, 0, ' ', 0); //end shifting
-		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 
 		//only the selected bit should be changed
 		assertTrue(testName, a.getAddress().equals("testAddress/"));
 
-		a.handleKeyboardEvent(401, 36, ' ', 0);//go to beginning
-		a.handleKeyboardEvent(0, 0, ' ', 64); //start shifting
-		a.handleKeyboardEvent(401, 39, ' ', 64);//right arrow shifting
-		a.handleKeyboardEvent(401, 39, ' ', 64);
-		a.handleKeyboardEvent(401, 39, ' ', 64);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0);//go to beginning
+		a.handleKeyboardEvent(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', KeyEvent.SHIFT_DOWN_MASK);//right arrow shifting
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', KeyEvent.SHIFT_DOWN_MASK);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', KeyEvent.SHIFT_DOWN_MASK);
 		a.handleKeyboardEvent(0, 0, ' ', 0); //end shifting
 
 		//the address should still be partially there
@@ -210,26 +212,26 @@ class GUITests {
 		a.setInFocus();
 		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
 
-		a.handleKeyboardEvent(401, 39, ' ', 0);//right arrow
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);//right arrow
 
-		a.handleKeyboardEvent(0, 0, ' ', 64); //start shifting
-		a.handleKeyboardEvent(401, 36, ' ', 64);//home shifting
+		a.handleKeyboardEvent(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', KeyEvent.SHIFT_DOWN_MASK);//home shifting
 		a.handleKeyboardEvent(0, 0, ' ', 0); //end shifting
-		a.handleKeyboardEvent(401, 47, '/', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 
 		//the entire address should have been selected and replaced
 		assertTrue(testName, a.getAddress().equals("/"));
 
 		a.setAddress("testAddressBar");
 
-		a.handleKeyboardEvent(401, 36, ' ', 0);//go to beginning
-		a.handleKeyboardEvent(401, 39, ' ', 0);//go right 3 spaces
-		a.handleKeyboardEvent(401, 39, ' ', 0);
-		a.handleKeyboardEvent(401, 39, ' ', 0);
-		a.handleKeyboardEvent(0, 0, ' ', 64); //start shifting
-		a.handleKeyboardEvent(401, 35, ' ', 64);//to end shifting
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0);//go to beginning
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);//go right 3 spaces
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);
+		a.handleKeyboardEvent(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_END, ' ', KeyEvent.SHIFT_DOWN_MASK);//to end shifting
 		a.handleKeyboardEvent(0, 0, ' ', 0); //end shifting
-		a.handleKeyboardEvent(401, 127, ' ', 0); //backspace
+		a.handleKeyboardEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
 
 		//only the 3 skipped bits should be there
 		assertTrue(testName, a.getAddress().equals("tes"));

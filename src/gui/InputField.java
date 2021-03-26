@@ -66,6 +66,9 @@ public class InputField {
                     this.onEscape();
                 } else if (keyCode == KeyEvent.VK_ENTER) {
                     return true;
+                } else {
+                    // we assume a key was pressed that needs to be shown but is not a normal char
+                    this.onCharPress(keyChar);
                 }
             }
         }
