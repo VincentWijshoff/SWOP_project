@@ -128,6 +128,11 @@ public class HtmlLoader {
                     lexer.eatToken();
                     lexer = updateTableTag(lexer, tableTag);
                     documentArea.addGUIObjects(HtmlRenderer.renderHTML(tableTag));
+                }else if(value.equals("form")){
+                    Form formTag = new Form();
+                    lexer.eatToken();
+                    lexer = updateFormTag(lexer, formTag);
+                    documentArea.addGUIObjects(HtmlRenderer.renderHTML(formTag));
                 }
             }
             lexer.eatToken();
@@ -135,6 +140,28 @@ public class HtmlLoader {
             value = lexer.getTokenValue();
         }
 
+    }
+
+
+    /**
+     ##############################################################
+     ##################### New in iteration 2 #####################
+     ##############################################################
+     */
+    private HtmlLexer updateFormTag(HtmlLexer lexer, Form formTag){
+        HtmlLexer.TokenType type = lexer.getTokenType();
+        String value = lexer.getTokenValue();
+        while(!(type == HtmlLexer.TokenType.CLOSE_TAG)){
+            if(type == HtmlLexer.TokenType.IDENTIFIER && value.equals("action")){
+                lexer.eatToken(); //this is EQUALS
+                lexer.eatToken();
+                type = lexer.getTokenType();
+                value = lexer.getTokenValue();
+                formTag.setAction(value);
+            }
+            lexer.eatToken();
+        }
+        return lexer;
     }
 
     /**
