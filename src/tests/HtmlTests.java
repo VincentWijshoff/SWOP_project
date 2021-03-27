@@ -2,7 +2,6 @@ package tests;
 
 import gui.GUIObject;
 import gui.Window;
-import html.Elements.*;
 import html.HtmlLoader;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Set;
 
 import static tests.TestUtil.*;
 

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Set;
 import static tests.TestUtil.*;
 
@@ -32,7 +33,7 @@ public class UseCaseTest {
 
         //4. Application shows the desired webpage.
         assertEquals("UC_4.a", window.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
-        Set<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
+        ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue("UC_4.b", renderedObjects.size() == 9);
         assertTrue("UC_4.c", containsGUIStringWith(90, 98, "Tables", renderedObjects));
         assertTrue("UC_4.d", containsGUILinkWith(10, 82, "a", "a.html", renderedObjects));
