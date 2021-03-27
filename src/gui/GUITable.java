@@ -116,6 +116,9 @@ public class GUITable extends GUIObject {
     public ArrayList<GUIObject> getChildObjects() {
         ArrayList<GUIObject> objs = new ArrayList<>();
         for (ArrayList<GUIObject> row: tableRows) {
+            for (GUIObject obj: row) {
+                objs.addAll(obj.getChildObjects());
+            }
             objs.addAll(row);
         }
         return objs;
