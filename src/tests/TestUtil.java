@@ -1,9 +1,6 @@
 package tests;
 
-import gui.GUILink;
-import gui.GUIObject;
-import gui.GUIString;
-import gui.Window;
+import gui.*;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -32,8 +29,8 @@ public abstract class TestUtil {
         }
     }
 
-    public static boolean containsGUIStringWith(int x, int y, String text, Set<GUIObject> set) {
-        for (GUIObject obj: set) {
+    public static boolean containsGUIStringWith(int x, int y, String text, ArrayList<GUIObject> objects) {
+        for (GUIObject obj: objects) {
             if (obj instanceof GUIString) {
                 GUIString guiString = (GUIString) obj;
                 if (guiString.coordX == x &&
@@ -45,8 +42,15 @@ public abstract class TestUtil {
         return false;
     }
 
-    public static boolean containsGUILinkWith(int x, int y, String text, String href, Set<GUIObject> set) {
-        for (GUIObject obj: set) {
+    public static boolean containsGUILinkWith(int x, int y, String text, String href, ArrayList<GUIObject> objects) {
+        for (GUIObject obj: objects) {
+            if (obj instanceof GUITable) {
+                GUITable guiTable = (GUITable) obj;
+                if (containsGUILinkWith(x, y, text, href, guiTable.getChildObjects())) {
+                    return true;
+                }
+            }
+
             if (obj instanceof GUILink) {
                 GUILink guiLink = (GUILink) obj;
                 if (guiLink.coordX == x &&

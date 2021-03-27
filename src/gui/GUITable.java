@@ -111,4 +111,13 @@ public class GUITable extends GUIObject {
             }
         }
     }
+
+    @Override
+    public ArrayList<GUIObject> getChildObjects() {
+        ArrayList<GUIObject> objs = new ArrayList<>();
+        for (ArrayList<GUIObject> row: tableRows) {
+            objs.addAll(row);
+        }
+        return objs;
+    }
 }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Set;
 
 import static tests.TestUtil.*;
@@ -55,7 +56,7 @@ public class HtmlTests {
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
 
-        Set<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
+        ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 3);
         assertTrue(testName, containsGUILinkWith(10, 66, "TEXT", "a.html", renderedObjects));
         assertTrue(testName, containsGUILinkWith(10, 98, "Text", "b.html", renderedObjects));
@@ -77,7 +78,7 @@ public class HtmlTests {
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
 
-        Set<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
+        ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 3); //3 GUIStrings
         assertTrue(testName, containsGUIStringWith(10, 82, "DATA", renderedObjects));
         assertTrue(testName, containsGUIStringWith(74, 82, "SECOND COLUMN", renderedObjects));
@@ -104,7 +105,7 @@ public class HtmlTests {
         loader.setDocumentArea(window.getDocArea());
         loader.loadPage();
 
-        Set<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
+        ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 9); //9 GUIString
         assertTrue(testName, containsGUIStringWith(90, 98, "Tables", renderedObjects));
         assertTrue(testName, containsGUILinkWith(10, 82, "a", "a.html", renderedObjects));

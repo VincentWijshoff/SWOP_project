@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -75,5 +76,9 @@ public class GUIObject {
      */
     public void handleClick(int x, int y) {
         System.out.println("You clicked on a GUIObject");
+    }
+
+    public ArrayList<GUIObject> getChildObjects() {
+        return new ArrayList<>();
     }
 }

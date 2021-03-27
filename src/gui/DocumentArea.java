@@ -51,8 +51,13 @@ public class DocumentArea {
      * Return currently rendered GUIObjects
      * @return Set of GUIObjects
      */
-    public Set<GUIObject> getDrawnGUIObjects() {
-        return drawnGUIObjects;
+    public ArrayList<GUIObject> getDrawnGUIObjects() {
+        ArrayList<GUIObject> objs = new ArrayList<>();
+        for (GUIObject obj: drawnGUIObjects) {
+            objs.add(obj);
+            objs.addAll(obj.getChildObjects());
+        }
+        return objs;
     }
 
     /**
