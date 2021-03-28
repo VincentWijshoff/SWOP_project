@@ -41,10 +41,6 @@ public class GUIString extends GUIObject {
      * @param g the graphics needed to draw each object
      */
     public void draw(Graphics g) {
-        int textWidth = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
-        int textHeight = (int) g.getFontMetrics().getStringBounds(text, g).getHeight();
-        setDimensions(textWidth, textHeight);
-
         g.drawString(this.text, coordX, coordY + height);
     }
 
@@ -74,8 +70,12 @@ public class GUIString extends GUIObject {
     public void setHandler(WindowHandler h) {
         this.handler = h;
 
-        int textWidth = this.handler.getFontMetrics().stringWidth(text);
-        int textHeight = this.handler.getFontMetrics().getHeight();
-        setDimensions(textWidth, textHeight);
+        this.updateDimensions();
+    }
+
+    @Override
+    public void updateDimensions() {
+        this.width = this.handler.getFontMetrics().stringWidth(text);
+        this.height = this.handler.getFontMetrics().getHeight();
     }
 }

@@ -57,6 +57,8 @@ public class BookmarkBar implements WindowHandler{
         GUILink link = new GUILink(name, address, window.getAddress());
         link.setHandler(this);
         bookmarks.appendToRow(link, 0);
+
+        bookmarks.updateDimensions();
     }
 
     public int getHeight(){

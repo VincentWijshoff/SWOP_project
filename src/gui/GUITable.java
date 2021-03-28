@@ -41,22 +41,27 @@ public class GUITable extends GUIObject {
 
     @Override
     public void draw(Graphics g) {
-        int currentY = this.coordY;
-
         for (ArrayList<GUIObject> row: tableRows) {
+            for(GUIObject obj: row) {
+                obj.draw(g);
+            }
+        }
+    }
 
+    @Override
+    public void updateDimensions() {
+        int currentY = this.coordY;
+        for (ArrayList<GUIObject> row: tableRows) {
             int currentX = this.coordX;
             for(GUIObject obj: row) {
-
                 obj.setPosition(currentX, currentY);
-                obj.draw(g);
-
+                obj.updateDimensions();
                 currentX += getColumnWidth(tableRows, row.indexOf(obj));
             }
             currentY += getRowHeight(row);
         }
-
-        setDimensions(calculateWidth(), calculateHeight());
+        this.width = calculateWidth();
+        this.height = calculateHeight();
     }
 
     private int calculateHeight() {

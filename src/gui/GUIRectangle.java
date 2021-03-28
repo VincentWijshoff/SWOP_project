@@ -18,7 +18,8 @@ public class GUIRectangle extends GUIObject{
         super();
 
         // Initialise dimensions of rectangle
-        setDimensions(width, height);
+        this.width = width;
+        this.height = height;
         setPosition(x, y);
     }
 

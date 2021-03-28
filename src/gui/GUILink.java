@@ -50,10 +50,6 @@ public class GUILink extends GUIString {
      * @param g the graphics needed to draw the GUILink
      */
     public void draw(Graphics g) {
-        // Bounds needed for click event
-        int textWidth = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
-        int textHeight = (int) g.getFontMetrics().getStringBounds(text, g).getHeight();
-        setDimensions(textWidth, textHeight);
 
         Color oldColor = g.getColor();
         g.setColor(Color.BLUE);

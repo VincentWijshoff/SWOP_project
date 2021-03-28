@@ -67,7 +67,9 @@ public class DocumentArea implements WindowHandler{
      */
     public GUIObject addGUIObject(GUIObject obj) {
         this.drawnGUIObjects.add(obj);
+
         obj.setHandler(this);
+        obj.updateDimensions();
 
         return obj;
     }

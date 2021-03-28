@@ -78,14 +78,7 @@ public class GUIObject {
         this.coordY = y;
     }
 
-    /**
-     * Update the dimension off this GUIObject
-     * @param width     The new width off this object
-     * @param height    The new height off this object
-     */
-    public void setDimensions(int width, int height) {
-        this.width = width;
-        this.height = height;
+    public void updateDimensions() {
     }
 
     /**
