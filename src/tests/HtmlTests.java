@@ -36,7 +36,7 @@ public class HtmlTests {
         loader.loadPage();
 
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 1);
-        assertTrue(testName, containsGUILinkWith(10, 66, "TEXT", "", window.getDocArea().getDrawnGUIObjects()));
+        assertTrue(testName, containsGUILinkWith(0, 0, "TEXT", "", window.getDocArea().getDrawnGUIObjects()));
     }
 
     @Test
@@ -55,10 +55,10 @@ public class HtmlTests {
         loader.loadPage();
 
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
-        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 3);
-        assertTrue(testName, containsGUILinkWith(10, 66, "TEXT", "a.html", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(10, 98, "Text", "b.html", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(10, 82, "TEXT", "", renderedObjects));
+        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 4);
+        assertTrue(testName, containsGUILinkWith(0, 0, "TEXT", "a.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(0, 32, "Text", "b.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(0, 16, "TEXT", "", renderedObjects));
 
     }
 
@@ -77,10 +77,10 @@ public class HtmlTests {
         loader.loadPage();
 
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
-        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 3); //3 GUIStrings
-        assertTrue(testName, containsGUIStringWith(10, 82, "DATA", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(74, 82, "SECOND COLUMN", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(10, 66, "DATA", renderedObjects));
+        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 4); //3 GUIStrings
+        assertTrue(testName, containsGUIStringWith(0, 0, "DATA", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(30, 16, "SECOND COLUMN", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(0, 16, "DATA", renderedObjects));
     }
 
     @Test
@@ -104,16 +104,16 @@ public class HtmlTests {
         loader.loadPage();
 
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
-        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 9); //9 GUIString
-        assertTrue(testName, containsGUIStringWith(90, 98, "Tables", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(10, 82, "a", "a.html", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(10, 98, "table", "table.html", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(90, 130, "Table cells containing table data", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(90, 82, "Hyperlink anchors", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(10, 130, "td", "td.html", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(90, 114, "Table rows", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(10, 66, "HTML elements partially supported by Browsr:", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(10, 114, "tr", "tr.html", renderedObjects));
+        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 11); //9 GUIString
+        assertTrue(testName, containsGUIStringWith(27, 32, "Tables", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(0, 16, "a", "a.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(0, 32, "table", "table.html", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(27, 64, "Table cells containing table data", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(27, 16, "Hyperlink anchors", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(0, 64, "td", "td.html", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(27, 48, "Table rows", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(0, 0, "HTML elements partially supported by Browsr:", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(0, 48, "tr", "tr.html", renderedObjects));
     }
 }
 
