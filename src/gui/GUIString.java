@@ -68,14 +68,14 @@ public class GUIString extends GUIObject {
 
     /**
      * set the document area for a GUIObject
-     * @param documentArea  the document area that needs to be set
+     * @param h  the document area that needs to be set
      */
     @Override
-    public void setDocumentArea(DocumentArea documentArea) {
-        this.documentArea = documentArea;
+    public void setHandler(WindowHandler h) {
+        this.handler = h;
 
-        int textWidth = this.documentArea.getWindow().getFontMetrics().stringWidth(text);
-        int textHeight = this.documentArea.getWindow().getFontMetrics().getHeight();
+        int textWidth = this.handler.getFontMetrics().stringWidth(text);
+        int textHeight = this.handler.getFontMetrics().getHeight();
         setDimensions(textWidth, textHeight);
     }
 }

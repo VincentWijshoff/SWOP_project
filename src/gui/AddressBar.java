@@ -12,7 +12,7 @@ public class AddressBar {
     //graphic element
     final int yLimit = 50;
 
-    private final InputField inputField;
+    private final GUIInput inputField;
 
     //GUI elements
     private final int abX = 5;
@@ -29,14 +29,16 @@ public class AddressBar {
      * @param startAddress  The address that should be shown on startup off the address bar
      */
     public AddressBar(String startAddress) {
-        this.inputField = new InputField(startAddress);
+        //this.w = width;
+        this.inputField = new GUIInput(startAddress, this.abX, this.abY, 0, this.h);
     }
 
     /**
      * constructor for the address bar
      */
     public AddressBar() {
-        this.inputField = new InputField();
+        //this.w = width;
+        this.inputField = new GUIInput(this.abX, this.abY, 0, this.h);
     }
 
     /**
@@ -45,6 +47,7 @@ public class AddressBar {
      */
     public void draw(Graphics g, Window gui) {
         int gwidth = gui.getWidth();
+        this.inputField.width = this.w-(3*this.abX);
         this.w = gwidth;
         Color oldColor = g.getColor();
 
@@ -54,7 +57,7 @@ public class AddressBar {
         g.setColor(Color.BLACK);
         g.drawLine(0, this.yLimit, gwidth, this.yLimit);
 
-        this.inputField.draw(g, this.abX, this.abY, gwidth-(3*this.abX), this.h, this.isInFocus());
+        this.inputField.draw(g, this.isInFocus());
 
         g.setColor(oldColor);
     }

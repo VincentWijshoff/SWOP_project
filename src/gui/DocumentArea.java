@@ -16,7 +16,7 @@ import java.net.URL;
 /**
  * The documentarea manages all GUIObjects that are drawn on the canvas
  */
-public class DocumentArea {
+public class DocumentArea implements WindowHandler{
 
     private Set<GUIObject> drawnGUIObjects = new HashSet<>();
     private int relativeYPos;
@@ -67,7 +67,7 @@ public class DocumentArea {
      */
     public GUIObject addGUIObject(GUIObject obj) {
         this.drawnGUIObjects.add(obj);
-        obj.setDocumentArea(this);
+        obj.setHandler(this);
 
         return obj;
     }
@@ -167,5 +167,16 @@ public class DocumentArea {
                 }
             }
     }
+
+    @Override
+    public void load(String url){
+        this.window.load(url);
+    }
+
+    @Override
+    public FontMetrics getFontMetrics() {
+        return this.window.getFontMetrics();
+    }
+
 }
 

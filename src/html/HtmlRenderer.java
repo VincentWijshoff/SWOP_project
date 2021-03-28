@@ -42,8 +42,8 @@ public abstract class HtmlRenderer {
      * @param href      The href of the object
      * @param objects   The list this object will be added to
      */
-    public static void addGUILink(String text, String href, ArrayList<GUIObject> objects) {
-        objects.add(new GUILink(text, href));
+    public static void addGUILink(String text, String href, String address, ArrayList<GUIObject> objects) {
+        objects.add(new GUILink(text, href, address));
     }
 
     public static void addGUITable(ArrayList<ArrayList<GUIObject>> rows , ArrayList<GUIObject> objects) {

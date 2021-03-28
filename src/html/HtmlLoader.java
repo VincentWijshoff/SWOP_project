@@ -119,7 +119,7 @@ public class HtmlLoader {
         while(type != HtmlLexer.TokenType.END_OF_FILE){
             if(type == HtmlLexer.TokenType.OPEN_START_TAG){
                 if(value.equals("a")){
-                    Hyperlink aTag = new Hyperlink();
+                    Hyperlink aTag = new Hyperlink(documentArea.getWindow().getAddress());
                     lexer.eatToken();
                     lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
                     documentArea.addGUIObjects(HtmlRenderer.renderHTML(aTag));
@@ -226,7 +226,7 @@ public class HtmlLoader {
 
         if(type == HtmlLexer.TokenType.OPEN_START_TAG){
             if(value.equals("a")){ // td is an a object
-                Hyperlink aTag = new Hyperlink();
+                Hyperlink aTag = new Hyperlink(documentArea.getWindow().getAddress());
                 lexer = updateATag(lexer, aTag);
                 td.setData(aTag);
             }else if(isTable(value)){ //td is a table

@@ -25,12 +25,12 @@ public class GUITable extends GUIObject {
     }
 
     @Override
-    public void setDocumentArea(DocumentArea documentArea) {
-        super.setDocumentArea(documentArea);
+    public void setHandler(WindowHandler h) {
+        super.setHandler(h);
 
         for (ArrayList<GUIObject> row: tableRows) {
             for (GUIObject obj: row) {
-                obj.setDocumentArea(documentArea);
+                obj.setHandler(h);
             }
         }
     }

@@ -3,7 +3,7 @@ package gui;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class InputField {
+public class GUIInput extends GUIObject{
 
     private int startSelected = 0;      //The starting selected position
     private int endSelected = 0;        //The ending selected position
@@ -16,14 +16,16 @@ public class InputField {
      * Constructor, it will set teh current text as the give parameter
      * @param startTxt  The starting text in the input field
      */
-    public InputField(String startTxt){
+    public GUIInput(String startTxt, int x, int y, int width, int height){
+        super(x, y, width, height);
         this.text = startTxt;
     }
 
     /**
      * constructor off the input field, with no parameter the current ext will be empty
      */
-    public InputField(){
+    public GUIInput( int x, int y, int width, int height){
+        super(x, y, width, height);
         this.text = "";
     }
 
@@ -370,16 +372,12 @@ public class InputField {
     /**
      * Draw the input box and only the input box containing the current text
      * @param g         the java drawing graphics
-     * @param x         The starting x coordinate for the input field
-     * @param y         The starting y coordinate for the input field
-     * @param width     The width off the input field
-     * @param height    The height off the input field
      * @param inFocus   Checks if the vertical line on the cursor position is drawn
      */
-    public void draw(Graphics g, int x, int y, int width, int height, boolean inFocus){
+    public void draw(Graphics g, boolean inFocus){
         g.setColor(Color.BLACK);
-        g.drawRect(x, y, width, height); // border
-        g.clearRect(x+1, y+1, width-1, height-1); // actual address bar (white part)
+        g.drawRect(this.coordX, this.coordY, width, height); // border
+        g.clearRect(this.coordX+1, this.coordY+1, width-1, height-1); // actual address bar (white part)
 
         String viewedAddress = this.getText();
         if(inFocus && !this.isSelecting()){
@@ -392,13 +390,13 @@ public class InputField {
             g.setColor(Color.CYAN);
             int tmp = (int) g.getFontMetrics().getStringBounds(this.getText(), g).getHeight();
             int[] xCords = this.getSelectedPositions(g);
-            g.fillRect(x+5 + xCords[0],
-                    y + 3 + ((int) (height/1.5)) - tmp,
+            g.fillRect(this.coordX+5 + xCords[0],
+                    this.coordY + 3 + ((int) (height/1.5)) - tmp,
                     xCords[1] - xCords[0],
                     tmp); // text background
             g.setColor(Color.BLACK);
         }
 
-        g.drawString(viewedAddress, x+5, y+((int) (height/1.5)));
+        g.drawString(viewedAddress, this.coordX+5, this.coordY+((int) (height/1.5)));
     }
 }

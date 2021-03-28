@@ -11,7 +11,7 @@ import java.util.UUID;
 public class GUIObject {
 
     private UUID id;
-    protected DocumentArea documentArea;
+    protected WindowHandler handler;
     public int width;
     public int height;
     public int coordX;
@@ -25,11 +25,34 @@ public class GUIObject {
     }
 
     /**
-     * set the document area for a GUIObject
-     * @param documentArea  the document area that needs to be set
+     * constructor off an object, it assigns a unique id
      */
-    public void setDocumentArea(DocumentArea documentArea) {
-        this.documentArea = documentArea;
+    public GUIObject(int x, int y, int w, int h) {
+        this.id = UUID.randomUUID();
+        this.coordX = x;
+        this.coordY = y;
+        this.width = w;
+        this.height = h;
+    }
+
+    /**
+     * constructor off an object, it assigns a unique id
+     */
+    public GUIObject(int x, int y, int w, int h, WindowHandler win) {
+        this.handler = win;
+        this.id = UUID.randomUUID();
+        this.coordX = x;
+        this.coordY = y;
+        this.width = w;
+        this.height = h;
+    }
+
+    /**
+     * set the document area for a GUIObject
+     * @param h  the document area that needs to be set
+     */
+    public void setHandler(WindowHandler h) {
+        this.handler = h;
     }
 
     /**

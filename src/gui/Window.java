@@ -27,7 +27,7 @@ public class Window extends CanvasWindow{
         super(title);
 
         this.addressBar = new AddressBar("WelcomeDoc.html");
-        this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit);
+        this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit, this);
         this.docArea = new DocumentArea(this, this.addressBar.yLimit + this.bookmarkBar.getHeight());
 
     }

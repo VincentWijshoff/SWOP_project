@@ -8,6 +8,7 @@ import java.awt.*;
 public class GUILink extends GUIString {
 
     private String href;
+    private String newAddress;
 
     /**
      * Create a GUILink
@@ -16,14 +17,24 @@ public class GUILink extends GUIString {
      * @param y     the y coordinate off the GUILink
      * @param href  The href off the link
      */
-    public GUILink(String text, int x, int y, String href) {
+    public GUILink(String text, int x, int y, String href, String address) {
         super(text, x, y);
         this.href = href;
+        this.createNewAddress(address);
     }
 
-    public GUILink(String text, String href) {
+    public GUILink(String text, String href, String address) {
         super(text);
         this.href = href;
+        this.createNewAddress(address);
+    }
+
+    private void createNewAddress(String address){
+        if(this.getHref().startsWith("http")){
+            this.newAddress = getHref();
+        }else{
+            this.newAddress = this.getFullAddress(address);
+        }
     }
 
     /**
@@ -55,8 +66,7 @@ public class GUILink extends GUIString {
      * Calculate the full address with addition off this href
      * @return  the full address with this href
      */
-    public String getFullAddress() {
-        String currURL = this.documentArea.getWindow().getAddress();
+    public String getFullAddress(String currURL) {
         return getModifiedAddress(currURL, this.getHref());
     }
 
@@ -108,11 +118,6 @@ public class GUILink extends GUIString {
     @Override
     public void handleClick(int x, int y) {
         //href is an absolute URL
-        if(this.getHref().startsWith("http")){
-            this.documentArea.getWindow().load(getHref());
-        }else{
-            System.out.println("You clicked on a GUILink, href = " + this.getFullAddress());
-            this.documentArea.getWindow().load(this.getFullAddress());
-            }
+        this.handler.load(this.newAddress);
     }
 }

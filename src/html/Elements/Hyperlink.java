@@ -12,13 +12,15 @@ public class Hyperlink extends ContentSpan {
 
     private String href;            //the href <a href="...">
     private final TextSpan text;    //the string representing the hyperlink
+    private String address;
 
     /**
      * Creates an empty hyperlink
      */
-    public Hyperlink(){
+    public Hyperlink(String address){
         this.href = "";
         this.text = new TextSpan("");
+        this.address = address;
     }
 
     /**
@@ -59,7 +61,15 @@ public class Hyperlink extends ContentSpan {
      */
     @Override
     public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
-        HtmlRenderer.addGUILink(this.getText(), this.getHref(), objects );
+        HtmlRenderer.addGUILink(this.getText(), this.getHref(), this.getAddress(), objects );
         return objects;
+    }
+
+    private String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
