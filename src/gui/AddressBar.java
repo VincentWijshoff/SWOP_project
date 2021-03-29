@@ -1,5 +1,8 @@
 package gui;
 
+import events.KeyEventListener;
+import events.MouseEventListener;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -7,7 +10,7 @@ import java.awt.event.MouseEvent;
 /**
  * The class for the address bar, this contains all necessary code for a functioning address bar
  */
-public class AddressBar {
+public class AddressBar implements MouseEventListener, KeyEventListener {
 
     //graphic element
     final int yLimit = 50;
@@ -131,7 +134,7 @@ public class AddressBar {
      * @param modifier  The modifier on the pressed key
      * @return          true if the gui should load the webpage
      */
-    public boolean handleKeyboardEvent(int id, int keyCode, char keyChar, int modifier) {
+    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
         if(this.inputField.handleKeyEvent(id, keyCode, keyChar, modifier)){
             return this.setOutFocus();
         }
@@ -169,4 +172,6 @@ public class AddressBar {
         return true;
     }
 
+    public MouseEventListener mListener = this::handleMouseEvent;
+    public KeyEventListener kListener = this::handleKeyEvent;
 }

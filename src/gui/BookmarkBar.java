@@ -1,10 +1,14 @@
 package gui;
 
+import events.EventHandler;
+import events.KeyEventListener;
+import events.MouseEventListener;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class BookmarkBar implements WindowHandler{
+public class BookmarkBar implements EventHandler {
 
     private int relativeYPos;
     private int height = 25;
@@ -19,6 +23,10 @@ public class BookmarkBar implements WindowHandler{
         this.bookmarks = new GUITable(0, relativeYPos);
         this.bookmarks.addRow(new ArrayList<>());
 
+    }
+
+    public Window getWindow() {
+        return window;
     }
 
     public void draw(Graphics g, int width){
@@ -49,12 +57,12 @@ public class BookmarkBar implements WindowHandler{
 
     public void handleMouseEvent(int id, int x, int y){
         if(id == MouseEvent.MOUSE_PRESSED) {
-            bookmarks.handleClick(x, y);
+            bookmarks.handleMouseEvent(x, y);
         }
     }
 
     public void addBookmark(String name, String address){
-        GUILink link = new GUILink(name, address, window.getAddress());
+        GUILink link = new GUILink(name, address, getWindow().getAddress());
         link.setHandler(this);
         bookmarks.appendToRow(link, 0);
 
@@ -67,12 +75,22 @@ public class BookmarkBar implements WindowHandler{
 
     @Override
     public void load(String url){
-        this.window.load(url);
+        this.getWindow().load(url);
+    }
+
+    @Override
+    public void addMouseEventListener(MouseEventListener listener) {
+        this.getWindow().mouseEventHandler.addMouseEventListener(listener);
+    }
+
+    @Override
+    public void addKeyEventListener(KeyEventListener listener) {
+        this.getWindow().keyEventHandler.addKeyEventListener(listener);
     }
 
     @Override
     public FontMetrics getFontMetrics() {
-        return this.window.getFontMetrics();
+        return this.getWindow().getFontMetrics();
     }
 
 }

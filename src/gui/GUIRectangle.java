@@ -1,5 +1,7 @@
 package gui;
 
+import events.EventHandler;
+
 import java.awt.*;
 
 /**
@@ -35,7 +37,8 @@ public class GUIRectangle extends GUIObject{
      * Handle a click on the rectangle
      */
     @Override
-    public void handleClick(int x, int y) {
-        System.out.println("You clicked on a GUIRectangle");
+    public void handleMouseEvent(int x, int y) {
+        if (isInGUIObject(x, y))
+            System.out.println("You clicked on a GUIRectangle");
     }
 }

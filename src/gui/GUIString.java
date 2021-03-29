@@ -1,5 +1,7 @@
 package gui;
 
+import events.EventHandler;
+
 import java.awt.*;
 
 /**
@@ -58,8 +60,9 @@ public class GUIString extends GUIObject {
      * Handle the click on this string
      */
     @Override
-    public void handleClick(int x, int y) {
-        System.out.println("You clicked on a GUIString: "+ this.text);
+    public void handleMouseEvent(int x, int y) {
+        if (isInGUIObject(x, y))
+            System.out.println("You clicked on a GUIString: "+ this.text);
     }
 
     /**
@@ -67,15 +70,15 @@ public class GUIString extends GUIObject {
      * @param h  the document area that needs to be set
      */
     @Override
-    public void setHandler(WindowHandler h) {
-        this.handler = h;
+    public void setHandler(EventHandler h) {
+        this.eventHandler = h;
 
         this.updateDimensions();
     }
 
     @Override
     public void updateDimensions() {
-        this.width = this.handler.getFontMetrics().stringWidth(text);
-        this.height = this.handler.getFontMetrics().getHeight();
+        this.width = this.eventHandler.getFontMetrics().stringWidth(text);
+        this.height = this.eventHandler.getFontMetrics().getHeight();
     }
 }

@@ -1,5 +1,7 @@
 package gui;
 
+import events.EventHandler;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class GUITable extends GUIObject {
     }
 
     @Override
-    public void setHandler(WindowHandler h) {
+    public void setHandler(EventHandler h) {
         super.setHandler(h);
 
         for (ArrayList<GUIObject> row: tableRows) {
@@ -110,11 +112,11 @@ public class GUITable extends GUIObject {
     }
 
     @Override
-    public void handleClick(int x, int y) {
+    public void handleMouseEvent(int x, int y) {
         for (ArrayList<GUIObject> row: tableRows) {
             for (GUIObject obj: row) {
                 if (obj.isInGUIObject(x, y)) {
-                    obj.handleClick(x, y);
+                    obj.handleMouseEvent(x, y);
                 }
             }
         }

@@ -1,5 +1,7 @@
 package gui;
 
+import events.EventHandler;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -24,7 +26,7 @@ public class GUIInput extends GUIObject{
     /**
      * constructor off the input field, with no parameter the current ext will be empty
      */
-    public GUIInput( int x, int y, int width, int height){
+    public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = "";
     }
@@ -38,6 +40,7 @@ public class GUIInput extends GUIObject{
      * @return          true if the ENTER key was pressed
      *                  false a any other key press
      */
+    @Override
     public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
         if(modifier == KeyEvent.SHIFT_DOWN_MASK){
             this.shifting = true;

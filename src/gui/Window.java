@@ -1,6 +1,8 @@
 package gui;
 
 import canvaswindow.CanvasWindow;
+import events.KeyEventHandler;
+import events.MouseEventHandler;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
@@ -19,6 +21,9 @@ public class Window extends CanvasWindow{
     Font font = new Font(Font.DIALOG, Font.PLAIN, 12);
     FontMetrics fontMetrics;
 
+    MouseEventHandler mouseEventHandler;
+    KeyEventHandler keyEventHandler;
+
     /**
      * Create a new window
      * @param title The title off the window
@@ -29,6 +34,12 @@ public class Window extends CanvasWindow{
         this.addressBar = new AddressBar("WelcomeDoc.html");
         this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit, this);
         this.docArea = new DocumentArea(this, this.addressBar.yLimit + this.bookmarkBar.getHeight());
+
+        this.mouseEventHandler = new MouseEventHandler();
+        this.mouseEventHandler.addMouseEventListener(this.addressBar.mListener);
+
+        this.keyEventHandler = new KeyEventHandler();
+        this.keyEventHandler.addKeyEventListener(this.addressBar.kListener);
 
     }
 
@@ -136,7 +147,7 @@ public class Window extends CanvasWindow{
         // handle the key event accordingly
         if (this.addressBar.isInFocus()) {
             // handle the key event in the address bar area
-            if(this.addressBar.handleKeyboardEvent(id, keyCode, keyChar, modifiersEx)){
+            if(this.addressBar.handleKeyEvent(id, keyCode, keyChar, modifiersEx)){
                 this.load(this.getAddress());
             }
             this.repaint();

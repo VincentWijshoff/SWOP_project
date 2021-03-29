@@ -1,5 +1,9 @@
 package gui;
 
+import events.EventHandler;
+import events.KeyEventListener;
+import events.MouseEventListener;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -8,14 +12,15 @@ import java.util.UUID;
  This class is the superclass of all other GUIObjects. Properties all GUIObjects need are defined here,
  such as their position, dimensions and ids.
  */
-public class GUIObject {
+public class GUIObject implements MouseEventListener, KeyEventListener {
 
     private UUID id;
-    protected WindowHandler handler;
     public int width;
     public int height;
     public int coordX;
     public int coordY;
+
+    public EventHandler eventHandler;
 
     /**
      * constructor off an object, it assigns a unique id
@@ -38,8 +43,9 @@ public class GUIObject {
     /**
      * constructor off an object, it assigns a unique id
      */
-    public GUIObject(int x, int y, int w, int h, WindowHandler win) {
-        this.handler = win;
+    public GUIObject(EventHandler eventHandler, int x, int y, int w, int h) {
+        setHandler(eventHandler);
+
         this.id = UUID.randomUUID();
         this.coordX = x;
         this.coordY = y;
@@ -51,8 +57,8 @@ public class GUIObject {
      * set the document area for a GUIObject
      * @param h  the document area that needs to be set
      */
-    public void setHandler(WindowHandler h) {
-        this.handler = h;
+    public void setHandler(EventHandler h) {
+        this.eventHandler = h;
     }
 
     /**
@@ -87,14 +93,26 @@ public class GUIObject {
      */
     public void draw(Graphics g) { }
 
-    /**
-     * Handle the click on this Object, if a special action is needed, this should be overridden
-     */
-    public void handleClick(int x, int y) {
-        System.out.println("You clicked on a GUIObject");
-    }
+
 
     public ArrayList<GUIObject> getChildObjects() {
         return new ArrayList<>();
     }
+
+    /**
+     * Handle a key-press for this Object, if a special action is needed, this should be overridden.
+     */
+    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+        return false;
+    }
+
+    /**
+     * Handle the click on this Object, if a special action is needed, this should be overridden.
+     */
+    public void handleMouseEvent(int x, int y) {
+        System.out.println("You clicked on a GUIObject");
+    }
+
+    MouseEventListener mListener = this::handleMouseEvent;
+    KeyEventListener kListener = this::handleKeyEvent;
 }

@@ -1,6 +1,9 @@
 package gui;
 
 import browsrhtml.BrowsrDocumentValidator;
+import events.EventHandler;
+import events.KeyEventListener;
+import events.MouseEventListener;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
@@ -16,7 +19,7 @@ import java.net.URL;
 /**
  * The documentarea manages all GUIObjects that are drawn on the canvas
  */
-public class DocumentArea implements WindowHandler{
+public class DocumentArea implements EventHandler {
 
     private Set<GUIObject> drawnGUIObjects = new HashSet<>();
     private int relativeYPos;
@@ -163,7 +166,7 @@ public class DocumentArea implements WindowHandler{
         if (id == MouseEvent.MOUSE_PRESSED) {
             for (GUIObject obj : this.getDrawnGUIObjects()) { // Loop through all GUIObjects in docArea
                 if (obj.isInGUIObject(x, y)) {
-                    obj.handleClick(x, y);
+                    obj.handleMouseEvent(x, y);
                     return;
                     }
                 }
@@ -173,6 +176,16 @@ public class DocumentArea implements WindowHandler{
     @Override
     public void load(String url){
         this.window.load(url);
+    }
+
+    @Override
+    public void addMouseEventListener(MouseEventListener listener) {
+        this.getWindow().mouseEventHandler.addMouseEventListener(listener);
+    }
+
+    @Override
+    public void addKeyEventListener(KeyEventListener listener) {
+        this.getWindow().keyEventHandler.addKeyEventListener(listener);
     }
 
     @Override

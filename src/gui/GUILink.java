@@ -1,5 +1,7 @@
 package gui;
 
+import events.EventHandler;
+
 import java.awt.*;
 
 /**
@@ -111,9 +113,10 @@ public class GUILink extends GUIString {
     /**
      * handle the click event, because this is a Link, when it is clicked on, a new page should load with this href
      */
-    @Override
-    public void handleClick(int x, int y) {
-        //href is an absolute URL
-        this.handler.load(this.newAddress);
+    public void handleMouseEvent(int x, int y) {
+        if (isInGUIObject(x, y)) {
+            //href is an absolute URL
+            this.eventHandler.load(this.newAddress);
+        }
     }
 }
