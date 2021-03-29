@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class GUITable extends GUIObject {
 
+    static final int xMargin = 5;
     ArrayList<ArrayList<GUIObject>> tableRows; //list of rows
 
     public GUITable(int x, int y) {
@@ -56,6 +57,8 @@ public class GUITable extends GUIObject {
             for(GUIObject obj: row) {
                 obj.setPosition(currentX, currentY);
                 obj.updateDimensions();
+
+                currentX += xMargin; //Add small margin between columns
                 currentX += getColumnWidth(tableRows, row.indexOf(obj));
             }
             currentY += getRowHeight(row);

@@ -35,13 +35,13 @@ public class UseCaseTest {
         assertEquals("UC_4.a", window.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue("UC_4.b", renderedObjects.size() == 11);
-        assertTrue("UC_4.c", containsGUIStringWith(27, 32, "Tables", renderedObjects));
+        assertTrue("UC_4.c", containsGUIStringWith(32, 32, "Tables", renderedObjects));
         assertTrue("UC_4.d", containsGUILinkWith(0, 16, "a", "a.html", renderedObjects));
         assertTrue("UC_4.e", containsGUILinkWith(0, 32, "table", "table.html", renderedObjects));
-        assertTrue("UC_4.f", containsGUIStringWith(27, 64, "Table cells containing table data", renderedObjects));
-        assertTrue("UC_4.g", containsGUIStringWith(27, 16, "Hyperlink anchors", renderedObjects));
+        assertTrue("UC_4.f", containsGUIStringWith(32, 64, "Table cells containing table data", renderedObjects));
+        assertTrue("UC_4.g", containsGUIStringWith(32, 16, "Hyperlink anchors", renderedObjects));
         assertTrue("UC_4.h", containsGUILinkWith(0, 64, "td", "td.html", renderedObjects));
-        assertTrue("UC_4.i", containsGUIStringWith(27, 48, "Table rows", renderedObjects));
+        assertTrue("UC_4.i", containsGUIStringWith(32, 48, "Table rows", renderedObjects));
         assertTrue("UC_4.j", containsGUIStringWith(0, 0, "HTML elements partially supported by Browsr:", renderedObjects));
         assertTrue("UC_4.h", containsGUILinkWith(0, 48, "tr", "tr.html", renderedObjects));
         //This page has 4 GUILinks and 5 GUIStrings
