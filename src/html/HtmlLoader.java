@@ -122,20 +122,18 @@ public class HtmlLoader {
                     Hyperlink aTag = new Hyperlink(documentArea.getWindow().getAddress());
                     lexer.eatToken();
                     lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
-                    documentArea.addGUIObjects(HtmlRenderer.renderHTML(aTag));
+                    documentArea.addGUIObjects(HtmlRenderer.createHtml(aTag));
                 }else if(isTable(value)){
                     HtmlTable tableTag = new HtmlTable();
                     lexer.eatToken();
                     lexer = updateTableTag(lexer, tableTag);
-                    documentArea.addGUIObjects(HtmlRenderer.renderHTML(tableTag));
+                    documentArea.addGUIObjects(HtmlRenderer.createHtml(tableTag));
                 }else if(value.equals("form")){
                     Form formTag = new Form();
                     lexer.eatToken();
                     lexer = updateFormTag(lexer, formTag);
-                    System.out.println("A form Object has been created");
-                    //TODO uncomment next line if formtag has render()
-
-                    // documentArea.addGUIObjects(HtmlRenderer.renderHTML(formTag));
+                    //System.out.println("A form Object has been created");
+                    documentArea.addGUIObjects(HtmlRenderer.createHtml(formTag));
                 }
             }
             lexer.eatToken();

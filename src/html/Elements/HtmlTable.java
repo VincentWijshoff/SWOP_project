@@ -1,6 +1,7 @@
 package html.Elements;
 
 import gui.GUIObject;
+import html.GUIRenderer;
 import html.HtmlRenderer;
 
 import java.util.ArrayList;
@@ -36,6 +37,10 @@ public class HtmlTable extends ContentSpan {
         return row;
     }
 
+    public ArrayList<HtmlTableRow> getTableRows() {
+        return tableRows;
+    }
+
     /**
      * Render the HtmlTable object (add it to the DocGUIObjects list of the DocumentArea)
      *
@@ -43,7 +48,7 @@ public class HtmlTable extends ContentSpan {
      *
      * @param objects   the current DocGUIObjects of the DocumentArea
      * @return          the updated DocGUIObjects
-     */
+
     @Override
     public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
 
@@ -55,5 +60,11 @@ public class HtmlTable extends ContentSpan {
 
         HtmlRenderer.addGUITable(rows, objects);
         return objects;
+    }
+    */
+
+    @Override
+    public ArrayList<GUIObject> create() {
+        return GUIRenderer.create(this);
     }
 }

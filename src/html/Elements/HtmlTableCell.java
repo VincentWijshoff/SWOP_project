@@ -1,6 +1,7 @@
 package html.Elements;
 
 import gui.GUIObject;
+import html.GUIRenderer;
 
 import java.util.ArrayList;
 
@@ -44,10 +45,16 @@ public class HtmlTableCell extends ContentSpan {
      *
      * @param objects   the current DocGUIObjects of the DocumentArea
      * @return          the updated DocGUIObjects
-     */
+
     @Override
     public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
         objects = getData().render(objects);
         return objects;
+    }
+    */
+
+    @Override
+    public ArrayList<GUIObject> create() {
+        return GUIRenderer.create(this);
     }
 }

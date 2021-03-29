@@ -20,20 +20,22 @@ public abstract class HtmlRenderer {
      *
      * @param element   The ContentSpan object that needs to be rendered
      * @return A new list of GUIObjects
-     */
+
     public static ArrayList<GUIObject> renderHTML(ContentSpan element) {
         return element.render(new ArrayList<>());
     }
+     */
 
     /**
      * Add a new GUIString to the given list
      *
      * @param text      The text of the GUIString
      * @param objects   The list this object will be added to
-     */
+
     public static void addGUIString(String text, ArrayList<GUIObject> objects) {
         objects.add(new GUIString(text));
     }
+    */
 
     /**
      * Add a new GUILink to the given list
@@ -41,13 +43,20 @@ public abstract class HtmlRenderer {
      * @param text      The text of the GUILink
      * @param href      The href of the object
      * @param objects   The list this object will be added to
-     */
+
     public static void addGUILink(String text, String href, String address, ArrayList<GUIObject> objects) {
         objects.add(new GUILink(text, href, address));
     }
+    */
 
+    /**
     public static void addGUITable(ArrayList<ArrayList<GUIObject>> rows , ArrayList<GUIObject> objects) {
         objects.add(new GUITable(rows));
+    }
+    */
+
+    public static ArrayList<GUIObject> createHtml(ContentSpan element){
+        return element.create();
     }
 
 }
