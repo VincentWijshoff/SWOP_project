@@ -1,6 +1,7 @@
 package html.Elements;
 
 import gui.GUIObject;
+import html.Creator;
 import html.GUIRenderer;
 
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class ContentSpan {
 
     */
 
-    public ArrayList<GUIObject> create(){
-        return new ArrayList<>();
+    public ArrayList<GUIObject> create(Creator c){
+        return c.create(this);
     }
 
 }

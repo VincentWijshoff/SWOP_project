@@ -1,6 +1,7 @@
 package html.Elements;
 
 import gui.GUIObject;
+import html.Creator;
 import html.GUIRenderer;
 import html.HtmlRenderer;
 
@@ -76,7 +77,7 @@ public class Hyperlink extends ContentSpan {
     }
 
     @Override
-    public ArrayList<GUIObject> create() {
-        return GUIRenderer.create(this);
+    public ArrayList<GUIObject> create(Creator c){
+        return c.create(this);
     }
 }

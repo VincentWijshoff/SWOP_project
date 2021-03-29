@@ -16,10 +16,12 @@ import static tests.TestUtil.*;
 public class HtmlTests {
 
     Window window;
+    HtmlLoader loader;
 
     @BeforeAll
     public void setup() throws InvocationTargetException, InterruptedException {
         this.window = new Window("TestBrowser");
+        this.loader = new HtmlLoader(window.getDocArea());
         java.awt.EventQueue.invokeAndWait(this.window::show);
 
     }
@@ -31,8 +33,7 @@ public class HtmlTests {
                 <a href="a.html">TEXT</a>
                 """;
         window.getDocArea().clearDocObjects();
-        HtmlLoader loader = new HtmlLoader(htmlCode);
-        loader.setDocumentArea(window.getDocArea());
+        this.loader.initialise(htmlCode);
         loader.loadPage();
 
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 1);
@@ -50,8 +51,7 @@ public class HtmlTests {
                 </table>
                 """;
         window.getDocArea().clearDocObjects();
-        HtmlLoader loader = new HtmlLoader(htmlCode);
-        loader.setDocumentArea(window.getDocArea());
+        this.loader.initialise(htmlCode);
         loader.loadPage();
 
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
@@ -72,8 +72,7 @@ public class HtmlTests {
                 </table>
                 """;
         window.getDocArea().clearDocObjects();
-        HtmlLoader loader = new HtmlLoader(htmlCode);
-        loader.setDocumentArea(window.getDocArea());
+        this.loader.initialise(htmlCode);
         loader.loadPage();
 
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
@@ -99,8 +98,7 @@ public class HtmlTests {
 				</table>
 				""";
         window.getDocArea().clearDocObjects();
-        HtmlLoader loader = new HtmlLoader(htmlCode);
-        loader.setDocumentArea(window.getDocArea());
+        this.loader.initialise(htmlCode);
         loader.loadPage();
 
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
@@ -140,8 +138,7 @@ public class HtmlTests {
                 </form>
                 """;
         window.getDocArea().clearDocObjects();
-        HtmlLoader loader = new HtmlLoader(htmlCode);
-        //loader.setDocumentArea(window.getDocArea());
+        this.loader.initialise(htmlCode);
         loader.loadPage();
 
 

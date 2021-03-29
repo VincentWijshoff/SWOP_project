@@ -11,7 +11,13 @@ import java.util.ArrayList;
 /**
  * Contains static functions that will transform HtmlElements into GUIObjects that can be drawn
  */
-public abstract class HtmlRenderer {
+public class HtmlRenderer {
+
+    private Creator creator;
+
+    public HtmlRenderer(){
+        this.creator = new GUIRenderer();
+    }
 
     /**
      * Render the ContentSpan object
@@ -55,8 +61,8 @@ public abstract class HtmlRenderer {
     }
     */
 
-    public static ArrayList<GUIObject> createHtml(ContentSpan element){
-        return element.create();
+    public ArrayList<GUIObject> createHtml(ContentSpan element){
+        return element.create(this.creator);
     }
 
 }

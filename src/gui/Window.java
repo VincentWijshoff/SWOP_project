@@ -55,9 +55,7 @@ public class Window extends CanvasWindow{
     protected void handleShown() {
         this.fontMetrics = getFontMetrics(font);
 
-        HtmlLoader loader = new HtmlLoader(Docs.getWelcomePage());
-        loader.setDocumentArea(docArea);
-        loader.loadPage();
+        this.docArea.loadWelcomeDoc();
 
         repaint();
     }

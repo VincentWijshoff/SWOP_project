@@ -20,6 +20,7 @@ public class HtmlLoader {
     private URL url; //the URL of the page
     private String htmlCode; //the string format of the html code
     private DocumentArea documentArea; //the documentArea object
+    private Creator creator;
 
     /**
      * Setter of the documentArea
@@ -34,7 +35,13 @@ public class HtmlLoader {
      *
      * Called when loading a local document
      */
-    public HtmlLoader(String htmlCode) {
+    public HtmlLoader(DocumentArea doc) {
+        this.creator = new GUIRenderer();
+        setDocumentArea(doc);
+    }
+
+
+    public void initialise(String htmlCode) {
         try {
             this.htmlCode = htmlCode;
         }catch(Exception e){
@@ -42,15 +49,7 @@ public class HtmlLoader {
         }
     }
 
-
-    /**
-     * Create a new HtmlLoader object, initialized with the given URL
-     *
-     * Called when new url has been entered in address bar
-     *
-     * @param url  The url typed in the address bar
-     */
-    public HtmlLoader(URL url) {
+    public void initialise(URL url) {
         try {
             this.url = new URL(url, "");
             this.htmlCode = loadHtml();
@@ -59,15 +58,7 @@ public class HtmlLoader {
         }
     }
 
-    /**
-     * Create a new HtmlLoader object, initialized with the given URL and href
-     *
-     * Called when pressed a hyperlink
-     *
-     * @param url     The current url
-     * @param href    The href (given in html code) -> example: <a href="a.html">
-     */
-    public HtmlLoader(URL url, String href) {
+    public void initialise(URL url, String href) {
         try{
             this.url = new URL(url, href);
             this.htmlCode = loadHtml();
@@ -122,18 +113,18 @@ public class HtmlLoader {
                     Hyperlink aTag = new Hyperlink(documentArea.getWindow().getAddress());
                     lexer.eatToken();
                     lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
-                    documentArea.addGUIObjects(HtmlRenderer.createHtml(aTag));
+                    documentArea.addGUIObjects(aTag.create(this.creator));
                 }else if(isTable(value)){
                     HtmlTable tableTag = new HtmlTable();
                     lexer.eatToken();
                     lexer = updateTableTag(lexer, tableTag);
-                    documentArea.addGUIObjects(HtmlRenderer.createHtml(tableTag));
+                    documentArea.addGUIObjects(tableTag.create(this.creator));
                 }else if(value.equals("form")){
                     Form formTag = new Form();
                     lexer.eatToken();
                     lexer = updateFormTag(lexer, formTag);
                     //System.out.println("A form Object has been created");
-                    documentArea.addGUIObjects(HtmlRenderer.createHtml(formTag));
+                    documentArea.addGUIObjects(formTag.create(this.creator));
                 }
             }
             lexer.eatToken();

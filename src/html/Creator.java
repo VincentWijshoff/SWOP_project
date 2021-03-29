@@ -23,4 +23,6 @@ public interface Creator {
 
     ArrayList<GUIObject> create(TextSpan textSpan);
 
+    ArrayList<GUIObject> create(ContentSpan contentSpan);
+
 }
