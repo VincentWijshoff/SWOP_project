@@ -25,6 +25,7 @@ public class DocumentArea implements EventHandler {
     private int relativeYPos;
     private final int xOffset = 5;
     private Window window;
+    private HtmlLoader loader;
 
     /*
     * Class used to describe the entire Document section of our GUI.
@@ -32,6 +33,7 @@ public class DocumentArea implements EventHandler {
     public DocumentArea(Window window, int relativeYpos) {
         this.window = window;
         this.relativeYPos = relativeYpos;
+        this.loader = new HtmlLoader(this);
     }
 
     /**
@@ -115,9 +117,7 @@ public class DocumentArea implements EventHandler {
         URL address = generateAddress(url, "");
         this.clearDocObjects(); //remove GUIObjects from previous page
         isValidBrowsrPage(address);
-
-        HtmlLoader loader = new HtmlLoader(address);
-        loader.setDocumentArea(this);
+        this.loader.initialise(address);
         loader.loadPage();
 
     }
@@ -148,8 +148,7 @@ public class DocumentArea implements EventHandler {
      */
     public void loadErrorDoc() {
         this.drawnGUIObjects.clear();
-        HtmlLoader loader = new HtmlLoader(Docs.getErrorPage());
-        loader.setDocumentArea(this);
+        this.loader.initialise(Docs.getErrorPage());
         loader.loadPage();
     }
 
@@ -193,5 +192,10 @@ public class DocumentArea implements EventHandler {
         return this.window.getFontMetrics();
     }
 
+    public void loadWelcomeDoc() {
+        this.drawnGUIObjects.clear();
+        this.loader.initialise(Docs.getWelcomePage());
+        loader.loadPage();
+    }
 }
 

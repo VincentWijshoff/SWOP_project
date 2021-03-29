@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class GUITable extends GUIObject {
 
-    static final int xMargin = 5;
+    public static final int xMargin = 5;
     ArrayList<ArrayList<GUIObject>> tableRows; //list of rows
 
     public GUITable(int x, int y) {

@@ -1,7 +1,7 @@
 package html.Elements;
 
 import gui.GUIObject;
-import html.HtmlRenderer;
+import html.Creator;
 
 import java.util.ArrayList;
 
@@ -58,18 +58,24 @@ public class Hyperlink extends ContentSpan {
      *
      * @param objects   the current DocGUIObjects of the DocumentArea
      * @return          the updated DocGUIObjects
-     */
+
     @Override
     public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
         HtmlRenderer.addGUILink(this.getText(), this.getHref(), this.getAddress(), objects );
         return objects;
     }
+    */
 
-    private String getAddress() {
+    public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public ArrayList<GUIObject> create(Creator c){
+        return c.create(this);
     }
 }
