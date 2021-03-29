@@ -162,7 +162,7 @@ public class HtmlLoader {
                 value = lexer.getTokenValue();
                 formTag.setAction(value);
             }else if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("a")){
-                Hyperlink aTag = new Hyperlink();
+                Hyperlink aTag = new Hyperlink(documentArea.getWindow().getAddress());
                 lexer = updateATag(lexer, aTag);
                 formTag.setData(aTag);
             }else if(type == HtmlLexer.TokenType.OPEN_START_TAG && isTable(value)){

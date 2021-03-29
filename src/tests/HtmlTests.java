@@ -20,7 +20,7 @@ public class HtmlTests {
     @BeforeAll
     public void setup() throws InvocationTargetException, InterruptedException {
         this.window = new Window("TestBrowser");
-        //java.awt.EventQueue.invokeAndWait(this.window::show);
+        java.awt.EventQueue.invokeAndWait(this.window::show);
 
     }
 
