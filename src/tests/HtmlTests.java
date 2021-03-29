@@ -1,12 +1,14 @@
 package tests;
 
 import gui.GUIObject;
+import gui.GUITable;
 import gui.Window;
 import html.HtmlLoader;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
@@ -16,11 +18,13 @@ import static tests.TestUtil.*;
 public class HtmlTests {
 
     Window window;
+    FontMetrics fm;
 
     @BeforeAll
     public void setup() throws InvocationTargetException, InterruptedException {
         this.window = new Window("TestBrowser");
         java.awt.EventQueue.invokeAndWait(this.window::show);
+        fm = window.getFontMetrics();
 
     }
 
@@ -57,8 +61,8 @@ public class HtmlTests {
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 4);
         assertTrue(testName, containsGUILinkWith(0, 0, "TEXT", "a.html", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(0, 32, "Text", "b.html", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(0, 16, "TEXT", "", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(0, 2*fm.getHeight(), "Text", "b.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWith(0, fm.getHeight(), "TEXT", "", renderedObjects));
 
     }
 
@@ -79,8 +83,8 @@ public class HtmlTests {
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 4); //3 GUIStrings
         assertTrue(testName, containsGUIStringWith(0, 0, "DATA", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(35, 16, "SECOND COLUMN", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(0, 16, "DATA", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(fm.stringWidth("DATA") + GUITable.xMargin, fm.getHeight(), "SECOND COLUMN", renderedObjects));
+        assertTrue(testName, containsGUIStringWith(0, fm.getHeight(), "DATA", renderedObjects));
     }
 
     @Test
@@ -105,15 +109,19 @@ public class HtmlTests {
 
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 11); //9 GUIString
-        assertTrue(testName, containsGUIStringWith(32, 32, "Tables", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(0, 16, "a", "a.html", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(0, 32, "table", "table.html", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(32, 64, "Table cells containing table data", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(32, 16, "Hyperlink anchors", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(0, 64, "td", "td.html", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(32, 48, "Table rows", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(0, 0, "HTML elements partially supported by Browsr:", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(0, 48, "tr", "tr.html", renderedObjects));
+        assertTrue("UC_4.j", containsGUIStringWith(0, 0, "HTML elements partially supported by Browsr:", renderedObjects));
+
+        assertTrue("UC_4.d", containsGUILinkWith(0, fm.getHeight(), "a", "a.html", renderedObjects));
+        assertTrue("UC_4.g", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, fm.getHeight(), "Hyperlink anchors", renderedObjects));
+
+        assertTrue("UC_4.e", containsGUILinkWith(0, 2*fm.getHeight(), "table", "table.html", renderedObjects));
+        assertTrue("UC_4.c", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, 2*fm.getHeight(), "Tables", renderedObjects));
+
+        assertTrue("UC_4.h", containsGUILinkWith(0, 3*fm.getHeight(), "tr", "tr.html", renderedObjects));
+        assertTrue("UC_4.i", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, 3*fm.getHeight(), "Table rows", renderedObjects));
+
+        assertTrue("UC_4.h", containsGUILinkWith(0, 4*fm.getHeight(), "td", "td.html", renderedObjects));
+        assertTrue("UC_4.f", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, 4*fm.getHeight(), "Table cells containing table data", renderedObjects));
     }
 
     /**
