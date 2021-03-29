@@ -2,10 +2,12 @@ package tests;
 
 import gui.GUILink;
 import gui.GUIObject;
+import gui.GUITable;
 import gui.Window;
 import org.junit.jupiter.api.Test;
 
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ public class UseCaseTest {
         //1. User starts a Browsr application.
         Window window = new Window("useCase");
         java.awt.EventQueue.invokeAndWait(window::show);
+        FontMetrics fm = window.getFontMetrics();
+
 
 
         //2. Application shows a welcome document.
@@ -35,15 +39,19 @@ public class UseCaseTest {
         assertEquals("UC_4.a", window.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue("UC_4.b", renderedObjects.size() == 11);
-        assertTrue("UC_4.c", containsGUIStringWith(32, 32, "Tables", renderedObjects));
-        assertTrue("UC_4.d", containsGUILinkWith(0, 16, "a", "a.html", renderedObjects));
-        assertTrue("UC_4.e", containsGUILinkWith(0, 32, "table", "table.html", renderedObjects));
-        assertTrue("UC_4.f", containsGUIStringWith(32, 64, "Table cells containing table data", renderedObjects));
-        assertTrue("UC_4.g", containsGUIStringWith(32, 16, "Hyperlink anchors", renderedObjects));
-        assertTrue("UC_4.h", containsGUILinkWith(0, 64, "td", "td.html", renderedObjects));
-        assertTrue("UC_4.i", containsGUIStringWith(32, 48, "Table rows", renderedObjects));
         assertTrue("UC_4.j", containsGUIStringWith(0, 0, "HTML elements partially supported by Browsr:", renderedObjects));
-        assertTrue("UC_4.h", containsGUILinkWith(0, 48, "tr", "tr.html", renderedObjects));
+
+        assertTrue("UC_4.d", containsGUILinkWith(0, fm.getHeight(), "a", "a.html", renderedObjects));
+        assertTrue("UC_4.g", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, fm.getHeight(), "Hyperlink anchors", renderedObjects));
+
+        assertTrue("UC_4.e", containsGUILinkWith(0, 2*fm.getHeight(), "table", "table.html", renderedObjects));
+        assertTrue("UC_4.c", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, 2*fm.getHeight(), "Tables", renderedObjects));
+
+        assertTrue("UC_4.h", containsGUILinkWith(0, 3*fm.getHeight(), "tr", "tr.html", renderedObjects));
+        assertTrue("UC_4.i", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, 3*fm.getHeight(), "Table rows", renderedObjects));
+
+        assertTrue("UC_4.h", containsGUILinkWith(0, 4*fm.getHeight(), "td", "td.html", renderedObjects));
+        assertTrue("UC_4.f", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, 4*fm.getHeight(), "Table cells containing table data", renderedObjects));
         //This page has 4 GUILinks and 5 GUIStrings
 
         //5 User navigates to a desired webpage. (using hyperlink)
