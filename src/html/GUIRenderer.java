@@ -43,7 +43,7 @@ public abstract class GUIRenderer{
 
         ArrayList<HtmlTableCell> tableCells = tableRow.getTableData();
         for(HtmlTableCell cell : tableCells){
-            objects = cell.create();
+            objects.addAll(cell.create());
         }
         return objects;
     }
