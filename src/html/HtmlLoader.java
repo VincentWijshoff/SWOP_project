@@ -128,6 +128,14 @@ public class HtmlLoader {
                     lexer.eatToken();
                     lexer = updateTableTag(lexer, tableTag);
                     documentArea.addGUIObjects(HtmlRenderer.renderHTML(tableTag));
+                }else if(value.equals("form")){
+                    Form formTag = new Form();
+                    lexer.eatToken();
+                    lexer = updateFormTag(lexer, formTag);
+                    System.out.println("A form Object has been created");
+                    //TODO uncomment next line if formtag has render()
+
+                    // documentArea.addGUIObjects(HtmlRenderer.renderHTML(formTag));
                 }
             }
             lexer.eatToken();
@@ -135,6 +143,38 @@ public class HtmlLoader {
             value = lexer.getTokenValue();
         }
 
+    }
+
+
+    /**
+     ##############################################################
+     ##################### New in iteration 2 #####################
+     ##############################################################
+     */
+    private HtmlLexer updateFormTag(HtmlLexer lexer, Form formTag){
+        HtmlLexer.TokenType type = lexer.getTokenType();
+        String value = lexer.getTokenValue();
+        while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && value.equals("form"))){
+            if(type == HtmlLexer.TokenType.IDENTIFIER && value.equals("action")){
+                lexer.eatToken(); //this is EQUALS
+                lexer.eatToken();
+                type = lexer.getTokenType();
+                value = lexer.getTokenValue();
+                formTag.setAction(value);
+            }else if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("a")){
+                Hyperlink aTag = new Hyperlink();
+                lexer = updateATag(lexer, aTag);
+                formTag.setData(aTag);
+            }else if(type == HtmlLexer.TokenType.OPEN_START_TAG && isTable(value)){
+                HtmlTable table = new HtmlTable();
+                updateTableTag(lexer, table);
+                formTag.setData(table);
+            }
+            lexer.eatToken();
+            type = lexer.getTokenType();
+            value = lexer.getTokenValue();
+        }
+        return lexer;
     }
 
     /**
@@ -212,6 +252,7 @@ public class HtmlLoader {
      * @param lexer     the lexer of the html code
      * @param td        the table data object
      * @return the updated lexer
+     * TODO: form in table data tag??
      */
     private HtmlLexer updateTableDataTag(HtmlLexer lexer, HtmlTableCell td) {
         lexer.eatToken();
@@ -231,14 +272,70 @@ public class HtmlLoader {
                 td.setData(aTag);
             }else if(isTable(value)){ //td is a table
                 HtmlTable tableTag = new HtmlTable();
-                lexer = updateTableTag(lexer, tableTag);
+                lexer = updateTableTag(lexer, tableTag); //TODO maybe tableTag not as parameter here?
                 td.setData(tableTag);
+            }else if(value.equals("input")){
+                lexer = handleInputTag(lexer, td);
             }
         }else if(type == HtmlLexer.TokenType.TEXT){
             TextSpan text = new TextSpan();
             text.setText(value);
             lexer = updateText(lexer, text);
             td.setData(text);
+        }
+        return lexer;
+    }
+
+    /**
+     ##############################################################
+     ##################### New in iteration 2 #####################
+     ##############################################################
+     */
+    private HtmlLexer handleInputTag(HtmlLexer lexer, HtmlTableCell td){
+        lexer.eatToken();
+        HtmlLexer.TokenType type = lexer.getTokenType();
+        String value = lexer.getTokenValue();
+
+        while(!(type == HtmlLexer.TokenType.CLOSE_TAG)){
+            if(type == HtmlLexer.TokenType.IDENTIFIER && value.equals("type")){
+                lexer.eatToken(); //this is a EQUALS
+                lexer.eatToken();
+                type = lexer.getTokenType();
+                value = lexer.getTokenValue();
+                if(value.equals("submit")){
+                    td.setData(new SubmitButton());
+                }else if(value.equals("text")){
+                    TextInputField inputField = new TextInputField();
+                    lexer = updateTextInputField(lexer, inputField);
+                    td.setData(inputField);
+                }
+            }
+            lexer.eatToken();
+            type = lexer.getTokenType();
+            value = lexer.getTokenValue();
+        }
+        return lexer;
+    }
+
+    /**
+     ##############################################################
+     ##################### New in iteration 2 #####################
+     ##############################################################
+     */
+    private HtmlLexer updateTextInputField(HtmlLexer lexer, TextInputField inputField){
+        lexer.eatToken();
+        HtmlLexer.TokenType type = lexer.getTokenType();
+        String value = lexer.getTokenValue();
+        while(!(type == HtmlLexer.TokenType.CLOSE_TAG)){
+            if(type == HtmlLexer.TokenType.IDENTIFIER && value.equals("name")){
+                lexer.eatToken(); //this is EQUALS
+                lexer.eatToken();
+                value = lexer.getTokenValue();
+                inputField.setName(value);
+            }
+            lexer.eatToken();
+            type = lexer.getTokenType();
+            value = lexer.getTokenValue();
         }
         return lexer;
     }
