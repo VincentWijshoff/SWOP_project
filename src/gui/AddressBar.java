@@ -60,7 +60,8 @@ public class AddressBar implements MouseEventListener, KeyEventListener {
         g.setColor(Color.BLACK);
         g.drawLine(0, this.yLimit, gwidth, this.yLimit);
 
-        this.inputField.draw(g, this.isInFocus());
+        this.inputField.setFoucs(this.inFocus);
+        this.inputField.draw(g);
 
         g.setColor(oldColor);
     }
@@ -101,7 +102,7 @@ public class AddressBar implements MouseEventListener, KeyEventListener {
      *  post    When initially clicking the address bar, an insertion point will be shown ("text cursor")
      *          When initially clicking the address bar, all text is selected ( Blue background )
      */
-    public void handleMouseEvent(int id, int clickCount){
+    public void handleMouseEvent(int x, int y, int id, int clickCount){
         //the first click on the address bar
         if (id == MouseEvent.MOUSE_PRESSED && this.initialClick){
 
@@ -135,6 +136,9 @@ public class AddressBar implements MouseEventListener, KeyEventListener {
      * @return          true if the gui should load the webpage
      */
     public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+        if(!this.isInFocus()){
+            return false;
+        }
         if(this.inputField.handleKeyEvent(id, keyCode, keyChar, modifier)){
             return this.setOutFocus();
         }

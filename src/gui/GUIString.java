@@ -60,7 +60,7 @@ public class GUIString extends GUIObject {
      * Handle the click on this string
      */
     @Override
-    public void handleMouseEvent(int x, int y) {
+    public void handleMouseEvent(int x, int y, int id, int clickCount) {
         if (isInGUIObject(x, y))
             System.out.println("You clicked on a GUIString: "+ this.text);
     }

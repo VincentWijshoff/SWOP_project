@@ -64,7 +64,7 @@ class GUITests {
 		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setInFocus();
-		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(0, 0, MouseEvent.MOUSE_PRESSED, 1);
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 		a.setOutFocus();
 
@@ -79,7 +79,7 @@ class GUITests {
 		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setInFocus();
-		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(0,0,MouseEvent.MOUSE_PRESSED, 1);
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
 		a.setOutFocus();
 
@@ -96,7 +96,7 @@ class GUITests {
 		String initialAddress = a.getAddress();
 
 		a.setInFocus();
-		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(0,0,MouseEvent.MOUSE_PRESSED, 1);
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0); //right arrow
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);
 
@@ -130,8 +130,8 @@ class GUITests {
 		String initialAddress = a.getAddress();
 
 		a.setInFocus();
-		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
-		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(0,0,MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(0,0,MouseEvent.MOUSE_PRESSED, 1);
 
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SPACE, ' ', 0);
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
@@ -154,7 +154,7 @@ class GUITests {
 		AddressBar a = new AddressBar();
 
 		a.setInFocus();
-		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(0,0,MouseEvent.MOUSE_PRESSED, 1);
 
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
@@ -162,7 +162,7 @@ class GUITests {
 
 		assertEquals(testName, a.getAddress(), "///");
 
-		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 2); //double click
+		a.handleMouseEvent(0,0,MouseEvent.MOUSE_PRESSED, 2); //double click
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
 
 		assertEquals(testName, a.getAddress(), "");
@@ -178,7 +178,7 @@ class GUITests {
 		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setInFocus();
-		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(0,0,MouseEvent.MOUSE_PRESSED, 1);
 
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, 39, ' ', 0);//right arrow
 
@@ -210,7 +210,7 @@ class GUITests {
 		AddressBar a = new AddressBar("testAddressBar");
 
 		a.setInFocus();
-		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(0,0,MouseEvent.MOUSE_PRESSED, 1);
 
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);//right arrow
 

@@ -55,9 +55,9 @@ public class BookmarkBar implements EventHandler {
 
     private  boolean first = true;
 
-    public void handleMouseEvent(int id, int x, int y){
+    public void handleMouseEvent(int x, int y, int id, int clickCount){
         if(id == MouseEvent.MOUSE_PRESSED) {
-            bookmarks.handleMouseEvent(x, y);
+            bookmarks.handleMouseEvent(x, y, id, clickCount);
         }
     }
 

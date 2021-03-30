@@ -158,14 +158,14 @@ public class DocumentArea implements EventHandler {
      * @param x the x position off the mouse event
      * @param y the y position off the mouse event
      */
-    public void handleMouseEvent(int id, int x, int y){
+    public void handleMouseEvent(int x, int y, int id, int clickCount){
         x -= xOffset;
         y -= relativeYPos;
 
         if (id == MouseEvent.MOUSE_PRESSED) {
             for (GUIObject obj : this.getDrawnGUIObjects()) { // Loop through all GUIObjects in docArea
                 if (obj.isInGUIObject(x, y)) {
-                    obj.handleMouseEvent(x, y);
+                    obj.handleMouseEvent(x, y, id, clickCount);
                     return;
                     }
                 }

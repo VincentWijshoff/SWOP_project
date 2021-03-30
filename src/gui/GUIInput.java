@@ -13,6 +13,7 @@ public class GUIInput extends GUIObject{
     private String prevText = "";       //The previous text in the input field
     private boolean shifting = false;   //A parameter to check if the user is pressing shift
     private int cursorPosition;         //The current cursor position off the user
+    private boolean inFocus = false;
 
     /**
      * Constructor, it will set teh current text as the give parameter
@@ -375,9 +376,8 @@ public class GUIInput extends GUIObject{
     /**
      * Draw the input box and only the input box containing the current text
      * @param g         the java drawing graphics
-     * @param inFocus   Checks if the vertical line on the cursor position is drawn
      */
-    public void draw(Graphics g, boolean inFocus){
+    public void draw(Graphics g){
         g.setColor(Color.BLACK);
         g.drawRect(this.coordX, this.coordY, width, height); // border
         g.clearRect(this.coordX+1, this.coordY+1, width-1, height-1); // actual address bar (white part)
@@ -401,5 +401,17 @@ public class GUIInput extends GUIObject{
         }
 
         g.drawString(viewedAddress, this.coordX+5, this.coordY+((int) (height/1.5)));
+    }
+
+    public void setInFocus(){
+        this.inFocus = true;
+    }
+
+    public void setOutFocus(){
+        this.inFocus = false;
+    }
+
+    public void setFoucs(boolean f){
+        this.inFocus = f;
     }
 }

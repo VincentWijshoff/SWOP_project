@@ -112,11 +112,11 @@ public class GUITable extends GUIObject {
     }
 
     @Override
-    public void handleMouseEvent(int x, int y) {
+    public void handleMouseEvent(int x, int y, int id, int clickCount) {
         for (ArrayList<GUIObject> row: tableRows) {
             for (GUIObject obj: row) {
                 if (obj.isInGUIObject(x, y)) {
-                    obj.handleMouseEvent(x, y);
+                    obj.handleMouseEvent(x, y, id, clickCount);
                 }
             }
         }

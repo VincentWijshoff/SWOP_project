@@ -14,8 +14,8 @@ public class MouseEventHandler {
         listeners.add(listener);
     }
 
-    public void onClick(int id, int x, int y) {
+    public void onClick(int id, int x, int y, int clickCount) {
         for (var listener : List.copyOf(listeners))
-            listener.handleMouseEvent(x, y);
+            listener.handleMouseEvent(x, y, id, clickCount);
     }
 }

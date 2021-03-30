@@ -125,10 +125,10 @@ public class Window extends CanvasWindow{
         }
         // handle the click event accordingly
         if (this.addressBar.isInFocus()) {
-            this.addressBar.handleMouseEvent(id, clickCount);
+            this.addressBar.handleMouseEvent(x, y, id, clickCount);
         } else {
-            this.bookmarkBar.handleMouseEvent(id, x, y);
-            this.docArea.handleMouseEvent(id, x, y);
+            this.bookmarkBar.handleMouseEvent(x, y, id, clickCount);
+            this.docArea.handleMouseEvent(x, y, id, clickCount);
         }
         this.repaint();
     }
