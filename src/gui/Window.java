@@ -129,6 +129,7 @@ public class Window extends CanvasWindow{
         } else {
             this.bookmarkBar.handleMouseEvent(x, y, id, clickCount);
             this.docArea.handleMouseEvent(x, y, id, clickCount);
+//            this.mouseEventHandler.onClick(x, y, id, clickCount);
         }
         this.repaint();
     }
@@ -150,7 +151,7 @@ public class Window extends CanvasWindow{
             }
             this.repaint();
         } else {
-            // handle the key event in the document area
+            this.keyEventHandler.onKeyPress(id, keyCode, keyChar, modifiersEx);
         }
     }
 

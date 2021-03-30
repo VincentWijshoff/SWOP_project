@@ -4,6 +4,7 @@ import events.EventHandler;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public class GUIInput extends GUIObject{
 
@@ -14,6 +15,7 @@ public class GUIInput extends GUIObject{
     private boolean shifting = false;   //A parameter to check if the user is pressing shift
     private int cursorPosition;         //The current cursor position off the user
     private boolean inFocus = false;
+    private boolean initialClick = true;
 
     /**
      * Constructor, it will set teh current text as the give parameter
@@ -30,6 +32,35 @@ public class GUIInput extends GUIObject{
     public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = "";
+    }
+
+    public void handleMouseEvent(int x, int y, int id, int clickCount){
+        //the first click on the address bar
+        if (id == MouseEvent.MOUSE_PRESSED && this.initialClick){
+
+            //the current url is selected (blue background)
+            this.selectAll();
+
+            // keyboard focus (with text cursor) is done with the inFocus variable and the "|" is added
+            // in the painting area
+
+            //reset the initial click variable
+            this.initialClick = false;
+
+        } else if (id == MouseEvent.MOUSE_PRESSED && clickCount % 2 == 0){
+
+            //a double click results in highlighted text as wel
+            this.selectAll();
+
+        } else if (id == MouseEvent.MOUSE_PRESSED){
+
+            //now the text need no longer be selected
+            this.selectNone();
+        }
+    }
+
+    public void setInitialClick(boolean i){
+        this.initialClick = i;
     }
 
     /**

@@ -74,6 +74,7 @@ public class DocumentArea implements EventHandler {
         this.drawnGUIObjects.add(obj);
 
         obj.setHandler(this);
+        obj.setEventHandlers();
         obj.updateDimensions();
 
         return obj;

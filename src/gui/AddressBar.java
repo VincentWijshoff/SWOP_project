@@ -25,7 +25,6 @@ public class AddressBar implements MouseEventListener, KeyEventListener {
 
     //in focus element
     private boolean inFocus = false;
-    private boolean initialClick = true;
 
     /**
      * constructor for the address bar
@@ -103,28 +102,7 @@ public class AddressBar implements MouseEventListener, KeyEventListener {
      *          When initially clicking the address bar, all text is selected ( Blue background )
      */
     public void handleMouseEvent(int x, int y, int id, int clickCount){
-        //the first click on the address bar
-        if (id == MouseEvent.MOUSE_PRESSED && this.initialClick){
-
-            //the current url is selected (blue background)
-            this.inputField.selectAll();
-
-            // keyboard focus (with text cursor) is done with the inFocus variable and the "|" is added
-            // in the painting area
-
-            //reset the initial click variable
-            this.initialClick = false;
-
-        } else if (id == MouseEvent.MOUSE_PRESSED && clickCount % 2 == 0){
-
-            //a double click results in highlighted text as wel
-            this.inputField.selectAll();
-
-        } else if (id == MouseEvent.MOUSE_PRESSED){
-
-            //now the text need no longer be selected
-            this.inputField.selectNone();
-        }
+        this.inputField.handleMouseEvent(x, y, id, clickCount);
     }
 
     /**
@@ -144,7 +122,7 @@ public class AddressBar implements MouseEventListener, KeyEventListener {
         }
         if (id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_ESCAPE) {
             this.inFocus = false;
-            this.initialClick = true;
+            this.inputField.setInitialClick(true);
         }
         return false;
     }
@@ -169,7 +147,7 @@ public class AddressBar implements MouseEventListener, KeyEventListener {
      * sets the address bar out of focus
      */
     public boolean setOutFocus(){
-        this.initialClick = true;
+        this.inputField.setInitialClick(true);
         this.inputField.selectNone();
         this.inFocus = false;
         this.inputField.start();

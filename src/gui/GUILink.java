@@ -114,6 +114,7 @@ public class GUILink extends GUIString {
      * handle the click event, because this is a Link, when it is clicked on, a new page should load with this href
      */
     public void handleMouseEvent(int x, int y, int id, int clickCount) {
+
         if (isInGUIObject(x, y)) {
             //href is an absolute URL
             this.eventHandler.load(this.newAddress);
