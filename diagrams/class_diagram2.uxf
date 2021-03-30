@@ -823,7 +823,7 @@ has &gt;</panel_attributes>
       <x>846</x>
       <y>798</y>
       <w>138</w>
-      <h>78</h>
+      <h>126</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 EventHandler
@@ -831,7 +831,9 @@ EventHandler
 getFontMetrics(): FontMetrics
 load(string) : void
 addMouseEventListener(): void
-addKeyEventListener(): void</panel_attributes>
+addKeyEventListener(): void
+removeMouseEventListener(): void
+removeKeyEventListener(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

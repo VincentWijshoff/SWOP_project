@@ -66,6 +66,11 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
         this.eventHandler.addMouseEventListener(mListener);
     }
 
+    public void removeEventHandlers() {
+        this.eventHandler.removeKeyEventListener(kListener);
+        this.eventHandler.removeMouseEventListener(mListener);
+    }
+
     /**
      * Check if the given coordinates collide with the position off this object
      * @param x the x coordinate
@@ -115,9 +120,16 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
      * Handle the click on this Object, if a special action is needed, this should be overridden.
      */
     public void handleMouseEvent(int x, int y, int id, int clickCount) {
-        System.out.println("You clicked on a GUIObject");
+        if (this.isInGUIObject(x, y)) {
+            System.out.println("You clicked on a GUIObject");
+        }
     }
 
     MouseEventListener mListener = this::handleMouseEvent;
     KeyEventListener kListener = this::handleKeyEvent;
+
+    // Info: Code above is the same as this, just compact
+    /* MouseEventListener listener = ((int x, int y, int id, int clickCount) -> {
+        handleMouseEvent(x, y, id, clickCount);
+    }; */
 }

@@ -41,7 +41,7 @@ public class BookmarkBar implements EventHandler {
         g.drawLine(0, actHeight, this.width, actHeight);
 
 
-        bookmarks.draw(g);
+        this.getBookmarks().draw(g);
 
 
         g.setColor(oldColor);
@@ -55,22 +55,26 @@ public class BookmarkBar implements EventHandler {
 
     private  boolean first = true;
 
-    public void handleMouseEvent(int x, int y, int id, int clickCount){
+    /*public void handleMouseEvent(int x, int y, int id, int clickCount){
         if(id == MouseEvent.MOUSE_PRESSED) {
             bookmarks.handleMouseEvent(x, y, id, clickCount);
         }
-    }
+    }*/
 
     public void addBookmark(String name, String address){
         GUILink link = new GUILink(name, address, getWindow().getAddress());
         link.setHandler(this);
-        bookmarks.appendToRow(link, 0);
+        this.getBookmarks().appendToRow(link, 0);
 
-        bookmarks.updateDimensions();
+        this.getBookmarks().updateDimensions();
     }
 
     public int getHeight(){
         return this.height;
+    }
+
+    public GUITable getBookmarks() {
+        return this.bookmarks;
     }
 
     @Override
@@ -86,6 +90,16 @@ public class BookmarkBar implements EventHandler {
     @Override
     public void addKeyEventListener(KeyEventListener listener) {
         this.getWindow().keyEventHandler.addKeyEventListener(listener);
+    }
+
+    @Override
+    public void removeMouseEventListener(MouseEventListener listener) {
+        this.getWindow().mouseEventHandler.removeMouseEventListener(listener);
+    }
+
+    @Override
+    public void removeKeyEventListener(KeyEventListener listener) {
+        this.getWindow().keyEventHandler.removeKeyEventListener(listener);
     }
 
     @Override

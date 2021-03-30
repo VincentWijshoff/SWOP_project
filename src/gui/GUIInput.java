@@ -35,6 +35,10 @@ public class GUIInput extends GUIObject{
     }
 
     public void handleMouseEvent(int x, int y, int id, int clickCount){
+        if (!this.isInGUIObject(x, y)) { // needed?
+            return;
+        }
+
         //the first click on the address bar
         if (id == MouseEvent.MOUSE_PRESSED && this.initialClick){
 

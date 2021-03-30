@@ -34,6 +34,7 @@ public class GUITable extends GUIObject {
         for (ArrayList<GUIObject> row: tableRows) {
             for (GUIObject obj: row) {
                 obj.setHandler(h);
+                obj.setEventHandlers();
             }
         }
     }

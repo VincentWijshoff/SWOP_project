@@ -10,4 +10,7 @@ public interface EventHandler {
 
     void addMouseEventListener(MouseEventListener listener);
     void addKeyEventListener(KeyEventListener listener);
+
+    void removeMouseEventListener(MouseEventListener listener);
+    void removeKeyEventListener(KeyEventListener listener);
 }

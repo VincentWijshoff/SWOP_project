@@ -74,7 +74,6 @@ public class DocumentArea implements EventHandler {
         this.drawnGUIObjects.add(obj);
 
         obj.setHandler(this);
-        obj.setEventHandlers();
         obj.updateDimensions();
 
         return obj;
@@ -104,6 +103,10 @@ public class DocumentArea implements EventHandler {
      * Clears the DocGUIObjects so a new page can be loaded
      */
     public void clearDocObjects(){
+        for (GUIObject obj : this.drawnGUIObjects) {
+            obj.setHandler(null);
+            obj.removeEventHandlers();
+        }
         this.drawnGUIObjects.clear();
     }
 
@@ -159,7 +162,7 @@ public class DocumentArea implements EventHandler {
      * @param x the x position off the mouse event
      * @param y the y position off the mouse event
      */
-    public void handleMouseEvent(int x, int y, int id, int clickCount){
+    /*public void handleMouseEvent(int x, int y, int id, int clickCount){
         x -= xOffset;
         y -= relativeYPos;
 
@@ -171,7 +174,7 @@ public class DocumentArea implements EventHandler {
                     }
                 }
             }
-    }
+    }*/
 
     @Override
     public void load(String url){
@@ -180,12 +183,22 @@ public class DocumentArea implements EventHandler {
 
     @Override
     public void addMouseEventListener(MouseEventListener listener) {
-        this.getWindow().mouseEventHandler.addMouseEventListener(listener);
+        this.getWindow().mouseEventHandler.addMouseEventListener(listener, -xOffset, -getRelativeYPos());
     }
 
     @Override
     public void addKeyEventListener(KeyEventListener listener) {
         this.getWindow().keyEventHandler.addKeyEventListener(listener);
+    }
+
+    @Override
+    public void removeMouseEventListener(MouseEventListener listener) {
+        this.getWindow().mouseEventHandler.removeMouseEventListener(listener);
+    }
+
+    @Override
+    public void removeKeyEventListener(KeyEventListener listener) {
+        this.getWindow().keyEventHandler.removeKeyEventListener(listener);
     }
 
     @Override

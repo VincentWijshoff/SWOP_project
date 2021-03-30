@@ -5,6 +5,7 @@ import events.KeyEventHandler;
 import events.MouseEventHandler;
 import html.HtmlLoader;
 import localDocuments.Docs;
+import org.junit.jupiter.api.parallel.Resources;
 
 import java.awt.*;
 
@@ -127,9 +128,9 @@ public class Window extends CanvasWindow{
         if (this.addressBar.isInFocus()) {
             this.addressBar.handleMouseEvent(x, y, id, clickCount);
         } else {
-            this.bookmarkBar.handleMouseEvent(x, y, id, clickCount);
-            this.docArea.handleMouseEvent(x, y, id, clickCount);
-//            this.mouseEventHandler.onClick(x, y, id, clickCount);
+            // this.bookmarkBar.handleMouseEvent(x, y, id, clickCount);
+            // this.docArea.handleMouseEvent(x, y, id, clickCount);
+            this.mouseEventHandler.onClick(x, y, id, clickCount);
         }
         this.repaint();
     }
@@ -170,6 +171,8 @@ public class Window extends CanvasWindow{
     public AddressBar getAddressBar() {
         return addressBar;
     }
+
+    public BookmarkBar getBookmarkBar() { return bookmarkBar; }
 
     public FontMetrics getFontMetrics() {
         return this.fontMetrics;
