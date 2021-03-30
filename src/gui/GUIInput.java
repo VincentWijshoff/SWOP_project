@@ -61,6 +61,9 @@ public class GUIInput extends GUIObject{
 
     public void setInitialClick(boolean i){
         this.initialClick = i;
+        if(i){
+            this.selectNone();
+        }
     }
 
     /**
@@ -339,7 +342,7 @@ public class GUIInput extends GUIObject{
      * Get the current cursor position in the text
      * @return  The current cursor position
      */
-    public int getCursorPosition(){
+    private int getCursorPosition(){
         return this.cursorPosition;
     }
 
@@ -347,7 +350,7 @@ public class GUIInput extends GUIObject{
      * Check if any part off the text in the input field is selected
      * @return  true if any part off the text s selected
      */
-    public boolean isSelecting(){
+    private boolean isSelecting(){
         return this.startSelected != this.endSelected;
     }
 
@@ -356,14 +359,14 @@ public class GUIInput extends GUIObject{
      * @param g     The graphics needed to calculate the positions
      * @return      A list off length 2 with the start and ending x coordinates off the selected parts
      */
-    public int[] getSelectedPositions(Graphics g){
+    private int[] getSelectedPositions(Graphics g){
         return this.getSelectedPositions(this.startSelected, this.endSelected, this.text, g);
     }
 
     /**
      * Make the input field select all text
      */
-    public void selectAll(){
+    private void selectAll(){
         this.startSelected = 0;
         this.endSelected = this.text.length();
     }
@@ -371,7 +374,7 @@ public class GUIInput extends GUIObject{
     /**
      * Make the input field not select anything anymore
      */
-    public void selectNone(){
+    private void selectNone(){
         this.startSelected = 0;
         this.endSelected = 0;
     }
@@ -434,15 +437,7 @@ public class GUIInput extends GUIObject{
         g.drawString(viewedAddress, this.coordX+5, this.coordY+((int) (height/1.5)));
     }
 
-    public void setInFocus(){
-        this.inFocus = true;
-    }
-
-    public void setOutFocus(){
-        this.inFocus = false;
-    }
-
-    public void setFoucs(boolean f){
+    public void setFocus(boolean f){
         this.inFocus = f;
     }
 }

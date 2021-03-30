@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 /**
  * The class for the address bar, this contains all necessary code for a functioning address bar
  */
-public class AddressBar implements MouseEventListener, KeyEventListener {
+public class AddressBar {
 
     //graphic element
     final int yLimit = 50;
@@ -59,7 +59,7 @@ public class AddressBar implements MouseEventListener, KeyEventListener {
         g.setColor(Color.BLACK);
         g.drawLine(0, this.yLimit, gwidth, this.yLimit);
 
-        this.inputField.setFoucs(this.inFocus);
+        this.inputField.setFocus(this.inFocus);
         this.inputField.draw(g);
 
         g.setColor(oldColor);
@@ -148,12 +148,10 @@ public class AddressBar implements MouseEventListener, KeyEventListener {
      */
     public boolean setOutFocus(){
         this.inputField.setInitialClick(true);
-        this.inputField.selectNone();
+        //this.inputField.selectNone();
         this.inFocus = false;
         this.inputField.start();
         return true;
     }
 
-    public MouseEventListener mListener = this::handleMouseEvent;
-    public KeyEventListener kListener = this::handleKeyEvent;
 }

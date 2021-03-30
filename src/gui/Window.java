@@ -36,10 +36,10 @@ public class Window extends CanvasWindow{
         this.docArea = new DocumentArea(this, this.addressBar.yLimit + this.bookmarkBar.getHeight());
 
         this.mouseEventHandler = new MouseEventHandler();
-        this.mouseEventHandler.addMouseEventListener(this.addressBar.mListener);
+//        this.mouseEventHandler.addMouseEventListener(this.addressBar.mListener);
 
         this.keyEventHandler = new KeyEventHandler();
-        this.keyEventHandler.addKeyEventListener(this.addressBar.kListener);
+//        this.keyEventHandler.addKeyEventListener(this.addressBar.kListener);
 
     }
 

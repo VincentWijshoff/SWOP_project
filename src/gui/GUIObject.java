@@ -12,7 +12,7 @@ import java.util.UUID;
  This class is the superclass of all other GUIObjects. Properties all GUIObjects need are defined here,
  such as their position, dimensions and ids.
  */
-public class GUIObject implements MouseEventListener, KeyEventListener {
+public abstract class GUIObject implements MouseEventListener, KeyEventListener {
 
     private UUID id;
     public int width;
