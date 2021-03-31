@@ -1,9 +1,6 @@
 package html;
 
-import gui.GUILink;
-import gui.GUIObject;
-import gui.GUIString;
-import gui.GUITable;
+import gui.*;
 import html.Elements.*;
 
 import java.util.ArrayList;
@@ -11,15 +8,17 @@ import java.util.ArrayList;
 public class GUIRenderer implements Creator{
 
 
+    /**
+     * Create the corresponding GUIObject and return (as list of GUIObjects)
+     */
     public ArrayList<GUIObject> create(Form form) {
-        ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
-
-        objects = (form.getData().create(this));
-
-        return objects;
+        return form.getData().create(this);
     }
 
 
+    /**
+     * Create the corresponding GUIObject and return (as list of GUIObjects)
+     */
     public ArrayList<GUIObject> create(HtmlTable table) {
         ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
 
@@ -32,15 +31,19 @@ public class GUIRenderer implements Creator{
     }
 
 
+    /**
+     * Create the corresponding GUIObject and return (as list of GUIObjects)
+     */
     public ArrayList<GUIObject> create(HtmlTableCell tableCell) {
-        ArrayList<GUIObject> objects = tableCell.getData().create(this);
-        return objects;
+        return tableCell.getData().create(this);
     }
 
 
+    /**
+     * Create the corresponding GUIObject and return (as list of GUIObjects)
+     */
     public ArrayList<GUIObject> create(HtmlTableRow tableRow) {
         ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
-
         ArrayList<HtmlTableCell> tableCells = tableRow.getTableData();
         for(HtmlTableCell cell : tableCells){
             objects.addAll(cell.create(this));
@@ -49,30 +52,42 @@ public class GUIRenderer implements Creator{
     }
 
 
+    /**
+     * Create the corresponding GUIObject and return (as list of GUIObjects)
+     */
     public ArrayList<GUIObject> create(Hyperlink hyperlink) {
         ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
-
         objects.add(new GUILink(hyperlink.getText(), hyperlink.getHref(), hyperlink.getAddress()));
         return objects;
     }
 
 
+    /**
+     * Create the corresponding GUIObject and return (as list of GUIObjects)
+     */
     public ArrayList<GUIObject> create(SubmitButton submitButton) {
         return new ArrayList<GUIObject>();
+        //TODO: create GUIButton
     }
 
 
+    /**
+     * Create the corresponding GUIObject and return (as list of GUIObjects)
+     */
     public ArrayList<GUIObject> create(TextInputField inputField) {
         ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
-
+        //TODO: add real coordinates and height/width
+        objects.add(new GUIInput(inputField.getName(), 50, 50, 100, 100));
 
         return objects;
     }
 
 
+    /**
+     * Create the corresponding GUIObject and return (as list of GUIObjects)
+     */
     public ArrayList<GUIObject> create(TextSpan textSpan) {
         ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
-
         objects.add(new GUIString(textSpan.getText()));
         return objects;
     }

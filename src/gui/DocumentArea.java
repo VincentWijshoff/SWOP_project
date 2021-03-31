@@ -113,7 +113,7 @@ public class DocumentArea implements WindowHandler{
     public void loadAddress(String url) throws IOException {
         URL address = generateAddress(url, "");
         this.clearDocObjects(); //remove GUIObjects from previous page
-        isValidBrowsrPage(address);
+        //isValidBrowsrPage(address);
         this.loader.initialise(address);
         loader.loadPage();
 

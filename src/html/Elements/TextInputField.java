@@ -17,6 +17,10 @@ public class TextInputField extends ContentSpan{
         this.name = s;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public ArrayList<GUIObject> create(Creator c){
         return c.create(this);

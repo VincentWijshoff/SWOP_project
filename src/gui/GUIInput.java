@@ -13,7 +13,7 @@ public class GUIInput extends GUIObject{
     private int cursorPosition;         //The current cursor position off the user
 
     /**
-     * Constructor, it will set teh current text as the give parameter
+     * Constructor, it will set the current text as the given parameter
      * @param startTxt  The starting text in the input field
      */
     public GUIInput(String startTxt, int x, int y, int width, int height){
@@ -22,9 +22,9 @@ public class GUIInput extends GUIObject{
     }
 
     /**
-     * constructor off the input field, with no parameter the current ext will be empty
+     * constructor of the input field, with no parameter the current text will be empty
      */
-    public GUIInput( int x, int y, int width, int height){
+    public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = "";
     }
@@ -309,17 +309,17 @@ public class GUIInput extends GUIObject{
     }
 
     /**
-     * Check if any part off the text in the input field is selected
-     * @return  true if any part off the text s selected
+     * Check if any part of the text in the input field is selected
+     * @return  true if any part of the text s selected
      */
     public boolean isSelecting(){
         return this.startSelected != this.endSelected;
     }
 
     /**
-     * Get the coordinates off the currently selected part off the text
+     * Get the coordinates of the currently selected part of the text
      * @param g     The graphics needed to calculate the positions
-     * @return      A list off length 2 with the start and ending x coordinates off the selected parts
+     * @return      A list of length 2 with the start and ending x coordinates of the selected parts
      */
     public int[] getSelectedPositions(Graphics g){
         return this.getSelectedPositions(this.startSelected, this.endSelected, this.text, g);
@@ -352,11 +352,11 @@ public class GUIInput extends GUIObject{
 
     /**
      * gets the selected position from a word
-     * @param start the start off the selection
-     * @param fin   the end off the selection
+     * @param start the start of the selection
+     * @param fin   the end of the selection
      * @param word  the word that is selected on
-     * @param g     the graphics to get the size off the words
-     * @return      the position off the selected part
+     * @param g     the graphics to get the size of the words
+     * @return      the position of the selected part
      */
     private int[] getSelectedPositions(int start, int fin, String word, Graphics g){
         if ( fin < start){
