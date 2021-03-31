@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>48</x>
+      <y>384</y>
+      <w>1280</w>
+      <h>352</h>
+    </coordinates>
+    <panel_attributes>title= Create GUIObject (hyperlink)
+obj=:HtmlLoader~a EXECUTION
+obj=renderer : Creator~b EXECUTION
+obj=:Hyperlink~c CREATED_LATER EXECUTION
+obj=:GUILink~d CREATED_LATER EXECUTION
+
+found-&gt;a : makeHyperLink();
+
+a-&gt;&gt;&gt;c : hyperlink(renderer);
+
+c-&gt;&gt;&gt;b : create(HyperLink);
+
+b-&gt;&gt;&gt;d : GUILink();
+
+d.&gt;b : text, href;
+
+b.&gt; c : GUILink;
+
+c.&gt;a : GUILink; 
+
+a-&gt;lost: return GUILink;
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>48</x>
+      <y>136</y>
+      <w>568</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>title= Create Creator
+obj=:HtmlLoader~a
+obj=:Creator~b
+
+found-&gt;a : new HtmlLoader(); on=a;
+
+a-&gt;&gt;&gt;b : renderer = new GUIRenderer(); on=b;
+
+a-&gt;lost: return;
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -130,7 +130,7 @@ public class Window extends CanvasWindow{
         } else {
             // this.bookmarkBar.handleMouseEvent(x, y, id, clickCount);
             // this.docArea.handleMouseEvent(x, y, id, clickCount);
-            this.mouseEventHandler.onClick(x, y, id, clickCount);
+            this.mouseEventHandler.onClick(id, x, y, clickCount);
         }
         this.repaint();
     }
