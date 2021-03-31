@@ -32,15 +32,12 @@ public class Window extends CanvasWindow{
     public Window(String title) {
         super(title);
 
-        this.addressBar = new AddressBar("WelcomeDoc.html");
+        this.mouseEventHandler = new MouseEventHandler();
+        this.keyEventHandler = new KeyEventHandler();
+
+        this.addressBar = new AddressBar("WelcomeDoc.html", this);
         this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit, this);
         this.docArea = new DocumentArea(this, this.addressBar.yLimit + this.bookmarkBar.getHeight());
-
-        this.mouseEventHandler = new MouseEventHandler();
-//        this.mouseEventHandler.addMouseEventListener(this.addressBar.mListener);
-
-        this.keyEventHandler = new KeyEventHandler();
-//        this.keyEventHandler.addKeyEventListener(this.addressBar.kListener);
 
     }
 
@@ -85,7 +82,7 @@ public class Window extends CanvasWindow{
 
         // Draw AddressBar
         this.bookmarkBar.draw(g, this.getWidth());
-        this.addressBar.draw(g, this);
+        this.addressBar.draw(g, this.getWidth());
     }
 
     /**
@@ -115,24 +112,7 @@ public class Window extends CanvasWindow{
      */
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
-        // Clicked inside the AddressBar
-        if (this.addressBar.isOnAddressBar(x, y)) {
-            this.addressBar.setInFocus();
-            System.out.println("Clicked on Address Bar!");
-        } else if (this.addressBar.isInFocus()){
-            if(this.addressBar.setOutFocus()){
-                this.load(this.getAddress());
-            }
-            System.out.println("Clicked off Address Bar!");
-        }
-        // handle the click event accordingly
-        if (this.addressBar.isInFocus()) {
-            this.addressBar.handleMouseEvent(x, y, id, clickCount);
-        } else {
-            // this.bookmarkBar.handleMouseEvent(x, y, id, clickCount);
-            // this.docArea.handleMouseEvent(x, y, id, clickCount);
-            this.mouseEventHandler.onClick(id, x, y, clickCount);
-        }
+        this.mouseEventHandler.onClick(id, x, y, clickCount);
         this.repaint();
     }
 
@@ -145,16 +125,8 @@ public class Window extends CanvasWindow{
      */
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
-        // handle the key event accordingly
-        if (this.addressBar.isInFocus()) {
-            // handle the key event in the address bar area
-            if(this.addressBar.handleKeyEvent(id, keyCode, keyChar, modifiersEx)){
-                this.load(this.getAddress());
-            }
-            this.repaint();
-        } else {
-            this.keyEventHandler.onKeyPress(id, keyCode, keyChar, modifiersEx);
-        }
+        this.keyEventHandler.onKeyPress(id, keyCode, keyChar, modifiersEx);
+        this.repaint();
     }
 
     /**

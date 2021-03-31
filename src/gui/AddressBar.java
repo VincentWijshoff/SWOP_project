@@ -5,7 +5,6 @@ import events.MouseEventListener;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 /**
  * The class for the address bar, this contains all necessary code for a functioning address bar
@@ -16,6 +15,7 @@ public class AddressBar {
     final int yLimit = 50;
 
     private final GUIInput inputField;
+    private final Window window;
 
     //GUI elements
     private final int abX = 5;
@@ -30,25 +30,64 @@ public class AddressBar {
      * constructor for the address bar
      * @param startAddress  The address that should be shown on startup off the address bar
      */
-    public AddressBar(String startAddress) {
+    public AddressBar(String startAddress, Window w) {
         //this.w = width;
         this.inputField = new GUIInput(startAddress, this.abX, this.abY, 0, this.h);
+        this.window = w;
+        addListeners();
     }
 
     /**
      * constructor for the address bar
      */
-    public AddressBar() {
+    public AddressBar(Window w) {
         //this.w = width;
         this.inputField = new GUIInput(this.abX, this.abY, 0, this.h);
+        this.window = w;
+        addListeners();
+    }
+
+    private void addListeners(){
+        window.keyEventHandler.addKeyEventListener(new KeyEventListener() {
+            @Override
+            public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+
+                if (isInFocus()) {
+                    // handle the key event in the address bar area
+                    if (handleKeyEventA(id, keyCode, keyChar, modifier)) {
+                        window.load(getAddress());
+                    }
+                }
+                return false;
+            }
+        });
+
+        window.mouseEventHandler.addMouseEventListener(new MouseEventListener() {
+            @Override
+            public void handleMouseEvent(int x, int y, int id, int clickCount) {
+                if (isOnAddressBar(x, y)) {
+                    setInFocus();
+                    System.out.println("Clicked on Address Bar!");
+                } else if (isInFocus()){
+                    if(setOutFocus()){
+                        window.load(getAddress());
+                    }
+                    System.out.println("Clicked off Address Bar!");
+                }
+                // handle the click event accordingly
+                if (isInFocus()) {
+                    handleMouseEventA(x, y, id, clickCount);
+                }
+            }
+        });
     }
 
     /**
      * an updater to redraw the address bar in its current state, this includes text-cursor and selected text
      * @param g the java drawing help
      */
-    public void draw(Graphics g, Window gui) {
-        int gwidth = gui.getWidth();
+    public void draw(Graphics g, int wdth) {
+        int gwidth = wdth;
         this.inputField.width = this.w-(3*this.abX);
         this.w = gwidth;
         Color oldColor = g.getColor();
@@ -101,7 +140,7 @@ public class AddressBar {
      *  post    When initially clicking the address bar, an insertion point will be shown ("text cursor")
      *          When initially clicking the address bar, all text is selected ( Blue background )
      */
-    public void handleMouseEvent(int x, int y, int id, int clickCount){
+    public void handleMouseEventA(int x, int y, int id, int clickCount){
         this.inputField.handleMouseEvent(x, y, id, clickCount);
     }
 
@@ -113,7 +152,7 @@ public class AddressBar {
      * @param modifier  The modifier on the pressed key
      * @return          true if the gui should load the webpage
      */
-    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+    public boolean handleKeyEventA(int id, int keyCode, char keyChar, int modifier) {
         if(!this.isInFocus()){
             return false;
         }
