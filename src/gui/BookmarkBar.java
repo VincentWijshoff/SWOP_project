@@ -22,7 +22,6 @@ public class BookmarkBar implements EventHandler {
 
         this.bookmarks = new GUITable(0, relativeYPos);
         this.bookmarks.addRow(new ArrayList<>());
-
     }
 
     public Window getWindow() {
@@ -63,7 +62,10 @@ public class BookmarkBar implements EventHandler {
 
     public void addBookmark(String name, String address){
         GUILink link = new GUILink(name, address, getWindow().getAddress());
+
         link.setHandler(this);
+        link.setEventHandlers();
+
         this.getBookmarks().appendToRow(link, 0);
 
         this.getBookmarks().updateDimensions();

@@ -55,6 +55,7 @@ public class Window extends CanvasWindow{
             this.docArea.loadAddress(url);
         } catch (Exception e) {
             System.out.println("loading Error Page");
+            System.out.println(e);
             this.docArea.loadErrorDoc();
         }
         this.repaint();

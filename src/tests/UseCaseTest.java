@@ -59,18 +59,18 @@ public class UseCaseTest {
         for(GUIObject obj : window.getDocArea().getDrawnGUIObjects()){
             if(obj instanceof GUILink){
                 //press a hyperlink
-                obj.handleMouseEvent(0,0, MouseEvent.MOUSE_PRESSED, 1);
+                obj.handleMouseEvent(0,fm.getHeight(), MouseEvent.MOUSE_PRESSED, 1);
                 //all hyperlinks will navigate to a non-browsr webpage -> show error document
                 href = ((GUILink) obj).getHref();
                 break;
             }
         }
         //6 Application shows the desired webpage.
-        assertEquals("UC_4.c", window.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/" + href);
-        assertTrue("UC_4.d", window.getDocArea().getDrawnGUIObjects().size() == 3);
+        assertEquals("UC_6.a", window.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/" + href);
+        assertTrue("UC_6.b", window.getDocArea().getDrawnGUIObjects().size() == 3);
         //error document has 2 GUIStrings
         for(GUIObject obj : window.getDocArea().getDrawnGUIObjects()){
-            assertFalse("UC_4.e", obj instanceof GUILink);
+            assertFalse("UC_6.c", obj instanceof GUILink);
             //error document has no GUILinks
         }
 

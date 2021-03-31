@@ -103,8 +103,7 @@ public class DocumentArea implements EventHandler {
      * Clears the DocGUIObjects so a new page can be loaded
      */
     public void clearDocObjects(){
-        for (GUIObject obj : this.drawnGUIObjects) {
-            obj.setHandler(null);
+        for (GUIObject obj: this.getDrawnGUIObjects()) {
             obj.removeEventHandlers();
         }
         this.drawnGUIObjects.clear();
@@ -156,7 +155,7 @@ public class DocumentArea implements EventHandler {
         loader.loadPage();
     }
 
-    /**
+    /*
      * Handle the mouse event if the document area is in focus
      * @param id the id off the mouse event
      * @param x the x position off the mouse event
