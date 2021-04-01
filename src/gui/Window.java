@@ -3,9 +3,6 @@ package gui;
 import canvaswindow.CanvasWindow;
 import events.KeyEventHandler;
 import events.MouseEventHandler;
-import html.HtmlLoader;
-import localDocuments.Docs;
-import org.junit.jupiter.api.parallel.Resources;
 
 import java.awt.*;
 
@@ -52,7 +49,7 @@ public class Window extends CanvasWindow{
             this.docArea.loadAddress(url);
         } catch (Exception e) {
             System.out.println("loading Error Page");
-            System.out.println(e);
+            e.printStackTrace();
             this.docArea.loadErrorDoc();
         }
         this.repaint();

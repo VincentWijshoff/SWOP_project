@@ -24,8 +24,7 @@ public class HtmlTableRow extends ContentSpan {
      * @return a new HtmlTableData object (so we can update this)
      */
     public HtmlTableCell addData(){
-        HtmlTableCell td = new HtmlTableCell(this);
-        td.setRow(this);
+        HtmlTableCell td = new HtmlTableCell();
         tableData.add(td);
         return td;
     }
@@ -50,25 +49,6 @@ public class HtmlTableRow extends ContentSpan {
     public ArrayList<HtmlTableCell> getTableData() {
         return tableData;
     }
-
-
-    /**
-     * Render the HtmlTableRow object (add it to the DocGUIObjects list of the DocumentArea)
-     *
-     * Also call the render method on all its HtmlTableCells
-     *
-     * @param objects   the current DocGUIObjects of the DocumentArea
-     * @return          the updated DocGUIObjects
-
-    @Override
-    public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
-        ArrayList<HtmlTableCell> tableCells = getTableData();
-        for(HtmlTableCell cell : tableCells){
-            objects = cell.render(objects);
-        }
-        return objects;
-    }
-    */
 
     @Override
     public ArrayList<GUIObject> create(Creator c){

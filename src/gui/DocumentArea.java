@@ -22,7 +22,7 @@ import java.net.URL;
 public class DocumentArea implements EventHandler {
 
     private Set<GUIObject> drawnGUIObjects = new HashSet<>();
-    public int relativeYPos;
+    private int relativeYPos;
     public final int xOffset = 5;
     private Window window;
     private HtmlLoader loader;
@@ -154,26 +154,6 @@ public class DocumentArea implements EventHandler {
         this.loader.initialise(Docs.getErrorPage());
         loader.loadPage();
     }
-
-    /*
-     * Handle the mouse event if the document area is in focus
-     * @param id the id off the mouse event
-     * @param x the x position off the mouse event
-     * @param y the y position off the mouse event
-     */
-    /*public void handleMouseEvent(int x, int y, int id, int clickCount){
-        x -= xOffset;
-        y -= relativeYPos;
-
-        if (id == MouseEvent.MOUSE_PRESSED) {
-            for (GUIObject obj : this.getDrawnGUIObjects()) { // Loop through all GUIObjects in docArea
-                if (obj.isInGUIObject(x, y)) {
-                    obj.handleMouseEvent(x, y, id, clickCount);
-                    return;
-                    }
-                }
-            }
-    }*/
 
     @Override
     public void load(String url){

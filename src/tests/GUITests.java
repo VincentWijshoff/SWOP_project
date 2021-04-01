@@ -24,13 +24,13 @@ class GUITests {
 		GUIRectangle rectangle = (GUIRectangle) window.getDocArea().addGUIObject(new GUIRectangle(10, 10, 100, 100));
 		DocumentArea docarea = window.getDocArea();
 
-		assertTrue(testName, rectangle.isInGUIObject(docarea.xOffset + 50, docarea.relativeYPos + 50));
-		assertTrue(testName, rectangle.isInGUIObject(docarea.xOffset + 10, docarea.relativeYPos + 10));
-		assertTrue(testName, rectangle.isInGUIObject(docarea.xOffset + 100, docarea.relativeYPos + 100));
+		assertTrue(testName, rectangle.isInGUIObject(docarea.xOffset + 50, docarea.getRelativeYPos() + 50));
+		assertTrue(testName, rectangle.isInGUIObject(docarea.xOffset + 10, docarea.getRelativeYPos() + 10));
+		assertTrue(testName, rectangle.isInGUIObject(docarea.xOffset + 100, docarea.getRelativeYPos() + 100));
 
-		assertFalse(testName, rectangle.isInGUIObject(docarea.xOffset + 150, docarea.relativeYPos + 150));
-		assertFalse(testName, rectangle.isInGUIObject(docarea.xOffset + 100, docarea.relativeYPos + 150));
-		assertFalse(testName, rectangle.isInGUIObject(docarea.xOffset + 9, docarea.relativeYPos + 9));
+		assertFalse(testName, rectangle.isInGUIObject(docarea.xOffset + 150, docarea.getRelativeYPos() + 150));
+		assertFalse(testName, rectangle.isInGUIObject(docarea.xOffset + 100, docarea.getRelativeYPos() + 150));
+		assertFalse(testName, rectangle.isInGUIObject(docarea.xOffset + 9, docarea.getRelativeYPos() + 9));
 	}
 
 	@Test

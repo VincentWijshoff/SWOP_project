@@ -49,36 +49,29 @@ public class AddressBar {
     }
 
     private void addListeners(){
-        window.keyEventHandler.addKeyEventListener(new KeyEventListener() {
-            @Override
-            public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+        window.keyEventHandler.addKeyEventListener((id, keyCode, keyChar, modifier) -> {
 
-                if (isInFocus()) {
-                    // handle the key event in the address bar area
-                    if (handleKeyEventA(id, keyCode, keyChar, modifier)) {
-                        window.load(getAddress());
-                    }
+            if (isInFocus()) {
+                // handle the key event in the address bar area
+                if (handleKeyEventA(id, keyCode, keyChar, modifier)) {
+                    window.load(getAddress());
                 }
-                return false;
             }
+            return false;
         });
 
-        window.mouseEventHandler.addMouseEventListener(new MouseEventListener() {
-            @Override
-            public void handleMouseEvent(int x, int y, int id, int clickCount) {
-                if (isOnAddressBar(x, y)) {
-                    setInFocus();
-                    System.out.println("Clicked on Address Bar!");
-                } else if (isInFocus()){
-                    if(setOutFocus()){
-                        window.load(getAddress());
-                    }
-                    System.out.println("Clicked off Address Bar!");
-                }
-                // handle the click event accordingly
-                if (isInFocus()) {
-                    handleMouseEventA(x, y, id, clickCount);
-                }
+        window.mouseEventHandler.addMouseEventListener((x, y, id, clickCount) -> {
+            if (isOnAddressBar(x, y)) {
+                setInFocus();
+                System.out.println("Clicked on Address Bar!");
+            } else if (isInFocus()){
+                setOutFocus();
+                window.load(getAddress());
+                System.out.println("Clicked off Address Bar!");
+            }
+            // handle the click event accordingly
+            if (isInFocus()) {
+                handleMouseEventA(x, y, id, clickCount);
             }
         });
     }
@@ -87,17 +80,16 @@ public class AddressBar {
      * an updater to redraw the address bar in its current state, this includes text-cursor and selected text
      * @param g the java drawing help
      */
-    public void draw(Graphics g, int wdth) {
-        int gwidth = wdth;
+    public void draw(Graphics g, int width) {
         this.inputField.width = this.w-(3*this.abX);
-        this.w = gwidth;
+        this.w = width;
         Color oldColor = g.getColor();
 
         // first draw the grey enclosing area
         g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(0, 0, gwidth, this.yLimit);
+        g.fillRect(0, 0, width, this.yLimit);
         g.setColor(Color.BLACK);
-        g.drawLine(0, this.yLimit, gwidth, this.yLimit);
+        g.drawLine(0, this.yLimit, width, this.yLimit);
 
         this.inputField.setFocus(this.inFocus);
         this.inputField.draw(g);
@@ -158,7 +150,8 @@ public class AddressBar {
             return false;
         }
         if(this.inputField.handleKeyEvent(id, keyCode, keyChar, modifier)){
-            return this.setOutFocus();
+            setOutFocus();
+            return true;
         }
         if (id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_ESCAPE) {
             this.inFocus = false;
@@ -186,12 +179,11 @@ public class AddressBar {
     /**
      * sets the address bar out of focus
      */
-    public boolean setOutFocus(){
+    public void setOutFocus(){
         this.inputField.setInitialClick(true);
         //this.inputField.selectNone();
         this.inFocus = false;
         this.inputField.start();
-        return true;
     }
 
 }

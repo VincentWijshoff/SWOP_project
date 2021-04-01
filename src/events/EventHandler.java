@@ -1,7 +1,6 @@
 package events;
 
 import java.awt.*;
-import java.net.URL;
 
 public interface EventHandler {
     FontMetrics getFontMetrics();

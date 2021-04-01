@@ -37,19 +37,6 @@ public class TextSpan extends ContentSpan {
         return text;
     }
 
-    /**
-     * Render the TextSpan object (add it to the DocGUIObjects list of the DocumentArea)
-     *
-     * @param objects   the current DocGUIObjects of the DocumentArea
-     * @return          the updated DocGUIObjects
-
-    @Override
-    public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
-        HtmlRenderer.addGUIString(this.getText(), objects);
-        return objects;
-    }
-     */
-
     @Override
     public ArrayList<GUIObject> create(Creator c){
         return c.create(this);

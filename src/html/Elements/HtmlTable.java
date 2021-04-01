@@ -40,28 +40,6 @@ public class HtmlTable extends ContentSpan {
         return tableRows;
     }
 
-    /**
-     * Render the HtmlTable object (add it to the DocGUIObjects list of the DocumentArea)
-     *
-     * This also calls the render method on all its rows
-     *
-     * @param objects   the current DocGUIObjects of the DocumentArea
-     * @return          the updated DocGUIObjects
-
-    @Override
-    public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
-
-        ArrayList<ArrayList<GUIObject>> rows = new ArrayList<>();
-
-        for (HtmlTableRow row: tableRows) {
-            rows.add(row.render(new ArrayList<>()));
-        }
-
-        HtmlRenderer.addGUITable(rows, objects);
-        return objects;
-    }
-    */
-
     @Override
     public ArrayList<GUIObject> create(Creator c){
         return c.create(this);

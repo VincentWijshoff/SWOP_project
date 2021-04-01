@@ -51,21 +51,6 @@ public class Hyperlink extends ContentSpan {
         this.href = href;
     }
 
-    /**
-     * Render the Hyperlink object (add it to the DocGUIObjects list of the DocumentArea)
-     *
-     * Also call the render method on all its HtmlTableCells
-     *
-     * @param objects   the current DocGUIObjects of the DocumentArea
-     * @return          the updated DocGUIObjects
-
-    @Override
-    public ArrayList<GUIObject> render(ArrayList<GUIObject> objects) {
-        HtmlRenderer.addGUILink(this.getText(), this.getHref(), this.getAddress(), objects );
-        return objects;
-    }
-    */
-
     public String getAddress() {
         return address;
     }

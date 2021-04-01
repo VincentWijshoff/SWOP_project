@@ -55,12 +55,6 @@ public class BookmarkBar implements EventHandler {
 
     private  boolean first = true;
 
-    /*public void handleMouseEvent(int x, int y, int id, int clickCount){
-        if(id == MouseEvent.MOUSE_PRESSED) {
-            bookmarks.handleMouseEvent(x, y, id, clickCount);
-        }
-    }*/
-
     public void addBookmark(String name, String address){
         GUILink link = new GUILink(name, address, getWindow().getAddress());
 

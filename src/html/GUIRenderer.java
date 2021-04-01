@@ -20,7 +20,7 @@ public class GUIRenderer implements Creator{
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     public ArrayList<GUIObject> create(HtmlTable table) {
-        ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
+        ArrayList<GUIObject> objects = new ArrayList<>();
 
         ArrayList<ArrayList<GUIObject>> rows = new ArrayList<>();
         for (HtmlTableRow row: table.getTableRows()) {
@@ -43,7 +43,7 @@ public class GUIRenderer implements Creator{
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     public ArrayList<GUIObject> create(HtmlTableRow tableRow) {
-        ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
+        ArrayList<GUIObject> objects = new ArrayList<>();
         ArrayList<HtmlTableCell> tableCells = tableRow.getTableData();
         for(HtmlTableCell cell : tableCells){
             objects.addAll(cell.create(this));
@@ -56,7 +56,7 @@ public class GUIRenderer implements Creator{
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     public ArrayList<GUIObject> create(Hyperlink hyperlink) {
-        ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
+        ArrayList<GUIObject> objects = new ArrayList<>();
         objects.add(new GUILink(hyperlink.getText(), hyperlink.getHref(), hyperlink.getAddress()));
         return objects;
     }
@@ -66,7 +66,7 @@ public class GUIRenderer implements Creator{
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     public ArrayList<GUIObject> create(SubmitButton submitButton) {
-        return new ArrayList<GUIObject>();
+        return new ArrayList<>();
         //TODO: create GUIButton
     }
 
@@ -75,7 +75,7 @@ public class GUIRenderer implements Creator{
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     public ArrayList<GUIObject> create(TextInputField inputField) {
-        ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
+        ArrayList<GUIObject> objects = new ArrayList<>();
         //TODO: add real coordinates and height/width
         objects.add(new GUIInput(inputField.getName(), 50, 50, 100, 100));
 
@@ -87,7 +87,7 @@ public class GUIRenderer implements Creator{
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     public ArrayList<GUIObject> create(TextSpan textSpan) {
-        ArrayList<GUIObject> objects = new ArrayList<GUIObject>();
+        ArrayList<GUIObject> objects = new ArrayList<>();
         objects.add(new GUIString(textSpan.getText()));
         return objects;
     }
