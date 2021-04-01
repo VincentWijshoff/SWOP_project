@@ -1,8 +1,7 @@
 package html.Elements;
 
-import gui.GUIObject;
+import gui.Objects.GUIObject;
 import html.Creator;
-import html.GUIRenderer;
 
 import java.util.ArrayList;
 

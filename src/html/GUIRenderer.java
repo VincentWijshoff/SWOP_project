@@ -1,6 +1,6 @@
 package html;
 
-import gui.*;
+import gui.Objects.*;
 import html.Elements.*;
 
 import java.util.ArrayList;

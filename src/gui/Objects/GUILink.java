@@ -1,6 +1,4 @@
-package gui;
-
-import events.EventHandler;
+package gui.Objects;
 
 import java.awt.*;
 

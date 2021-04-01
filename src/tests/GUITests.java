@@ -1,9 +1,9 @@
 package tests;
 
 import gui.*;
+import gui.Objects.GUIRectangle;
 import org.junit.jupiter.api.Test;
 
-import javax.print.Doc;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import static tests.TestUtil.*;

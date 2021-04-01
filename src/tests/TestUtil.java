@@ -1,6 +1,10 @@
 package tests;
 
 import gui.*;
+import gui.Objects.GUILink;
+import gui.Objects.GUIObject;
+import gui.Objects.GUIString;
+import gui.Objects.GUITable;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;

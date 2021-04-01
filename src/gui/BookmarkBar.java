@@ -3,9 +3,10 @@ package gui;
 import events.EventHandler;
 import events.KeyEventListener;
 import events.MouseEventListener;
+import gui.Objects.GUILink;
+import gui.Objects.GUITable;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class BookmarkBar implements EventHandler {

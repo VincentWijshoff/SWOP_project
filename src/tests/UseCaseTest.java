@@ -1,6 +1,9 @@
 package tests;
 
 import gui.*;
+import gui.Objects.GUILink;
+import gui.Objects.GUIObject;
+import gui.Objects.GUITable;
 import gui.Window;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +12,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Set;
+
 import static tests.TestUtil.*;
 
 public class UseCaseTest {

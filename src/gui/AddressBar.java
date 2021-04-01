@@ -2,6 +2,7 @@ package gui;
 
 import events.KeyEventListener;
 import events.MouseEventListener;
+import gui.Objects.GUIInput;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

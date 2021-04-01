@@ -4,11 +4,11 @@ import browsrhtml.BrowsrDocumentValidator;
 import events.EventHandler;
 import events.KeyEventListener;
 import events.MouseEventListener;
+import gui.Objects.GUIObject;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;

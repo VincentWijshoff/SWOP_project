@@ -1,8 +1,8 @@
 package tests;
 
 import gui.DocumentArea;
-import gui.GUIObject;
-import gui.GUITable;
+import gui.Objects.GUIObject;
+import gui.Objects.GUITable;
 import gui.Window;
 import html.HtmlLoader;
 import org.junit.jupiter.api.BeforeAll;

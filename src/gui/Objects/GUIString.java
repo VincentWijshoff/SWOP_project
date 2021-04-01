@@ -1,4 +1,4 @@
-package gui;
+package gui.Objects;
 
 import events.EventHandler;
 
