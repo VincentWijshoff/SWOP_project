@@ -4,31 +4,30 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>24</x>
-      <y>96</y>
-      <w>1272</w>
-      <h>632</h>
+      <x>80</x>
+      <y>104</y>
+      <w>1104</w>
+      <h>616</h>
     </coordinates>
     <panel_attributes>title=Start save HTML page
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:Window~b EXECUTION
-obj=:DialogScreen~c EXECUTION
+obj=:DefaultScreen~c EXECUTION
+obj=:DialogScreen~d
 
 a-&gt;&gt;&gt;e : CTRL;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-c.&gt;b : False;
+c-&gt;c + : Controlling = true;
+tick=
 a-&gt;&gt;&gt;e : S;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-c-&gt;c + : setScreen = "saveHTML";
-tick=
-c.&gt;b : True;
-b-&gt;b + : this.dialogScreening = True;
-tick=
+c-&gt;&gt;&gt;d : Screen dialog = new DialogScreen(this);on=d
+c-&gt;&gt;&gt;b : setScreen(dialog);
 
-ref=c c :Save HTML page</panel_attributes>
+ref=d d :Save HTML page</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

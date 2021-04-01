@@ -4,31 +4,30 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>8</x>
-      <y>136</y>
-      <w>1272</w>
-      <h>632</h>
+      <x>120</x>
+      <y>96</y>
+      <w>1104</w>
+      <h>600</h>
     </coordinates>
     <panel_attributes>title=Start bookmark adding page
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:Window~b EXECUTION
-obj=:DialogScreen~c EXECUTION
+obj=:DefaultScreen~c EXECUTION
+obj=:DialogScreen~d
 
 a-&gt;&gt;&gt;e : CTRL;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-c.&gt;b : False;
+c-&gt;c + : Controlling = true;
+tick=
 a-&gt;&gt;&gt;e : D;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-c-&gt;c + : setScreen = "addBookmark";
-tick=
-c.&gt;b : True;
-b-&gt;b + : this.dialogScreening = True;
-tick=
+c-&gt;&gt;&gt;d : Screen dialog = new DialogScreen(this);on=d
+c-&gt;&gt;&gt;b : setScreen(dialog);
 
-ref=c c :Bookmark page</panel_attributes>
+ref=d d :Bookmark page</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
