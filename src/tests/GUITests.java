@@ -12,7 +12,7 @@ class GUITests {
 
 	Window window = new Window("TestBrowser");
 
-	static final int aBarX = 5;
+	static final int aBarX = 5; // position of the input field of the addressbar
 	static final int aBarY = 8;
 
 	@Test

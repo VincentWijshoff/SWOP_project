@@ -73,6 +73,8 @@ public class DocumentArea implements EventHandler {
     public GUIObject addGUIObject(GUIObject obj) {
         this.drawnGUIObjects.add(obj);
 
+        obj.setPosition(obj.coordX + xOffset, obj.coordY+relativeYPos);
+
         obj.setHandler(this);
         obj.updateDimensions();
 
@@ -91,12 +93,10 @@ public class DocumentArea implements EventHandler {
     }
 
     public void draw(Graphics g) {
-        g.translate(xOffset,relativeYPos);
         // Draw every GUIObject in the docArea
         for (GUIObject obj : this.getDrawnGUIObjects()) {
             obj.draw(g);
         }
-        g.translate(-xOffset,-relativeYPos);
     }
 
      /**
@@ -182,7 +182,7 @@ public class DocumentArea implements EventHandler {
 
     @Override
     public void addMouseEventListener(MouseEventListener listener) {
-        this.getWindow().mouseEventHandler.addMouseEventListener(listener, -xOffset, -getRelativeYPos());
+        this.getWindow().mouseEventHandler.addMouseEventListener(listener);
     }
 
     @Override
