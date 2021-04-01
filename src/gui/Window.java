@@ -12,15 +12,17 @@ import java.awt.*;
  */
 public class Window extends CanvasWindow{
 
-    AddressBar addressBar;
-    BookmarkBar bookmarkBar;
-    DocumentArea docArea;
+    AddressBar addressBar; //TODO: delete?
+    BookmarkBar bookmarkBar; //TODO: delete?
+    DocumentArea docArea; //TODO: delete?
 
-    Font font = new Font(Font.DIALOG, Font.PLAIN, 12);
-    FontMetrics fontMetrics;
+    Font font = new Font(Font.DIALOG, Font.PLAIN, 12); //TODO: delete?
+    FontMetrics fontMetrics; //TODO: delete?
 
-    MouseEventHandler mouseEventHandler;
-    KeyEventHandler keyEventHandler;
+    MouseEventHandler mouseEventHandler; //TODO: delete?
+    KeyEventHandler keyEventHandler;//TODO: delete?
+
+    Screen currentScreen;
 
     /**
      * Create a new window
@@ -108,6 +110,7 @@ public class Window extends CanvasWindow{
      * @param modifiersEx   The modifiers active on the mouse
      */
     @Override
+    //TODO: delete?
     public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
         this.mouseEventHandler.onClick(id, x, y, clickCount);
         this.repaint();
@@ -121,6 +124,7 @@ public class Window extends CanvasWindow{
      * @param modifiersEx   The active modifiers on the key
      */
     @Override
+    //TODO: delete?
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
         this.keyEventHandler.onKeyPress(id, keyCode, keyChar, modifiersEx);
         this.repaint();
@@ -132,7 +136,7 @@ public class Window extends CanvasWindow{
      */
     public DocumentArea getDocArea() {
         return this.docArea;
-    }
+    }//TODO: delete?
 
     /**
      * Get the address bar of this window
@@ -140,11 +144,11 @@ public class Window extends CanvasWindow{
      */
     public AddressBar getAddressBar() {
         return addressBar;
-    }
+    }//TODO: delete?
 
-    public BookmarkBar getBookmarkBar() { return bookmarkBar; }
+    public BookmarkBar getBookmarkBar() { return bookmarkBar; }//TODO: delete?
 
     public FontMetrics getFontMetrics() {
         return this.fontMetrics;
-    }
+    }//TODO: delete?
 }

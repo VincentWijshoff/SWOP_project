@@ -16,7 +16,7 @@ public class AddressBar {
     final int yLimit = 50;
 
     private final GUIInput inputField;
-    private final Window window;
+    private final Window window; //TODO: delete?
 
     //GUI elements
     private final int abX = 5;
