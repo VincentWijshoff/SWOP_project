@@ -22,8 +22,8 @@ import java.net.URL;
 public class DocumentArea implements EventHandler {
 
     private Set<GUIObject> drawnGUIObjects = new HashSet<>();
-    private int relativeYPos;
-    private final int xOffset = 5;
+    public int relativeYPos;
+    public final int xOffset = 5;
     private Window window;
     private HtmlLoader loader;
 

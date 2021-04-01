@@ -1,8 +1,6 @@
 package tests;
 
-import gui.GUILink;
-import gui.GUIObject;
-import gui.GUITable;
+import gui.*;
 import gui.Window;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +20,7 @@ public class UseCaseTest {
         Window window = new Window("useCase");
         java.awt.EventQueue.invokeAndWait(window::show);
         FontMetrics fm = window.getFontMetrics();
-
+        DocumentArea docarea = window.getDocArea();
 
 
         //2. Application shows a welcome document.
@@ -39,19 +37,19 @@ public class UseCaseTest {
         assertEquals("UC_4.a", window.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
         ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
         assertTrue("UC_4.b", renderedObjects.size() == 11);
-        assertTrue("UC_4.j", containsGUIStringWith(0, 0, "HTML elements partially supported by Browsr:", renderedObjects));
+        assertTrue("UC_4.j", containsGUIStringWith(docarea.xOffset, docarea.relativeYPos, "HTML elements partially supported by Browsr:", renderedObjects));
 
-        assertTrue("UC_4.d", containsGUILinkWith(0, fm.getHeight(), "a", "a.html", renderedObjects));
-        assertTrue("UC_4.g", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, fm.getHeight(), "Hyperlink anchors", renderedObjects));
+        assertTrue("UC_4.d", containsGUILinkWith(docarea.xOffset, docarea.relativeYPos + fm.getHeight(), "a", "a.html", renderedObjects));
+        assertTrue("UC_4.g", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.relativeYPos + fm.getHeight(), "Hyperlink anchors", renderedObjects));
 
-        assertTrue("UC_4.e", containsGUILinkWith(0, 2*fm.getHeight(), "table", "table.html", renderedObjects));
-        assertTrue("UC_4.c", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, 2*fm.getHeight(), "Tables", renderedObjects));
+        assertTrue("UC_4.e", containsGUILinkWith(docarea.xOffset, docarea.relativeYPos + 2*fm.getHeight(), "table", "table.html", renderedObjects));
+        assertTrue("UC_4.c", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.relativeYPos + 2*fm.getHeight(), "Tables", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWith(0, 3*fm.getHeight(), "tr", "tr.html", renderedObjects));
-        assertTrue("UC_4.i", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, 3*fm.getHeight(), "Table rows", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWith(docarea.xOffset, docarea.relativeYPos + 3*fm.getHeight(), "tr", "tr.html", renderedObjects));
+        assertTrue("UC_4.i", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.relativeYPos + 3*fm.getHeight(), "Table rows", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWith(0, 4*fm.getHeight(), "td", "td.html", renderedObjects));
-        assertTrue("UC_4.f", containsGUIStringWith(fm.stringWidth("table") + GUITable.xMargin, 4*fm.getHeight(), "Table cells containing table data", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWith(docarea.xOffset,  docarea.relativeYPos  + 4*fm.getHeight(), "td", "td.html", renderedObjects));
+        assertTrue("UC_4.f", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.relativeYPos + 4*fm.getHeight(), "Table cells containing table data", renderedObjects));
         //This page has 4 GUILinks and 5 GUIStrings
 
         //5 User navigates to a desired webpage. (using hyperlink)
@@ -59,7 +57,7 @@ public class UseCaseTest {
         for(GUIObject obj : window.getDocArea().getDrawnGUIObjects()){
             if(obj instanceof GUILink){
                 //press a hyperlink
-                obj.handleMouseEvent(0,fm.getHeight(), MouseEvent.MOUSE_PRESSED, 1);
+                obj.handleMouseEvent(docarea.xOffset, docarea.relativeYPos + fm.getHeight(), MouseEvent.MOUSE_PRESSED, 1);
                 //all hyperlinks will navigate to a non-browsr webpage -> show error document
                 href = ((GUILink) obj).getHref();
                 break;
