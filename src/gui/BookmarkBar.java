@@ -47,7 +47,7 @@ public class BookmarkBar implements EventHandler {
 
         if(first){
             this.addBookmark("home page Bart Jacobs", "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
-            this.addBookmark("home page Bart Jacobs 2.0", "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
+            this.addBookmark("home page Bart Jacobs 2.0", "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
             first = false;
         }
     }

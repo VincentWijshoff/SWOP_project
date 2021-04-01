@@ -119,7 +119,7 @@ public class DocumentArea implements EventHandler {
     public void loadAddress(String url) throws IOException {
         URL address = generateAddress(url, "");
         this.clearDocObjects(); //remove GUIObjects from previous page
-        isValidBrowsrPage(address);
+        //isValidBrowsrPage(address);
         this.loader.initialise(address);
         loader.loadPage();
 
