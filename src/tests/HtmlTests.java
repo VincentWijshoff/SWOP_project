@@ -1,5 +1,6 @@
 package tests;
 
+import gui.DefaultScreen;
 import gui.DocumentArea;
 import gui.Objects.GUIObject;
 import gui.Objects.GUITable;
@@ -19,13 +20,15 @@ import static tests.TestUtil.*;
 public class HtmlTests {
 
     Window window;
+    DefaultScreen screen;
     HtmlLoader loader;
     FontMetrics fm;
 
     @BeforeAll
     public void setup() throws InvocationTargetException, InterruptedException {
         this.window = new Window("TestBrowser");
-        this.loader = new HtmlLoader(window.getDocArea());
+        this.screen = new DefaultScreen(window);
+        this.loader = new HtmlLoader(screen.getDocArea());
         java.awt.EventQueue.invokeAndWait(this.window::show);
         fm = window.getFontMetrics();
 
@@ -37,13 +40,13 @@ public class HtmlTests {
         String htmlCode = """
                 <a href="a.html">TEXT</a>
                 """;
-        window.getDocArea().clearDocObjects();
+        screen.getDocArea().clearDocObjects();
         this.loader.initialise(htmlCode);
         loader.loadPage();
-        DocumentArea docarea = window.getDocArea();
+        DocumentArea docarea = screen.getDocArea();
 
-        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 1);
-        assertTrue(testName, containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos(), "TEXT", "", window.getDocArea().getDrawnGUIObjects()));
+        assertTrue(testName, screen.getDocArea().getDrawnGUIObjects().size() == 1);
+        assertTrue(testName, containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos(), "TEXT", "", screen.getDocArea().getDrawnGUIObjects()));
     }
 
     @Test
@@ -56,13 +59,13 @@ public class HtmlTests {
                     <tr> <td><a href="b.html">Text</a>
                 </table>
                 """;
-        window.getDocArea().clearDocObjects();
+        screen.getDocArea().clearDocObjects();
         this.loader.initialise(htmlCode);
         loader.loadPage();
-        DocumentArea docarea = window.getDocArea();
+        DocumentArea docarea = screen.getDocArea();
 
-        ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
-        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 4);
+        ArrayList<GUIObject> renderedObjects = screen.getDocArea().getDrawnGUIObjects();
+        assertTrue(testName, screen.getDocArea().getDrawnGUIObjects().size() == 4);
         assertTrue(testName, containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos(), "TEXT", "a.html", renderedObjects));
         assertTrue(testName, containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight(), "Text", "b.html", renderedObjects));
         assertTrue(testName, containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "TEXT", "", renderedObjects));
@@ -78,13 +81,13 @@ public class HtmlTests {
                     <tr><td>DATA<td>SECOND COLUMN
                 </table>
                 """;
-        window.getDocArea().clearDocObjects();
+        screen.getDocArea().clearDocObjects();
         this.loader.initialise(htmlCode);
         loader.loadPage();
-        DocumentArea docarea = window.getDocArea();
+        DocumentArea docarea = screen.getDocArea();
 
-        ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
-        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 4); //3 GUIStrings
+        ArrayList<GUIObject> renderedObjects = screen.getDocArea().getDrawnGUIObjects();
+        assertTrue(testName, screen.getDocArea().getDrawnGUIObjects().size() == 4); //3 GUIStrings
         assertTrue(testName, containsGUIStringWith(docarea.xOffset, docarea.getRelativeYPos(), "DATA", renderedObjects));
         assertTrue(testName, containsGUIStringWith(docarea.xOffset + fm.stringWidth("DATA") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight(), "SECOND COLUMN", renderedObjects));
         assertTrue(testName, containsGUIStringWith(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "DATA", renderedObjects));
@@ -105,13 +108,13 @@ public class HtmlTests {
 				    </table>
 				</table>
 				""";
-        window.getDocArea().clearDocObjects();
+        screen.getDocArea().clearDocObjects();
         this.loader.initialise(htmlCode);
         loader.loadPage();
-        DocumentArea docarea = window.getDocArea();
+        DocumentArea docarea = screen.getDocArea();
 
-        ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
-        assertTrue(testName, window.getDocArea().getDrawnGUIObjects().size() == 11); //9 GUIString
+        ArrayList<GUIObject> renderedObjects = screen.getDocArea().getDrawnGUIObjects();
+        assertTrue(testName, screen.getDocArea().getDrawnGUIObjects().size() == 11); //9 GUIString
         assertTrue("UC_4.j", containsGUIStringWith(docarea.xOffset, docarea.getRelativeYPos(), "HTML elements partially supported by Browsr:", renderedObjects));
 
         assertTrue("UC_4.d", containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "a", "a.html", renderedObjects));
@@ -150,7 +153,7 @@ public class HtmlTests {
                 </table>
                 </form>
                 """;
-        window.getDocArea().clearDocObjects();
+        screen.getDocArea().clearDocObjects();
         this.loader.initialise(htmlCode);
         loader.loadPage();
 

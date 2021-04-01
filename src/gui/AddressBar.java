@@ -16,7 +16,7 @@ public class AddressBar {
     final int yLimit = 50;
 
     private final GUIInput inputField;
-    private final Window window; //TODO: delete?
+    private final DefaultScreen screen;
 
     //GUI elements
     private final int abX = 5;
@@ -31,42 +31,42 @@ public class AddressBar {
      * constructor for the address bar
      * @param startAddress  The address that should be shown on startup off the address bar
      */
-    public AddressBar(String startAddress, Window w) {
+    public AddressBar(String startAddress, DefaultScreen screen) {
         //this.w = width;
         this.inputField = new GUIInput(startAddress, this.abX, this.abY, 0, this.h);
-        this.window = w;
+        this.screen = screen;
         addListeners();
     }
 
     /**
      * constructor for the address bar
      */
-    public AddressBar(Window w) {
+    public AddressBar(DefaultScreen screen) {
         //this.w = width;
         this.inputField = new GUIInput(this.abX, this.abY, 0, this.h);
-        this.window = w;
+        this.screen = screen;
         addListeners();
     }
 
     private void addListeners(){
-        window.keyEventHandler.addKeyEventListener((id, keyCode, keyChar, modifier) -> {
+        screen.keyEventHandler.addKeyEventListener((id, keyCode, keyChar, modifier) -> {
 
             if (isInFocus()) {
                 // handle the key event in the address bar area
                 if (handleKeyEventA(id, keyCode, keyChar, modifier)) {
-                    window.load(getAddress());
+                    screen.load(getAddress());
                 }
             }
             return false;
         });
 
-        window.mouseEventHandler.addMouseEventListener((x, y, id, clickCount) -> {
+        screen.mouseEventHandler.addMouseEventListener((x, y, id, clickCount) -> {
             if (isOnAddressBar(x, y)) {
                 setInFocus();
                 System.out.println("Clicked on Address Bar!");
             } else if (isInFocus()){
                 setOutFocus();
-                window.load(getAddress());
+                screen.load(getAddress());
                 System.out.println("Clicked off Address Bar!");
             }
             // handle the click event accordingly

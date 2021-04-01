@@ -12,32 +12,16 @@ import static tests.TestUtil.*;
 class GUITests {
 
 	Window window = new Window("TestBrowser");
+	DefaultScreen screen = new DefaultScreen(window);
 
 	static final int aBarX = 5; // position of the input field of the addressbar
 	static final int aBarY = 8;
 
 	@Test
-	void testRectangleBounds() throws  RuntimeException {
-		final String testName = "RectangleBounds";
-
-
-		GUIRectangle rectangle = (GUIRectangle) window.getDocArea().addGUIObject(new GUIRectangle(10, 10, 100, 100));
-		DocumentArea docarea = window.getDocArea();
-
-		assertTrue(testName, rectangle.isInGUIObject(docarea.xOffset + 50, docarea.getRelativeYPos() + 50));
-		assertTrue(testName, rectangle.isInGUIObject(docarea.xOffset + 10, docarea.getRelativeYPos() + 10));
-		assertTrue(testName, rectangle.isInGUIObject(docarea.xOffset + 100, docarea.getRelativeYPos() + 100));
-
-		assertFalse(testName, rectangle.isInGUIObject(docarea.xOffset + 150, docarea.getRelativeYPos() + 150));
-		assertFalse(testName, rectangle.isInGUIObject(docarea.xOffset + 100, docarea.getRelativeYPos() + 150));
-		assertFalse(testName, rectangle.isInGUIObject(docarea.xOffset + 9, docarea.getRelativeYPos() + 9));
-	}
-
-	@Test
 	void testAddressBarSetAndGetAddress() throws  RuntimeException {
 		final String testName = "testAddressBarSetAndGetAddress";
 
-		AddressBar a = new AddressBar("testAddressBar", window);
+		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		a.setAddress("www.newaddress.com");
 
@@ -49,7 +33,7 @@ class GUITests {
 	void testAddressBarSetAndGetFocus() throws  RuntimeException {
 		final String testName = "testAddressBarSetAndGetFocus";
 
-		AddressBar a = new AddressBar("testAddressBar", window);
+		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		a.setInFocus();
 
@@ -66,7 +50,7 @@ class GUITests {
 		final String testName = "testAddressBarInitialChar";
 		// when an initial char is given after given focus, the entire addres should be changed to the char
 
-		AddressBar a = new AddressBar("testAddressBar", window);
+		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		a.setInFocus();
 		a.handleMouseEventA(aBarX, aBarY, MouseEvent.MOUSE_PRESSED, 1);
@@ -81,7 +65,7 @@ class GUITests {
 	void testAddressBarInitialRemove() throws  RuntimeException {
 		final String testName = "testAddressBarInitialRemove";
 
-		AddressBar a = new AddressBar("testAddressBar", window);
+		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		a.setInFocus();
 		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
@@ -96,7 +80,7 @@ class GUITests {
 	void testAddressBarArrowUse() throws  RuntimeException {
 		final String testName = "testAddressBarArrowUse";
 
-		AddressBar a = new AddressBar("testAddressBar", window);
+		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		String initialAddress = a.getAddress();
 
@@ -130,7 +114,7 @@ class GUITests {
 	void testAddressBarDoubleClickRemove() throws  RuntimeException {
 		final String testName = "testAddressBarDoubleClickRemove";
 
-		AddressBar a = new AddressBar("testAddressBar", window);
+		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		String initialAddress = a.getAddress();
 
@@ -156,7 +140,7 @@ class GUITests {
 	void testAddressBarEscapeOutTyping() throws  RuntimeException {
 		final String testName = "testAddressBarEscapeOutTyping";
 
-		AddressBar a = new AddressBar(window);
+		AddressBar a = new AddressBar(screen);
 
 		a.setInFocus();
 		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
@@ -180,7 +164,7 @@ class GUITests {
 	void testAddressBarPartialSelectingArrows() throws  RuntimeException {
 		final String testName = "testAddressBarPartialSelectingArrows";
 
-		AddressBar a = new AddressBar("testAddressBar", window);
+		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		a.setInFocus();
 		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
@@ -212,7 +196,7 @@ class GUITests {
 	void testAddressBarPartialSelectingHomeEnd() throws  RuntimeException {
 		final String testName = "testAddressBarPartialSelectingHomeEnd";
 
-		AddressBar a = new AddressBar("testAddressBar", window);
+		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		a.setInFocus();
 		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
@@ -240,17 +224,6 @@ class GUITests {
 
 		//only the 3 skipped bits should be there
 		assertTrue(testName, a.getAddress().equals("tes"));
-	}
-
-	@Test
-	void testAddressBarCreationAndHandlingViaWindow() throws  RuntimeException {
-		final String testName = "testAddressBarCreationAndHandlingViaWindow";
-
-		Window w = new Window("TestWindow");
-
-		String startAddress = w.getAddress();
-
-		assertTrue(testName, startAddress.equals("WelcomeDoc.html"));
 	}
 
 }

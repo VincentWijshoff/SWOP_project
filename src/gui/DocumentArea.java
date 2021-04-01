@@ -19,19 +19,19 @@ import java.net.URL;
 /**
  * The documentarea manages all GUIObjects that are drawn on the canvas
  */
-public class DocumentArea implements EventHandler {
+public class DocumentArea {
 
     private Set<GUIObject> drawnGUIObjects = new HashSet<>();
     private int relativeYPos;
     public final int xOffset = 5;
-    private Window window;
+    private DefaultScreen screen;
     private HtmlLoader loader;
 
     /*
     * Class used to describe the entire Document section of our GUI.
      */
-    public DocumentArea(Window window, int relativeYpos) {
-        this.window = window;
+    public DocumentArea(DefaultScreen screen, int relativeYpos) {
+        this.screen = screen;
         this.relativeYPos = relativeYpos;
         this.loader = new HtmlLoader(this);
     }
@@ -40,8 +40,8 @@ public class DocumentArea implements EventHandler {
      * Get the Window
      * @return The window linked to this document area
      */
-    public Window getWindow() {
-        return this.window;
+    public DefaultScreen getScreen() {
+        return this.screen;
     }
 
     /**
@@ -75,7 +75,7 @@ public class DocumentArea implements EventHandler {
 
         obj.setPosition(obj.coordX + xOffset, obj.coordY+relativeYPos);
 
-        obj.setHandler(this);
+        obj.setHandler(this.screen);
         obj.updateDimensions();
 
         return obj;
@@ -153,36 +153,6 @@ public class DocumentArea implements EventHandler {
         this.drawnGUIObjects.clear();
         this.loader.initialise(Docs.getErrorPage());
         loader.loadPage();
-    }
-
-    @Override
-    public void load(String url){
-        this.window.load(url);
-    }
-
-    @Override
-    public void addMouseEventListener(MouseEventListener listener) {
-        this.getWindow().mouseEventHandler.addMouseEventListener(listener);
-    }
-
-    @Override
-    public void addKeyEventListener(KeyEventListener listener) {
-        this.getWindow().keyEventHandler.addKeyEventListener(listener);
-    }
-
-    @Override
-    public void removeMouseEventListener(MouseEventListener listener) {
-        this.getWindow().mouseEventHandler.removeMouseEventListener(listener);
-    }
-
-    @Override
-    public void removeKeyEventListener(KeyEventListener listener) {
-        this.getWindow().keyEventHandler.removeKeyEventListener(listener);
-    }
-
-    @Override
-    public FontMetrics getFontMetrics() {
-        return this.window.getFontMetrics();
     }
 
     public void loadWelcomeDoc() {
