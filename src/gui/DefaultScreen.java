@@ -40,12 +40,8 @@ public class DefaultScreen implements Screen, EventHandler {
             e.printStackTrace();
             this.documentArea.loadErrorDoc();
         }
-        this.repaint();
     }
 
-    public void repaint(){
-        this.window.show();
-    }
 
     public void handleShown() {
         this.documentArea.loadWelcomeDoc();
