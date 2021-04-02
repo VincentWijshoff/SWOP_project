@@ -1,8 +1,7 @@
 package gui;
 
 import canvaswindow.CanvasWindow;
-import events.KeyEventHandler;
-import events.MouseEventHandler;
+import gui.DefaultScreen.DefaultScreen;
 
 import java.awt.*;
 
@@ -12,15 +11,11 @@ import java.awt.*;
  */
 public class Window extends CanvasWindow{
 
-    AddressBar addressBar;
-    BookmarkBar bookmarkBar;
-    DocumentArea docArea;
+    Screen currentScreen;
 
     Font font = new Font(Font.DIALOG, Font.PLAIN, 12);
     FontMetrics fontMetrics;
 
-    MouseEventHandler mouseEventHandler;
-    KeyEventHandler keyEventHandler;
 
     /**
      * Create a new window
@@ -29,30 +24,8 @@ public class Window extends CanvasWindow{
     public Window(String title) {
         super(title);
 
-        this.mouseEventHandler = new MouseEventHandler();
-        this.keyEventHandler = new KeyEventHandler();
+        this.currentScreen = new DefaultScreen(this);
 
-        this.addressBar = new AddressBar("WelcomeDoc.html", this);
-        this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit, this);
-        this.docArea = new DocumentArea(this, this.addressBar.yLimit + this.bookmarkBar.getHeight());
-
-    }
-
-    /**
-     * Load a url
-     * @param url   The url that needs to be loaded
-     */
-    public void load(String url) {
-        try {
-            System.out.println("Loading webpage: " + url);
-            this.addressBar.setAddress(url);
-            this.docArea.loadAddress(url);
-        } catch (Exception e) {
-            System.out.println("loading Error Page");
-            e.printStackTrace();
-            this.docArea.loadErrorDoc();
-        }
-        this.repaint();
     }
 
     /**
@@ -62,7 +35,7 @@ public class Window extends CanvasWindow{
     protected void handleShown() {
         this.fontMetrics = getFontMetrics(font);
 
-        this.docArea.loadWelcomeDoc();
+        this.currentScreen.handleShown();
 
         repaint();
     }
@@ -75,11 +48,7 @@ public class Window extends CanvasWindow{
     protected void paint(Graphics g) {
         g.setFont(font);
 
-        this.docArea.draw(g);
-
-        // Draw AddressBar
-        this.bookmarkBar.draw(g, this.getWidth());
-        this.addressBar.draw(g, this.getWidth());
+        this.currentScreen.draw(g);
     }
 
     /**
@@ -88,14 +57,6 @@ public class Window extends CanvasWindow{
     @Override
     protected void handleResize() {
         repaint();
-    }
-
-    /**
-     * Get the current address of this window
-     * @return the current address
-     */
-    public String getAddress(){
-        return this.addressBar.getAddress();
     }
 
     /**
@@ -109,7 +70,7 @@ public class Window extends CanvasWindow{
      */
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
-        this.mouseEventHandler.onClick(id, x, y, clickCount);
+        this.currentScreen.handleMouseEvent(id, x, y, clickCount, button, modifiersEx);
         this.repaint();
     }
 
@@ -122,29 +83,19 @@ public class Window extends CanvasWindow{
      */
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
-        this.keyEventHandler.onKeyPress(id, keyCode, keyChar, modifiersEx);
+        this.currentScreen.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
         this.repaint();
     }
 
-    /**
-     * Get the document area off this window
-     * @return the document area
-     */
-    public DocumentArea getDocArea() {
-        return this.docArea;
-    }
-
-    /**
-     * Get the address bar of this window
-     * @return the address bar
-     */
-    public AddressBar getAddressBar() {
-        return addressBar;
-    }
-
-    public BookmarkBar getBookmarkBar() { return bookmarkBar; }
-
     public FontMetrics getFontMetrics() {
         return this.fontMetrics;
+    }
+
+    public void setScreen(Screen screen){
+        this.currentScreen = screen;
+    }
+
+    public Screen getCurrentScreen() {
+        return this.currentScreen;
     }
 }

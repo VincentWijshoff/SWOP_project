@@ -6,7 +6,9 @@ public interface Screen {
 
     void draw(Graphics g);
 
-    void handleMouseEvent(int a, int b, int c, int d, int e, int f);
+    void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx);
 
-    void handleKeyEvent(int a, int b, char c, int d);
+    void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx);
+
+    void handleShown();
 }

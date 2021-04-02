@@ -266,14 +266,17 @@ has</panel_attributes>
     </coordinates>
     <panel_attributes>Window
 --
-+ currentScreen : Screen
+- currentScreen : Screen
 --
-+ load(String) : void
-+ paint() : void
-+ handleResize() : void
++ handleMouseEvent(int, int, int, int, int, int)
++ handleKeyEvent(int, int, char, int)
 + getFontMetrics() : FontMetrics
-+ getEventHandlers() : handlers
-+ setEventHandlers(MouseEventHandler, KeyEventHandler) : void
++ setScreen(Screen) : void
++ paint(Graphics) : void
++ handleShown() : void
++ handleResize() : void
+
+
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -1087,8 +1090,10 @@ has &gt;</panel_attributes>
     </coordinates>
     <panel_attributes>DialogScreen
 --
-- MakeBookMarkScreen() : void
-- MakeOtherScreen() : void</panel_attributes>
+- previousScreen
+--
+- returnToPreviousScreen() : void
+- create() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1127,7 +1132,7 @@ has &gt;</panel_attributes>
     </coordinates>
     <panel_attributes>lt=-&gt;
 
-m2=1
+m2=0..*
 has &gt;</panel_attributes>
     <additional_attributes>10.0;910.0;1200.0;910.0;1200.0;10.0;1440.0;10.0</additional_attributes>
   </element>
@@ -1160,7 +1165,9 @@ Screen
     </coordinates>
     <panel_attributes>DefaultScreen
 --
-+ getAddress() : string</panel_attributes>
++ getAddress() : string
+- makeSaveBookmarkBarScreen() : void
+- makeSaveHtmlScreen() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1211,8 +1218,72 @@ m2=
     <panel_attributes>lt=-
 m2=1
 m1=1
-has &gt;
+
 </panel_attributes>
     <additional_attributes>10.0;10.0;10.0;220.0;150.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>609</x>
+      <y>1743</y>
+      <w>196</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>SaveBookmarkScreen
+--
+- create() : void
++ draw(Graphics) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>924</x>
+      <y>1743</y>
+      <w>196</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>SaveHTMLScreen
+--
+- create() : void
++ draw(Graphics) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>854</x>
+      <y>1666</y>
+      <w>56</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extends</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>854</x>
+      <y>1743</y>
+      <w>84</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;100.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>798</x>
+      <y>1799</y>
+      <w>77</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
   </element>
 </diagram>

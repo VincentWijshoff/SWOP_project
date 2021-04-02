@@ -1,6 +1,7 @@
 package tests;
 
-import gui.*;
+import gui.DefaultScreen.DefaultScreen;
+import gui.DefaultScreen.DocumentArea;
 import gui.Objects.GUILink;
 import gui.Objects.GUIObject;
 import gui.Objects.GUITable;
@@ -22,23 +23,24 @@ public class UseCaseTest {
         //1. User starts a Browsr application.
         Window window = new Window("useCase");
         java.awt.EventQueue.invokeAndWait(window::show);
+        DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
         FontMetrics fm = window.getFontMetrics();
-        DocumentArea docarea = window.getDocArea();
+        DocumentArea docarea = screen.getDocArea();
 
 
         //2. Application shows a welcome document.
-        assertTrue("UC_2.a", window.getAddress().equals("WelcomeDoc.html"));
-        assertTrue("UC_2.b", window.getDocArea().getDrawnGUIObjects().size() == 8);
+        assertTrue("UC_2.a", screen.getAddress().equals("WelcomeDoc.html"));
+        assertTrue("UC_2.b", screen.getDocArea().getDrawnGUIObjects().size() == 8);
         //Welcome doc has 6 GUIStrings and 1 GUILink
 
         //3. User navigates to a desired webpage. (using AddressBar)
         window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 5, 25, 1, 1, 1024); // click on address bar
-        assertTrue("UC_3.a", window.getAddressBar().isInFocus());
+        assertTrue("UC_3.a", screen.getAddressBar().isInFocus());
         typeString(window, "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html\n");
 
         //4. Application shows the desired webpage.
-        assertEquals("UC_4.a", window.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
-        ArrayList<GUIObject> renderedObjects = window.getDocArea().getDrawnGUIObjects();
+        assertEquals("UC_4.a", screen.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
+        ArrayList<GUIObject> renderedObjects = screen.getDocArea().getDrawnGUIObjects();
         assertTrue("UC_4.b", renderedObjects.size() == 11);
         assertTrue("UC_4.j", containsGUIStringWith(docarea.xOffset, docarea.getRelativeYPos(), "HTML elements partially supported by Browsr:", renderedObjects));
 
@@ -57,7 +59,7 @@ public class UseCaseTest {
 
         //5 User navigates to a desired webpage. (using hyperlink)
         String href = "";
-        for(GUIObject obj : window.getDocArea().getDrawnGUIObjects()){
+        for(GUIObject obj : screen.getDocArea().getDrawnGUIObjects()){
             if(obj instanceof GUILink){
                 //press a hyperlink
                 obj.handleMouseEvent(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), MouseEvent.MOUSE_PRESSED, 1);
@@ -67,10 +69,10 @@ public class UseCaseTest {
             }
         }
         //6 Application shows the desired webpage.
-        assertEquals("UC_6.a", window.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/" + href);
-        assertTrue("UC_6.b", window.getDocArea().getDrawnGUIObjects().size() == 3);
+        assertEquals("UC_6.a", screen.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/" + href);
+        assertTrue("UC_6.b", screen.getDocArea().getDrawnGUIObjects().size() == 3);
         //error document has 2 GUIStrings
-        for(GUIObject obj : window.getDocArea().getDrawnGUIObjects()){
+        for(GUIObject obj : screen.getDocArea().getDrawnGUIObjects()){
             assertFalse("UC_6.c", obj instanceof GUILink);
             //error document has no GUILinks
         }

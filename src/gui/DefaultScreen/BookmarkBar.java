@@ -1,32 +1,30 @@
-package gui;
+package gui.DefaultScreen;
 
-import events.EventHandler;
-import events.KeyEventListener;
-import events.MouseEventListener;
+import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUILink;
 import gui.Objects.GUITable;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class BookmarkBar implements EventHandler {
+public class BookmarkBar {
 
     private int relativeYPos;
     private int height = 25;
     private int width;
     private GUITable bookmarks;
-    private Window window;
+    private DefaultScreen screen;
 
-    public BookmarkBar(int relpos, Window w){
+    public BookmarkBar(int relpos, DefaultScreen screen){
         this.relativeYPos = relpos;
-        this.window = w;
+        this.screen = screen;
 
         this.bookmarks = new GUITable(0, relativeYPos);
         this.bookmarks.addRow(new ArrayList<>());
     }
 
-    public Window getWindow() {
-        return window;
+    public DefaultScreen getScreen() {
+        return screen;
     }
 
     public void draw(Graphics g, int width){
@@ -56,9 +54,9 @@ public class BookmarkBar implements EventHandler {
     private  boolean first = true;
 
     public void addBookmark(String name, String address){
-        GUILink link = new GUILink(name, address, getWindow().getAddress());
+        GUILink link = new GUILink(name, address, getScreen().getAddress());
 
-        link.setHandler(this);
+        link.setHandler(getScreen());
         link.setEventHandlers();
 
         this.getBookmarks().appendToRow(link, 0);
@@ -72,36 +70,6 @@ public class BookmarkBar implements EventHandler {
 
     public GUITable getBookmarks() {
         return this.bookmarks;
-    }
-
-    @Override
-    public void load(String url){
-        this.getWindow().load(url);
-    }
-
-    @Override
-    public void addMouseEventListener(MouseEventListener listener) {
-        this.getWindow().mouseEventHandler.addMouseEventListener(listener);
-    }
-
-    @Override
-    public void addKeyEventListener(KeyEventListener listener) {
-        this.getWindow().keyEventHandler.addKeyEventListener(listener);
-    }
-
-    @Override
-    public void removeMouseEventListener(MouseEventListener listener) {
-        this.getWindow().mouseEventHandler.removeMouseEventListener(listener);
-    }
-
-    @Override
-    public void removeKeyEventListener(KeyEventListener listener) {
-        this.getWindow().keyEventHandler.removeKeyEventListener(listener);
-    }
-
-    @Override
-    public FontMetrics getFontMetrics() {
-        return this.getWindow().getFontMetrics();
     }
 
 }
