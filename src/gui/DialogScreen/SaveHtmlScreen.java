@@ -7,9 +7,7 @@ import gui.Objects.GUIString;
 import gui.Screen;
 import gui.Window;
 
-import java.io.BufferedWriter;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class SaveHtmlScreen extends DialogScreen{
