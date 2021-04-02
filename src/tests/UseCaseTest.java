@@ -21,8 +21,8 @@ public class UseCaseTest {
     void testUseCase() throws InvocationTargetException, InterruptedException {
         //1. User starts a Browsr application.
         Window window = new Window("useCase");
-        DefaultScreen screen = new DefaultScreen(window);
         java.awt.EventQueue.invokeAndWait(window::show);
+        DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
         FontMetrics fm = window.getFontMetrics();
         DocumentArea docarea = screen.getDocArea();
 

@@ -8,7 +8,6 @@ import java.awt.*;
 
 /**
  * Class that manages the window for our browsr
- * This class contains 2 large parts, the addressbar and the documentarea
  */
 public class Window extends CanvasWindow{
 
@@ -90,5 +89,9 @@ public class Window extends CanvasWindow{
 
     public FontMetrics getFontMetrics() {
         return this.fontMetrics;
+    }
+
+    public Screen getCurrentScreen() {
+        return this.currentScreen;
     }
 }
