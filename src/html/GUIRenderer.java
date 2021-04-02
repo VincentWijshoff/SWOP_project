@@ -66,8 +66,12 @@ public class GUIRenderer implements Creator{
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     public ArrayList<GUIObject> create(SubmitButton submitButton) {
-        return new ArrayList<>();
-        //TODO: create GUIButton
+        ArrayList<GUIObject> objects = new ArrayList<>();
+        GUIButton btn = new GUIButton("Submit");
+        //TODO: make real function
+        btn.setMouseEvent((x1, y1, id, clickCount) -> {System.out.println("go to url");});
+        objects.add(btn);
+        return objects;
     }
 
 
@@ -77,7 +81,7 @@ public class GUIRenderer implements Creator{
     public ArrayList<GUIObject> create(TextInputField inputField) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         //TODO: add real coordinates and height/width
-        objects.add(new GUIInput(inputField.getName(), 50, 50, 100, 100));
+        objects.add(new GUIInput(inputField.getName()));
 
         return objects;
     }

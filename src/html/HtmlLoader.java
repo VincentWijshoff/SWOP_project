@@ -196,6 +196,7 @@ public class HtmlLoader {
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
         }
+        lexer.eatToken();
         return lexer;
     }
 
@@ -319,17 +320,16 @@ public class HtmlLoader {
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
-        while(!(type == HtmlLexer.TokenType.CLOSE_TAG)){
-            if(type == HtmlLexer.TokenType.IDENTIFIER && value.equals("name")){
-                lexer.eatToken(); //this is EQUALS
-                lexer.eatToken();
-                value = lexer.getTokenValue();
-                inputField.setName(value);
-            }
+
+        if(type == HtmlLexer.TokenType.IDENTIFIER && value.equals("name")){
+            lexer.eatToken(); //this is EQUALS
             lexer.eatToken();
-            type = lexer.getTokenType();
             value = lexer.getTokenValue();
+            inputField.setName(value);
+        }else{
+            System.out.println("there is something wrong in the html code");
         }
+
         return lexer;
     }
 

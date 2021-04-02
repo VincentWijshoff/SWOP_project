@@ -23,6 +23,13 @@ public class GUIButton extends GUIObject{
         this.keyListner = (id, keyCode, keyChar, modifier) -> false;
     }
 
+    public GUIButton(String startTxt){
+        super();
+        this.text = startTxt;
+        this.mouseListner = (x1, y1, id, clickCount) -> { };
+        this.keyListner = (id, keyCode, keyChar, modifier) -> false;
+    }
+
     public void handleMouseEvent(int x, int y, int id, int clickCount){
         if(!this.isInGUIObject(x, y)){
             this.buttonColor = Color.LIGHT_GRAY;
@@ -42,6 +49,12 @@ public class GUIButton extends GUIObject{
 
     public void setMouseEvent(MouseEventListener l){
         this.mouseListner = l;
+    }
+
+    @Override
+    public void updateDimensions() {
+        this.width = 70;
+        this.height = 15;
     }
 
     public void setKeyEvent(KeyEventListener l){

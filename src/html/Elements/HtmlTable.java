@@ -31,7 +31,6 @@ public class HtmlTable extends ContentSpan {
      */
     public HtmlTableRow addRow() {
         HtmlTableRow row = new HtmlTableRow(this);
-        row.setTable(this);
         tableRows.add(row);
         return row;
     }

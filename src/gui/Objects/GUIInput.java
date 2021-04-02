@@ -32,6 +32,13 @@ public class GUIInput extends GUIObject{
         this.text = "";
     }
 
+    public GUIInput(String name) {
+        super();
+        this.text = name;
+        this.width = 70;
+        this.height = 15;
+    }
+
     public void handleMouseEvent(int x, int y, int id, int clickCount){
         if (!this.isInGUIObject(x, y)) { // needed?
             this.selectNone();
