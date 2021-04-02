@@ -58,6 +58,10 @@ public class HtmlLoader {
         }
     }
 
+    public String getHtmlCode(){
+        return this.htmlCode;
+    }
+
     public void initialise(URL url, String href) {
         try{
             this.url = new URL(url, href);

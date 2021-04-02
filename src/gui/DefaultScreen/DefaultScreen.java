@@ -141,7 +141,7 @@ public class DefaultScreen implements Screen, EventHandler {
     }
 
     private void makeSaveHtmlScreen(){
-        SaveHtmlScreen s = new SaveHtmlScreen(this.window, this);
+        SaveHtmlScreen s = new SaveHtmlScreen(this.window, this, this.documentArea.getCurrentHtml());
         this.window.setScreen(s);
     }
 }

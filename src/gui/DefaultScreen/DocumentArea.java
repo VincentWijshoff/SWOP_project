@@ -158,5 +158,9 @@ public class DocumentArea {
         this.loader.initialise(Docs.getWelcomePage());
         loader.loadPage();
     }
+
+    public String getCurrentHtml() {
+        return this.loader.getHtmlCode();
+    }
 }
 
