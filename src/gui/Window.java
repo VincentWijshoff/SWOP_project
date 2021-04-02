@@ -1,8 +1,7 @@
 package gui;
 
 import canvaswindow.CanvasWindow;
-import events.KeyEventHandler;
-import events.MouseEventHandler;
+import gui.DefaultScreen.DefaultScreen;
 
 import java.awt.*;
 
@@ -90,5 +89,9 @@ public class Window extends CanvasWindow{
 
     public FontMetrics getFontMetrics() {
         return this.fontMetrics;
+    }
+
+    public void setScreen(Screen screen){
+        this.currentScreen = screen;
     }
 }

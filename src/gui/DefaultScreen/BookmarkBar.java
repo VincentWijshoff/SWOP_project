@@ -1,8 +1,6 @@
-package gui;
+package gui.DefaultScreen;
 
-import events.EventHandler;
-import events.KeyEventListener;
-import events.MouseEventListener;
+import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUILink;
 import gui.Objects.GUITable;
 

@@ -1,7 +1,7 @@
 package tests;
 
-import gui.DefaultScreen;
-import gui.DocumentArea;
+import gui.DefaultScreen.DefaultScreen;
+import gui.DefaultScreen.DocumentArea;
 import gui.Objects.GUIObject;
 import gui.Objects.GUITable;
 import gui.Window;

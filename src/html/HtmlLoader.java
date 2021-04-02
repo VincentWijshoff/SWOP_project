@@ -1,7 +1,7 @@
 package html;
 
 import browsrhtml.HtmlLexer;
-import gui.DocumentArea;
+import gui.DefaultScreen.DocumentArea;
 import html.Elements.*;
 import localDocuments.Docs;
 

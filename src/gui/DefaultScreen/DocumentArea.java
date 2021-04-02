@@ -1,9 +1,7 @@
-package gui;
+package gui.DefaultScreen;
 
 import browsrhtml.BrowsrDocumentValidator;
-import events.EventHandler;
-import events.KeyEventListener;
-import events.MouseEventListener;
+import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIObject;
 import html.HtmlLoader;
 import localDocuments.Docs;

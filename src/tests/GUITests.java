@@ -1,7 +1,8 @@
 package tests;
 
 import gui.*;
-import gui.Objects.GUIRectangle;
+import gui.DefaultScreen.AddressBar;
+import gui.DefaultScreen.DefaultScreen;
 import org.junit.jupiter.api.Test;
 
 import java.awt.event.KeyEvent;

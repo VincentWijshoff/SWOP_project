@@ -1,7 +1,6 @@
-package gui;
+package gui.DefaultScreen;
 
-import events.KeyEventListener;
-import events.MouseEventListener;
+import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIInput;
 
 import java.awt.*;

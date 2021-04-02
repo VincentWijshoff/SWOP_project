@@ -1,21 +1,26 @@
-package gui;
+package gui.DialogScreen;
 
 import events.*;
 import gui.Objects.GUIObject;
+import gui.Screen;
+import gui.Window;
 
 import java.awt.*;
 
-public class DialogScreen implements Screen, EventHandler {
+public abstract class DialogScreen implements Screen, EventHandler {
 
     MouseEventHandler mouseEventHandler;
     KeyEventHandler keyEventHandler;
 
-    Window window;
+    gui.Window window;
+    Screen previousScreen;
 
     GUIObject giuObject;
 
-    public DialogScreen(Window window){
+    public DialogScreen(Window window, Screen prevScreen){
         this.window = window;
+        this.previousScreen = prevScreen;
+        this.create();
     }
 
     @Override
@@ -25,24 +30,20 @@ public class DialogScreen implements Screen, EventHandler {
 
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
-        this.mouseEventHandler.onClick(id, x, y, clickCount);
+        if(this.mouseEventHandler != null) {
+            this.mouseEventHandler.onClick(id, x, y, clickCount);
+        }
     }
 
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
-        this.keyEventHandler.onKeyPress(id, keyCode, keyChar, modifiersEx);
+        if(this.keyEventHandler != null){
+            this.keyEventHandler.onKeyPress(id, keyCode, keyChar, modifiersEx);
+        }
     }
 
     @Override
     public void handleShown() {
-
-    }
-
-    public void MakeBookMarkScreen(){
-
-    }
-
-    public void MakeOtherScreen(){
 
     }
 
@@ -52,9 +53,7 @@ public class DialogScreen implements Screen, EventHandler {
     }
 
     @Override
-    public void load(String url) {
-
-    }
+    public void load(String url) { }
 
     @Override
     public void addMouseEventListener(MouseEventListener listener) {
@@ -74,5 +73,11 @@ public class DialogScreen implements Screen, EventHandler {
     @Override
     public void removeKeyEventListener(KeyEventListener listener) {
         this.keyEventHandler.removeKeyEventListener(listener);
+    }
+
+    abstract void create();
+
+    private void returnToPreviousScreen(){
+        this.window.setScreen(this.previousScreen);
     }
 }

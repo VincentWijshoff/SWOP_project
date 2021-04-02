@@ -1,8 +1,13 @@
-package gui;
+package gui.DefaultScreen;
 
 import events.*;
+import gui.DialogScreen.SaveBookmarkBarScreen;
+import gui.DialogScreen.SaveHtmlScreen;
+import gui.Screen;
+import gui.Window;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class DefaultScreen implements Screen, EventHandler {
 
@@ -13,7 +18,7 @@ public class DefaultScreen implements Screen, EventHandler {
     BookmarkBar bookmarkBar;
     DocumentArea documentArea;
 
-    Window window;
+    gui.Window window;
 
     public DefaultScreen(Window w){
         this.window = w;
@@ -37,7 +42,6 @@ public class DefaultScreen implements Screen, EventHandler {
             this.documentArea.loadAddress(url);
         } catch (Exception e) {
             System.out.println("loading Error Page");
-            e.printStackTrace();
             this.documentArea.loadErrorDoc();
         }
     }
@@ -71,6 +75,15 @@ public class DefaultScreen implements Screen, EventHandler {
 
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
+        if(modifiersEx == KeyEvent.CTRL_DOWN_MASK && id == KeyEvent.KEY_PRESSED){
+            if(keyCode == KeyEvent.VK_S){
+                this.makeSaveHtmlScreen();
+                return;
+            } else if (keyCode == KeyEvent.VK_D){
+                this.makeSaveBookmarkBarScreen();
+                return;
+            }
+        }
         this.keyEventHandler.onKeyPress(id, keyCode, keyChar, modifiersEx);
     }
 
@@ -115,5 +128,15 @@ public class DefaultScreen implements Screen, EventHandler {
     @Override
     public void removeKeyEventListener(KeyEventListener listener) {
         this.keyEventHandler.removeKeyEventListener(listener);
+    }
+
+    private void makeSaveBookmarkBarScreen(){
+        SaveBookmarkBarScreen s = new SaveBookmarkBarScreen(this.window, this);
+        this.window.setScreen(s);
+    }
+
+    private void makeSaveHtmlScreen(){
+        SaveHtmlScreen s = new SaveHtmlScreen(this.window, this);
+        this.window.setScreen(s);
     }
 }

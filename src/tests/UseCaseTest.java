@@ -1,6 +1,7 @@
 package tests;
 
-import gui.*;
+import gui.DefaultScreen.DefaultScreen;
+import gui.DefaultScreen.DocumentArea;
 import gui.Objects.GUILink;
 import gui.Objects.GUIObject;
 import gui.Objects.GUITable;
