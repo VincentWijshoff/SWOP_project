@@ -14,6 +14,8 @@ public class GUIButton extends GUIObject{
     MouseEventListener mouseListner;
     KeyEventListener keyListner;
 
+    Color buttonColor = Color.lightGray;
+
     public GUIButton(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = startTxt;
@@ -22,8 +24,15 @@ public class GUIButton extends GUIObject{
     }
 
     public void handleMouseEvent(int x, int y, int id, int clickCount){
-        if(this.isInGUIObject(x, y) && id == MouseEvent.MOUSE_PRESSED ){
+        if(!this.isInGUIObject(x, y)){
+            this.buttonColor = Color.LIGHT_GRAY;
+            return;
+        }
+        if(id == MouseEvent.MOUSE_RELEASED){
             this.mouseListner.handleMouseEvent(x, y, id, clickCount);
+            this.buttonColor = Color.LIGHT_GRAY;
+        }else{
+            this.buttonColor = Color.DARK_GRAY;
         }
     }
 
@@ -40,11 +49,10 @@ public class GUIButton extends GUIObject{
     }
 
     public void draw(Graphics g){
-        g.setColor(Color.lightGray);
+        g.setColor(buttonColor);
         g.fillRect(this.coordX, this.coordY, width, height);
         g.setColor(Color.BLACK);
         g.drawRect(this.coordX, this.coordY, width, height); // border
-        g.setColor(Color.BLACK);
         g.drawString(this.text, this.coordX+5, this.coordY+((int) (height/1.5)));
     }
 }
