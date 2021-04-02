@@ -94,4 +94,8 @@ public class Window extends CanvasWindow{
     public void setScreen(Screen screen){
         this.currentScreen = screen;
     }
+
+    public Screen getCurrentScreen() {
+        return this.currentScreen;
+    }
 }
