@@ -8,6 +8,7 @@ import java.awt.*;
 public class SaveHtmlScreen extends DialogScreen{
     public SaveHtmlScreen(Window window, Screen prevScreen){
         super(window, prevScreen);
+        this.create();
     }
 
     protected void create(){

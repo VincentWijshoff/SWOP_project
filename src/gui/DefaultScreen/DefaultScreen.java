@@ -130,8 +130,13 @@ public class DefaultScreen implements Screen, EventHandler {
         this.keyEventHandler.removeKeyEventListener(listener);
     }
 
+    @Override
+    public void addBookmark(String name, String url) {
+        this.bookmarkBar.addBookmark(name, url);
+    }
+
     private void makeSaveBookmarkBarScreen(){
-        SaveBookmarkBarScreen s = new SaveBookmarkBarScreen(this.window, this);
+        SaveBookmarkBarScreen s = new SaveBookmarkBarScreen(this.window, this, getAddress());
         this.window.setScreen(s);
     }
 

@@ -34,14 +34,19 @@ public class GUIInput extends GUIObject{
 
     public void handleMouseEvent(int x, int y, int id, int clickCount){
         if (!this.isInGUIObject(x, y)) { // needed?
+            this.selectNone();
+            this.inFocus = false;
+            this.initialClick = true;
             return;
         }
+        this.inFocus = true;
 
         //the first click on the address bar
         if (id == MouseEvent.MOUSE_PRESSED && this.initialClick){
 
             //the current url is selected (blue background)
             this.selectAll();
+            this.prevText = this.text;
 
             // keyboard focus (with text cursor) is done with the inFocus variable and the "|" is added
             // in the painting area
@@ -79,6 +84,10 @@ public class GUIInput extends GUIObject{
      */
     @Override
     public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+        if(!this.inFocus){
+            this.initialClick = true;
+            return false;
+        }
         if(modifier == KeyEvent.SHIFT_DOWN_MASK){
             this.shifting = true;
         }else if(modifier == 0){
@@ -105,8 +114,14 @@ public class GUIInput extends GUIObject{
                 } else if (keyCode == KeyEvent.VK_END) {
                     this.onEnd();
                 } else if (keyCode == KeyEvent.VK_ESCAPE) {
+                    this.inFocus = false;
+                    this.selectNone();
+                    this.initialClick = true;
                     this.onEscape();
                 } else if (keyCode == KeyEvent.VK_ENTER) {
+                    this.inFocus = false;
+                    this.initialClick = true;
+                    this.selectNone();
                     return true;
                 } else if(keyCode != KeyEvent.VK_SHIFT && keyCode != KeyEvent.VK_CONTROL && keyCode != KeyEvent.VK_ALT){
                     // we assume a key was pressed that needs to be shown but is not a normal char

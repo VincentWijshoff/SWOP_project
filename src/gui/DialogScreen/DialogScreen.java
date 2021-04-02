@@ -6,6 +6,7 @@ import gui.Screen;
 import gui.Window;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class DialogScreen implements Screen, EventHandler {
 
@@ -15,17 +16,19 @@ public abstract class DialogScreen implements Screen, EventHandler {
     gui.Window window;
     Screen previousScreen;
 
-    GUIObject giuObject;
+    ArrayList<GUIObject> guiObjects;
 
     public DialogScreen(Window window, Screen prevScreen){
         this.window = window;
         this.previousScreen = prevScreen;
-        this.create();
+        this.guiObjects = new ArrayList<GUIObject>();
+        this.mouseEventHandler = new MouseEventHandler();
+        this.keyEventHandler = new KeyEventHandler();
     }
 
     @Override
     public void draw(Graphics g) {
-
+        this.guiObjects.forEach(obj -> obj.draw(g));
     }
 
     @Override
@@ -75,9 +78,24 @@ public abstract class DialogScreen implements Screen, EventHandler {
         this.keyEventHandler.removeKeyEventListener(listener);
     }
 
+    @Override
+    public void addBookmark(String name, String url) {
+        if(this.previousScreen != null){
+            this.previousScreen.addBookmark(name, url);
+        }
+    }
+
     abstract void create();
 
-    private void returnToPreviousScreen(){
+    protected void addGUIObject(GUIObject obj){
+        this.guiObjects.add(obj);
+    }
+
+    protected ArrayList<GUIObject> getGUIObjects(){
+        return this.guiObjects;
+    }
+
+    protected void returnToPreviousScreen(){
         this.window.setScreen(this.previousScreen);
     }
 }

@@ -11,4 +11,6 @@ public interface Screen {
     void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx);
 
     void handleShown();
+
+    void addBookmark(String name, String url);
 }
