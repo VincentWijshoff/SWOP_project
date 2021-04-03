@@ -12,15 +12,13 @@ public class Hyperlink extends ContentSpan {
 
     private String href;            //the href <a href="...">
     private final TextSpan text;    //the string representing the hyperlink
-    private String address;
 
     /**
      * Creates an empty hyperlink
      */
-    public Hyperlink(String address){
+    public Hyperlink(){
         this.href = "";
         this.text = new TextSpan("");
-        this.address = address;
     }
 
     /**
@@ -49,14 +47,6 @@ public class Hyperlink extends ContentSpan {
      */
     public void setHref(String href) {
         this.href = href;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     @Override

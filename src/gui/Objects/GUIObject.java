@@ -6,6 +6,7 @@ import events.MouseEventListener;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 /**
@@ -104,7 +105,6 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
     public void draw(Graphics g) { }
 
 
-
     public ArrayList<GUIObject> getChildObjects() {
         return new ArrayList<>();
     }
@@ -127,6 +127,14 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
 
     MouseEventListener mListener = this::handleMouseEvent;
     KeyEventListener kListener = this::handleKeyEvent;
+
+    public ArrayList<GUIButton> getButtons(){
+        return new ArrayList<GUIButton>();
+    }
+
+    public ArrayList<GUIInput> getInputs(){
+        return new ArrayList<GUIInput>();
+    }
 
     // Info: Code above is the same as this, just compact
     /* MouseEventListener listener = ((int x, int y, int id, int clickCount) -> {

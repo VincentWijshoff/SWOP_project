@@ -2,6 +2,8 @@ package html;
 
 import browsrhtml.HtmlLexer;
 import gui.DefaultScreen.DocumentArea;
+import gui.Objects.GUIButton;
+import gui.Objects.GUIInput;
 import gui.Objects.GUIObject;
 import html.Elements.*;
 import localDocuments.Docs;
@@ -116,7 +118,7 @@ public class HtmlLoader {
         while(type != HtmlLexer.TokenType.END_OF_FILE){
             if(type == HtmlLexer.TokenType.OPEN_START_TAG){
                 if(value.equals("a")){
-                    Hyperlink aTag = new Hyperlink(documentArea.getScreen().getAddress());
+                    Hyperlink aTag = new Hyperlink();
                     lexer.eatToken();
                     lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
                     documentArea.addGUIObjects(aTag.create(this.creator));
@@ -129,11 +131,26 @@ public class HtmlLoader {
                     Form formTag = new Form();
                     lexer.eatToken();
                     lexer = updateFormTag(lexer, formTag);
-                    //System.out.println("A form Object has been created");
                     ArrayList<GUIObject> lst = formTag.create(this.creator);
-                    // we need to get all GUIInput fields and we need the GUIButton created in this form
-                    System.out.println(lst);
-                    System.out.println(formTag.getAction());
+                    ArrayList<GUIInput> inputs = new ArrayList<GUIInput>();
+                    ArrayList<GUIButton> buttons = new ArrayList<GUIButton>();
+                    lst.forEach(obj -> inputs.addAll(obj.getInputs()));
+                    lst.forEach(obj -> buttons.addAll(obj.getButtons()));
+                    buttons.stream().filter(button -> button.isSubmit).forEach(btn -> btn.setMouseEvent(
+                            (x1, y1, id, clickCount) -> {
+                                // this will fire if the submit button on the form was clicked
+                                // form action
+                                String action = formTag.getAction() + "?";
+                                //every input name with its value
+                                inputs.forEach(inp -> {
+                                    btn.addInput(inp.getFormOutput());
+                                });
+                                String output = btn.getOutput().substring(0, btn.getOutput().length() - 1);
+                                // finally we have the addition needed for the url
+                                String finaladdition = action + output;
+                                System.out.println(finaladdition);
+                                this.documentArea.load(finaladdition);
+                            }));
                     documentArea.addGUIObjects(lst);
                 }
             }
@@ -161,7 +178,7 @@ public class HtmlLoader {
                 value = lexer.getTokenValue();
                 formTag.setAction(value);
             }else if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("a")){
-                Hyperlink aTag = new Hyperlink(documentArea.getScreen().getAddress());
+                Hyperlink aTag = new Hyperlink();
                 lexer = updateATag(lexer, aTag);
                 formTag.setData(aTag);
             }else if(type == HtmlLexer.TokenType.OPEN_START_TAG && isTable(value)){
@@ -267,7 +284,7 @@ public class HtmlLoader {
 
         if(type == HtmlLexer.TokenType.OPEN_START_TAG){
             if(value.equals("a")){ // td is an a object
-                Hyperlink aTag = new Hyperlink(documentArea.getScreen().getAddress());
+                Hyperlink aTag = new Hyperlink();
                 lexer = updateATag(lexer, aTag);
                 td.setData(aTag);
             }else if(isTable(value)){ //td is a table

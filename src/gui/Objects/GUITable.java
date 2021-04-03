@@ -27,6 +27,27 @@ public class GUITable extends GUIObject {
         this.tableRows.add(row);
     }
 
+    public ArrayList<GUIInput> getInputs(){
+        ArrayList<GUIInput> inputs = new ArrayList<GUIInput>(); // list off all inputs in this table
+        for(ArrayList<GUIObject> row : tableRows) {
+            for (GUIObject obj : row) {
+                inputs.addAll(obj.getInputs());
+            }
+        }
+        return inputs;
+    }
+
+    public ArrayList<GUIButton> getButtons(){
+        ArrayList<GUIButton> buttons = new ArrayList<GUIButton>(); // list off all buttons in this table
+        ArrayList<GUIInput> inputs = new ArrayList<GUIInput>(); // list off all inputs in this table
+        for(ArrayList<GUIObject> row : tableRows) {
+            for (GUIObject obj : row) {
+                buttons.addAll(obj.getButtons());
+            }
+        }
+        return buttons;
+    }
+
     @Override
     public void setHandler(EventHandler h) {
         super.setHandler(h);

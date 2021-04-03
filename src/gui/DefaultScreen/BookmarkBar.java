@@ -54,7 +54,7 @@ public class BookmarkBar {
     private  boolean first = true;
 
     public void addBookmark(String name, String address){
-        GUILink link = new GUILink(name, address, getScreen().getAddress());
+        GUILink link = new GUILink(name, address);
 
         link.setHandler(getScreen());
         link.setEventHandlers();

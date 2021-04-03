@@ -5,12 +5,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class GUIInput extends GUIObject{
 
     private int startSelected = 0;      //The starting selected position
     private int endSelected = 0;        //The ending selected position
-    private String text;                //The text in the input field
+    private String text = "";           //The text in the input field
     private String prevText = "";       //The previous text in the input field
     private boolean shifting = false;   //A parameter to check if the user is pressing shift
     private int cursorPosition;         //The current cursor position off the user
@@ -37,6 +38,12 @@ public class GUIInput extends GUIObject{
     public GUIInput(String name) {
         super();
         this.text = name;
+        this.width = 70;
+        this.height = 15;
+    }
+
+    public GUIInput(){
+        super();
         this.width = 70;
         this.height = 15;
     }
@@ -468,6 +475,12 @@ public class GUIInput extends GUIObject{
     }
 
     // Form necessary things
+
+    public ArrayList<GUIInput> getInputs(){
+        ArrayList<GUIInput> inp = new ArrayList<GUIInput>();
+        inp.add(this);
+        return inp;
+    }
 
     String name;
 

@@ -6,6 +6,7 @@ import events.MouseEventListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class GUIButton extends GUIObject{
 
@@ -67,5 +68,27 @@ public class GUIButton extends GUIObject{
         g.setColor(Color.BLACK);
         g.drawRect(this.coordX, this.coordY, width, height); // border
         g.drawString(this.text, this.coordX+5, this.coordY+((int) (height/1.5)));
+    }
+
+    public ArrayList<GUIButton> getButtons(){
+        ArrayList<GUIButton> inp = new ArrayList<GUIButton>();
+        inp.add(this);
+        return inp;
+    }
+
+    public boolean isSubmit = false;
+
+    public void setSubmit() {
+        this.isSubmit = true;
+    }
+
+    String output = "";
+
+    public void addInput(String formOutput) {
+        output += formOutput + "&";
+    }
+
+    public String getOutput(){
+        return output;
     }
 }

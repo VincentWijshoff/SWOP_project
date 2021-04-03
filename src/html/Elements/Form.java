@@ -30,4 +30,8 @@ public class Form extends ContentSpan{
     public ArrayList<GUIObject> create(Creator c){
         return c.create(this);
     }
+
+    public String getAction() {
+        return this.action;
+    }
 }

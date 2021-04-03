@@ -162,5 +162,9 @@ public class DocumentArea {
     public String getCurrentHtml() {
         return this.loader.getHtmlCode();
     }
+
+    public void load(String finaladdition) {
+        this.screen.load(finaladdition);
+    }
 }
 

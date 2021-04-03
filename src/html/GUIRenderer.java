@@ -23,10 +23,15 @@ public class GUIRenderer implements Creator{
         ArrayList<GUIObject> objects = new ArrayList<>();
 
         ArrayList<ArrayList<GUIObject>> rows = new ArrayList<>();
+
         for (HtmlTableRow row: table.getTableRows()) {
-            rows.add(row.create(this));
+            ArrayList<GUIObject> rows1 = row.create(this);
+            rows.add(rows1);
         }
-        objects.add(new GUITable(rows));
+
+        GUITable table1 = new GUITable(rows);
+        objects.add(table1);
+
         return objects;
     }
 
@@ -57,7 +62,7 @@ public class GUIRenderer implements Creator{
      */
     public ArrayList<GUIObject> create(Hyperlink hyperlink) {
         ArrayList<GUIObject> objects = new ArrayList<>();
-        objects.add(new GUILink(hyperlink.getText(), hyperlink.getHref(), hyperlink.getAddress()));
+        objects.add(new GUILink(hyperlink.getText(), hyperlink.getHref()));
         return objects;
     }
 
@@ -68,6 +73,7 @@ public class GUIRenderer implements Creator{
     public ArrayList<GUIObject> create(SubmitButton submitButton) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         GUIButton btn = new GUIButton("Submit");
+        btn.setSubmit();
         //TODO: make real function
         btn.setMouseEvent((x1, y1, id, clickCount) -> {System.out.println("go to url");});
         objects.add(btn);
@@ -81,7 +87,9 @@ public class GUIRenderer implements Creator{
     public ArrayList<GUIObject> create(TextInputField inputField) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         //TODO: add real coordinates and height/width
-        objects.add(new GUIInput(inputField.getName()));
+        GUIInput inp = new GUIInput();
+        inp.setName(inputField.getName());
+        objects.add(inp);
 
         return objects;
     }

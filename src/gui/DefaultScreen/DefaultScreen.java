@@ -36,6 +36,7 @@ public class DefaultScreen implements Screen, EventHandler {
      * @param url   The url that needs to be loaded
      */
     public void load(String url) {
+        url = this.createNewAddress(url);
         try {
             System.out.println("Loading webpage: " + url);
             this.addressBar.setAddress(url);
@@ -46,6 +47,41 @@ public class DefaultScreen implements Screen, EventHandler {
         }
     }
 
+    private String createNewAddress(String address){
+        if(address.startsWith("http")){
+            return address;
+        }else{
+            return this.getFullAddress(address);
+        }
+    }
+
+    private String getFullAddress(String address) {
+        return getModifiedAddress(this.getAddress(), address);
+    }
+
+    private String getModifiedAddress(String aBarText, String href) {
+        char[] chars = aBarText.toCharArray();
+        for(int i = chars.length-1; i>=0; i--){
+            if(chars[i] == '/'){
+                return createAddress(chars) + href;
+            }else{
+                chars[i] = ' ';
+            }
+        }
+        return href;
+
+    }
+
+    private String createAddress(char[] chars) {
+        StringBuffer stringBuffer = new StringBuffer();
+        for(int i=0; i<chars.length; i++){
+            if(chars[i] == ' ')
+                return stringBuffer.toString(); //no spaces in address bar
+            else
+                stringBuffer.append(chars[i]);
+        }
+        return stringBuffer.toString();
+    }
 
     public void handleShown() {
         this.documentArea.loadWelcomeDoc();
