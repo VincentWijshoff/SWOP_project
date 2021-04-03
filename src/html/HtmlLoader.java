@@ -2,6 +2,7 @@ package html;
 
 import browsrhtml.HtmlLexer;
 import gui.DefaultScreen.DocumentArea;
+import gui.Objects.GUIObject;
 import html.Elements.*;
 import localDocuments.Docs;
 
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Class for loading gui given URL
@@ -128,7 +130,11 @@ public class HtmlLoader {
                     lexer.eatToken();
                     lexer = updateFormTag(lexer, formTag);
                     //System.out.println("A form Object has been created");
-                    documentArea.addGUIObjects(formTag.create(this.creator));
+                    ArrayList<GUIObject> lst = formTag.create(this.creator);
+                    // we need to get all GUIInput fields and we need the GUIButton created in this form
+                    System.out.println(lst);
+                    System.out.println(formTag.getAction());
+                    documentArea.addGUIObjects(lst);
                 }
             }
             lexer.eatToken();

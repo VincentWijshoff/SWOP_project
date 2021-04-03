@@ -3,6 +3,8 @@ package gui.Objects;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 public class GUIInput extends GUIObject{
 
@@ -463,5 +465,17 @@ public class GUIInput extends GUIObject{
 
     public void setFocus(boolean f){
         this.inFocus = f;
+    }
+
+    // Form necessary things
+
+    String name;
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getFormOutput(){
+        return this.name + "=" + URLEncoder.encode(this.text, StandardCharsets.UTF_8);
     }
 }
