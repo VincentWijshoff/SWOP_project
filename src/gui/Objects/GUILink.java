@@ -1,6 +1,7 @@
 package gui.Objects;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * A GUIObject that represents a hyperlink that is drawn on the canvas
@@ -52,7 +53,7 @@ public class GUILink extends GUIString {
      */
     public void handleMouseEvent(int x, int y, int id, int clickCount) {
 
-        if (isInGUIObject(x, y)) {
+        if (isInGUIObject(x, y) && id == MouseEvent.MOUSE_PRESSED) {
             //href is an absolute URL
             this.eventHandler.load(this.href);
         }
