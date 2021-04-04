@@ -22,6 +22,11 @@ public class GUILink extends GUIString {
         this.href = href;
     }
 
+    /**
+     * Constructor
+     * @param text  The text off this link
+     * @param href  The link behind this link
+     */
     public GUILink(String text, String href) {
         super(text);
         this.href = href;
@@ -49,7 +54,11 @@ public class GUILink extends GUIString {
     }
 
     /**
-     * handle the click event, because this is a Link, when it is clicked on, a new page should load with this href
+     * Handles the mouse event off this link
+     * @param x             The x coordinate off the mouse event
+     * @param y             The y coordinate off hte mouse event
+     * @param id            The id off the event
+     * @param clickCount    The click count off the event
      */
     public void handleMouseEvent(int x, int y, int id, int clickCount) {
 

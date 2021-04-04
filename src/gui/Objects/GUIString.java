@@ -24,6 +24,10 @@ public class GUIString extends GUIObject {
         setPosition(x, y); // Width and height are calculated during drawing (fonts?)
     }
 
+    /**
+     * constructor
+     * @param text  The text off this text
+     */
     public GUIString(String text) {
         super();
 
@@ -51,13 +55,22 @@ public class GUIString extends GUIObject {
      with the (x,y) position as their bottom left corner, instead of their top left corner, like other objects.
      */
 
+    /**
+     * The new position off this text
+     * @param x the new x coordinate
+     * @param y the new y coordinate
+     */
     @Override
     public void setPosition(int x, int y) {
         super.setPosition(x, y);
     }
 
     /**
-     * Handle the click on this string
+     * Handle a click on this text
+     * @param x             The x coordinate off the mouse event
+     * @param y             The y coordinate off hte mouse event
+     * @param id            The id off the event
+     * @param clickCount    The click count off the event
      */
     @Override
     public void handleMouseEvent(int x, int y, int id, int clickCount) {
@@ -76,6 +89,9 @@ public class GUIString extends GUIObject {
         this.updateDimensions();
     }
 
+    /**
+     * Handle the updating of the dimensions off this string
+     */
     @Override
     public void updateDimensions() {
         this.width = this.eventHandler.getFontMetrics().stringWidth(text);

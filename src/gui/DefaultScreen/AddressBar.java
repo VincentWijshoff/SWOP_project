@@ -14,8 +14,8 @@ public class AddressBar {
     //graphic element
     final int yLimit = 50;
 
-    private final GUIInput inputField;
-    private final DefaultScreen screen;
+    private final GUIInput inputField;  // The input field for the address bar
+    private final DefaultScreen screen; // The screen that is the main distributor off the events
 
     //GUI elements
     private final int abX = 5;
@@ -47,6 +47,9 @@ public class AddressBar {
         addListeners();
     }
 
+    /**
+     * Add the mouse and key event listeners to the web page
+     */
     private void addListeners(){
         screen.keyEventHandler.addKeyEventListener((id, keyCode, keyChar, modifier) -> {
 
@@ -180,7 +183,6 @@ public class AddressBar {
      */
     public void setOutFocus(){
         this.inputField.setInitialClick(true);
-        //this.inputField.selectNone();
         this.inFocus = false;
         this.inputField.start();
     }

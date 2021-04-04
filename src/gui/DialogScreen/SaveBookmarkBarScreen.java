@@ -7,10 +7,12 @@ import gui.Objects.GUIString;
 import gui.Screen;
 import gui.Window;
 
-import java.awt.*;
-
+/**
+ * The dialog screen to save a bookmark
+ */
 public class SaveBookmarkBarScreen extends  DialogScreen{
 
+    // some needed objects
     private String currAddress;
     private GUIInput bookmarkName;
     private GUIInput bookmarkAddress;
@@ -29,6 +31,9 @@ public class SaveBookmarkBarScreen extends  DialogScreen{
 //      bookmarks and closes the dialog screen; clicking the Cancel button simply closes
 //      the dialog screen.
 
+    /**
+     * Create the full save bookmark screen
+     */
     protected void create(){
         System.out.println("Creating save bookmark screen");
         this.addGUIObject(new GUIString("Saving URL to bookmark bar", 30, 30));
@@ -49,11 +54,17 @@ public class SaveBookmarkBarScreen extends  DialogScreen{
         this.getGUIObjects().forEach(GUIObject::setEventHandlers);
     }
 
+    /**
+     * Called when the cancel button was pressed
+     */
     private void onCancel(){
         System.out.println("canceling the adding off the bookmark");
         this.returnToPreviousScreen();
     }
 
+    /**
+     * Called when the add bookmark button was pressed
+     */
     private void onAddBookmark(){
         System.out.println("Adding bookmark with name: " + this.bookmarkName.getText() + ", on the URL: " + this.bookmarkAddress.getText());
         this.previousScreen.addBookmark(this.bookmarkName.getText(), this.bookmarkAddress.getText());

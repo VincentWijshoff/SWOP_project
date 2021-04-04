@@ -10,8 +10,12 @@ import gui.Window;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * Save a screen to an .html file
+ */
 public class SaveHtmlScreen extends DialogScreen{
 
+    // needed objects
     private String htmlCode;
     private GUIInput fileName;
 
@@ -28,6 +32,9 @@ public class SaveHtmlScreen extends DialogScreen{
 //    the currently shown HTML document to it, and closes the dialog screen. Clicking
 //    the “Cancel” button simply closes the dialog screen.
 
+    /**
+     * Create the save to html file dialog screen
+     */
     protected void create(){
         System.out.println("Creating save html screen");
         this.addGUIObject(new GUIString("Saving page to html file", 30, 30));
@@ -51,11 +58,18 @@ public class SaveHtmlScreen extends DialogScreen{
         this.getGUIObjects().forEach(GUIObject::setEventHandlers);
     }
 
+    /**
+     * called when the cancel button was pressed
+     */
     private void onCancel(){
         System.out.println("canceling the saving off html");
         this.returnToPreviousScreen();
     }
 
+    /**
+     * Called when the save to html button was pressed
+     * @throws IOException  Throws an error when the saving to a file went wrong
+     */
     private void onSaveFile() throws IOException {
         System.out.println("Saving: " + this.htmlCode + " to file: " + this.fileName.getText());
         String file = this.fileName.getText();

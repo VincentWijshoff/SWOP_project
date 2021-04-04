@@ -1,14 +1,17 @@
 package gui.DefaultScreen;
 
-import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUILink;
 import gui.Objects.GUITable;
 
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * The bookmark bar
+ */
 public class BookmarkBar {
 
+    // GUI elements
     private int relativeYPos;
     private int height = 25;
     private int width;
@@ -23,10 +26,19 @@ public class BookmarkBar {
         this.bookmarks.addRow(new ArrayList<>());
     }
 
+    /**
+     * Get the default screen the bookmark bar is added to
+     * @return  The default screen
+     */
     public DefaultScreen getScreen() {
         return screen;
     }
 
+    /**
+     * Draw the bookmark bar
+     * @param g     The graphics needed to draw
+     * @param width The width off the window
+     */
     public void draw(Graphics g, int width){
         this.width = width;
         Color oldColor = g.getColor();
@@ -51,8 +63,13 @@ public class BookmarkBar {
         }
     }
 
-    private  boolean first = true;
+    private  boolean first = true; //TODO remove when testing fase over
 
+    /**
+     * Add a bookmark to the bookmark bar
+     * @param name      The name displayed off the new bookmark
+     * @param address   The address off the new bookmark
+     */
     public void addBookmark(String name, String address){
         GUILink link = new GUILink(name, address);
 
@@ -64,10 +81,18 @@ public class BookmarkBar {
         this.getBookmarks().updateDimensions();
     }
 
+    /**
+     * Get the height off the bookmark bar
+     * @return The height off the bookmark bar
+     */
     public int getHeight(){
         return this.height;
     }
 
+    /**
+     * Get The table off all bookmarks
+     * @return  A GUITable with one row where all bookmarks are
+     */
     public GUITable getBookmarks() {
         return this.bookmarks;
     }

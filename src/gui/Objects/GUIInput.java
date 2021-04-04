@@ -7,8 +7,12 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+/**
+ * A input bar
+ */
 public class GUIInput extends GUIObject{
 
+    // needed parameters
     private int startSelected = 0;      //The starting selected position
     private int endSelected = 0;        //The ending selected position
     private String text = "";           //The text in the input field
@@ -28,13 +32,21 @@ public class GUIInput extends GUIObject{
     }
 
     /**
-     * constructor of the input field, with no parameter the current text will be empty
+     * constructor
+     * @param x         THe x coordinate off the input
+     * @param y         The y coordinate off the input
+     * @param width     The width off the input
+     * @param height    The height off the input
      */
     public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = "";
     }
 
+    /**
+     * constructor
+     * @param name  Set the default text in the input bar
+     */
     public GUIInput(String name) {
         super();
         this.text = name;
@@ -42,12 +54,22 @@ public class GUIInput extends GUIObject{
         this.height = 15;
     }
 
+    /**
+     * constructor
+     */
     public GUIInput(){
         super();
         this.width = 70;
         this.height = 15;
     }
 
+    /**
+     * Handle the mouse event on this input
+     * @param x             The x coordinate off the mouse event
+     * @param y             The y coordinate off hte mouse event
+     * @param id            The id off the event
+     * @param clickCount    The click count off the event
+     */
     public void handleMouseEvent(int x, int y, int id, int clickCount){
         if (!this.isInGUIObject(x, y)) { // needed?
             this.selectNone();
@@ -82,6 +104,10 @@ public class GUIInput extends GUIObject{
         }
     }
 
+    /**
+     * Sets the initial click to the given boolean
+     * @param i The boolean to what the initial click will be set
+     */
     public void setInitialClick(boolean i){
         this.initialClick = i;
         if(i){
@@ -476,18 +502,30 @@ public class GUIInput extends GUIObject{
 
     // Form necessary things
 
+    /**
+     * Get the inputs related to this input
+     * @return  This input
+     */
     public ArrayList<GUIInput> getInputs(){
         ArrayList<GUIInput> inp = new ArrayList<GUIInput>();
         inp.add(this);
         return inp;
     }
 
-    String name;
+    String name;    //the name off this input
 
+    /**
+     * set the name off this input
+     * @param name The new name
+     */
     public void setName(String name){
         this.name = name;
     }
 
+    /**
+     * Calculate the output to the form from this input
+     * @return  This name + "=" + the utf-8 encoding off the given input
+     */
     public String getFormOutput(){
         return this.name + "=" + URLEncoder.encode(this.text, StandardCharsets.UTF_8);
     }

@@ -11,8 +11,9 @@ import java.awt.*;
  */
 public class Window extends CanvasWindow{
 
-    Screen currentScreen;
+    Screen currentScreen; //the current screen to show
 
+    // needed parameters
     Font font = new Font(Font.DIALOG, Font.PLAIN, 12);
     FontMetrics fontMetrics;
 
@@ -87,14 +88,26 @@ public class Window extends CanvasWindow{
         this.repaint();
     }
 
+    /**
+     * Get the font metrics off the window
+     * @return  The font metrics
+     */
     public FontMetrics getFontMetrics() {
         return this.fontMetrics;
     }
 
+    /**
+     * Set a new screen to show
+     * @param screen    The new screen to show
+     */
     public void setScreen(Screen screen){
         this.currentScreen = screen;
     }
 
+    /**
+     * Get the current screen that is shown
+     * @return  The current screen
+     */
     public Screen getCurrentScreen() {
         return this.currentScreen;
     }

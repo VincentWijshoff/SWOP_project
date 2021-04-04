@@ -15,12 +15,14 @@ import java.util.UUID;
  */
 public abstract class GUIObject implements MouseEventListener, KeyEventListener {
 
+    // some needed information about each GUI object
     private UUID id;
     public int width;
     public int height;
     public int coordX;
     public int coordY;
 
+    // the link to the window area
     public EventHandler eventHandler;
 
     /**
@@ -31,7 +33,11 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
     }
 
     /**
-     * constructor off an object, it assigns a unique id
+     * constructor
+     * @param x The x coordinate off the object
+     * @param y The y coordinate off the object
+     * @param w The width off the object
+     * @param h The height off the object
      */
     public GUIObject(int x, int y, int w, int h) {
         this.id = UUID.randomUUID();
@@ -42,7 +48,12 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
     }
 
     /**
-     * constructor off an object, it assigns a unique id
+     * Constructor
+     * @param eventHandler  The event handler
+     * @param x             The x coordinate
+     * @param y             The y coordinate
+     * @param w             The width
+     * @param h             The height
      */
     public GUIObject(EventHandler eventHandler, int x, int y, int w, int h) {
         setHandler(eventHandler);
@@ -62,11 +73,17 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
         this.eventHandler = h;
     }
 
+    /**
+     * Set the event handlers off this GUI object, this means adding the mouse and key event listeners
+     */
     public void setEventHandlers(){
         this.eventHandler.addKeyEventListener(kListener);
         this.eventHandler.addMouseEventListener(mListener);
     }
 
+    /**
+     * Remove the mouse and key event listeners form the screen
+     */
     public void removeEventHandlers() {
         this.eventHandler.removeKeyEventListener(kListener);
         this.eventHandler.removeMouseEventListener(mListener);
@@ -95,6 +112,9 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
         this.coordY = y;
     }
 
+    /**
+     * update the dimension off the object
+     */
     public void updateDimensions() {
     }
 
@@ -104,7 +124,10 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
      */
     public void draw(Graphics g) { }
 
-
+    /**
+     * Get the list ff all child objects
+     * @return  The list off child objects off this object
+     */
     public ArrayList<GUIObject> getChildObjects() {
         return new ArrayList<>();
     }
@@ -125,19 +148,24 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
         }
     }
 
+    // the event listeners
     MouseEventListener mListener = this::handleMouseEvent;
     KeyEventListener kListener = this::handleKeyEvent;
 
+    /**
+     * Get all buttons that are related to this object
+     * @return  A list off al related buttons
+     */
     public ArrayList<GUIButton> getButtons(){
         return new ArrayList<GUIButton>();
     }
 
+    /**
+     * Get all inputs related to this object
+     * @return  A list of al related inputs
+     */
     public ArrayList<GUIInput> getInputs(){
         return new ArrayList<GUIInput>();
     }
 
-    // Info: Code above is the same as this, just compact
-    /* MouseEventListener listener = ((int x, int y, int id, int clickCount) -> {
-        handleMouseEvent(x, y, id, clickCount);
-    }; */
 }

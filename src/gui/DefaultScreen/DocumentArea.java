@@ -90,6 +90,10 @@ public class DocumentArea {
         }
     }
 
+    /**
+     * Draw the document area
+     * @param g The graphics needed to draw the document area
+     */
     public void draw(Graphics g) {
         // Draw every GUIObject in the docArea
         for (GUIObject obj : this.getDrawnGUIObjects()) {
@@ -153,18 +157,29 @@ public class DocumentArea {
         loader.loadPage();
     }
 
+    /**
+     * Load the welcome document
+     */
     public void loadWelcomeDoc() {
         this.drawnGUIObjects.clear();
         this.loader.initialise(Docs.getWelcomePage());
         loader.loadPage();
     }
 
+    /**
+     * Get the current html off the webpage
+     * @return  The html off the current webpage
+     */
     public String getCurrentHtml() {
         return this.loader.getHtmlCode();
     }
 
-    public void load(String finaladdition) {
-        this.screen.load(finaladdition);
+    /**
+     * Load a webpage from url or from href
+     * @param url   The full url or the href to the new website
+     */
+    public void load(String url) {
+        this.screen.load(url);
     }
 }
 
