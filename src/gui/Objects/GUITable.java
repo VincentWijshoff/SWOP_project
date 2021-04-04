@@ -16,19 +16,18 @@ public class GUITable extends GUIObject {
 
     /**
      * constructor
-     * @param x The x coordinate off the table
-     * @param y The y coordinate off the table
+     * @param x The x coordinate of the table
+     * @param y The y coordinate of the table
      */
     public GUITable(int x, int y) {
         super();
-
         this.tableRows = new ArrayList<>();
         setPosition(x, y);
     }
 
     /**
      * constructor
-     * @param rows A list off rows to add
+     * @param rows A list of rows to add
      */
     public GUITable(ArrayList<ArrayList<GUIObject>> rows) {
         super();
@@ -46,10 +45,10 @@ public class GUITable extends GUIObject {
 
     /**
      * Get all inputs related this table
-     * @return a list off inputs in this table
+     * @return a list of inputs in this table
      */
     public ArrayList<GUIInput> getInputs(){
-        ArrayList<GUIInput> inputs = new ArrayList<GUIInput>(); // list off all inputs in this table
+        ArrayList<GUIInput> inputs = new ArrayList<GUIInput>(); // list of all inputs in this table
         for(ArrayList<GUIObject> row : tableRows) {
             for (GUIObject obj : row) {
                 inputs.addAll(obj.getInputs());
@@ -60,11 +59,11 @@ public class GUITable extends GUIObject {
 
     /**
      * Get all buttons in this table
-     * @return a list off buttons in this table
+     * @return a list of buttons in this table
      */
     public ArrayList<GUIButton> getButtons(){
-        ArrayList<GUIButton> buttons = new ArrayList<GUIButton>(); // list off all buttons in this table
-        ArrayList<GUIInput> inputs = new ArrayList<GUIInput>(); // list off all inputs in this table
+        ArrayList<GUIButton> buttons = new ArrayList<GUIButton>(); // list of all buttons in this table
+        ArrayList<GUIInput> inputs = new ArrayList<GUIInput>(); // list of all inputs in this table
         for(ArrayList<GUIObject> row : tableRows) {
             for (GUIObject obj : row) {
                 buttons.addAll(obj.getButtons());
@@ -92,7 +91,7 @@ public class GUITable extends GUIObject {
     /**
      * append an element to the row
      * @param obj   The object to add
-     * @param index The index off the row
+     * @param index The index of the row
      */
     public void appendToRow(GUIObject obj, int index) {
         tableRows.get(index).add(obj);
@@ -112,7 +111,7 @@ public class GUITable extends GUIObject {
     }
 
     /**
-     * update the dimension off every object in the table
+     * update the dimension of every object in the table
      */
     @Override
     public void updateDimensions() {
@@ -133,8 +132,8 @@ public class GUITable extends GUIObject {
     }
 
     /**
-     * Get the height off the table
-     * @return the height off the table
+     * Get the height of the table
+     * @return the height of the table
      */
     private int calculateHeight() {
         int sum = 0;
@@ -145,8 +144,8 @@ public class GUITable extends GUIObject {
     }
 
     /**
-     * Calculate the width off the table
-     * @return  the width off the table
+     * Calculate the width of the table
+     * @return  the width of the table
      */
     private int calculateWidth() {
         int sum = 0;
@@ -167,7 +166,7 @@ public class GUITable extends GUIObject {
     /**
      * Get the height of a row
      * @param row   the row to calculate
-     * @return      The height off a row
+     * @return      The height of a row
      */
     private static int getRowHeight(ArrayList<GUIObject> row) {
         int max = 0;
@@ -178,10 +177,10 @@ public class GUITable extends GUIObject {
     }
 
     /**
-     * Get the width off a column
+     * Get the width of a column
      * @param table         The table
-     * @param columnIndex   The index off the column
-     * @return              The width off the column
+     * @param columnIndex   The index of the column
+     * @return              The width of the column
      */
     private static int getColumnWidth(ArrayList<ArrayList<GUIObject>> table, int columnIndex) {
         int max = 0;
@@ -195,10 +194,10 @@ public class GUITable extends GUIObject {
 
     /**
      * Handle the mouse event on all objects in table
-     * @param x             The x coordinate off the mouse event
-     * @param y             The y coordinate off hte mouse event
-     * @param id            The id off the event
-     * @param clickCount    The click count off the event
+     * @param x             The x coordinate of the mouse event
+     * @param y             The y coordinate of hte mouse event
+     * @param id            The id of the event
+     * @param clickCount    The click count of the event
      */
     @Override
     public void handleMouseEvent(int x, int y, int id, int clickCount) {
@@ -213,7 +212,7 @@ public class GUITable extends GUIObject {
 
     /**
      * get all child objects form table
-     * @return  a list off child objects
+     * @return  a list of child objects
      */
     @Override
     public ArrayList<GUIObject> getChildObjects() {

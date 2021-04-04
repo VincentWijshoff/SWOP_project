@@ -9,10 +9,10 @@ public class GUIRectangle extends GUIObject{
 
     /**
      * Create a new GUIRectangle
-     * @param x         The x position off the rectangle
-     * @param y         The y position off the rectangle
-     * @param width     The width off the rectangle
-     * @param height    The height off the rectangle
+     * @param x         The x position of the rectangle
+     * @param y         The y position of the rectangle
+     * @param width     The width of the rectangle
+     * @param height    The height of the rectangle
      */
     public GUIRectangle(int x, int y, int width, int height) {
         super();

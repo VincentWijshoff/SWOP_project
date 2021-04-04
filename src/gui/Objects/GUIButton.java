@@ -14,24 +14,24 @@ public class GUIButton extends GUIObject{
     //the text in the button
     String text;
     // the events that will happen when on button
-    MouseEventListener mouseListner;
-    KeyEventListener keyListner;
-    //the current color off the button
+    MouseEventListener mouseListener;
+    KeyEventListener keyListener;
+    //the current color of the button
     Color buttonColor = Color.lightGray;
 
     /**
      * Constructor
      * @param startTxt  The text on the button
      * @param x         The x coordinate of the button
-     * @param y         The y cooridnate off the button
-     * @param width     THe width off the button
-     * @param height    The height of the buton
+     * @param y         The y coordinate of the button
+     * @param width     THe width of the button
+     * @param height    The height of the button
      */
     public GUIButton(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = startTxt;
-        this.mouseListner = (x1, y1, id, clickCount) -> { };
-        this.keyListner = (id, keyCode, keyChar, modifier) -> false;
+        this.mouseListener = (x1, y1, id, clickCount) -> { };
+        this.keyListener = (id, keyCode, keyChar, modifier) -> false;
     }
 
     /**
@@ -41,24 +41,25 @@ public class GUIButton extends GUIObject{
     public GUIButton(String startTxt){
         super();
         this.text = startTxt;
-        this.mouseListner = (x1, y1, id, clickCount) -> { };
-        this.keyListner = (id, keyCode, keyChar, modifier) -> false;
+        this.mouseListener = (x1, y1, id, clickCount) -> { };
+        this.keyListener = (id, keyCode, keyChar, modifier) -> false;
     }
 
     /**
      * Handle the mouse event on the button
-     * @param x             The x coordinate off the mouse event
-     * @param y             The y coordinate off hte mouse event
-     * @param id            The id off the event
-     * @param clickCount    The click count off the event
+     * @param x             The x coordinate of the mouse event
+     * @param y             The y coordinate of hte mouse event
+     * @param id            The id of the event
+     * @param clickCount    The click count of the event
      */
+    @Override
     public void handleMouseEvent(int x, int y, int id, int clickCount){
         if(!this.isInGUIObject(x, y)){
             this.buttonColor = Color.LIGHT_GRAY;
             return;
         }
         if(id == MouseEvent.MOUSE_RELEASED){
-            this.mouseListner.handleMouseEvent(x, y, id, clickCount);
+            this.mouseListener.handleMouseEvent(x, y, id, clickCount);
             this.buttonColor = Color.LIGHT_GRAY;
         }else{
             this.buttonColor = Color.DARK_GRAY;
@@ -67,14 +68,15 @@ public class GUIButton extends GUIObject{
 
     /**
      * Handle the key event
-     * @param id            The id off the event
-     * @param keyCode       The keycode off the event
-     * @param keyChar       The key char off the event
+     * @param id            The id of the event
+     * @param keyCode       The keycode of the event
+     * @param keyChar       The key char of the event
      * @param modifier      The modifier on the event
-     * @return the return off the self set key event
+     * @return the return of the self set key event
      */
+    @Override
     public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
-        return this.keyListner.handleKeyEvent(id, keyCode, keyChar, modifier);
+        return this.keyListener.handleKeyEvent(id, keyCode, keyChar, modifier);
     }
 
     /**
@@ -82,11 +84,11 @@ public class GUIButton extends GUIObject{
      * @param l The mouse event
      */
     public void setMouseEvent(MouseEventListener l){
-        this.mouseListner = l;
+        this.mouseListener = l;
     }
 
     /**
-     * update the dimension off the button
+     * update the dimension of the button
      */
     @Override
     public void updateDimensions() {
@@ -99,13 +101,14 @@ public class GUIButton extends GUIObject{
      * @param l The key event
      */
     public void setKeyEvent(KeyEventListener l){
-        this.keyListner = l;
+        this.keyListener = l;
     }
 
     /**
      * Draw the button
      * @param g the graphics needed to draw each object
      */
+    @Override
     public void draw(Graphics g){
         g.setColor(buttonColor);
         g.fillRect(this.coordX, this.coordY, width, height);

@@ -14,6 +14,7 @@ public class GUIRenderer implements Creator{
     /**
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
+    @Override
     public ArrayList<GUIObject> create(Form form) {
         return form.getData().create(this);
     }
@@ -22,6 +23,7 @@ public class GUIRenderer implements Creator{
     /**
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
+    @Override
     public ArrayList<GUIObject> create(HtmlTable table) {
         ArrayList<GUIObject> objects = new ArrayList<>();
 
@@ -42,6 +44,7 @@ public class GUIRenderer implements Creator{
     /**
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
+    @Override
     public ArrayList<GUIObject> create(HtmlTableCell tableCell) {
         return tableCell.getData().create(this);
     }
@@ -50,6 +53,7 @@ public class GUIRenderer implements Creator{
     /**
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
+    @Override
     public ArrayList<GUIObject> create(HtmlTableRow tableRow) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         ArrayList<HtmlTableCell> tableCells = tableRow.getTableData();
@@ -63,6 +67,7 @@ public class GUIRenderer implements Creator{
     /**
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
+    @Override
     public ArrayList<GUIObject> create(Hyperlink hyperlink) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         objects.add(new GUILink(hyperlink.getText(), hyperlink.getHref()));
@@ -73,6 +78,7 @@ public class GUIRenderer implements Creator{
     /**
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
+    @Override
     public ArrayList<GUIObject> create(SubmitButton submitButton) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         GUIButton btn = new GUIButton("Submit");
@@ -86,6 +92,7 @@ public class GUIRenderer implements Creator{
     /**
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
+    @Override
     public ArrayList<GUIObject> create(TextInputField inputField) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         GUIInput inp = new GUIInput();
@@ -99,6 +106,7 @@ public class GUIRenderer implements Creator{
     /**
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
+    @Override
     public ArrayList<GUIObject> create(TextSpan textSpan) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         objects.add(new GUIString(textSpan.getText()));
@@ -109,6 +117,7 @@ public class GUIRenderer implements Creator{
      * Create a content span GUIObject
      * @return null as a content span cannot be created as a GUI object by itself
      */
+    @Override
     public ArrayList<GUIObject> create(ContentSpan contentSpan) {
         System.out.println("this should never fire");
         return null;

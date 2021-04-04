@@ -13,9 +13,9 @@ public class GUILink extends GUIString {
     /**
      * Create a GUILink
      * @param text  the text that represents the GUILink
-     * @param x     the x coordinate off the GUILink
-     * @param y     the y coordinate off the GUILink
-     * @param href  The href off the link
+     * @param x     the x coordinate of the GUILink
+     * @param y     the y coordinate of the GUILink
+     * @param href  The href of the link
      */
     public GUILink(String text, int x, int y, String href) {
         super(text, x, y);
@@ -24,7 +24,7 @@ public class GUILink extends GUIString {
 
     /**
      * Constructor
-     * @param text  The text off this link
+     * @param text  The text of this link
      * @param href  The link behind this link
      */
     public GUILink(String text, String href) {
@@ -34,7 +34,7 @@ public class GUILink extends GUIString {
 
     /**
      * Get the href representing this GUILink
-     * @return  the href off this link
+     * @return  the href of this link
      */
     public String getHref() {
         return href;
@@ -44,6 +44,7 @@ public class GUILink extends GUIString {
      * draw the GUILink
      * @param g the graphics needed to draw the GUILink
      */
+    @Override
     public void draw(Graphics g) {
 
         Color oldColor = g.getColor();
@@ -54,12 +55,13 @@ public class GUILink extends GUIString {
     }
 
     /**
-     * Handles the mouse event off this link
-     * @param x             The x coordinate off the mouse event
-     * @param y             The y coordinate off hte mouse event
-     * @param id            The id off the event
-     * @param clickCount    The click count off the event
+     * Handles the mouse event of this link
+     * @param x             The x coordinate of the mouse event
+     * @param y             The y coordinate of hte mouse event
+     * @param id            The id of the event
+     * @param clickCount    The click count of the event
      */
+    @Override
     public void handleMouseEvent(int x, int y, int id, int clickCount) {
 
         if (isInGUIObject(x, y) && id == MouseEvent.MOUSE_PRESSED) {

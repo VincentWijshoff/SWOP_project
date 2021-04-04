@@ -37,7 +37,7 @@ public class BookmarkBar {
     /**
      * Draw the bookmark bar
      * @param g     The graphics needed to draw
-     * @param width The width off the window
+     * @param width The width of the window
      */
     public void draw(Graphics g, int width){
         this.width = width;
@@ -50,9 +50,7 @@ public class BookmarkBar {
         g.setColor(Color.BLACK);
         g.drawLine(0, actHeight, this.width, actHeight);
 
-
         this.getBookmarks().draw(g);
-
 
         g.setColor(oldColor);
 
@@ -77,7 +75,6 @@ public class BookmarkBar {
         link.setEventHandlers();
 
         this.getBookmarks().appendToRow(link, 0);
-
         this.getBookmarks().updateDimensions();
     }
 

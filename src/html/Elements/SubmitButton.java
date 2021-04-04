@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class SubmitButton extends ContentSpan{
 
     /**
-     * constructor off the button
+     * constructor of the button
      */
     public SubmitButton(){
     }

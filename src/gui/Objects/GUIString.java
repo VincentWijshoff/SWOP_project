@@ -13,9 +13,9 @@ public class GUIString extends GUIObject {
 
     /**
      * Create a new GUIString object
-     * @param text  The text off this object
-     * @param x     The x coordinate off the string
-     * @param y     The y coordinate off the string
+     * @param text  The text of this object
+     * @param x     The x coordinate of the string
+     * @param y     The y coordinate of the string
      */
     public GUIString(String text, int x, int y) {
         super();
@@ -26,7 +26,7 @@ public class GUIString extends GUIObject {
 
     /**
      * constructor
-     * @param text  The text off this text
+     * @param text  The text of this text
      */
     public GUIString(String text) {
         super();
@@ -46,6 +46,7 @@ public class GUIString extends GUIObject {
      * Draw the GUIString
      * @param g the graphics needed to draw each object
      */
+    @Override
     public void draw(Graphics g) {
         g.drawString(this.text, coordX, coordY + height);
     }
@@ -56,7 +57,7 @@ public class GUIString extends GUIObject {
      */
 
     /**
-     * The new position off this text
+     * The new position of this text
      * @param x the new x coordinate
      * @param y the new y coordinate
      */
@@ -67,10 +68,10 @@ public class GUIString extends GUIObject {
 
     /**
      * Handle a click on this text
-     * @param x             The x coordinate off the mouse event
-     * @param y             The y coordinate off hte mouse event
-     * @param id            The id off the event
-     * @param clickCount    The click count off the event
+     * @param x             The x coordinate of the mouse event
+     * @param y             The y coordinate of hte mouse event
+     * @param id            The id of the event
+     * @param clickCount    The click count of the event
      */
     @Override
     public void handleMouseEvent(int x, int y, int id, int clickCount) {
@@ -90,7 +91,7 @@ public class GUIString extends GUIObject {
     }
 
     /**
-     * Handle the updating of the dimensions off this string
+     * Handle the updating of the dimensions of this string
      */
     @Override
     public void updateDimensions() {

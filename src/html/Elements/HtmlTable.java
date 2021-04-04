@@ -36,8 +36,8 @@ public class HtmlTable extends ContentSpan {
     }
 
     /**
-     * Get the table rows off this table
-     * @return  a list off table rows
+     * Get the table rows of this table
+     * @return  a list of table rows
      */
     public ArrayList<HtmlTableRow> getTableRows() {
         return tableRows;
@@ -46,7 +46,7 @@ public class HtmlTable extends ContentSpan {
     /**
      * Create the table
      * @param c The creator which will create the visible object
-     * @return  A list off elements that make up this table
+     * @return  A list of elements that make up this table
      */
     @Override
     public ArrayList<GUIObject> create(Creator c){

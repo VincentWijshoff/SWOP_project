@@ -26,7 +26,7 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
     public EventHandler eventHandler;
 
     /**
-     * constructor off an object, it assigns a unique id
+     * constructor of an object, it assigns a unique id
      */
     public GUIObject() {
         this.id = UUID.randomUUID();
@@ -34,10 +34,10 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
 
     /**
      * constructor
-     * @param x The x coordinate off the object
-     * @param y The y coordinate off the object
-     * @param w The width off the object
-     * @param h The height off the object
+     * @param x The x coordinate of the object
+     * @param y The y coordinate of the object
+     * @param w The width of the object
+     * @param h The height of the object
      */
     public GUIObject(int x, int y, int w, int h) {
         this.id = UUID.randomUUID();
@@ -74,7 +74,7 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
     }
 
     /**
-     * Set the event handlers off this GUI object, this means adding the mouse and key event listeners
+     * Set the event handlers  this GUI object, this means adding the mouse and key event listeners
      */
     public void setEventHandlers(){
         this.eventHandler.addKeyEventListener(kListener);
@@ -90,10 +90,10 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
     }
 
     /**
-     * Check if the given coordinates collide with the position off this object
+     * Check if the given coordinates collide with the position of this object
      * @param x the x coordinate
      * @param y the y coordinate
-     * @return  true if the given position collides with the position off the object
+     * @return  true if the given position collides with the position of the object
      */
     public boolean isInGUIObject(int x, int y) {
         return (x >= this.coordX &&
@@ -103,7 +103,7 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
     }
 
     /**
-     * update the position off this object
+     * update the position of this object
      * @param x the new x coordinate
      * @param y the new y coordinate
      */
@@ -113,7 +113,7 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
     }
 
     /**
-     * update the dimension off the object
+     * update the dimension of the object
      */
     public void updateDimensions() {
     }
@@ -125,8 +125,8 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
     public void draw(Graphics g) { }
 
     /**
-     * Get the list ff all child objects
-     * @return  The list off child objects off this object
+     * Get the list of all child objects
+     * @return  The list of child objects of this object
      */
     public ArrayList<GUIObject> getChildObjects() {
         return new ArrayList<>();
@@ -154,7 +154,7 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
 
     /**
      * Get all buttons that are related to this object
-     * @return  A list off al related buttons
+     * @return  A list of al related buttons
      */
     public ArrayList<GUIButton> getButtons(){
         return new ArrayList<GUIButton>();

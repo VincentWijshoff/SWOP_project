@@ -18,7 +18,7 @@ public class GUIInput extends GUIObject{
     private String text = "";           //The text in the input field
     private String prevText = "";       //The previous text in the input field
     private boolean shifting = false;   //A parameter to check if the user is pressing shift
-    private int cursorPosition;         //The current cursor position off the user
+    private int cursorPosition;         //The current cursor position of the user
     private boolean inFocus = false;
     private boolean initialClick = true;
 
@@ -33,10 +33,10 @@ public class GUIInput extends GUIObject{
 
     /**
      * constructor
-     * @param x         THe x coordinate off the input
-     * @param y         The y coordinate off the input
-     * @param width     The width off the input
-     * @param height    The height off the input
+     * @param x         THe x coordinate of the input
+     * @param y         The y coordinate of the input
+     * @param width     The width of the input
+     * @param height    The height of the input
      */
     public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
@@ -65,10 +65,10 @@ public class GUIInput extends GUIObject{
 
     /**
      * Handle the mouse event on this input
-     * @param x             The x coordinate off the mouse event
-     * @param y             The y coordinate off hte mouse event
-     * @param id            The id off the event
-     * @param clickCount    The click count off the event
+     * @param x             The x coordinate of the mouse event
+     * @param y             The y coordinate of hte mouse event
+     * @param id            The id of the event
+     * @param clickCount    The click count of the event
      */
     public void handleMouseEvent(int x, int y, int id, int clickCount){
         if (!this.isInGUIObject(x, y)) { // needed?
@@ -117,7 +117,7 @@ public class GUIInput extends GUIObject{
 
     /**
      * handles the key-presses while the address bar is in focus
-     * @param id        The id off the pressed button
+     * @param id        The id of the pressed button
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
      * @param modifier  The modifier on the pressed key
@@ -181,11 +181,11 @@ public class GUIInput extends GUIObject{
     private void onCharPress(char keyChar){
         // this will only happen if the pressed button is an actual char
         if (this.startSelected != this.endSelected) {
-            // now every bit off the current text must be replaced with the newly pressed character
+            // now every bit of the current text must be replaced with the newly pressed character
             this.text = replaceSelected(this.startSelected, this.endSelected, this.text, "" + keyChar);
             this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
         } else {
-            // now only input new chars on the position off the text cursor
+            // now only input new chars on the position of the text cursor
             this.text = addChar(this.text, keyChar, this.cursorPosition);
             this.cursorPosition += 1;
         }
@@ -199,12 +199,12 @@ public class GUIInput extends GUIObject{
     private void onSpacePress(){
         // space bar
         if (this.startSelected != this.endSelected) {
-            // now every bit off the current selected text must be replaced with the newly pressed character
+            // now every bit  the current selected text must be replaced with the newly pressed character
             this.text = this.replaceSelected(this.startSelected, this.endSelected, this.text, " ");
             // this.address = " ";
             this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
         } else {
-            // now only input new chars on the position off the text cursor
+            // now only input new chars on the position of the text cursor
             this.text = addChar(this.text, ' ', this.cursorPosition);
             this.cursorPosition += 1;
         }
@@ -338,8 +338,8 @@ public class GUIInput extends GUIObject{
 
     /**
      * replaces selected text with other text
-     * @param start         the start off the selected text
-     * @param fin           the end off the selected text
+     * @param start         the start of the selected text
+     * @param fin           the end of the selected text
      * @param word          the word that is selected on
      * @param replacement   the replacement for the selected part
      * @return              the new word with the replacement in
@@ -470,6 +470,7 @@ public class GUIInput extends GUIObject{
      * Draw the input box and only the input box containing the current text
      * @param g         the java drawing graphics
      */
+    @Override
     public void draw(Graphics g){
         g.setColor(Color.BLACK);
         g.drawRect(this.coordX, this.coordY, width, height); // border
@@ -477,7 +478,7 @@ public class GUIInput extends GUIObject{
 
         String viewedAddress = this.getText();
         if(inFocus && !this.isSelecting()){
-            // when the address bar is in focus, a text cursor needs to be shown at the correct position off the current string
+            // when the address bar is in focus, a text cursor needs to be shown at the correct position of the current string
             viewedAddress = this.addChar(viewedAddress, '|', this.getCursorPosition());
         }
 
@@ -512,10 +513,10 @@ public class GUIInput extends GUIObject{
         return inp;
     }
 
-    String name;    //the name off this input
+    String name;    //the name of this input
 
     /**
-     * set the name off this input
+     * set the name of this input
      * @param name The new name
      */
     public void setName(String name){
@@ -524,7 +525,7 @@ public class GUIInput extends GUIObject{
 
     /**
      * Calculate the output to the form from this input
-     * @return  This name + "=" + the utf-8 encoding off the given input
+     * @return  This name + "=" + the utf-8 encoding of the given input
      */
     public String getFormOutput(){
         return this.name + "=" + URLEncoder.encode(this.text, StandardCharsets.UTF_8);

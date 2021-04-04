@@ -15,7 +15,7 @@ public class AddressBar {
     final int yLimit = 50;
 
     private final GUIInput inputField;  // The input field for the address bar
-    private final DefaultScreen screen; // The screen that is the main distributor off the events
+    private final DefaultScreen screen; // The screen that is the main distributor of the events
 
     //GUI elements
     private final int abX = 5;
@@ -28,7 +28,7 @@ public class AddressBar {
 
     /**
      * constructor for the address bar
-     * @param startAddress  The address that should be shown on startup off the address bar
+     * @param startAddress  The address that should be shown on startup of the address bar
      */
     public AddressBar(String startAddress, DefaultScreen screen) {
         //this.w = width;
@@ -69,7 +69,7 @@ public class AddressBar {
             } else if (isInFocus()){
                 setOutFocus();
                 screen.load(getAddress());
-                System.out.println("Clicked off Address Bar!");
+                System.out.println("Clicked of Address Bar!");
             }
             // handle the click event accordingly
             if (isInFocus()) {

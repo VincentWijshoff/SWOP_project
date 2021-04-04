@@ -7,25 +7,25 @@ import java.util.ArrayList;
 
 public class TextInputField extends ContentSpan{
 
-    private String name; // the name off the input field
+    private String name; // the name of the input field
 
     /**
-     * constructor off the iput field
+     * constructor off the input field
      */
     public TextInputField(){
     }
 
     /**
-     * Set the name off this input field
-     * @param s the new name off this input field
+     * Set the name of this input field
+     * @param s the new name of this input field
      */
     public void setName(String s){
         this.name = s;
     }
 
     /**
-     * Get the name off this input field
-     * @return  The name off this input field
+     * Get the name of this input field
+     * @return  The name of this input field
      */
     public String getName() {
         return name;

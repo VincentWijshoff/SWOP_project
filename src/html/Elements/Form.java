@@ -21,24 +21,24 @@ public class Form extends ContentSpan{
     }
 
     /**
-     * Set the action off this form
-     * @param action    the action off this form
+     * Set the action of this form
+     * @param action    the action of this form
      */
     public void setAction(String action) {
         this.action = action;
     }
 
     /**
-     * Set the data off this form
-     * @param data  The data off this form
+     * Set the data of this form
+     * @param data  The data of this form
      */
     public void setData(ContentSpan data) {
         this.data = data;
     }
 
     /**
-     * Get the data off this form
-     * @return  The data off this form
+     * Get the data of this form
+     * @return  The data of this form
      */
     public ContentSpan getData() {
         return data;
@@ -47,7 +47,7 @@ public class Form extends ContentSpan{
     /**
      * Create a form
      * @param c The creator which will create the visible object
-     * @return  the list off elements that make up the form
+     * @return  the list of elements that make up the form
      */
     @Override
     public ArrayList<GUIObject> create(Creator c){
@@ -55,8 +55,8 @@ public class Form extends ContentSpan{
     }
 
     /**
-     * Get the action off this form
-     * @return  the action off this form
+     * Get the action of this form
+     * @return  the action of this form
      */
     public String getAction() {
         return this.action;

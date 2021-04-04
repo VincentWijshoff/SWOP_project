@@ -167,8 +167,8 @@ public class DocumentArea {
     }
 
     /**
-     * Get the current html off the webpage
-     * @return  The html off the current webpage
+     * Get the current html of the webpage
+     * @return  The html of the current webpage
      */
     public String getCurrentHtml() {
         return this.loader.getHtmlCode();
