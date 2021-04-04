@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class KeyEventHandler {
 
-    ArrayList<KeyEventListener> listeners = new ArrayList<>();  // a list off all key events
+    ArrayList<KeyEventListener> listeners = new ArrayList<>();  // a list of all key events
 
     /**
      * Add a key event listener to the webpage

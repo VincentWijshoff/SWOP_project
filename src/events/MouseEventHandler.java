@@ -7,10 +7,10 @@ import java.util.Map;
  * Handle the mouse events
  */
 public class MouseEventHandler {
-    Map<MouseEventListener, int[]> listeners = new HashMap<>();     // map off all mouse events
+    Map<MouseEventListener, int[]> listeners = new HashMap<>();     // map of all mouse events
 
     /**
-     * Add a mouse event with an offset off 0
+     * Add a mouse event with an offset of 0
      * @param listener  The mouse event that needs to be added
      */
     public void addMouseEventListener(MouseEventListener listener) {

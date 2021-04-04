@@ -7,7 +7,7 @@ import java.awt.*;
  */
 public interface EventHandler {
     /**
-     * Get the font metrics off the current text
+     * Get the font metrics of the current text
      * @return the current font metrics
      */
     FontMetrics getFontMetrics();

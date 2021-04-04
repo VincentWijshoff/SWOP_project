@@ -21,7 +21,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
     gui.Window window;
     Screen previousScreen;
 
-    // list off all guiObjects
+    // list of all guiObjects
     ArrayList<GUIObject> guiObjects;
 
     public DialogScreen(Window window, Screen prevScreen){
@@ -149,7 +149,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
     abstract void create();
 
     /**
-     * Add a GUIObject to the the list off GUIObjects
+     * Add a GUIObject to the the list of GUIObjects
      * @param obj   The gui object that needs to be added
      */
     protected void addGUIObject(GUIObject obj){

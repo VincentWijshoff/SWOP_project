@@ -6,16 +6,16 @@ import gui.DefaultScreen.DefaultScreen;
 import java.awt.*;
 
 /**
- * Class that manages the window for our browsr
- * This class contains 2 large parts, the addressbar and the documentarea
+ * Class that manages the window for our Browsr
+ * This class contains 2 large parts, the AddressBar and the DocumentArea
  */
 public class Window extends CanvasWindow{
 
-    Screen currentScreen; //the current screen to show
+    private Screen currentScreen; //the current screen to show
 
     // needed parameters
-    Font font = new Font(Font.DIALOG, Font.PLAIN, 12);
-    FontMetrics fontMetrics;
+    private final Font font = new Font(Font.DIALOG, Font.PLAIN, 12);
+    private FontMetrics fontMetrics;
 
 
     /**
@@ -24,9 +24,7 @@ public class Window extends CanvasWindow{
      */
     public Window(String title) {
         super(title);
-
         this.currentScreen = new DefaultScreen(this);
-
     }
 
     /**
@@ -35,9 +33,7 @@ public class Window extends CanvasWindow{
     @Override
     protected void handleShown() {
         this.fontMetrics = getFontMetrics(font);
-
         this.currentScreen.handleShown();
-
         repaint();
     }
 
