@@ -31,6 +31,11 @@ public class HtmlTableCell extends ContentSpan {
         return this.data;
     }
 
+    /**
+     * Create this table
+     * @param c The creator which will create the visible object
+     * @return  A list off elements that make up for this table
+     */
     @Override
     public ArrayList<GUIObject> create(Creator c){
         return c.create(this);

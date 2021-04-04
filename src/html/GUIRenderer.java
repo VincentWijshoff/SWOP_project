@@ -5,6 +5,9 @@ import html.Elements.*;
 
 import java.util.ArrayList;
 
+/**
+ * Create GUI objects depending on the html elements that they need to represent
+ */
 public class GUIRenderer implements Creator{
 
 
@@ -74,7 +77,6 @@ public class GUIRenderer implements Creator{
         ArrayList<GUIObject> objects = new ArrayList<>();
         GUIButton btn = new GUIButton("Submit");
         btn.setSubmit();
-        //TODO: make real function
         btn.setMouseEvent((x1, y1, id, clickCount) -> {System.out.println("go to url");});
         objects.add(btn);
         return objects;
@@ -86,7 +88,6 @@ public class GUIRenderer implements Creator{
      */
     public ArrayList<GUIObject> create(TextInputField inputField) {
         ArrayList<GUIObject> objects = new ArrayList<>();
-        //TODO: add real coordinates and height/width
         GUIInput inp = new GUIInput();
         inp.setName(inputField.getName());
         objects.add(inp);
@@ -104,8 +105,12 @@ public class GUIRenderer implements Creator{
         return objects;
     }
 
+    /**
+     * Create a content span GUIObject
+     * @return null as a content span cannot be created as a GUI object by itself
+     */
     public ArrayList<GUIObject> create(ContentSpan contentSpan) {
-        System.out.println("this is stupid");
+        System.out.println("this should never fire");
         return null;
     }
 }

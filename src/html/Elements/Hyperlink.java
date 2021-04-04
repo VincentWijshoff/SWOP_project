@@ -49,6 +49,11 @@ public class Hyperlink extends ContentSpan {
         this.href = href;
     }
 
+    /**
+     * Create a hyperlink
+     * @param c The creator which will create the visible object
+     * @return  The hyperlink visible object
+     */
     @Override
     public ArrayList<GUIObject> create(Creator c){
         return c.create(this);

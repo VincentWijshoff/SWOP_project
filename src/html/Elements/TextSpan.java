@@ -37,6 +37,11 @@ public class TextSpan extends ContentSpan {
         return text;
     }
 
+    /**
+     * Create this visible text object
+     * @param c The creator which will create the visible object
+     * @return  the visible text object
+     */
     @Override
     public ArrayList<GUIObject> create(Creator c){
         return c.create(this);

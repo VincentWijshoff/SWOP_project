@@ -35,10 +35,19 @@ public class HtmlTable extends ContentSpan {
         return row;
     }
 
+    /**
+     * Get the table rows off this table
+     * @return  a list off table rows
+     */
     public ArrayList<HtmlTableRow> getTableRows() {
         return tableRows;
     }
 
+    /**
+     * Create the table
+     * @param c The creator which will create the visible object
+     * @return  A list off elements that make up this table
+     */
     @Override
     public ArrayList<GUIObject> create(Creator c){
         return c.create(this);

@@ -44,7 +44,10 @@ public class HtmlLoader {
         setDocumentArea(doc);
     }
 
-
+    /**
+     * initialise the loader with the html code
+     * @param htmlCode  the html code as a string
+     */
     public void initialise(String htmlCode) {
         try {
             this.htmlCode = htmlCode;
@@ -53,6 +56,10 @@ public class HtmlLoader {
         }
     }
 
+    /**
+     * initialise the loader with a url
+     * @param url   the url that needs to be loaded in
+     */
     public void initialise(URL url) {
         try {
             this.url = new URL(url, "");
@@ -62,10 +69,19 @@ public class HtmlLoader {
         }
     }
 
+    /**
+     * Get the currently loaded html code
+     * @return  the currently loaded html code as a string
+     */
     public String getHtmlCode(){
         return this.htmlCode;
     }
 
+    /**
+     * Initialise the loader with a url and a href
+     * @param url   the url
+     * @param href  the href
+     */
     public void initialise(URL url, String href) {
         try{
             this.url = new URL(url, href);
@@ -269,7 +285,6 @@ public class HtmlLoader {
      * @param lexer     the lexer of the html code
      * @param td        the table data object
      * @return the updated lexer
-     * TODO: form in table data tag??
      */
     private HtmlLexer updateTableDataTag(HtmlLexer lexer, HtmlTableCell td) {
         lexer.eatToken();
@@ -289,7 +304,7 @@ public class HtmlLoader {
                 td.setData(aTag);
             }else if(isTable(value)){ //td is a table
                 HtmlTable tableTag = new HtmlTable();
-                lexer = updateTableTag(lexer, tableTag); //TODO maybe tableTag not as parameter here?
+                lexer = updateTableTag(lexer, tableTag);
                 td.setData(tableTag);
             }else if(value.equals("input")){
                 lexer = handleInputTag(lexer, td);
