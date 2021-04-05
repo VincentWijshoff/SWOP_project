@@ -1,143 +1,381 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <help_text/>
-  <zoom_level>8</zoom_level>
+  <zoom_level>4</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1512</x>
-      <y>1032</y>
-      <w>168</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>GUIRectangle
---
-+ draw(Graphics)
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1408</x>
-      <y>648</y>
-      <w>208</w>
-      <h>168</h>
+      <x>1124</x>
+      <y>452</y>
+      <w>120</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>/GUIObject/
 --
-- coordX : int
-- coordY : int
+- id : UUID
 - width : int
 - height : int
-- id : UUID
+- coordX : int
+- coordY : int
+- mListener : MouseEventListener
+- kListener : KeyEventListener
 --
++ setHandler(EventHandler) : void
 + isInGUIObject(Int, Int) : boolean
-+ updateGUIPos(Int, Int) : void
-+ updateGUIDimensions(Int, Int) : void
-+ updateGUIPosAndDim(Int, Int) : void
++ setPosition(Int, Int) : void
++ updateDimensions() : void
 + draw(Graphics) : void
-+ handleClick() : void</panel_attributes>
++ getChildObjects() : ArrayList&lt;GUIObject&gt;
++ handleKeyEvent(Int, Int, Char, Int) : boolean
++ handleMouseEvent(Int, Int, Int, Int) : void
++ getButtons() : ArrayList&lt;GUIButton&gt;
++ getInputs() : ArrayList&lt;GUIInput&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>1336</x>
-      <y>1032</y>
-      <w>168</w>
-      <h>152</h>
+      <y>372</y>
+      <w>152</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>GUIRectangle
+--
++ draw(Graphics)
++ handleMouseEvent(int, int, int, int): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1336</x>
+      <y>424</y>
+      <w>152</w>
+      <h>76</h>
     </coordinates>
     <panel_attributes>GUIString
 --
-- text : String
+- text : string
 --
++ getText() : string
 + draw(Graphics) : void
-+ isInGUIObject(Int, Int) : boolean</panel_attributes>
++ setPosition(int, int) : void
++ handleMouseEvent(int, int, int, int) : void
++ setHandler(EventHandler) : void
++ updateDimensions() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>240</x>
-      <y>768</y>
-      <w>296</w>
-      <h>248</h>
+      <x>1556</x>
+      <y>412</y>
+      <w>156</w>
+      <h>124</h>
     </coordinates>
-    <panel_attributes>Window
+    <panel_attributes>GUILink
 --
-+ load(String) : void
-+ handleShown() : void
-+ paint() : void
-+ handleResize() : void
+- href: String
+- mouseListener : MouseEventListener
+- keyListener : KeyEventListener
+- buttonColor = Color.lightGray : Color
+- isSubmit : boolean
+- output : String
+--
 + handleMouseEvent(Int, Int, Int, Int) : void
-+ handleKeyEvent(Int, Int, Char) : void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>64</x>
-      <y>896</y>
-      <w>96</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>CanvasWindow</panel_attributes>
++ handleKeyEvent(int, int, char, int) : Boolean
++ setMouseEvent(MouseEventListener) : void
++ updateDimensions() : void
++ draw(Graphics) : void
++ getButtons() : ArrayList&lt;GUIButton&gt;
++ setSubmit(Boolan) : void
++ addInput(String) : void
++ getOutput() : String
+
++ getHref() : string
+
+
+
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>152</x>
-      <y>888</y>
-      <w>104</w>
-      <h>32</h>
+      <x>1484</x>
+      <y>452</y>
+      <w>80</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extends</panel_attributes>
+    <additional_attributes>10.0;20.0;180.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1240</x>
+      <y>488</y>
+      <w>64</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extends</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1292</x>
+      <y>456</y>
+      <w>52</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1292</x>
+      <y>392</y>
+      <w>52</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
     <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>656</x>
-      <y>664</y>
-      <w>256</w>
-      <h>224</h>
+      <x>1336</x>
+      <y>508</y>
+      <w>152</w>
+      <h>76</h>
     </coordinates>
-    <panel_attributes>DocumentArea
+    <panel_attributes>GUIButton
 --
-- drawnObjects : GUIObject [0..*]
-- window : Window
-- relativeYPos : Int
+- toRunOnClick : Runnable
 --
-+ renderHTML(HtmlElement) : void
-+ paintDocArea() : void
-+ getDrawnGUIObjects(): Set&lt;GUIObjects&gt;</panel_attributes>
++ draw(Graphics) : void
++ handleMouseEvent(Int, Int, Int, Int) : void
++ setEvent(Runnable) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>312</x>
-      <y>720</y>
-      <w>360</w>
-      <h>64</h>
+      <x>1292</x>
+      <y>312</y>
+      <w>52</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>lt=-
-m1=1
-m2=1
-
 </panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0;430.0;10.0</additional_attributes>
+    <additional_attributes>10.0;460.0;10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1292</x>
+      <y>536</y>
+      <w>52</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1292</x>
+      <y>492</y>
+      <w>52</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;340.0;110.0;340.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>544</x>
+      <x>1336</x>
+      <y>592</y>
+      <w>152</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>GUIInput
+--
+- startSelected : String
+- endSelected : String
+- text : String
+- prevText : String
+- shifting : boolean
+- cursorPosition : int
+- inFocus : boolean
+- initialClick : boolean
+- name : String
+--
++ handleMouseEvent(Int, Int, Int, Int) : void
++ setInitialClick(boolean) : void
++ handleKeyEvent(int, int, char, int) : boolean
+- replaceSelected(int, int, String, String) : String
+- addChar(String, char, int) : String
+- removeAt(String, int) : String
++ getText() : String
++ setText(String) : void
++ getCursorPosition() : int
++ start() : void
++ draw(Graphics) : void
++ setFocus(boolean) : void
++ getFormOutput() : String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1336</x>
+      <y>256</y>
+      <w>152</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>GUITable
+--
+- xMargin : int
+--
++ addRow(GUIObjects[]) : void
++ getInputs() : ArrayList&lt;GUIInput&gt;
++ getButtons() : ArrayList&lt;GUIButton&gt;
++ setHandler(EventHanlder) : void
++ appendToRow(GUIObject, int) : void
++ draw(Graphics) : void
++ updateDimensions() : void
+- calculateHeight() : int
+- calculateWidth() : int
+- getRowHeight(ArrayList&lt;GUIObject&gt;) : int
+- getColumnWidth(ArrayList&lt;ArrayList&lt;GUIObject&gt;&gt;, int) : int
++ handleMouseEvent(int, int, int, int) : void
++ getChildObjects() : ArrayList&lt;GUIObject&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1240</x>
       <y>296</y>
-      <w>256</w>
-      <h>152</h>
+      <w>104</w>
+      <h>172</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..*
+tableRows</panel_attributes>
+    <additional_attributes>240.0;10.0;50.0;10.0;50.0;400.0;10.0;400.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>108</x>
+      <y>520</y>
+      <w>176</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>Window
+--
+- currentScreen : Screen
+- font : Font
+- fontMetrics : FontMetrics
+--
++ handleShown() : void
++ paint() : void
++ handleResize() : void
++ handleMouseEvent(int, int, int, int, int, int) : void
++ handleKeyEvent(int, int, char, int) : void
++ getFontMetrics() : FontMetrics
++ setScreen(Screen) : void
++ getCurrentScreen() : Screen</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1172</x>
+      <y>384</y>
+      <w>36</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;&gt;
+m1=
+m2=
+&lt;&lt;Creates&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1124</x>
+      <y>308</y>
+      <w>112</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>GUIRenderer
+--
++ create(SubmitButton) : GUIObject[]
++ create(TextSpan) : GUIObject[]
++ create(HyperLink) : GUIObject[]
++ create(TextInputField) : GUIObject[]
++ create(Form) : GUIObject[]
++ create(HtmlTable) : GUIObject[]
++ create(HtmlTableRow) : GUIObject[]
++ create(HtmlTableCell) : GUIObject[]
++ create(ContentSpan) : GUIObject[]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>928</x>
+      <y>324</y>
+      <w>204</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;490.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>828</x>
+      <y>312</y>
+      <w>104</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ContentSpanVisitor
+--
++ create(SubmitButton) : GUIObject[]
++ create(TextSpan) : GUIObject[]
++ create(HyperLink) : GUIObject[]
++ create(TextInputField) : GUIObject[]
++ create(Form) : GUIObject[]
++ create(HtmlTable) : GUIObject[]
++ create(HtmlTableRow) : GUIObject[]
++ create(HtmlTableCell) : GUIObject[]
++ create(ContentSpan) : GUIObject[]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>128</y>
+      <w>128</w>
+      <h>76</h>
     </coordinates>
     <panel_attributes>ContentSpan
 --
@@ -147,59 +385,290 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>408</x>
+      <x>588</x>
       <y>0</y>
-      <w>168</w>
-      <h>152</h>
+      <w>108</w>
+      <h>76</h>
     </coordinates>
     <panel_attributes>Hyperlink
 --
 - href : String
 --
-+ setText(text : String)
-+ getText()
-+ setHref(String)
-+ getHref(String)</panel_attributes>
++ getText() : String
++ setText(String) : void
++ getHref() : String
++ setHref(String) : void
++ create(Creator) : ArrayList&lt;GUIObject&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>640</x>
+      <x>728</x>
       <y>0</y>
-      <w>168</w>
-      <h>152</h>
+      <w>84</w>
+      <h>76</h>
     </coordinates>
     <panel_attributes>TextSpan
 --
 - text : String
 --
-+ getText()
-+ setText(text : String)</panel_attributes>
++ setText(String) : void
++ getText() : String
++ create(Creator) : ArrayList&lt;GUIObject&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>872</x>
+      <x>828</x>
       <y>0</y>
-      <w>176</w>
-      <h>152</h>
+      <w>120</w>
+      <h>76</h>
     </coordinates>
     <panel_attributes>HtmlTable
 --
+- tableRows : HtmlTableRow[0..*]
 --
-+ addRow()
-</panel_attributes>
++ addRow() : HtmlTableRow
++ getTableRows() : ArrayList&lt;HtmlTableRow&gt;
++ create(Creator) : ArrayList&lt;GUIObject&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>24</x>
-      <y>768</y>
-      <w>96</w>
-      <h>40</h>
+      <x>1000</x>
+      <y>0</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>HtmlTableRow
+--
+- tableData : HtmlTableCell[0..*]
+--
++ addData() : HtmlTableCell
++ getTableData() : ArrayList&lt;HtmlTableCell&gt;
++ create(Creator) : ArrayList&lt;GUIObject&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>996</x>
+      <y>108</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>HtmlTableCell
+--
++ setData(ContentSpan) : void
++ getData() : ContentSpan
++ create(Creator) : ArrayList&lt;GUIObject&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>804</x>
+      <y>156</y>
+      <w>200</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=1
+data</panel_attributes>
+    <additional_attributes>480.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>764</x>
+      <y>108</y>
+      <w>32</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extends
+</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>692</x>
+      <y>32</y>
+      <w>44</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+text
+m1=1
+</panel_attributes>
+    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>944</x>
+      <y>32</y>
+      <w>64</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1040</x>
+      <y>72</y>
+      <w>20</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>632</x>
+      <y>72</y>
+      <w>144</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>340.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>764</x>
+      <y>72</y>
+      <w>116</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;100.0;270.0;100.0;270.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>488</x>
+      <y>0</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>SubmitButton
+--
++ create(Creator) : ArrayList&lt;GUIObject&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>124</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>Form
+--
+- action : String
+--
++ setAction(String) : void
++ getAction() : String
++ setData(ContentSpan) : void
++ getData() : ContentSpan
++ create(Creator) : ArrayList&lt;GUIObject&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>388</x>
+      <y>0</y>
+      <w>84</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>TextInputField
+--
+- name : String
+--
++ setName(String) : void
++ getName() : String
++ create(Creator) : ArrayList&lt;GUIObject&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>508</x>
+      <y>72</y>
+      <w>152</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>360.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>428</x>
+      <y>72</y>
+      <w>12</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>428</x>
+      <y>108</y>
+      <w>116</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>270.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>764</x>
+      <y>72</y>
+      <w>12</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>148</y>
+      <w>228</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+
+m2=0..1
+Data</panel_attributes>
+    <additional_attributes>10.0;20.0;550.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>536</y>
+      <w>48</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>Browsr
  
@@ -211,10 +680,10 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>112</x>
-      <y>768</y>
-      <w>144</w>
-      <h>40</h>
+      <x>44</x>
+      <y>536</y>
+      <w>72</w>
+      <h>20</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m2=1
@@ -222,157 +691,86 @@ has &gt;</panel_attributes>
     <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>680</x>
-      <y>1320</y>
-      <w>224</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>AddressBar
---
-- draw(Graphics, Window) : void
-- setAddress(String) : void
-- getAddress() : String
-- isOnAddressBar(int, int) : boolean
-- handleMouseEvent(int, int) : void
-- handleKeyboardEvent(int, int, char, int) : boolean
-- isInFoucs() : boolean
-- setInFocus() : void
-- setOutFocus() : void
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>288</x>
-      <y>1008</y>
-      <w>408</w>
-      <h>384</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-m2=1
-has &gt;
-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;450.0;490.0;450.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1136</x>
-      <y>0</y>
-      <w>168</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>HtmlTableRow
---
---
-+ getTableData()
-+ addData()
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1128</x>
-      <y>216</y>
-      <w>168</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>HtmlTableCell
---
---
-+ setData(ContentSpan)
-+ getData()</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>792</x>
-      <y>360</y>
-      <w>496</w>
-      <h>88</h>
-    </coordinates>
-    <panel_attributes>lt=-
-m1=0..1
-m2=1
-contains v</panel_attributes>
-    <additional_attributes>530.0;10.0;530.0;80.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>712</x>
-      <y>216</y>
-      <w>64</w>
-      <h>96</h>
+      <x>64</x>
+      <y>596</y>
+      <w>52</w>
+      <h>16</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
-extends
-</panel_attributes>
-    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>568</x>
-      <y>64</y>
-      <w>88</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-has text
-m1=1
-</panel_attributes>
-    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1040</x>
-      <y>64</y>
-      <w>112</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1=1
-m2=0..*</panel_attributes>
-    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1216</x>
-      <y>144</y>
-      <w>40</w>
-      <h>88</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1=1
-m2=0..*</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+extends</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>184</x>
-      <y>528</y>
-      <w>320</w>
-      <h>160</h>
+      <x>20</x>
+      <y>600</y>
+      <w>48</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>CanvasWindow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>372</y>
+      <w>128</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>DocumentArea
+--
+- relativeYPos : int
+- xOffset : int
+- screen : DefaultScreen
+- loader : HtmlLoader
+--
++ getScreen() : DefaultScreen
++ getRelativeYPos() : int
++ getDrawnGUIObjects() : ArrayList&lt;GUIObject&gt;
++ addGUIObject(GUIObject) : void
++ addGUIObjects(GUIObject[]) : void
++ draw(Graphics) : void
++ clearDocObjects() : void
++ loadAddress(String) : void
+- generateAddress(String, string) : URL
+- isValidBrowsrPage(URL) : void
++ loadErrorDoc() : void
++ loadWelcomeDoc() : void
++ getCurrentHtml() : String
++ load(String) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>548</x>
+      <y>220</y>
+      <w>160</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>HtmlLoader
 --
 - url : URL
 - htmlCode : String
+- documentArea : DocumentArea
 --
-+ loadPage() : void
++ setDocumentArea(DocumentArea) : void
++ initialise(String) : void
++ initialise(URL) : void
++ getHtmlCode() : String
 - loadHtml() : String
+- isTable(String) : Boolean
++ loadPage() : void
+- updateFormTag(HtmlLexer, Form) : HtmlLexer
 - updateTableTag(HtmlLexer, HtmlTable) : HtmlLexer
 - updateTableRowTag(HtmlLexer, HtmlTableRow) : HtmlLexer
 - updateTableDataTag(HtmlLexer, HtmlTableCell) : HtmlLexer
+- handleInputTag(HtmlLexer, HtmlTableCell) : HtmlLexer
+- updateTextInputField(HtmlLexer, TextInputField) : HtmlLexer
 - updateText(HtmlLexer, TextSpan) : HtmlLexer
 - updateATag(HtmlLexer, Hyperlink) : HtmlLexer
 </panel_attributes>
@@ -381,25 +779,22 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>496</x>
-      <y>656</y>
-      <w>176</w>
-      <h>40</h>
+      <x>492</x>
+      <y>256</y>
+      <w>64</w>
+      <h>16</h>
     </coordinates>
-    <panel_attributes>lt=-
-documentArea
-m1=1
-m2=1
-</panel_attributes>
-    <additional_attributes>200.0;20.0;10.0;20.0</additional_attributes>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;create&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>280</x>
-      <y>376</y>
-      <w>160</w>
-      <h>24</h>
+      <x>416</x>
+      <y>260</y>
+      <w>80</w>
+      <h>12</h>
     </coordinates>
     <panel_attributes>HtmlLexer
 
@@ -409,565 +804,401 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>392</y>
-      <w>64</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-&lt;&lt;create&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>480</x>
-      <y>144</y>
-      <w>256</w>
-      <h>96</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>300.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>712</x>
-      <y>144</y>
-      <w>264</w>
-      <h>96</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;100.0;310.0;100.0;310.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>904</x>
-      <y>704</y>
-      <w>520</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-
-m2=0..*
-has &gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;630.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1160</x>
-      <y>1128</y>
-      <w>168</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>GUILink
---
-- href: String
---
-+ draw(Graphics) : void
-+ handleClick() : void
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1248</x>
-      <y>1056</y>
-      <w>104</w>
-      <h>88</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extends</panel_attributes>
-    <additional_attributes>110.0;20.0;10.0;20.0;10.0;90.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>496</x>
-      <y>440</y>
-      <w>288</w>
-      <h>112</h>
-    </coordinates>
-    <panel_attributes>lt=.&gt;&gt;
-m1=
-m2=</panel_attributes>
-    <additional_attributes>10.0;120.0;340.0;120.0;340.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1456</x>
-      <y>592</y>
-      <w>64</w>
-      <h>72</h>
+      <x>696</x>
+      <y>200</y>
+      <w>36</w>
+      <h>28</h>
     </coordinates>
     <panel_attributes>lt=.&gt;&gt;
 m1=
 m2=
-Creates</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+&lt;&lt;creates&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>672</x>
-      <y>912</y>
-      <w>224</w>
-      <h>152</h>
+      <x>768</x>
+      <y>680</y>
+      <w>92</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+EventHandler
+--
+getFontMetrics(): FontMetrics
+load(string) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>856</x>
+      <y>528</y>
+      <w>276</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..1 
+eventHanlder</panel_attributes>
+    <additional_attributes>670.0;10.0;130.0;10.0;130.0;430.0;10.0;430.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>596</y>
+      <w>120</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>AddressBar
+--
+- yLimit : int
+- inFocus = false : Boolean
+--
++ draw(Graphics, Window) : void
++ setAddress(String) : void
++ getAddress() : String
++ isOnAddressBar(int, int) : boolean
++ handleMouseEventA(int, int, int, int) : void
++ handleMouseEventA(int, int, char, int) : void
++ isInFoucs() : boolean
++ setInFocus() : void
++ setOutFocus() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>608</y>
+      <w>68</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=1
+addressBar
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;150.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>512</x>
+      <y>464</y>
+      <w>76</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m2=1
+m1=1
+documentArea</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>704</x>
+      <y>448</y>
+      <w>428</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+
+m2=0..*
+drawnGUIObjects</panel_attributes>
+    <additional_attributes>10.0;20.0;1050.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>596</x>
+      <y>504</y>
+      <w>112</w>
+      <h>76</h>
     </coordinates>
     <panel_attributes>BookmarkBar
 --
-- draw(Graphics, int) : void
-- handleMouseEvent(int, int) : void
-- addBookmark(string, string) : void
-- getHeight() : int</panel_attributes>
+- relativeYPos : int
+- height : int
+- width : int
+- screen : DefaultScreen
+--
++ getScreen() : DefaultScreen
++ draw(Graphics, int) : void
++ addBookmark(string, string) : void
++ getHeight() : int
++ getBookmarks() : GUITable</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>552</x>
+      <y>536</y>
+      <w>52</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m2=1
+m1=1
+bookmarkBar
+</panel_attributes>
+    <additional_attributes>110.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>528</x>
-      <y>904</y>
-      <w>160</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=-
-m2=1
-m1=1
-</panel_attributes>
-    <additional_attributes>10.0;20.0;180.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>888</x>
-      <y>808</y>
-      <w>584</w>
-      <h>248</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-m2=
-has &gt;
-</panel_attributes>
-    <additional_attributes>10.0;290.0;520.0;200.0;710.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1872</x>
-      <y>1032</y>
-      <w>240</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>GUIInput
---
-- handleKeyEvent(int, int, char, int) : boolean
-- getText() : String
-- setText(String) : void
-- getCursorPosition() : int
-- isSelecting() : boolean
-- getSelectedPositions(Graphics) : int[]
-- selectAll() : void
-- selectNone() : void
-- start() : void
-- draw(Graphics, int, int, int, int, boolean) : void
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>896</x>
-      <y>808</y>
-      <w>576</w>
-      <h>576</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-m2=1
-has &gt;
-</panel_attributes>
-    <additional_attributes>10.0;700.0;700.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>672</x>
-      <y>1104</y>
-      <w>224</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>DialogScreen
---
-- draw(Graphics) : void
-- handleMouseEvent(int, int) : void
-- handleKeyEvent(int, int, char) : Boolean
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>456</x>
-      <y>1008</y>
-      <w>232</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-m2=1
-has &gt;
-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;170.0;270.0;170.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>888</x>
-      <y>808</y>
-      <w>560</w>
-      <h>376</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-m2=0..*
-has &gt;
-</panel_attributes>
-    <additional_attributes>10.0;450.0;680.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1688</x>
-      <y>1032</y>
-      <w>168</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>GUIButton
---
-+ draw(Graphics) : void
-+ handleClick() : void
-+ addEvent(Runnable) : void
-+ removeEvent(Runnable) : void
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>2128</x>
-      <y>1032</y>
-      <w>168</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>GUITable
---
-+ draw(Graphics) : void
-+ handleClick(): void </panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1760</x>
-      <y>944</y>
-      <w>472</w>
+      <y>608</y>
+      <w>248</w>
       <h>104</h>
     </coordinates>
-    <panel_attributes>lt=-
-</panel_attributes>
-    <additional_attributes>10.0;20.0;570.0;20.0;570.0;110.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1608</x>
-      <y>736</y>
-      <w>696</w>
-      <h>312</h>
-    </coordinates>
-    <panel_attributes>lt=-
-m2=0..*
-has ^</panel_attributes>
-    <additional_attributes>810.0;370.0;810.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1096</x>
-      <y>760</y>
-      <w>152</w>
-      <h>96</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;Interface&gt;&gt;
-WindowHandler
---
-getFontMetrics() : FontMetrics
-load(URL) : void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1240</x>
-      <y>792</y>
-      <w>184</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-m2=1 
-&lt; has</panel_attributes>
-    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>904</x>
-      <y>784</y>
-      <w>208</w>
-      <h>32</h>
-    </coordinates>
-    <panel_attributes>lt=.&gt;
+    <panel_attributes>lt=-&gt;&gt;
 &lt;&lt;implements&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;240.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>888</x>
-      <y>824</y>
-      <w>224</w>
-      <h>144</h>
-    </coordinates>
-    <panel_attributes>lt=.&gt;
-&lt;&lt;implements&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;160.0;260.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1968</x>
-      <y>952</y>
-      <w>24</w>
-      <h>96</h>
-    </coordinates>
-    <panel_attributes>lt=-
-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1560</x>
-      <y>808</y>
-      <w>224</w>
-      <h>168</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extends</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;190.0;260.0;190.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1432</x>
-      <y>944</y>
-      <w>152</w>
-      <h>104</h>
-    </coordinates>
-    <panel_attributes>lt=-
-</panel_attributes>
-    <additional_attributes>170.0;20.0;10.0;20.0;10.0;110.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1560</x>
-      <y>952</y>
-      <w>24</w>
-      <h>96</h>
-    </coordinates>
-    <panel_attributes>lt=-
-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1760</x>
-      <y>952</y>
-      <w>24</w>
-      <h>96</h>
-    </coordinates>
-    <panel_attributes>lt=-
-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>208</x>
-      <y>0</y>
-      <w>168</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>SubmitButton
---
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>0</x>
-      <y>272</y>
-      <w>168</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>Form
---
-action
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>16</x>
-      <y>0</y>
-      <w>168</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>TextInputField
---
-name
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>248</x>
-      <y>144</y>
-      <w>256</w>
-      <h>96</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>300.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>96</x>
-      <y>144</y>
-      <w>24</w>
-      <h>144</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>96</x>
-      <y>216</y>
-      <w>176</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>200.0;10.0;10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;240.0;600.0;240.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>712</x>
-      <y>144</y>
-      <w>24</w>
+      <y>508</y>
+      <w>420</w>
       <h>96</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1408</x>
-      <y>472</y>
-      <w>208</w>
-      <h>128</h>
-    </coordinates>
-    <panel_attributes>GUIRenderer
---
-+ create(SubmitButton) : GUIObject[]
-+ create(TextSpan) : GUIObject[]
-+ create(HyperLink) : GUIObject[]
-+ create(TextInputField) : GUIObject[]
-+ create(Form) : GUIObject[]
-+ create(HtmlTable) : GUIObject[]
-+ create(HtmlTableRow) : GUIObject[]
-+ create(HtmlTableCell) : GUIObject[]</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>976</x>
-      <y>480</y>
-      <w>208</w>
-      <h>152</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-Creator
---
-+ create(SubmitButton) : GUIObject[]
-+ create(TextSpan) : GUIObject[]
-+ create(HyperLink) : GUIObject[]
-+ create(TextInputField) : GUIObject[]
-+ create(Form) : GUIObject[]
-+ create(HtmlTable) : GUIObject[]
-+ create(HtmlTableRow) : GUIObject[]
-+ create(HtmlTableCell) : GUIObject[]</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>160</x>
-      <y>328</y>
-      <w>400</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-
-m2=0..1
-Data</panel_attributes>
-    <additional_attributes>10.0;20.0;480.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>496</x>
-      <y>552</y>
-      <w>496</w>
-      <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 
 m2=1
-has &gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;600.0;20.0</additional_attributes>
+inputField</panel_attributes>
+    <additional_attributes>10.0;220.0;320.0;220.0;320.0;10.0;1030.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1176</x>
-      <y>552</y>
-      <w>248</w>
-      <h>32</h>
+      <x>700</x>
+      <y>324</y>
+      <w>136</w>
+      <h>20</h>
     </coordinates>
-    <panel_attributes>lt=.&gt;
+    <panel_attributes>lt=-&gt;
+
+m2=1
+creator</panel_attributes>
+    <additional_attributes>10.0;20.0;320.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>632</x>
+      <y>344</y>
+      <w>16</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>436</x>
+      <y>880</y>
+      <w>100</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>DialogScreen
+--
+- previousScreen : Screen
+--
++ create() : void
++ addGUIObject(GUIObject) : void
++ getGUIObjects() : GUIObjects[0..*]
++ returnToPreviousScreen() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>720</y>
+      <w>248</w>
+      <h>172</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;implements&gt;&gt;
+lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;410.0;510.0;410.0;510.0;10.0;590.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>704</x>
+      <y>496</y>
+      <w>428</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+
+m2=1
+bookmarks</panel_attributes>
+    <additional_attributes>10.0;20.0;1050.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>544</y>
+      <w>600</w>
+      <h>372</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..*
+guiObjects </panel_attributes>
+    <additional_attributes>10.0;910.0;1070.0;900.0;1080.0;10.0;1480.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>296</x>
+      <y>660</y>
+      <w>112</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Screen
+--
++ draw(Graphics)
++ handleMouseEvent(int, int, int, int, int, int) : void
++ handleKeyEvent(int, int, char, int) : void
++ handleShown() : void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>512</y>
+      <w>116</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>DefaultScreen
+--
+- createNewAddress(String) : void
+- getFullAddress(String) : void
+- getModifiedAddress(String, String) : String
+- createAddress(char[]) : String
++ draw(Graphics) : void
++ getAddress() : string
++ getDocArea() : DocumentArea
++ getAddressBar() : addressBar
++ getBookmarkBar() : BookmarkBar
+- makeSaveBookmarkBarScreen() : void
+- makeSaveHtmlScreen() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>404</x>
+      <y>708</y>
+      <w>80</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
 &lt;&lt;implements&gt;&gt;</panel_attributes>
-    <additional_attributes>290.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>90.0;430.0;90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>236</x>
+      <y>608</y>
+      <w>68</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m2=1
+m1=1
+
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0;150.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>972</y>
+      <w>112</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>SaveBookmarkScreen
+--
+- create() : void
++ draw(Graphics) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>972</y>
+      <w>112</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>SaveHTMLScreen
+--
+- create() : void
++ draw(Graphics) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>928</y>
+      <w>32</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extends</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>972</y>
+      <w>48</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;100.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>1004</y>
+      <w>44</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>404</x>
+      <y>608</y>
+      <w>84</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;190.0;10.0;190.0</additional_attributes>
   </element>
 </diagram>
