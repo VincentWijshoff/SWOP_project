@@ -1,6 +1,7 @@
 package gui.DialogScreen;
 
 import events.*;
+import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIObject;
 import gui.Screen;
 import gui.Window;
@@ -19,15 +20,15 @@ public abstract class DialogScreen implements Screen, EventHandler {
 
     // window and screen objects
     gui.Window window;
-    Screen previousScreen;
+    DefaultScreen previousScreen;
 
     // list of all guiObjects
     ArrayList<GUIObject> guiObjects;
 
-    public DialogScreen(Window window, Screen prevScreen){
+    public DialogScreen(Window window, DefaultScreen prevScreen){
         this.window = window;
         this.previousScreen = prevScreen;
-        this.guiObjects = new ArrayList<GUIObject>();
+        this.guiObjects = new ArrayList<>();
         this.mouseEventHandler = new MouseEventHandler();
         this.keyEventHandler = new KeyEventHandler();
     }
@@ -129,18 +130,6 @@ public abstract class DialogScreen implements Screen, EventHandler {
     @Override
     public void removeKeyEventListener(KeyEventListener listener) {
         this.keyEventHandler.removeKeyEventListener(listener);
-    }
-
-    /**
-     * Adds a bookmark to the previous screen if it exists as adding a bookmark to this screen is not useful
-     * @param name  The name off the bookmark
-     * @param url   The url off the bookmark
-     */
-    @Override
-    public void addBookmark(String name, String url) {
-        if(this.previousScreen != null){
-            this.previousScreen.addBookmark(name, url);
-        }
     }
 
     /**

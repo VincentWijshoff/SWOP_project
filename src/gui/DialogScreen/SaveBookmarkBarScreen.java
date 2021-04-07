@@ -1,5 +1,6 @@
 package gui.DialogScreen;
 
+import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIButton;
 import gui.Objects.GUIInput;
 import gui.Objects.GUIObject;
@@ -17,7 +18,7 @@ public class SaveBookmarkBarScreen extends  DialogScreen{
     private GUIInput bookmarkName;
     private GUIInput bookmarkAddress;
 
-    public SaveBookmarkBarScreen(Window window, Screen prevscreen, String address){
+    public SaveBookmarkBarScreen(Window window, DefaultScreen prevscreen, String address){
         super(window, prevscreen);
         this.currAddress = address;
         this.create();
@@ -46,8 +47,8 @@ public class SaveBookmarkBarScreen extends  DialogScreen{
         // 2 buttons
         GUIButton cnclBtn = new GUIButton("Cancel", 20, 180, 100, 30);
         GUIButton addBtn = new GUIButton("Add Bookmark", 150, 180, 100, 30);
-        cnclBtn.setMouseEvent((x1, y1, id, clickCount) -> {this.onCancel();});
-        addBtn.setMouseEvent((x1, y1, id, clickCount) -> {this.onAddBookmark();});
+        cnclBtn.setMouseEvent((x1, y1, id, clickCount) -> this.onCancel());
+        addBtn.setMouseEvent((x1, y1, id, clickCount) -> this.onAddBookmark());
         this.addGUIObject(cnclBtn);
         this.addGUIObject(addBtn);
         this.getGUIObjects().forEach(obj -> obj.setHandler(this));

@@ -37,11 +37,4 @@ public interface Screen {
      * called on startup and needs to show the welcome document
      */
     void handleShown();
-
-    /**
-     * Add a bookmark to the screen
-     * @param name  The name off the bookmark
-     * @param url   The url off the bookmark
-     */
-    void addBookmark(String name, String url);
 }

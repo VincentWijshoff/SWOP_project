@@ -245,7 +245,6 @@ public class DefaultScreen implements Screen, EventHandler {
      * @param name  The name off the bookmark
      * @param url   The url off the bookmark
      */
-    @Override
     public void addBookmark(String name, String url) {
         this.bookmarkBar.addBookmark(name, url);
     }

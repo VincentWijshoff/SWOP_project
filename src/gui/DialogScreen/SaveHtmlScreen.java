@@ -1,5 +1,6 @@
 package gui.DialogScreen;
 
+import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIButton;
 import gui.Objects.GUIInput;
 import gui.Objects.GUIObject;
@@ -19,7 +20,7 @@ public class SaveHtmlScreen extends DialogScreen{
     private String htmlCode;
     private GUIInput fileName;
 
-    public SaveHtmlScreen(Window window, Screen prevScreen, String html){
+    public SaveHtmlScreen(Window window, DefaultScreen prevScreen, String html){
         super(window, prevScreen);
         this.htmlCode = html;
         this.create();
@@ -44,7 +45,7 @@ public class SaveHtmlScreen extends DialogScreen{
         // 2 buttons
         GUIButton cnclBtn = new GUIButton("Cancel", 20, 180, 100, 30);
         GUIButton saveBtn = new GUIButton("Save", 150, 180, 100, 30);
-        cnclBtn.setMouseEvent((x1, y1, id, clickCount) -> {this.onCancel();});
+        cnclBtn.setMouseEvent((x1, y1, id, clickCount) -> this.onCancel());
         saveBtn.setMouseEvent((x1, y1, id, clickCount) -> {
             try {
                 this.onSaveFile();
