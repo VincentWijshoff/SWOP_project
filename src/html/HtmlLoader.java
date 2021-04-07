@@ -24,7 +24,7 @@ public class HtmlLoader {
     private URL url; //the URL of the page
     private String htmlCode; //the string format of the html code
     private DocumentArea documentArea; //the documentArea object
-    private Creator creator;
+    private ContentSpanVisitor contentSpanVisitor;
 
     /**
      * Setter of the documentArea
@@ -40,7 +40,7 @@ public class HtmlLoader {
      * Called when loading a local document
      */
     public HtmlLoader(DocumentArea doc) {
-        this.creator = new GUIRenderer();
+        this.contentSpanVisitor = new GUIRenderer();
         setDocumentArea(doc);
     }
 
@@ -137,17 +137,17 @@ public class HtmlLoader {
                     Hyperlink aTag = new Hyperlink();
                     lexer.eatToken();
                     lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
-                    documentArea.addGUIObjects(aTag.create(this.creator));
+                    documentArea.addGUIObjects(aTag.create(this.contentSpanVisitor));
                 }else if(isTable(value)){
                     HtmlTable tableTag = new HtmlTable();
                     lexer.eatToken();
                     lexer = updateTableTag(lexer, tableTag);
-                    documentArea.addGUIObjects(tableTag.create(this.creator));
+                    documentArea.addGUIObjects(tableTag.create(this.contentSpanVisitor));
                 }else if(value.equals("form")){
                     Form formTag = new Form();
                     lexer.eatToken();
                     lexer = updateFormTag(lexer, formTag);
-                    ArrayList<GUIObject> lst = formTag.create(this.creator);
+                    ArrayList<GUIObject> lst = formTag.create(this.contentSpanVisitor);
                     ArrayList<GUIInput> inputs = new ArrayList<GUIInput>();
                     ArrayList<GUIButton> buttons = new ArrayList<GUIButton>();
                     lst.forEach(obj -> inputs.addAll(obj.getInputs()));

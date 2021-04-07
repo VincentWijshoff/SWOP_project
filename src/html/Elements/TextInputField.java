@@ -1,7 +1,7 @@
 package html.Elements;
 
 import gui.Objects.GUIObject;
-import html.Creator;
+import html.ContentSpanVisitor;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public class TextInputField extends ContentSpan{
      * @return  The visible input field
      */
     @Override
-    public ArrayList<GUIObject> create(Creator c){
-        return c.create(this);
+    public ArrayList<GUIObject> create(ContentSpanVisitor c){
+        return c.createTextInputField(this);
     }
 }

@@ -1,7 +1,7 @@
 package html.Elements;
 
 import gui.Objects.GUIObject;
-import html.Creator;
+import html.ContentSpanVisitor;
 
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public class HtmlTableCell extends ContentSpan {
      * @return  A list of elements that make up for this table
      */
     @Override
-    public ArrayList<GUIObject> create(Creator c){
-        return c.create(this);
+    public ArrayList<GUIObject> create(ContentSpanVisitor c){
+        return c.createHtmlTableCell(this);
     }
 }
