@@ -24,7 +24,7 @@ public class HtmlLoader {
     private URL url; //the URL of the page
     private String htmlCode; //the string format of the html code
     private DocumentArea documentArea; //the documentArea object
-    private ContentSpanVisitor contentSpanVisitor;
+    private final ContentSpanVisitor contentSpanVisitor;
 
     /**
      * Setter of the documentArea
@@ -136,7 +136,7 @@ public class HtmlLoader {
                 if(value.equals("a")){
                     Hyperlink aTag = new Hyperlink();
                     lexer.eatToken();
-                    lexer = updateATag(lexer, aTag); //update lexer (after the a-tag)
+                    updateATag(lexer, aTag);//update lexer (after the a-tag)
                     documentArea.addGUIObjects(aTag.create(this.contentSpanVisitor));
                 }else if(isTable(value)){
                     HtmlTable tableTag = new HtmlTable();
@@ -146,10 +146,10 @@ public class HtmlLoader {
                 }else if(value.equals("form")){
                     Form formTag = new Form();
                     lexer.eatToken();
-                    lexer = updateFormTag(lexer, formTag);
+                    updateFormTag(lexer, formTag);
                     ArrayList<GUIObject> lst = formTag.create(this.contentSpanVisitor);
-                    ArrayList<GUIInput> inputs = new ArrayList<GUIInput>();
-                    ArrayList<GUIButton> buttons = new ArrayList<GUIButton>();
+                    ArrayList<GUIInput> inputs = new ArrayList<>();
+                    ArrayList<GUIButton> buttons = new ArrayList<>();
                     lst.forEach(obj -> inputs.addAll(obj.getInputs()));
                     lst.forEach(obj -> buttons.addAll(obj.getButtons()));
                     buttons.stream().filter(button -> button.isSubmit).forEach(btn -> btn.setMouseEvent(
@@ -158,14 +158,12 @@ public class HtmlLoader {
                                 // form action
                                 String action = formTag.getAction() + "?";
                                 //every input name with its value
-                                inputs.forEach(inp -> {
-                                    btn.addInput(inp.getFormOutput());
-                                });
+                                inputs.forEach(inp -> btn.addInput(inp.getFormOutput()));
                                 String output = btn.getOutput().substring(0, btn.getOutput().length() - 1);
                                 // finally we have the addition needed for the url
-                                String finaladdition = action + output;
-                                System.out.println(finaladdition);
-                                this.documentArea.load(finaladdition);
+                                String finalized = action + output;
+                                System.out.println(finalized);
+                                this.documentArea.load(finalized);
                             }));
                     documentArea.addGUIObjects(lst);
                 }
@@ -183,19 +181,18 @@ public class HtmlLoader {
      ##################### New in iteration 2 #####################
      ##############################################################
      */
-    private HtmlLexer updateFormTag(HtmlLexer lexer, Form formTag){
+    private void updateFormTag(HtmlLexer lexer, Form formTag){
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
         while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && value.equals("form"))){
             if(type == HtmlLexer.TokenType.IDENTIFIER && value.equals("action")){
                 lexer.eatToken(); //this is EQUALS
                 lexer.eatToken();
-                type = lexer.getTokenType();
                 value = lexer.getTokenValue();
                 formTag.setAction(value);
             }else if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("a")){
                 Hyperlink aTag = new Hyperlink();
-                lexer = updateATag(lexer, aTag);
+                updateATag(lexer, aTag);
                 formTag.setData(aTag);
             }else if(type == HtmlLexer.TokenType.OPEN_START_TAG && isTable(value)){
                 HtmlTable table = new HtmlTable();
@@ -206,7 +203,6 @@ public class HtmlLoader {
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
         }
-        return lexer;
     }
 
     /**
@@ -300,19 +296,19 @@ public class HtmlLoader {
         if(type == HtmlLexer.TokenType.OPEN_START_TAG){
             if(value.equals("a")){ // td is an a object
                 Hyperlink aTag = new Hyperlink();
-                lexer = updateATag(lexer, aTag);
+                updateATag(lexer, aTag);
                 td.setData(aTag);
             }else if(isTable(value)){ //td is a table
                 HtmlTable tableTag = new HtmlTable();
                 lexer = updateTableTag(lexer, tableTag);
                 td.setData(tableTag);
             }else if(value.equals("input")){
-                lexer = handleInputTag(lexer, td);
+                handleInputTag(lexer, td);
             }
         }else if(type == HtmlLexer.TokenType.TEXT){
             TextSpan text = new TextSpan();
             text.setText(value);
-            lexer = updateText(lexer, text);
+            updateText(lexer, text);
             td.setData(text);
         }
         return lexer;
@@ -323,7 +319,7 @@ public class HtmlLoader {
      ##################### New in iteration 2 #####################
      ##############################################################
      */
-    private HtmlLexer handleInputTag(HtmlLexer lexer, HtmlTableCell td){
+    private void handleInputTag(HtmlLexer lexer, HtmlTableCell td){
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -332,13 +328,12 @@ public class HtmlLoader {
             if(type == HtmlLexer.TokenType.IDENTIFIER && value.equals("type")){
                 lexer.eatToken(); //this is a EQUALS
                 lexer.eatToken();
-                type = lexer.getTokenType();
                 value = lexer.getTokenValue();
                 if(value.equals("submit")){
                     td.setData(new SubmitButton());
                 }else if(value.equals("text")){
                     TextInputField inputField = new TextInputField();
-                    lexer = updateTextInputField(lexer, inputField);
+                    updateTextInputField(lexer, inputField);
                     td.setData(inputField);
                 }
             }
@@ -346,7 +341,6 @@ public class HtmlLoader {
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
         }
-        return lexer;
     }
 
     /**
@@ -354,7 +348,7 @@ public class HtmlLoader {
      ##################### New in iteration 2 #####################
      ##############################################################
      */
-    private HtmlLexer updateTextInputField(HtmlLexer lexer, TextInputField inputField){
+    private void updateTextInputField(HtmlLexer lexer, TextInputField inputField){
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -368,16 +362,14 @@ public class HtmlLoader {
             System.out.println("there is something wrong in the html code");
         }
 
-        return lexer;
     }
 
     /**
      * update the text object
      * @param lexer     the lexer of the html code
      * @param text      the text object
-     * @return the updated lexer
      */
-    private HtmlLexer updateText(HtmlLexer lexer, TextSpan text) {
+    private void updateText(HtmlLexer lexer, TextSpan text) {
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -388,7 +380,6 @@ public class HtmlLoader {
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
         }
-        return lexer;
     }
 
     /**
@@ -403,9 +394,8 @@ public class HtmlLoader {
      *
      * @param lexer     the lexer for the html code
      * @param aTag      the a-tag object
-     * @return the updated lexer (so it doesn't do the code again)
      */
-    private HtmlLexer updateATag(HtmlLexer lexer, Hyperlink aTag){
+    private void updateATag(HtmlLexer lexer, Hyperlink aTag){
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -434,7 +424,6 @@ public class HtmlLoader {
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
         }
-        return lexer;
     }
 
 }

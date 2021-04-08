@@ -83,7 +83,7 @@ public class GUIRenderer implements ContentSpanVisitor {
         ArrayList<GUIObject> objects = new ArrayList<>();
         GUIButton btn = new GUIButton("Submit");
         btn.setSubmit();
-        btn.setMouseEvent((x1, y1, id, clickCount) -> {System.out.println("go to url");});
+        btn.setMouseEvent((x1, y1, id, clickCount) -> System.out.println("go to url"));
         objects.add(btn);
         return objects;
     }

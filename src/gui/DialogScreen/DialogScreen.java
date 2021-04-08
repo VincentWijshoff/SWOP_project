@@ -47,9 +47,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
      */
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
-        this.guiObjects.forEach(obj -> {
-            obj.handleMouseEvent(x, y, id, clickCount);
-        });
+        this.guiObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
     }
 
     /**
@@ -61,9 +59,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
      */
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
-        this.guiObjects.forEach(obj -> {
-            obj.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
-        });
+        this.guiObjects.forEach(obj -> obj.handleKeyEvent(id, keyCode, keyChar, modifiersEx));
     }
 
     /**

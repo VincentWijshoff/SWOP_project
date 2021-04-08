@@ -109,7 +109,7 @@ public class GUIButton extends GUIObject{
      * @return  This button
      */
     public ArrayList<GUIButton> getButtons(){
-        ArrayList<GUIButton> inp = new ArrayList<GUIButton>();
+        ArrayList<GUIButton> inp = new ArrayList<>();
         inp.add(this);
         return inp;
     }
