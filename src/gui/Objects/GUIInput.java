@@ -21,6 +21,7 @@ public class GUIInput extends GUIObject{
     private int cursorPosition;         //The current cursor position of the user
     private boolean inFocus = false;
     private boolean initialClick = true;
+    private boolean pageLoader = false;
 
     /**
      * Constructor, it will set the current text as the given parameter
@@ -29,6 +30,12 @@ public class GUIInput extends GUIObject{
     public GUIInput(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = startTxt;
+    }
+
+    public GUIInput(String startTxt, int x, int y, int width, int height, boolean pageLoader){
+        super(x, y, width, height);
+        this.text = startTxt;
+        this.pageLoader = pageLoader;
     }
 
     /**
@@ -121,14 +128,12 @@ public class GUIInput extends GUIObject{
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
      * @param modifier  The modifier on the pressed key
-     * @return          true if the ENTER key was pressed
-     *                  false a any other key press
      */
     @Override
-    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+    public void handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
         if(!this.inFocus){
             this.initialClick = true;
-            return false;
+            return;
         }
         if(modifier == KeyEvent.SHIFT_DOWN_MASK){
             this.shifting = true;
@@ -164,14 +169,15 @@ public class GUIInput extends GUIObject{
                     this.inFocus = false;
                     this.initialClick = true;
                     this.selectNone();
-                    return true;
+                    if(this.pageLoader){
+                        this.eventHandler.load(this.getText());
+                    }
                 } else if(keyCode != KeyEvent.VK_SHIFT && keyCode != KeyEvent.VK_CONTROL && keyCode != KeyEvent.VK_ALT){
                     // we assume a key was pressed that needs to be shown but is not a normal char
                     this.onCharPress(keyChar);
                 }
             }
         }
-        return false;
     }
 
     /**

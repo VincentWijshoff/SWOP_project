@@ -31,7 +31,8 @@ public class AddressBar {
      */
     public AddressBar(String startAddress, DefaultScreen screen) {
         //this.w = width;
-        this.inputField = new GUIInput(startAddress, this.abX, this.abY, 0, this.h);
+        this.inputField = new GUIInput(startAddress, this.abX, this.abY, 0, this.h, true);
+        this.inputField.setHandler(screen);
         this.screen = screen;
     }
 
@@ -40,7 +41,8 @@ public class AddressBar {
      */
     public AddressBar(DefaultScreen screen) {
         //this.w = width;
-        this.inputField = new GUIInput(this.abX, this.abY, 0, this.h);
+        this.inputField = new GUIInput("", this.abX, this.abY, 0, this.h, true);
+        this.inputField.setHandler(screen);
         this.screen = screen;
     }
 
@@ -59,7 +61,7 @@ public class AddressBar {
         g.setColor(Color.BLACK);
         g.drawLine(0, this.yLimit, width, this.yLimit);
 
-        this.inputField.setFocus(this.inFocus);
+        //this.inputField.setFocus(this.inFocus);
         this.inputField.draw(g);
 
         g.setColor(oldColor);
@@ -122,40 +124,9 @@ public class AddressBar {
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
      * @param modifier  The modifier on the pressed key
-     * @return          true if the gui should load the webpage
      */
-    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
-
-        if (isInFocus()) {
-            // handle the key event in the address bar area
-            if (handleKeyEventA(id, keyCode, keyChar, modifier)) {
-                screen.load(getAddress());
-            }
-        }
-        return false;
-    }
-
-    /**
-     * handles the key-presses while the address bar is in focus
-     * @param id        The id off the pressed button
-     * @param keyCode   The keycode for the pressed button
-     * @param keyChar   The char that was pressed
-     * @param modifier  The modifier on the pressed key
-     * @return          true if the gui should load the webpage
-     */
-    private boolean handleKeyEventA(int id, int keyCode, char keyChar, int modifier) {
-        if(!this.isInFocus()){
-            return false;
-        }
-        if(this.inputField.handleKeyEvent(id, keyCode, keyChar, modifier)){
-            setOutFocus();
-            return true;
-        }
-        if (id == KeyEvent.KEY_PRESSED && keyCode == KeyEvent.VK_ESCAPE) {
-            this.inFocus = false;
-            this.inputField.setInitialClick(true);
-        }
-        return false;
+    public void handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+        this.inputField.handleKeyEvent(id, keyCode, keyChar, modifier);
     }
 
     /**

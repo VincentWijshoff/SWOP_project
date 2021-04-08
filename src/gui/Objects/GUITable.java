@@ -208,13 +208,12 @@ public class GUITable extends GUIObject {
     }
 
     @Override
-    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier){
+    public void handleKeyEvent(int id, int keyCode, char keyChar, int modifier){
         for (ArrayList<GUIObject> row: tableRows) {
             for (GUIObject obj: row) {
                 obj.handleKeyEvent(id, keyCode, keyChar, modifier);
             }
         }
-        return false;
     }
 
     /**

@@ -97,10 +97,9 @@ public class BookmarkBar {
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
      * @param modifier  The modifier on the pressed key
-     * @return          true if the gui should load the webpage
      */
-    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
-        return this.bookmarks.handleKeyEvent(id, keyCode, keyChar, modifier);
+    public void handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+        this.bookmarks.handleKeyEvent(id, keyCode, keyChar, modifier);
     }
 
     public void handleMouseEvent(int id, int x, int y, int clickCount){

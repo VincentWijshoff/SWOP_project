@@ -116,9 +116,7 @@ public abstract class GUIObject {
     /**
      * Handle a key-press for this Object, if a special action is needed, this should be overridden.
      */
-    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
-        return false;
-    }
+    public void handleKeyEvent(int id, int keyCode, char keyChar, int modifier) { }
 
     /**
      * Handle the click on this Object, if a special action is needed, this should be overridden.
