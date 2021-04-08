@@ -17,28 +17,4 @@ public interface EventHandler {
      * @param url   A full  url starting with http:// or a href
      */
     void load(String url);
-
-    /**
-     * Add a mouse event to the webpage
-     * @param listener  The listener that will be called when a mouse event occurs
-     */
-    void addMouseEventListener(MouseEventListener listener);
-
-    /**
-     * Add a key event to the webpage
-     * @param listener  The listener that will be called when a key event occurs
-     */
-    void addKeyEventListener(KeyEventListener listener);
-
-    /**
-     * Remove a mouse event from the webpage
-     * @param listener  The mouse event that needs to be removed
-     */
-    void removeMouseEventListener(MouseEventListener listener);
-
-    /**
-     * Remove a key event from the webpage
-     * @param listener  The key event that needs to be removed
-     */
-    void removeKeyEventListener(KeyEventListener listener);
 }

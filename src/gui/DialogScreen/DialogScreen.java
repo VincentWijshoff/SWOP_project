@@ -91,42 +91,6 @@ public abstract class DialogScreen implements Screen, EventHandler {
     public void load(String url) { }
 
     /**
-     * Add a mouse event listener to the dialog screen
-     * @param listener  The listener that will be called when a mouse event occurs
-     */
-    @Override
-    public void addMouseEventListener(MouseEventListener listener) {
-
-    }
-
-    /**
-     * Add a key event listener to the dialog screen
-     * @param listener  The listener that will be called when a key event occurs
-     */
-    @Override
-    public void addKeyEventListener(KeyEventListener listener) {
-
-    }
-
-    /**
-     * Remove a mouse event listener from the screen
-     * @param listener  The mouse event that needs to be removed
-     */
-    @Override
-    public void removeMouseEventListener(MouseEventListener listener) {
-
-    }
-
-    /**
-     * Remove a key event listener from the screen
-     * @param listener  The key event that needs to be removed
-     */
-    @Override
-    public void removeKeyEventListener(KeyEventListener listener) {
-
-    }
-
-    /**
      * create the specified dialog screen
      */
     abstract void create();

@@ -83,7 +83,6 @@ public class GUITable extends GUIObject {
         for (ArrayList<GUIObject> row: tableRows) {
             for (GUIObject obj: row) {
                 obj.setHandler(h);
-                obj.setEventHandlers();
             }
         }
     }
@@ -208,6 +207,16 @@ public class GUITable extends GUIObject {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier){
+        for (ArrayList<GUIObject> row: tableRows) {
+            for (GUIObject obj: row) {
+                obj.handleKeyEvent(id, keyCode, keyChar, modifier);
+            }
+        }
+        return false;
     }
 
     /**

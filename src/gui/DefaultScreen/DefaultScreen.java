@@ -202,42 +202,6 @@ public class DefaultScreen implements Screen, EventHandler {
     public BookmarkBar getBookmarkBar() { return bookmarkBar; }
 
     /**
-     * add a mouse event listener
-     * @param listener  The listener that will be called when a mouse event occurs
-     */
-    @Override
-    public void addMouseEventListener(MouseEventListener listener) {
-
-    }
-
-    /**
-     * Add a key event listener
-     * @param listener  The listener that will be called when a key event occurs
-     */
-    @Override
-    public void addKeyEventListener(KeyEventListener listener) {
-
-    }
-
-    /**
-     * Remove a mouse event listener
-     * @param listener  The mouse event that needs to be removed
-     */
-    @Override
-    public void removeMouseEventListener(MouseEventListener listener) {
-
-    }
-
-    /**
-     * Remove a key event listener
-     * @param listener  The key event that needs to be removed
-     */
-    @Override
-    public void removeKeyEventListener(KeyEventListener listener) {
-
-    }
-
-    /**
      * Add a bookmark to the bookmark bar
      * @param name  The name off the bookmark
      * @param url   The url off the bookmark

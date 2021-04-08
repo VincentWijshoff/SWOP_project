@@ -105,9 +105,6 @@ public class DocumentArea {
      * Clears the DocGUIObjects so a new page can be loaded
      */
     public void clearDocObjects(){
-        for (GUIObject obj: this.getDrawnGUIObjects()) {
-            obj.removeEventHandlers();
-        }
         this.drawnGUIObjects.clear();
     }
 

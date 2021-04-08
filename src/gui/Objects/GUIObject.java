@@ -74,22 +74,6 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
     }
 
     /**
-     * Set the event handlers  this GUI object, this means adding the mouse and key event listeners
-     */
-    public void setEventHandlers(){
-        this.eventHandler.addKeyEventListener(kListener);
-        this.eventHandler.addMouseEventListener(mListener);
-    }
-
-    /**
-     * Remove the mouse and key event listeners form the screen
-     */
-    public void removeEventHandlers() {
-        this.eventHandler.removeKeyEventListener(kListener);
-        this.eventHandler.removeMouseEventListener(mListener);
-    }
-
-    /**
      * Check if the given coordinates collide with the position of this object
      * @param x the x coordinate
      * @param y the y coordinate
@@ -147,10 +131,6 @@ public abstract class GUIObject implements MouseEventListener, KeyEventListener 
             System.out.println("You clicked on a GUIObject");
         }
     }
-
-    // the event listeners
-    MouseEventListener mListener = this::handleMouseEvent;
-    KeyEventListener kListener = this::handleKeyEvent;
 
     /**
      * Get all buttons that are related to this object
