@@ -103,7 +103,7 @@ public class BrowsrDocumentValidator {
 		consumeContentSpan();
 		consumeEndTag("form");
 	}
-	
+
 	void consumeInput() {
 		consumeOpenStartTag("input");
 		String value = consumeAttribute("type");
