@@ -9,14 +9,20 @@ import gui.Window;
 /**
  * The dialog screen to save a bookmark
  */
-public class SaveBookmarkBarScreen extends  DialogScreen{
+public class SaveBookmarkScreen extends  DialogScreen{
 
     // some needed objects
     private final String currAddress;
     private GUIInput bookmarkName;
     private GUIInput bookmarkAddress;
 
-    public SaveBookmarkBarScreen(Window window, DefaultScreen prevscreen, String address){
+    /**
+     * Construct this SaveBookmarkScreen
+     * @param window
+     * @param prevscreen
+     * @param address
+     */
+    public SaveBookmarkScreen(Window window, DefaultScreen prevscreen, String address){
         super(window, prevscreen);
         this.currAddress = address;
         this.create();

@@ -1,7 +1,7 @@
 package gui.DefaultScreen;
 
 import events.*;
-import gui.DialogScreen.SaveBookmarkBarScreen;
+import gui.DialogScreen.SaveBookmarkScreen;
 import gui.DialogScreen.SaveHtmlScreen;
 import gui.Screen;
 import gui.Window;
@@ -214,7 +214,7 @@ public class DefaultScreen implements Screen, EventHandler {
      * Make the new dialog screen to save a bookmark
      */
     private void makeSaveBookmarkBarScreen(){
-        SaveBookmarkBarScreen s = new SaveBookmarkBarScreen(this.window, this, getAddress());
+        SaveBookmarkScreen s = new SaveBookmarkScreen(this.window, this, getAddress());
         this.window.setScreen(s);
     }
 
