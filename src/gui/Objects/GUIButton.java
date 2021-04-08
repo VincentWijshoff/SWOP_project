@@ -1,7 +1,5 @@
 package gui.Objects;
 
-import events.MouseEventListener;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -60,6 +58,20 @@ public class GUIButton extends GUIObject{
         }else{
             this.buttonColor = Color.DARK_GRAY;
         }
+    }
+
+    /**
+     * An interface used so the functionality off the button can be set to a custom event
+     */
+    public interface MouseEventListener {
+        /**
+         * Handle a mouse event
+         * @param x             The x coordinate off tha mouse click
+         * @param y             The y coordinate off the mouse click
+         * @param id            The id off the mouse click
+         * @param clickCount    The click count off the mouse click
+         */
+        void handleMouseEvent(int x, int y, int id, int clickCount);
     }
 
     /**
