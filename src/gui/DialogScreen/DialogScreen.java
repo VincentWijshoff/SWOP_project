@@ -108,7 +108,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
      * Get all current GUIObjects
      * @return  All gui objects
      */
-    protected ArrayList<GUIObject> getGUIObjects(){
+    public ArrayList<GUIObject> getGUIObjects(){
         return this.guiObjects;
     }
 

@@ -22,6 +22,7 @@ public abstract class TestUtil {
         if (b) fail(testName);
     }
     public static void assertEquals(String testName, String a, String b) {if(!a.equals(b)) fail(testName); }
+    public static void assertEquals(String testName, int a, int b) {if(a != b) fail(testName); }
 
     public static void typeString(Window window, String string) {
         for (char c: string.toCharArray()) {

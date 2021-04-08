@@ -114,6 +114,10 @@ public class GUIButton extends GUIObject{
         return inp;
     }
 
+    public String getText(){
+        return this.text;
+    }
+
     // is this button a submit button?
     public boolean isSubmit = false;
 

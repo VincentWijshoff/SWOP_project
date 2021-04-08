@@ -1,4 +1,4 @@
-package tests;
+package tests.GUITests;
 
 import gui.*;
 import gui.DefaultScreen.AddressBar;
@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import static tests.TestUtil.*;
 
 
-class GUITests {
+class AddressBarTest {
 
 	Window window = new Window("TestBrowser");
 	DefaultScreen screen = new DefaultScreen(window);
