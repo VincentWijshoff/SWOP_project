@@ -1,6 +1,5 @@
 package gui.Objects;
 
-import events.KeyEventListener;
 import events.MouseEventListener;
 
 import java.awt.*;
@@ -15,7 +14,6 @@ public class GUIButton extends GUIObject{
     String text;
     // the events that will happen when on button
     MouseEventListener mouseListener;
-    KeyEventListener keyListener;
     //the current color of the button
     Color buttonColor = Color.lightGray;
 
@@ -31,7 +29,6 @@ public class GUIButton extends GUIObject{
         super(x, y, width, height);
         this.text = startTxt;
         this.mouseListener = (x1, y1, id, clickCount) -> { };
-        this.keyListener = (id, keyCode, keyChar, modifier) -> false;
     }
 
     /**
@@ -42,7 +39,6 @@ public class GUIButton extends GUIObject{
         super();
         this.text = startTxt;
         this.mouseListener = (x1, y1, id, clickCount) -> { };
-        this.keyListener = (id, keyCode, keyChar, modifier) -> false;
     }
 
     /**
@@ -67,19 +63,6 @@ public class GUIButton extends GUIObject{
     }
 
     /**
-     * Handle the key event
-     * @param id            The id of the event
-     * @param keyCode       The keycode of the event
-     * @param keyChar       The key char of the event
-     * @param modifier      The modifier on the event
-     * @return the return of the self set key event
-     */
-    @Override
-    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
-        return this.keyListener.handleKeyEvent(id, keyCode, keyChar, modifier);
-    }
-
-    /**
      * Set a mouse event that will be called when the button was pressed
      * @param l The mouse event
      */
@@ -94,14 +77,6 @@ public class GUIButton extends GUIObject{
     public void updateDimensions() {
         this.width = 70;
         this.height = 15;
-    }
-
-    /**
-     * Set the key event to be called on a key event
-     * @param l The key event
-     */
-    public void setKeyEvent(KeyEventListener l){
-        this.keyListener = l;
     }
 
     /**

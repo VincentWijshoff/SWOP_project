@@ -1,19 +1,16 @@
 package gui.Objects;
 
 import events.EventHandler;
-import events.KeyEventListener;
-import events.MouseEventListener;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.UUID;
 
 /**
  This class is the superclass of all other GUIObjects. Properties all GUIObjects need are defined here,
  such as their position, dimensions and ids.
  */
-public abstract class GUIObject implements MouseEventListener, KeyEventListener {
+public abstract class GUIObject {
 
     // some needed information about each GUI object
     private UUID id;
