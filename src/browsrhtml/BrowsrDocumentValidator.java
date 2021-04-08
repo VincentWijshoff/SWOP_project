@@ -94,6 +94,23 @@ public class BrowsrDocumentValidator {
 		consumeTextSpan();
 		consumeEndTag("a");
 	}
+
+
+	void consumeForm() {
+		consumeOpenStartTag("form");
+		consumeAttribute("action");
+		consumeToken(TokenType.CLOSE_TAG);
+		consumeContentSpan();
+		consumeEndTag("form");
+	}
+	
+	void consumeInput() {
+		consumeOpenStartTag("input");
+		String value = consumeAttribute("type");
+		if(value.equals("text"))
+			consumeAttribute("name");
+		consumeToken(TokenType.CLOSE_TAG);
+	}
 	
 	void consumeStartTag(String tagName) {
 		consumeOpenStartTag(tagName);
@@ -125,6 +142,8 @@ public class BrowsrDocumentValidator {
 			switch (lexer.getTokenValue()) {
 			case "a" -> consumeHyperlink();
 			case "table" -> consumeTable();
+			case "form" -> consumeForm();
+			case "input" -> consumeInput();
 			default -> fail();
 			}
 		}
