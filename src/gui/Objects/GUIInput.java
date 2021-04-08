@@ -71,7 +71,7 @@ public class GUIInput extends GUIObject{
      * @param clickCount    The click count of the event
      */
     public void handleMouseEvent(int x, int y, int id, int clickCount){
-        if (!this.isInGUIObject(x, y)) { // needed?
+        if (!this.isInGUIObject(x, y)) {
             this.selectNone();
             this.inFocus = false;
             this.initialClick = true;
