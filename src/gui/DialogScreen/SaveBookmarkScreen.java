@@ -18,9 +18,9 @@ public class SaveBookmarkScreen extends  DialogScreen{
 
     /**
      * Construct this SaveBookmarkScreen
-     * @param window
-     * @param prevscreen
-     * @param address
+     * @param window the window this SaveBookmarkScreen should be part of
+     * @param prevscreen the default screen that was shown before this screen
+     * @param address the current address to fill in
      */
     public SaveBookmarkScreen(Window window, DefaultScreen prevscreen, String address){
         super(window, prevscreen);

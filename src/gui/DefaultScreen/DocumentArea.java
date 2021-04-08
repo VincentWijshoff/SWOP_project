@@ -24,8 +24,10 @@ public class DocumentArea {
     private final DefaultScreen screen;
     private final HtmlLoader loader;
 
-    /*
-    * Class used to describe the entire Document section of our GUI.
+    /**
+     * Class used to describe the entire Document section of our GUI.
+     * @param screen the screen this document area should be part of
+     * @param relativeYpos y-position this document area starts at
      */
     public DocumentArea(DefaultScreen screen, int relativeYpos) {
         this.screen = screen;
@@ -177,8 +179,8 @@ public class DocumentArea {
     }
 
     /**
-     * handles the key-presses while the address bar is in focus
-     * @param id        The id off the pressed button
+     * handles the key-presses for this document area
+     * @param id        The id of the pressed button
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
      * @param modifier  The modifier on the pressed key
@@ -187,6 +189,13 @@ public class DocumentArea {
         drawnGUIObjects.forEach(obj -> obj.handleKeyEvent(id, keyCode, keyChar, modifier));
     }
 
+    /**
+     * handles the mouse-clicks for this document area
+     * @param id            The id off the mouse event
+     * @param clickCount    The click count off the user
+     * @param x             x position of the mouse event
+     * @param y             y position of the mouse event
+     */
     public void handleMouseEvent(int id, int x, int y, int clickCount){
         drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
     }

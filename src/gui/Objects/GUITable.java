@@ -207,6 +207,13 @@ public class GUITable extends GUIObject {
         }
     }
 
+    /**
+     * handles the key-presses
+     * @param id        The id of the pressed button
+     * @param keyCode   The keycode for the pressed button
+     * @param keyChar   The char that was pressed
+     * @param modifier  The modifier on the pressed key
+     */
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifier){
         for (ArrayList<GUIObject> row: tableRows) {

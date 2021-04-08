@@ -21,6 +21,11 @@ public abstract class DialogScreen implements Screen, EventHandler {
     // list of all guiObjects
     ArrayList<GUIObject> guiObjects;
 
+    /**
+     * construct a dialog screen
+     * @param window the window that should have this dialogscreen
+     * @param prevScreen the DefaultSCreen that was shown before this dialog screen
+     */
     public DialogScreen(Window window, DefaultScreen prevScreen){
         this.window = window;
         this.previousScreen = prevScreen;
@@ -38,9 +43,9 @@ public abstract class DialogScreen implements Screen, EventHandler {
 
     /**
      * Handle the mouse event on the dialog screen
-     * @param id            The id off the mouse event
-     * @param x             The x coordinate off the mouse event
-     * @param y             The y coordinate off the mouse event
+     * @param id            The id of the mouse event
+     * @param x             The x coordinate of the mouse event
+     * @param y             The y coordinate of the mouse event
      * @param clickCount    The click count on the mouse event
      * @param button        The button pressed on the mouse
      * @param modifiersEx   The modifier active on the mouse event
@@ -52,8 +57,8 @@ public abstract class DialogScreen implements Screen, EventHandler {
 
     /**
      * Handle the key event on the dialog screen
-     * @param id            The id off the key event
-     * @param keyCode       The code off the key pressed
+     * @param id            The id of the key event
+     * @param keyCode       The code of the key pressed
      * @param keyChar       The char of the key pressed
      * @param modifiersEx   The modifiers active on the key pressed
      */
@@ -63,7 +68,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
     }
 
     /**
-     * dos nothing as a dialog screen should not be active on startup
+     * Does nothing as a dialog screen should not be active on startup
      */
     @Override
     public void handleShown() {
@@ -81,7 +86,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
 
     /**
      * Load a url
-     * @param url   A full  url starting with http:// or a href
+     * @param url   A full url starting with http:// or a href
      */
     @Override
     public void load(String url) { }

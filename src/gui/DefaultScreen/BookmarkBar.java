@@ -17,6 +17,11 @@ public class BookmarkBar {
     private final GUITable bookmarks;
     private final DefaultScreen screen;
 
+    /**
+     * create bookmarkbar
+     * @param relpos y position this bookmark bar starts at
+     * @param screen screen this bookmark bar is part of
+     */
     public BookmarkBar(int relpos, DefaultScreen screen){
         this.relativeYPos = relpos;
         this.screen = screen;

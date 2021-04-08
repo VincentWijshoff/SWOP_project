@@ -21,8 +21,12 @@ public class DefaultScreen implements Screen, EventHandler {
     // the window
     gui.Window window;
 
-    public DefaultScreen(Window w){
-        this.window = w;
+    /**
+     * construct default browser screen
+     * @param window the window this screen should be part of
+     */
+    public DefaultScreen(Window window){
+        this.window = window;
 
         this.addressBar = new AddressBar("WelcomeDoc.html", this);
         this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit, this);

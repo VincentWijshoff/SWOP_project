@@ -18,6 +18,12 @@ public class SaveHtmlScreen extends DialogScreen{
     private final String htmlCode;
     private GUIInput fileName;
 
+    /**
+     * Construct savehtmlscreen
+     * @param window the window this SaveBookmarkScreen should be part of
+     * @param prevScreen the default screen that was shown before this screen
+     * @param html the html to save
+     */
     public SaveHtmlScreen(Window window, DefaultScreen prevScreen, String html){
         super(window, prevScreen);
         this.htmlCode = html;

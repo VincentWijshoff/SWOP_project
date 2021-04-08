@@ -32,6 +32,15 @@ public class GUIInput extends GUIObject{
         this.text = startTxt;
     }
 
+    /**
+     * Construct a GUIInput
+     * @param startTxt      starting text filled in to the input field
+     * @param x             x position of this GUIInput
+     * @param y             y position of this GUIInput
+     * @param width         width of this GUIInput
+     * @param height        height of this GUIInput
+     * @param pageLoader    boolean signaling if this GUIInput is a pageLoader
+     */
     public GUIInput(String startTxt, int x, int y, int width, int height, boolean pageLoader){
         super(x, y, width, height);
         this.text = startTxt;
@@ -51,18 +60,18 @@ public class GUIInput extends GUIObject{
     }
 
     /**
-     * constructor
-     * @param name  Set the default text in the input bar
+     * Construct a GUIInput
+     * @param text  Set the default text in the input bar
      */
-    public GUIInput(String name) {
+    public GUIInput(String text) {
         super();
-        this.text = name;
+        this.text = text;
         this.width = 70;
         this.height = 15;
     }
 
     /**
-     * constructor
+     * Construct a GUIInput
      */
     public GUIInput(){
         super();
@@ -123,7 +132,7 @@ public class GUIInput extends GUIObject{
     }
 
     /**
-     * handles the key-presses while the address bar is in focus
+     * handles the key-presses
      * @param id        The id of the pressed button
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
