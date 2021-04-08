@@ -14,10 +14,6 @@ import java.util.ArrayList;
  */
 public abstract class DialogScreen implements Screen, EventHandler {
 
-    // event handlers
-    MouseEventHandler mouseEventHandler;
-    KeyEventHandler keyEventHandler;
-
     // window and screen objects
     gui.Window window;
     DefaultScreen previousScreen;
@@ -29,8 +25,6 @@ public abstract class DialogScreen implements Screen, EventHandler {
         this.window = window;
         this.previousScreen = prevScreen;
         this.guiObjects = new ArrayList<>();
-        this.mouseEventHandler = new MouseEventHandler();
-        this.keyEventHandler = new KeyEventHandler();
     }
 
     /**
@@ -53,9 +47,9 @@ public abstract class DialogScreen implements Screen, EventHandler {
      */
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
-        if(this.mouseEventHandler != null) {
-            this.mouseEventHandler.onClick(id, x, y, clickCount);
-        }
+        this.guiObjects.forEach(obj -> {
+            obj.handleMouseEvent(x, y, id, clickCount);
+        });
     }
 
     /**
@@ -67,9 +61,9 @@ public abstract class DialogScreen implements Screen, EventHandler {
      */
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
-        if(this.keyEventHandler != null){
-            this.keyEventHandler.onKeyPress(id, keyCode, keyChar, modifiersEx);
-        }
+        this.guiObjects.forEach(obj -> {
+            obj.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
+        });
     }
 
     /**
@@ -102,7 +96,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
      */
     @Override
     public void addMouseEventListener(MouseEventListener listener) {
-        this.mouseEventHandler.addMouseEventListener(listener);
+
     }
 
     /**
@@ -111,7 +105,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
      */
     @Override
     public void addKeyEventListener(KeyEventListener listener) {
-        this.keyEventHandler.addKeyEventListener(listener);
+
     }
 
     /**
@@ -120,7 +114,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
      */
     @Override
     public void removeMouseEventListener(MouseEventListener listener) {
-        this.mouseEventHandler.removeMouseEventListener(listener);
+
     }
 
     /**
@@ -129,7 +123,7 @@ public abstract class DialogScreen implements Screen, EventHandler {
      */
     @Override
     public void removeKeyEventListener(KeyEventListener listener) {
-        this.keyEventHandler.removeKeyEventListener(listener);
+
     }
 
     /**

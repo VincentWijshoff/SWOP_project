@@ -56,7 +56,7 @@ public class SaveHtmlScreen extends DialogScreen{
         this.addGUIObject(cnclBtn);
         this.addGUIObject(saveBtn);
         this.getGUIObjects().forEach(obj -> obj.setHandler(this));
-        this.getGUIObjects().forEach(GUIObject::setEventHandlers);
+        // this.getGUIObjects().forEach(GUIObject::setEventHandlers);
     }
 
     /**
