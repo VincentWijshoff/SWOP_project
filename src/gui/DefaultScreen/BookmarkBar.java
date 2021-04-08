@@ -94,4 +94,20 @@ public class BookmarkBar {
         return this.bookmarks;
     }
 
+    /**
+     * handles the key-presses while the address bar is in focus
+     * @param id        The id off the pressed button
+     * @param keyCode   The keycode for the pressed button
+     * @param keyChar   The char that was pressed
+     * @param modifier  The modifier on the pressed key
+     * @return          true if the gui should load the webpage
+     */
+    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+        return this.bookmarks.handleKeyEvent(id, keyCode, keyChar, modifier);
+    }
+
+    public void handleMouseEvent(int id, int x, int y, int clickCount){
+        this.bookmarks.handleMouseEvent(x, y, id, clickCount);
+    }
+
 }

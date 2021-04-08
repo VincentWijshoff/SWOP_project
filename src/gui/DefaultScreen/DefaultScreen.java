@@ -14,10 +14,6 @@ import java.awt.event.KeyEvent;
  */
 public class DefaultScreen implements Screen, EventHandler {
 
-    // the event handlers
-    MouseEventHandler mouseEventHandler;
-    KeyEventHandler keyEventHandler;
-
     // the elements that are on a default screen
     AddressBar addressBar;
     BookmarkBar bookmarkBar;
@@ -27,9 +23,6 @@ public class DefaultScreen implements Screen, EventHandler {
 
     public DefaultScreen(Window w){
         this.window = w;
-
-        this.mouseEventHandler = new MouseEventHandler();
-        this.keyEventHandler = new KeyEventHandler();
 
         this.addressBar = new AddressBar("WelcomeDoc.html", this);
         this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit, this);
@@ -149,7 +142,9 @@ public class DefaultScreen implements Screen, EventHandler {
      */
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
-        this.mouseEventHandler.onClick(id, x, y, clickCount);
+        this.documentArea.handleMouseEvent(id, x, y, clickCount);
+        this.bookmarkBar.handleMouseEvent(id, x, y, clickCount);
+        this.addressBar.handleMouseEvent(id, x, y, clickCount);
     }
 
     /**
@@ -170,7 +165,9 @@ public class DefaultScreen implements Screen, EventHandler {
                 return;
             }
         }
-        this.keyEventHandler.onKeyPress(id, keyCode, keyChar, modifiersEx);
+        this.documentArea.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
+        this.bookmarkBar.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
+        this.addressBar.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
     }
 
     /**
@@ -210,7 +207,7 @@ public class DefaultScreen implements Screen, EventHandler {
      */
     @Override
     public void addMouseEventListener(MouseEventListener listener) {
-        this.mouseEventHandler.addMouseEventListener(listener);
+
     }
 
     /**
@@ -219,7 +216,7 @@ public class DefaultScreen implements Screen, EventHandler {
      */
     @Override
     public void addKeyEventListener(KeyEventListener listener) {
-        this.keyEventHandler.addKeyEventListener(listener);
+
     }
 
     /**
@@ -228,7 +225,7 @@ public class DefaultScreen implements Screen, EventHandler {
      */
     @Override
     public void removeMouseEventListener(MouseEventListener listener) {
-        this.mouseEventHandler.removeMouseEventListener(listener);
+
     }
 
     /**
@@ -237,7 +234,7 @@ public class DefaultScreen implements Screen, EventHandler {
      */
     @Override
     public void removeKeyEventListener(KeyEventListener listener) {
-        this.keyEventHandler.removeKeyEventListener(listener);
+
     }
 
     /**

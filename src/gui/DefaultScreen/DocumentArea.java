@@ -181,5 +181,26 @@ public class DocumentArea {
     public void load(String url) {
         this.screen.load(url);
     }
+
+    /**
+     * handles the key-presses while the address bar is in focus
+     * @param id        The id off the pressed button
+     * @param keyCode   The keycode for the pressed button
+     * @param keyChar   The char that was pressed
+     * @param modifier  The modifier on the pressed key
+     * @return          true if the gui should load the webpage
+     */
+    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+        drawnGUIObjects.forEach(obj -> {
+            obj.handleKeyEvent(id, keyCode, keyChar, modifier);
+        });
+        return false;
+    }
+
+    public void handleMouseEvent(int id, int x, int y, int clickCount){
+        drawnGUIObjects.forEach(obj -> {
+            obj.handleMouseEvent(x, y, id, clickCount);
+        });
+    }
 }
 

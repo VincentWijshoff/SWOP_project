@@ -54,8 +54,8 @@ class GUITests {
 		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		a.setInFocus();
-		a.handleMouseEventA(aBarX, aBarY, MouseEvent.MOUSE_PRESSED, 1);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED,aBarX, aBarY, 1);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 		a.setOutFocus();
 
 		assertEquals(testName, a.getAddress(), "/");
@@ -69,8 +69,8 @@ class GUITests {
 		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		a.setInFocus();
-		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED,aBarX,aBarY, 1);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
 		a.setOutFocus();
 
 		assertEquals(testName, a.getAddress(), "");
@@ -86,24 +86,24 @@ class GUITests {
 		String initialAddress = a.getAddress();
 
 		a.setInFocus();
-		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0); //right arrow
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED,aBarX,aBarY, 1);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0); //right arrow
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0); //left arrow
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0); //left arrow
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0);
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0); //home
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0); //home
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0);
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_END, ' ', 0); //end
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_END, ' ', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_END, ' ', 0); //end
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_END, ' ', 0);
 
 		a.setOutFocus();
 
@@ -120,18 +120,18 @@ class GUITests {
 		String initialAddress = a.getAddress();
 
 		a.setInFocus();
-		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
-		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED,aBarX,aBarY, 1);
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED,aBarX,aBarY, 1);
 
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SPACE, ' ', 0);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SPACE, ' ', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 
 		assertFalse(testName, a.getAddress().equals(initialAddress));
 
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_ESCAPE, ' ', 0); //escape
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ESCAPE, ' ', 0); //escape
 
 		assertEquals(testName, a.getAddress(), initialAddress);
 
@@ -144,16 +144,16 @@ class GUITests {
 		AddressBar a = new AddressBar(screen);
 
 		a.setInFocus();
-		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED,aBarX,aBarY, 1);
 
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 
 		assertEquals(testName, a.getAddress(), "///");
 
-		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 2); //double click
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED,aBarX,aBarY, 2); //double click
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
 
 		assertEquals(testName, a.getAddress(), "");
 
@@ -168,26 +168,26 @@ class GUITests {
 		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		a.setInFocus();
-		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED,aBarX,aBarY, 1);
 
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, 39, ' ', 0);//right arrow
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, 39, ' ', 0);//right arrow
 
-		a.handleKeyEventA(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', KeyEvent.SHIFT_DOWN_MASK);//left arrow shifting
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', KeyEvent.SHIFT_DOWN_MASK);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', KeyEvent.SHIFT_DOWN_MASK);
-		a.handleKeyEventA(0, 0, ' ', 0); //end shifting
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyEvent(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', KeyEvent.SHIFT_DOWN_MASK);//left arrow shifting
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', KeyEvent.SHIFT_DOWN_MASK);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', KeyEvent.SHIFT_DOWN_MASK);
+		a.handleKeyEvent(0, 0, ' ', 0); //end shifting
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 
 		//only the selected bit should be changed
 		assertTrue(testName, a.getAddress().equals("testAddress/"));
 
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0);//go to beginning
-		a.handleKeyEventA(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', KeyEvent.SHIFT_DOWN_MASK);//right arrow shifting
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', KeyEvent.SHIFT_DOWN_MASK);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', KeyEvent.SHIFT_DOWN_MASK);
-		a.handleKeyEventA(0, 0, ' ', 0); //end shifting
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0);//go to beginning
+		a.handleKeyEvent(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', KeyEvent.SHIFT_DOWN_MASK);//right arrow shifting
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', KeyEvent.SHIFT_DOWN_MASK);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', KeyEvent.SHIFT_DOWN_MASK);
+		a.handleKeyEvent(0, 0, ' ', 0); //end shifting
 
 		//the address should still be partially there
 		assertTrue(testName, a.getAddress().equals("testAddress/"));
@@ -200,28 +200,28 @@ class GUITests {
 		AddressBar a = new AddressBar("testAddressBar", screen);
 
 		a.setInFocus();
-		a.handleMouseEventA(aBarX,aBarY,MouseEvent.MOUSE_PRESSED, 1);
+		a.handleMouseEvent(MouseEvent.MOUSE_PRESSED,aBarX,aBarY, 1);
 
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);//right arrow
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);//right arrow
 
-		a.handleKeyEventA(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', KeyEvent.SHIFT_DOWN_MASK);//home shifting
-		a.handleKeyEventA(0, 0, ' ', 0); //end shifting
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
+		a.handleKeyEvent(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', KeyEvent.SHIFT_DOWN_MASK);//home shifting
+		a.handleKeyEvent(0, 0, ' ', 0); //end shifting
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, '/', 0);
 
 		//the entire address should have been selected and replaced
 		assertTrue(testName, a.getAddress().equals("/"));
 
 		a.setAddress("testAddressBar");
 
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0);//go to beginning
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);//go right 3 spaces
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);
-		a.handleKeyEventA(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_END, ' ', KeyEvent.SHIFT_DOWN_MASK);//to end shifting
-		a.handleKeyEventA(0, 0, ' ', 0); //end shifting
-		a.handleKeyEventA(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0);//go to beginning
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);//go right 3 spaces
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);
+		a.handleKeyEvent(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_END, ' ', KeyEvent.SHIFT_DOWN_MASK);//to end shifting
+		a.handleKeyEvent(0, 0, ' ', 0); //end shifting
+		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); //backspace
 
 		//only the 3 skipped bits should be there
 		assertTrue(testName, a.getAddress().equals("tes"));

@@ -34,7 +34,6 @@ public class AddressBar {
         //this.w = width;
         this.inputField = new GUIInput(startAddress, this.abX, this.abY, 0, this.h);
         this.screen = screen;
-        addListeners();
     }
 
     /**
@@ -44,38 +43,6 @@ public class AddressBar {
         //this.w = width;
         this.inputField = new GUIInput(this.abX, this.abY, 0, this.h);
         this.screen = screen;
-        addListeners();
-    }
-
-    /**
-     * Add the mouse and key event listeners to the web page
-     */
-    private void addListeners(){
-        screen.keyEventHandler.addKeyEventListener((id, keyCode, keyChar, modifier) -> {
-
-            if (isInFocus()) {
-                // handle the key event in the address bar area
-                if (handleKeyEventA(id, keyCode, keyChar, modifier)) {
-                    screen.load(getAddress());
-                }
-            }
-            return false;
-        });
-
-        screen.mouseEventHandler.addMouseEventListener((x, y, id, clickCount) -> {
-            if (isOnAddressBar(x, y)) {
-                setInFocus();
-                System.out.println("Clicked on Address Bar!");
-            } else if (isInFocus()){
-                setOutFocus();
-                screen.load(getAddress());
-                System.out.println("Clicked of Address Bar!");
-            }
-            // handle the click event accordingly
-            if (isInFocus()) {
-                handleMouseEventA(x, y, id, clickCount);
-            }
-        });
     }
 
     /**
@@ -135,8 +102,19 @@ public class AddressBar {
      *  post    When initially clicking the address bar, an insertion point will be shown ("text cursor")
      *          When initially clicking the address bar, all text is selected ( Blue background )
      */
-    public void handleMouseEventA(int x, int y, int id, int clickCount){
-        this.inputField.handleMouseEvent(x, y, id, clickCount);
+    public void handleMouseEvent(int id, int x, int y, int clickCount){
+        if (isOnAddressBar(x, y)) {
+            setInFocus();
+            System.out.println("Clicked on Address Bar!");
+        } else if (isInFocus()){
+            setOutFocus();
+            screen.load(getAddress());
+            System.out.println("Clicked of Address Bar!");
+        }
+        // handle the click event accordingly
+        if (isInFocus()) {
+            this.inputField.handleMouseEvent(x, y, id, clickCount);
+        }
     }
 
     /**
@@ -147,7 +125,26 @@ public class AddressBar {
      * @param modifier  The modifier on the pressed key
      * @return          true if the gui should load the webpage
      */
-    public boolean handleKeyEventA(int id, int keyCode, char keyChar, int modifier) {
+    public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+
+        if (isInFocus()) {
+            // handle the key event in the address bar area
+            if (handleKeyEventA(id, keyCode, keyChar, modifier)) {
+                screen.load(getAddress());
+            }
+        }
+        return false;
+    }
+
+    /**
+     * handles the key-presses while the address bar is in focus
+     * @param id        The id off the pressed button
+     * @param keyCode   The keycode for the pressed button
+     * @param keyChar   The char that was pressed
+     * @param modifier  The modifier on the pressed key
+     * @return          true if the gui should load the webpage
+     */
+    private boolean handleKeyEventA(int id, int keyCode, char keyChar, int modifier) {
         if(!this.isInFocus()){
             return false;
         }
