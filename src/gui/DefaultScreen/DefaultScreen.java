@@ -93,12 +93,12 @@ public class DefaultScreen implements Screen, EventHandler {
      * @return      The new address as a string
      */
     private String createAddress(char[] chars) {
-        StringBuffer stringBuffer = new StringBuffer();
-        for(int i=0; i<chars.length; i++){
-            if(chars[i] == ' ')
+        StringBuilder stringBuffer = new StringBuilder();
+        for (char aChar : chars) {
+            if (aChar == ' ')
                 return stringBuffer.toString(); //no spaces in address bar
             else
-                stringBuffer.append(chars[i]);
+                stringBuffer.append(aChar);
         }
         return stringBuffer.toString();
     }

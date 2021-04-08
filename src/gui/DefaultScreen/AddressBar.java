@@ -1,6 +1,5 @@
 package gui.DefaultScreen;
 
-import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIInput;
 
 import java.awt.*;

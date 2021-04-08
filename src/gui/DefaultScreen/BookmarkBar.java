@@ -12,11 +12,10 @@ import java.util.ArrayList;
 public class BookmarkBar {
 
     // GUI elements
-    private int relativeYPos;
-    private int height = 25;
-    private int width;
-    private GUITable bookmarks;
-    private DefaultScreen screen;
+    private final int relativeYPos;
+    private final int height = 25;
+    private final GUITable bookmarks;
+    private final DefaultScreen screen;
 
     public BookmarkBar(int relpos, DefaultScreen screen){
         this.relativeYPos = relpos;
@@ -40,15 +39,14 @@ public class BookmarkBar {
      * @param width The width of the window
      */
     public void draw(Graphics g, int width){
-        this.width = width;
         Color oldColor = g.getColor();
         int actHeight = this.height + this.relativeYPos;
 
         // first draw the grey enclosing area
         g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(0, this.relativeYPos, this.width, this.height);
+        g.fillRect(0, this.relativeYPos, width, this.height);
         g.setColor(Color.BLACK);
-        g.drawLine(0, actHeight, this.width, actHeight);
+        g.drawLine(0, actHeight, width, actHeight);
 
         this.getBookmarks().draw(g);
 

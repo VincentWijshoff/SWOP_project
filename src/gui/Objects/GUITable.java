@@ -48,7 +48,7 @@ public class GUITable extends GUIObject {
      * @return a list of inputs in this table
      */
     public ArrayList<GUIInput> getInputs(){
-        ArrayList<GUIInput> inputs = new ArrayList<GUIInput>(); // list of all inputs in this table
+        ArrayList<GUIInput> inputs = new ArrayList<>(); // list of all inputs in this table
         for(ArrayList<GUIObject> row : tableRows) {
             for (GUIObject obj : row) {
                 inputs.addAll(obj.getInputs());
@@ -62,8 +62,8 @@ public class GUITable extends GUIObject {
      * @return a list of buttons in this table
      */
     public ArrayList<GUIButton> getButtons(){
-        ArrayList<GUIButton> buttons = new ArrayList<GUIButton>(); // list of all buttons in this table
-        ArrayList<GUIInput> inputs = new ArrayList<GUIInput>(); // list of all inputs in this table
+        ArrayList<GUIButton> buttons = new ArrayList<>(); // list of all buttons in this table
+        // list of all inputs in this table
         for(ArrayList<GUIObject> row : tableRows) {
             for (GUIObject obj : row) {
                 buttons.addAll(obj.getButtons());

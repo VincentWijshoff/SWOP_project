@@ -3,9 +3,7 @@ package gui.DialogScreen;
 import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIButton;
 import gui.Objects.GUIInput;
-import gui.Objects.GUIObject;
 import gui.Objects.GUIString;
-import gui.Screen;
 import gui.Window;
 
 /**
@@ -14,7 +12,7 @@ import gui.Window;
 public class SaveBookmarkBarScreen extends  DialogScreen{
 
     // some needed objects
-    private String currAddress;
+    private final String currAddress;
     private GUIInput bookmarkName;
     private GUIInput bookmarkAddress;
 

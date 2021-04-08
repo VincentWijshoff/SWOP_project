@@ -3,9 +3,7 @@ package gui.DialogScreen;
 import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIButton;
 import gui.Objects.GUIInput;
-import gui.Objects.GUIObject;
 import gui.Objects.GUIString;
-import gui.Screen;
 import gui.Window;
 
 import java.io.FileOutputStream;
@@ -17,7 +15,7 @@ import java.io.IOException;
 public class SaveHtmlScreen extends DialogScreen{
 
     // needed objects
-    private String htmlCode;
+    private final String htmlCode;
     private GUIInput fileName;
 
     public SaveHtmlScreen(Window window, DefaultScreen prevScreen, String html){

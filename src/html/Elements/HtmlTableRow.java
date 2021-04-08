@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class HtmlTableRow extends ContentSpan {
 
-    private ArrayList<HtmlTableCell> tableData; //List with all data elements of that row
+    private final ArrayList<HtmlTableCell> tableData; //List with all data elements of that row
 
     /**
      * Create a new HtmlTableRow object, and initialize it with the given table

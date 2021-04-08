@@ -13,7 +13,7 @@ import java.util.UUID;
 public abstract class GUIObject {
 
     // some needed information about each GUI object
-    private UUID id;
+    private final UUID id;
     public int width;
     public int height;
     public int coordX;
@@ -134,7 +134,7 @@ public abstract class GUIObject {
      * @return  A list of al related buttons
      */
     public ArrayList<GUIButton> getButtons(){
-        return new ArrayList<GUIButton>();
+        return new ArrayList<>();
     }
 
     /**
@@ -142,7 +142,7 @@ public abstract class GUIObject {
      * @return  A list of al related inputs
      */
     public ArrayList<GUIInput> getInputs(){
-        return new ArrayList<GUIInput>();
+        return new ArrayList<>();
     }
 
 }

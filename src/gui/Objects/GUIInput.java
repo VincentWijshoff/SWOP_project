@@ -508,7 +508,7 @@ public class GUIInput extends GUIObject{
      * @return  This input
      */
     public ArrayList<GUIInput> getInputs(){
-        ArrayList<GUIInput> inp = new ArrayList<GUIInput>();
+        ArrayList<GUIInput> inp = new ArrayList<>();
         inp.add(this);
         return inp;
     }

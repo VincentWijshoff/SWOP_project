@@ -1,7 +1,6 @@
 package gui.DefaultScreen;
 
 import browsrhtml.BrowsrDocumentValidator;
-import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIObject;
 import html.HtmlLoader;
 import localDocuments.Docs;
@@ -19,11 +18,11 @@ import java.net.URL;
  */
 public class DocumentArea {
 
-    private Set<GUIObject> drawnGUIObjects = new HashSet<>();
-    private int relativeYPos;
+    private final Set<GUIObject> drawnGUIObjects = new HashSet<>();
+    private final int relativeYPos;
     public final int xOffset = 5;
-    private DefaultScreen screen;
-    private HtmlLoader loader;
+    private final DefaultScreen screen;
+    private final HtmlLoader loader;
 
     /*
     * Class used to describe the entire Document section of our GUI.
@@ -66,9 +65,8 @@ public class DocumentArea {
     /**
      * add a GUIObject to the list off gui objects
      * @param obj the object that needs to be added
-     * @return the object
      */
-    public GUIObject addGUIObject(GUIObject obj) {
+    public void addGUIObject(GUIObject obj) {
         this.drawnGUIObjects.add(obj);
 
         obj.setPosition(obj.coordX + xOffset, obj.coordY+relativeYPos);
@@ -76,7 +74,6 @@ public class DocumentArea {
         obj.setHandler(this.screen);
         obj.updateDimensions();
 
-        return obj;
     }
 
     /**
@@ -113,7 +110,7 @@ public class DocumentArea {
      *
      * @param   url the URL we need to navigate to
      *
-     * @post    The new page is loaded if the given url is valid, otherwise the errorDoc is loaded
+     * post    The new page is loaded if the given url is valid, otherwise the errorDoc is loaded
      */
     public void loadAddress(String url) throws IOException {
         URL address = generateAddress(url, "");
@@ -188,16 +185,12 @@ public class DocumentArea {
      * @return          true if the gui should load the webpage
      */
     public boolean handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
-        drawnGUIObjects.forEach(obj -> {
-            obj.handleKeyEvent(id, keyCode, keyChar, modifier);
-        });
+        drawnGUIObjects.forEach(obj -> obj.handleKeyEvent(id, keyCode, keyChar, modifier));
         return false;
     }
 
     public void handleMouseEvent(int id, int x, int y, int clickCount){
-        drawnGUIObjects.forEach(obj -> {
-            obj.handleMouseEvent(x, y, id, clickCount);
-        });
+        drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
     }
 }
 
