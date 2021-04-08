@@ -3,10 +3,7 @@ package tests.GUITests;
 import gui.DefaultScreen.DefaultScreen;
 import gui.DialogScreen.SaveBookmarkScreen;
 import gui.DialogScreen.SaveHtmlScreen;
-import gui.Objects.GUIButton;
-import gui.Objects.GUIInput;
-import gui.Objects.GUIObject;
-import gui.Objects.GUIString;
+import gui.Objects.*;
 import gui.Screen;
 import gui.Window;
 import org.junit.jupiter.api.BeforeAll;
@@ -142,10 +139,79 @@ public class ScreenTest {
     @Test
     void testScreenBookmarkScreen() throws  RuntimeException {
         Screen oldScreen = this.window.getCurrentScreen();
+        assertTrue("testScreenBookmarkScreen", oldScreen instanceof DefaultScreen);
+        DefaultScreen defScreen = (DefaultScreen) oldScreen;
+        // we save the amount off old bookmarks for later
+        int oldMarksSize = defScreen.getBookmarkBar().getBookmarks().getChildObjects().size();
         // if ctrl + d is pressed a new dialog screen should be loaded
         this.window.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
         assertTrue("testScreenBookmarkScreen", this.window.getCurrentScreen() instanceof SaveBookmarkScreen);
-        // reset the to old screen
-        this.window.setScreen(oldScreen);
+        // we check if all gui objects are in the screen
+        SaveBookmarkScreen screen = (SaveBookmarkScreen) this.window.getCurrentScreen();
+        ArrayList<GUIObject> obj = screen.getGUIObjects();
+        // there should be 3 GUI strings, 2 GUI input and 2 GUIButtons
+        assertEquals("testScreenBookmarkScreen", obj.size(), 7);
+        //We now chek if all items are the correct and expected items
+        assertTrue("testScreenBookmarkScreen", obj.get(0) instanceof GUIString);
+        assertTrue("testScreenBookmarkScreen", obj.get(1) instanceof GUIString);
+        assertTrue("testScreenBookmarkScreen", obj.get(2) instanceof GUIInput);
+        assertTrue("testScreenBookmarkScreen", obj.get(3) instanceof GUIString);
+        assertTrue("testScreenBookmarkScreen", obj.get(4) instanceof GUIInput);
+        assertTrue("testScreenBookmarkScreen", obj.get(5) instanceof GUIButton);
+        assertTrue("testScreenBookmarkScreen", obj.get(6) instanceof GUIButton);
+        // we now check for each item some specific identifying elements
+        GUIString str1 = (GUIString) obj.get(0);
+        GUIString str2 = (GUIString) obj.get(1);
+        GUIInput inp1 = (GUIInput) obj.get(2);
+        GUIString str3 = (GUIString) obj.get(3);
+        GUIInput inp2 = (GUIInput) obj.get(4);
+        GUIButton but1 = (GUIButton) obj.get(5);
+        GUIButton but2 = (GUIButton) obj.get(6);
+        // the first string is a title / header to the page
+        assertEquals( "testScreenBookmarkScreen", str1.getText(), "Saving URL to bookmark bar");
+        // the second string should be an indicator for the the input box
+        assertEquals( "testScreenBookmarkScreen", str2.getText(), "Name");
+        // the third string should be an indicator for the the input box
+        assertEquals( "testScreenBookmarkScreen", str3.getText(), "URL");
+        // then the inputs should be right next to the strings
+        assertEquals("testScreenBookmarkScreen", str2.coordY, inp1.coordY);
+        assertTrue("testScreenBookmarkScreen", str2.coordX < inp1.coordX);
+        assertEquals("testScreenBookmarkScreen", str3.coordY, inp2.coordY);
+        assertTrue("testScreenBookmarkScreen", str3.coordX < inp2.coordX);
+        // the input should also be empty on startup
+        assertEquals("testScreenBookmarkScreen", inp1.getText(), "");
+        // the second input should be defaulted to the current address
+        assertEquals("testScreenBookmarkScreen", inp2.getText(), defScreen.getAddress());
+        // the first button should be the cancel button
+        assertEquals("testScreenBookmarkScreen", but1.getText(), "Cancel");
+        // the second button should be the save button
+        assertEquals("testScreenBookmarkScreen", but2.getText(), "Add Bookmark");
+        // now we want to test the functionality off the buttons
+        // we first test the pressing on the cancel button, it should just put back the old screen on the window
+        but1.handleMouseEvent(but1.coordX + 1, but1.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
+        // the old window should be reset
+        assertTrue("testScreenBookmarkScreen", this.window.getCurrentScreen().equals(oldScreen));
+        // we now want to test the save button, so we have to reactivate the save screen again
+        this.window.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
+        assertTrue("testScreenBookmarkScreen", this.window.getCurrentScreen() instanceof SaveBookmarkScreen);
+        assertEquals("testScreenBookmarkScreen", obj.size(), 7);
+        assertTrue("testScreenBookmarkScreen", obj.get(6) instanceof GUIButton);
+        GUIButton but3 = (GUIButton) obj.get(6);
+        assertEquals("testScreenBookmarkScreen", but3.getText(), "Add Bookmark");
+        // if we click this, the bookmark should be saved correctly, we only have to check if a new bookmark was added
+        // in the bookmark, specific bookmark tests test other functionality
+        // we will alter the name off the new bookmark first
+        assertTrue("testScreenBookmarkScreen", obj.get(2) instanceof GUIInput);
+        GUIInput inp3 = (GUIInput) obj.get(2);
+        inp3.setText("testBookmark");
+        // click the add bookamrk button
+        but3.handleMouseEvent(but3.coordX + 1, but3.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
+        assertTrue("testScreenBookmarkScreen", this.window.getCurrentScreen().equals(oldScreen));
+        // exactly one new bookmark should be present in the bookmark bar
+        // without these prints the final test fails?
+        System.out.println(defScreen.getBookmarkBar().getBookmarks().getChildObjects().size());
+        System.out.println(oldMarksSize + 1);
+        assertEquals("testScreenBookmarkScreen", oldMarksSize + 1,
+                defScreen.getBookmarkBar().getBookmarks().getChildObjects().size());
     }
 }
