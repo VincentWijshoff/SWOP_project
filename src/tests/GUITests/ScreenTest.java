@@ -141,7 +141,7 @@ public class ScreenTest {
         Screen oldScreen = this.window.getCurrentScreen();
         assertTrue("testScreenBookmarkScreen", oldScreen instanceof DefaultScreen);
         DefaultScreen defScreen = (DefaultScreen) oldScreen;
-        // we save the amount off old bookmarks for later
+        // we save the amount of old bookmarks for later
         int oldMarksSize = defScreen.getBookmarkBar().getBookmarks().getChildObjects().size();
         // if ctrl + d is pressed a new dialog screen should be loaded
         this.window.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
@@ -204,14 +204,17 @@ public class ScreenTest {
         assertTrue("testScreenBookmarkScreen", obj.get(2) instanceof GUIInput);
         GUIInput inp3 = (GUIInput) obj.get(2);
         inp3.setText("testBookmark");
-        // click the add bookamrk button
+        // click the add bookmark button
         but3.handleMouseEvent(but3.coordX + 1, but3.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
         assertTrue("testScreenBookmarkScreen", this.window.getCurrentScreen().equals(oldScreen));
-        // exactly one new bookmark should be present in the bookmark bar
-        // without these prints the final test fails?
-        System.out.println(defScreen.getBookmarkBar().getBookmarks().getChildObjects().size());
-        System.out.println(oldMarksSize + 1);
-        assertEquals("testScreenBookmarkScreen", oldMarksSize + 1,
-                defScreen.getBookmarkBar().getBookmarks().getChildObjects().size());
+
+        //check if new bookmark has been added, position depends on if 2 default bookmarks have been drawn already //?TODO
+        if (defScreen.getBookmarkBar().getBookmarks().getChildObjects().size() == 1) {
+            assertTrue("testScreenBookmarkScreen", containsGUILinkWith(0, defScreen.getBookmarkBar().relativeYPos, "testBookmark", "WelcomeDoc.html", defScreen.getBookmarkBar().getBookmarks().getChildObjects()));
+        }
+        else { //size == 3
+            int x = fm.stringWidth("home page Bart Jacobs") + fm.stringWidth("home page Bart Jacobs 2.0") + 2*GUITable.xMargin; //calculate x position of new bookmark
+            assertTrue("testScreenBookmarkScreen", containsGUILinkWith(x, defScreen.getBookmarkBar().relativeYPos, "testBookmark", "WelcomeDoc.html", defScreen.getBookmarkBar().getBookmarks().getChildObjects()));
+        }
     }
 }

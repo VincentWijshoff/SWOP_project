@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class BookmarkBar {
 
     // GUI elements
-    private final int relativeYPos;
+    public final int relativeYPos;
     private final int height = 25;
     private final GUITable bookmarks;
     private final DefaultScreen screen;
