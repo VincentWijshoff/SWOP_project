@@ -16,11 +16,9 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 import static tests.TestUtil.*;
 
@@ -217,4 +215,54 @@ public class ScreenTest {
             assertTrue("testScreenBookmarkScreen", containsGUILinkWith(x, defScreen.getBookmarkBar().relativeYPos, "testBookmark", "WelcomeDoc.html", defScreen.getBookmarkBar().getBookmarks().getChildObjects()));
         }
     }
+
+    @Test
+    void testScreenReturnExactState() throws  RuntimeException {
+        // we want to test if when a default screen is returned, the state is exactly the same as before
+        // we test this by checking the specific contents of an input on the page
+        Screen oldScreen = this.window.getCurrentScreen();
+        // we will load the new testing page from the prof as of assignment part 2
+        assertTrue("testScreenReturnExactState", oldScreen instanceof DefaultScreen);
+        DefaultScreen def = (DefaultScreen) oldScreen;
+        def.load("https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
+        // the correct loading off this page will be tested in specific test, we will assume here it worked
+        ArrayList<GUIObject> oldObjects = def.getDocArea().getDrawnGUIObjects();
+        // we know 2 inputs are present in this screen, but we will take the first input to change up
+        GUIInput oldInput = null;
+        for (GUIObject obj : oldObjects){
+            if ( obj instanceof GUIInput){
+                oldInput = (GUIInput) obj;
+                break;
+            }
+        }
+        // the input should not be undefined (null)
+        assertFalse("testScreenReturnExactState", oldInput == null);
+        // now we set some text in the input
+        oldInput.setText("This is a test input");
+        assertEquals("testScreenReturnExactState", oldInput.getText(), "This is a test input");
+        // we can now switch screens to one off the dialog screens
+        this.window.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
+        assertTrue("testScreenReturnExactState", this.window.getCurrentScreen() instanceof SaveBookmarkScreen);
+        // we cancel the action, completing the action will also return the same way so we only test canceling
+        SaveBookmarkScreen screen = (SaveBookmarkScreen) this.window.getCurrentScreen();
+        ArrayList<GUIObject> obj = screen.getGUIObjects();
+        GUIButton but1 = (GUIButton) obj.get(5);
+        but1.handleMouseEvent(but1.coordX + 1, but1.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
+        // we clicked the cancel button, we should be back to the old screen with the exact same value in the input
+        Screen newScreen = this.window.getCurrentScreen();
+        assertTrue("testScreenReturnExactState", oldScreen instanceof DefaultScreen);
+        DefaultScreen newdef = (DefaultScreen) oldScreen;
+        ArrayList<GUIObject> newObjects = newdef.getDocArea().getDrawnGUIObjects();
+        GUIInput newInput = null;
+        for (GUIObject objn : newObjects){
+            if ( objn instanceof GUIInput){
+                newInput = (GUIInput) objn;
+                break;
+            }
+        }
+        assertFalse("testScreenReturnExactState", newInput == null);
+        // the text should still be the same
+        assertEquals("testScreenReturnExactState", newInput.getText(), "This is a test input");
+
+    }   
 }

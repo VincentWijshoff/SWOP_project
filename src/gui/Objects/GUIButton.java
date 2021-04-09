@@ -13,7 +13,7 @@ public class GUIButton extends GUIObject{
     // the events that will happen when on button
     MouseEventListener mouseListener;
     //the current color of the button
-    Color buttonColor = Color.lightGray;
+    public Color buttonColor = Color.lightGray;
 
     /**
      * Constructor
