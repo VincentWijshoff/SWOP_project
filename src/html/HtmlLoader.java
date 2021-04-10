@@ -25,6 +25,15 @@ public class HtmlLoader {
     private String htmlCode; //the string format of the html code
     private DocumentArea documentArea; //the documentArea object
     private final ContentSpanVisitor contentSpanVisitor;
+    private HtmlLexer lexer;
+
+    /**
+     * Create a new HtmlLoader object
+     */
+    public HtmlLoader(DocumentArea doc) {
+        this.contentSpanVisitor = new GUIRenderer();
+        setDocumentArea(doc);
+    }
 
     /**
      * Setter of the documentArea
@@ -33,19 +42,8 @@ public class HtmlLoader {
         this.documentArea = documentArea;
     }
 
-
     /**
-     * Create a new HtmlLoader object, initialized with the given html code (as string format)
-     *
-     * Called when loading a local document
-     */
-    public HtmlLoader(DocumentArea doc) {
-        this.contentSpanVisitor = new GUIRenderer();
-        setDocumentArea(doc);
-    }
-
-    /**
-     * initialise the loader with the html code
+     * Initialise the loader with the html code
      * @param htmlCode  the html code as a string
      */
     public void initialise(String htmlCode) {
@@ -57,7 +55,7 @@ public class HtmlLoader {
     }
 
     /**
-     * initialise the loader with a url
+     * Initialise the loader with a url
      * @param url   the url that needs to be loaded in
      */
     public void initialise(URL url) {
@@ -67,14 +65,6 @@ public class HtmlLoader {
         }catch(Exception e){
             this.htmlCode = Docs.getErrorPage();
         }
-    }
-
-    /**
-     * Get the currently loaded html code
-     * @return  the currently loaded html code as a string
-     */
-    public String getHtmlCode(){
-        return this.htmlCode;
     }
 
     /**
@@ -92,8 +82,17 @@ public class HtmlLoader {
     }
 
     /**
+     * Get the currently loaded html code
+     * @return  the currently loaded html code as a string
+     */
+    public String getHtmlCode(){
+        return this.htmlCode;
+    }
+
+
+
+    /**
      * Method for loading html code from URL
-     *
      * @return    The entire html code of the page as string format
      *
      * inspiration from https://www.programcreek.com/java-api-examples/?class=java.net.URL&method=openStream
@@ -109,6 +108,100 @@ public class HtmlLoader {
     }
 
     /**
+     * Load the page
+     *
+     * Basic idea:
+     *      - Use the given HtmlLexer to scan the html code
+     *      - As long as the next token isn't "END_OF_FILE", check if it is an open tag
+     *          * if not, go to the next token
+     *          * if true, check if the tag is <a>, <table> or <form> and go to the corresponding method
+     */
+    public void loadPage(){
+        this.lexer = new HtmlLexer(new StringReader(htmlCode)); //update the lexer with the html of the to-loaded page
+        HtmlLexer.TokenType type = lexer.getTokenType();
+        String value = lexer.getTokenValue();
+
+        while(type != HtmlLexer.TokenType.END_OF_FILE){
+            if(type == HtmlLexer.TokenType.OPEN_START_TAG){
+                if(value.equals("a"))
+                    handleA();
+                else if(isTable(value))
+                    handleTable();
+                else if(value.equals("form"))
+                    handleForm();
+            }
+            lexer.eatToken();
+            type = lexer.getTokenType();
+            value = lexer.getTokenValue();
+        }
+    }
+
+    /**
+     * Handle the A-tag
+     *
+     * Basic idea:
+     *      1. Create a new Hyperlink object and initialise it in the updateATag method
+     *      2. Use the visitor to create the corresponding GUIObject
+     *      3. Add this GUIObject to the GUIObjects list in documentArea
+     */
+    private void handleA(){
+        Hyperlink aTag = new Hyperlink();
+        lexer.eatToken();
+        updateATag(aTag);
+        documentArea.addGUIObjects(aTag.create(this.contentSpanVisitor));
+    }
+
+    /**
+     * Handle the Table-tag
+     *
+     * Basic idea:
+     *      1. Create a new HtmlTable object and initialise it in the updateTableTag method
+     *      2. Use the visitor to create the corresponding list of GUIObjects
+     *      3. Add this list of GUIObjects to the GUIObjects list in documentArea
+     */
+    private void handleTable(){
+        HtmlTable tableTag = new HtmlTable();
+        lexer.eatToken();
+        updateTableTag(tableTag);
+        documentArea.addGUIObjects(tableTag.create(this.contentSpanVisitor));
+    }
+
+    /**
+     * Handle the Form-tag
+     *
+     * Basic idea:
+     *      1. Create a new Form object and initialise it in the updateFormTag method
+     *      2. Use the visitor to create the corresponding list of GUIObjects
+     *      3. Initialize all submit buttons correctly (so they perform the correct action)
+     *      4. Add this list of GUIObjects to the GUIObjects list in documentArea
+     */
+    private void handleForm(){
+        Form formTag = new Form();
+        lexer.eatToken();
+        updateFormTag(formTag);
+        //guiObjects is the list containing all GUIObjects to represent the Form object
+        ArrayList<GUIObject> guiObjects = formTag.create(this.contentSpanVisitor);
+        ArrayList<GUIInput> inputs = new ArrayList<>();
+        ArrayList<GUIButton> buttons = new ArrayList<>();
+        guiObjects.forEach(obj -> inputs.addAll(obj.getInputs()));   //get all GUIInput objects from guiObjects
+        guiObjects.forEach(obj -> buttons.addAll(obj.getButtons())); //get all GUIButton objects from guiObjects
+        buttons.stream().filter(button -> button.isSubmit).forEach(btn -> btn.setMouseEvent(
+                (x1, y1, id, clickCount) -> {
+                    // this will fire if the submit button on the form was clicked
+                    // form action
+                    String action = formTag.getAction() + "?";
+                    //every input name with its value
+                    inputs.forEach(inp -> btn.addInput(inp.getFormOutput()));
+                    String output = btn.getOutput().substring(0, btn.getOutput().length() - 1);
+                    // finally we have the addition needed for the url
+                    String finalized = action + output;
+                    System.out.println(finalized);
+                    this.documentArea.load(finalized); //if this submit button has been clicked -> load this address
+                }));
+        documentArea.addGUIObjects(guiObjects);
+    }
+
+    /**
      * Check if the string is equal to "table" (sometimes with capital T)
      */
     private boolean isTable(String s){
@@ -116,72 +209,15 @@ public class HtmlLoader {
     }
 
     /**
-     * Load the page
+     * This method will update the given Form object
      *
      * Basic idea:
-     *      - Use the given HtmlLexer to scan the html code
-     *      - As long as the next token isn't "END_OF_FILE", check if it is an open tag
-     *          * if not, go to the next token
-     *          * if true, check if the tag is <a> or <table> and create a new ContentSpan (resp. Hyperlink or HtmlTable)
-     *            And update that object in the corresponding method
-     *            Finally add the object to the list in documentArea
+     *      - As long as the </form> tag isn't the next token, use the lexer to get the next tag
+     *      - Initialise the Form object with the correct action and contentSpan object (HtmlTable or Hyperlink)
+     *
+     * @param formTag  the given formTag object
      */
-    public void loadPage(){
-        HtmlLexer lexer = new HtmlLexer(new StringReader(htmlCode));
-        HtmlLexer.TokenType type = lexer.getTokenType();
-        String value = lexer.getTokenValue();
-
-        while(type != HtmlLexer.TokenType.END_OF_FILE){
-            if(type == HtmlLexer.TokenType.OPEN_START_TAG){
-                if(value.equals("a")){
-                    Hyperlink aTag = new Hyperlink();
-                    lexer.eatToken();
-                    updateATag(lexer, aTag);//update lexer (after the a-tag)
-                    documentArea.addGUIObjects(aTag.create(this.contentSpanVisitor));
-                }else if(isTable(value)){
-                    HtmlTable tableTag = new HtmlTable();
-                    lexer.eatToken();
-                    lexer = updateTableTag(lexer, tableTag);
-                    documentArea.addGUIObjects(tableTag.create(this.contentSpanVisitor));
-                }else if(value.equals("form")){
-                    Form formTag = new Form();
-                    lexer.eatToken();
-                    updateFormTag(lexer, formTag);
-                    ArrayList<GUIObject> lst = formTag.create(this.contentSpanVisitor);
-                    ArrayList<GUIInput> inputs = new ArrayList<>();
-                    ArrayList<GUIButton> buttons = new ArrayList<>();
-                    lst.forEach(obj -> inputs.addAll(obj.getInputs()));
-                    lst.forEach(obj -> buttons.addAll(obj.getButtons()));
-                    buttons.stream().filter(button -> button.isSubmit).forEach(btn -> btn.setMouseEvent(
-                            (x1, y1, id, clickCount) -> {
-                                // this will fire if the submit button on the form was clicked
-                                // form action
-                                String action = formTag.getAction() + "?";
-                                //every input name with its value
-                                inputs.forEach(inp -> btn.addInput(inp.getFormOutput()));
-                                String output = btn.getOutput().substring(0, btn.getOutput().length() - 1);
-                                // finally we have the addition needed for the url
-                                String finalized = action + output;
-                                System.out.println(finalized);
-                                this.documentArea.load(finalized);
-                            }));
-                    documentArea.addGUIObjects(lst);
-                }
-            }
-            lexer.eatToken();
-            type = lexer.getTokenType();
-            value = lexer.getTokenValue();
-        }
-
-    }
-
-
-    /**
-     ##############################################################
-     ##################### New in iteration 2 #####################
-     ##############################################################
-     */
-    private void updateFormTag(HtmlLexer lexer, Form formTag){
+    private void updateFormTag(Form formTag){
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
         while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && value.equals("form"))){
@@ -192,11 +228,11 @@ public class HtmlLoader {
                 formTag.setAction(value);
             }else if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("a")){
                 Hyperlink aTag = new Hyperlink();
-                updateATag(lexer, aTag);
+                updateATag(aTag);
                 formTag.setData(aTag);
             }else if(type == HtmlLexer.TokenType.OPEN_START_TAG && isTable(value)){
                 HtmlTable table = new HtmlTable();
-                updateTableTag(lexer, table);
+                updateTableTag(table);
                 formTag.setData(table);
             }
             lexer.eatToken();
@@ -213,18 +249,16 @@ public class HtmlLoader {
      *      - If the next tag is <tr>, create a new HtmlTableRow and add it to the given HtmlTable object
      *      - Update this HtmlTableRow object in its corresponding method
      *
-     * @param lexer     the lexer for the html code
      * @param tableTag  the given HtmlTable object
-     * @return the updated lexer
      */
-    private HtmlLexer updateTableTag(HtmlLexer lexer, HtmlTable tableTag) {
+    private void updateTableTag(HtmlTable tableTag) {
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
         while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && isTable(value))){
             if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("tr")){
                 HtmlTableRow tr = tableTag.addRow();
                 lexer.eatToken(); //otherwise if statement in updateTableRowTag is falsely true
-                lexer = updateTableRowTag(lexer, tr);
+                updateTableRowTag(tr);
             }else {
                 lexer.eatToken();
             }
@@ -232,7 +266,6 @@ public class HtmlLoader {
             value = lexer.getTokenValue();
         }
         lexer.eatToken();
-        return lexer;
     }
 
     /**
@@ -243,24 +276,21 @@ public class HtmlLoader {
      *      - If this next tag is equal to <td>, create a new HtmlTableCell and add it to the HtmlTableRow object
      *      - Update the new object in its corresponding method
      *
-     * @param lexer     the lexer for the html code
-     * @param tr        the tableRow object
-     * @return the updated lexer
+     * @param tr    the tableRow object
      */
-    private HtmlLexer updateTableRowTag(HtmlLexer lexer, HtmlTableRow tr) {
+    private void updateTableRowTag(HtmlTableRow tr) {
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
         while(!(type == HtmlLexer.TokenType.OPEN_START_TAG && (value.equals("tr"))) && !(isTable(value) && type == HtmlLexer.TokenType.OPEN_END_TAG)){ //start of a new tr element or end table
             if(type == HtmlLexer.TokenType.OPEN_START_TAG && value.equals("td")){
                 HtmlTableCell td = tr.addData();
-                lexer = updateTableDataTag(lexer, td);
+                updateTableDataTag(td);
             }else {
                 lexer.eatToken();
             }
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
         }
-        return lexer;
     }
 
     /**
@@ -268,21 +298,20 @@ public class HtmlLoader {
      *
      * Basic idea:
      *      - Get the next token of the lexer, if it is equal to ">", get the next one
-     *      - If the next token is "<", check the corresponding tag ("a" or "table")
+     *      - If the next token is "<", check the corresponding tag ("a", "table" or "input")
      *              * Create a new (corresponding) ContentSpan and update it and set it as the data of the
      *                HtmlTableCell object
      *      - Else the data is a text object, so create a new TextSpan object and update it and set it as the data
      *        of the HtmlTableCell object
      *
      * 3 possibilities:
-     *      - the data object is a hyperlink (a tag)
-     *      - the data object is a table object
-     *      - the data object is a text object
-     * @param lexer     the lexer of the html code
+     *      - the data object is a Hyperlink (a tag)
+     *      - the data object is a HtmlTable object
+     *      - the data object is a TextSpan object
+     *      - the data object is a TextInputField object
      * @param td        the table data object
-     * @return the updated lexer
      */
-    private HtmlLexer updateTableDataTag(HtmlLexer lexer, HtmlTableCell td) {
+    private void updateTableDataTag(HtmlTableCell td) {
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -294,32 +323,37 @@ public class HtmlLoader {
         }
 
         if(type == HtmlLexer.TokenType.OPEN_START_TAG){
-            if(value.equals("a")){ // td is an a object
+            if(value.equals("a")){ // td is an a Hyperlink
                 Hyperlink aTag = new Hyperlink();
-                updateATag(lexer, aTag);
+                updateATag(aTag);
                 td.setData(aTag);
-            }else if(isTable(value)){ //td is a table
+            }else if(isTable(value)){ //td is a HtmlTable
                 HtmlTable tableTag = new HtmlTable();
-                lexer = updateTableTag(lexer, tableTag);
+                updateTableTag(tableTag);
                 td.setData(tableTag);
-            }else if(value.equals("input")){
-                handleInputTag(lexer, td);
+            }else if(value.equals("input")){ //td is a TextInputField
+                handleInputTag(td);
             }
         }else if(type == HtmlLexer.TokenType.TEXT){
             TextSpan text = new TextSpan();
             text.setText(value);
-            updateText(lexer, text);
+            updateText(text);
             td.setData(text);
         }
-        return lexer;
     }
 
     /**
-     ##############################################################
-     ##################### New in iteration 2 #####################
-     ##############################################################
+     * This method will handle a input tag
+     *
+     * Basic idea:
+     *      - Get the next token of the lexer, if it is equal to ">", eat a token and return
+     *      - else check if the type is an IDENTIFIER and the value is "type"
+     *      - if so eat 2 tokens and check if the input is either:
+     *              * "submit" -> create a SubmitButton
+     *              * "text"   -> create a new TextInputField and update it (in updateTextInputField method)
+     * @param td    the table data object (this input tag belongs to)
      */
-    private void handleInputTag(HtmlLexer lexer, HtmlTableCell td){
+    private void handleInputTag(HtmlTableCell td){
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -333,7 +367,7 @@ public class HtmlLoader {
                     td.setData(new SubmitButton());
                 }else if(value.equals("text")){
                     TextInputField inputField = new TextInputField();
-                    updateTextInputField(lexer, inputField);
+                    updateTextInputField(inputField);
                     td.setData(inputField);
                 }
             }
@@ -344,11 +378,14 @@ public class HtmlLoader {
     }
 
     /**
-     ##############################################################
-     ##################### New in iteration 2 #####################
-     ##############################################################
+     * This method will update the given TextInputField object
+     *
+     * Basic idea:
+     *      - the next token should be an IDENTIFIER with value "name"
+     *          -> update the name parameter of the object
+     * @param td    the table data object (this input tag belongs to)
      */
-    private void updateTextInputField(HtmlLexer lexer, TextInputField inputField){
+    private void updateTextInputField(TextInputField inputField){
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -366,10 +403,9 @@ public class HtmlLoader {
 
     /**
      * update the text object
-     * @param lexer     the lexer of the html code
-     * @param text      the text object
+     * @param text  the text object
      */
-    private void updateText(HtmlLexer lexer, TextSpan text) {
+    private void updateText(TextSpan text) {
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
@@ -392,10 +428,9 @@ public class HtmlLoader {
      *          * update the Hyperlink object
      *      - If the next token is TEXT, update the Hyperlink object
      *
-     * @param lexer     the lexer for the html code
      * @param aTag      the a-tag object
      */
-    private void updateATag(HtmlLexer lexer, Hyperlink aTag){
+    private void updateATag(Hyperlink aTag){
         lexer.eatToken();
         HtmlLexer.TokenType type = lexer.getTokenType();
         String value = lexer.getTokenValue();
