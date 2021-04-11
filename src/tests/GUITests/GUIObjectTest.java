@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -161,10 +162,16 @@ public class GUIObjectTest {
             inp.setText("inptest" + itt);
             itt--;
         }
-        // if we click the button now we expect the following link to be loaded
+        // we expect only 1 button to be loaded
+        ArrayList<GUIButton> buttons = screen.getDocArea().getDrawnGUIObjects().get(0).getButtons();
+        assertEquals("formTest", buttons.size(), 1);
+        GUIButton butt = buttons.get(0);
+        // we press the button now
+        butt.handleMouseEvent(butt.coordX + 1, butt.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
+        // we expect the following link to be loaded (it is no valid link, but the link should have been changed
+        // in the address bar)
         String loadlink = "http://formTest.php?test1=inptest10&test2=inptest9&test3=inptest8&test4=inptest7&test5=inptest6";
-        // we now click the button and check the result
-        // TODO cuz vorige deel faalt al dus dit heb ik nog ni gedaan
+        assertEquals("formTest", loadlink, screen.getAddress());
     }
 
     // any other gui element need no tests
