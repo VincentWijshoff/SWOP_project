@@ -125,12 +125,13 @@ public class GUIObjectTest {
         String htmlCode = """
                 <form action="http://formTest.php">
                 <table>
-                    <table>
-                        <td><input type="text" name="test1">
-                        <td><input type="text" name="test2">
-                        <td><input type="text" name="test3">
-                        <td><input type="text" name="test4">
-                        <td><input type="text" name="test5">
+                    <tr><td>
+                        <table>
+                            <tr><td><input type="text" name="test1">
+                            <tr><td><input type="text" name="test2">
+                            <tr><td><input type="text" name="test3">
+                            <tr><td><input type="text" name="test4">
+                            <tr><td><input type="text" name="test5">
                     </table>
                     <tr><td><input type="submit">
                 </table>
@@ -144,8 +145,8 @@ public class GUIObjectTest {
         screen.getDocArea().clearDocObjects();
         loader.initialise(htmlCode);
         loader.loadPage();
-        // we want to input some things into each off the inputs
-        // we know only the outer table is in the list off drawn gui objects
+        // we want to input some things into each of the inputs
+        // we know only the outer table is in the list of drawn gui objects
         ArrayList<GUIInput> inputs = screen.getDocArea().getDrawnGUIObjects().get(0).getInputs();
         System.out.println(screen.getDocArea().getDrawnGUIObjects().get(0).getChildObjects());
         assertEquals("formTest", inputs.size(), 5);
