@@ -378,7 +378,11 @@ public class GUIInput extends GUIObject{
     private String addChar(String str, char ch, int position) {
         int len = str.length();
         char[] updatedArr = new char[len + 1];
-        str.getChars(0, position, updatedArr, 0);
+        try {
+            str.getChars(0, position, updatedArr, 0);
+        }catch (StringIndexOutOfBoundsException e){
+            str.getChars(0, position-1, updatedArr, 0);
+        }
         updatedArr[position] = ch;
         str.getChars(position, len, updatedArr, position + 1);
         return new String(updatedArr);
@@ -536,6 +540,10 @@ public class GUIInput extends GUIObject{
      */
     public void setName(String name){
         this.name = name;
+    }
+
+    public String getName(){
+        return this.name;
     }
 
     /**
