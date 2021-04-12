@@ -9,7 +9,7 @@ import gui.Window;
 /**
  * The dialog screen to save a bookmark
  */
-public class SaveBookmarkScreen extends  DialogScreen{
+public class SaveBookmarkScreen extends DialogScreen{
 
     // some needed objects
     private final String currAddress;
@@ -65,6 +65,14 @@ public class SaveBookmarkScreen extends  DialogScreen{
     private void onCancel(){
         System.out.println("canceling the adding off the bookmark");
         this.returnToPreviousScreen();
+    }
+
+    public GUIInput getBookmarkName(){
+        return this.bookmarkName;
+    }
+
+    public GUIInput getBookmarkAddress() {
+        return bookmarkAddress;
     }
 
     /**

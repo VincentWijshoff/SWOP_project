@@ -73,9 +73,9 @@ public class Window extends CanvasWindow{
 
     /**
      * Handle a key event
-     * @param id            The id off the key
-     * @param keyCode       The code off the key
-     * @param keyChar       The char off the key
+     * @param id            The id of the key
+     * @param keyCode       The code of the key
+     * @param keyChar       The char of the key
      * @param modifiersEx   The active modifiers on the key
      */
     @Override
@@ -85,7 +85,7 @@ public class Window extends CanvasWindow{
     }
 
     /**
-     * Get the font metrics off the window
+     * Get the font metrics of the window
      * @return  The font metrics
      */
     public FontMetrics getFontMetrics() {

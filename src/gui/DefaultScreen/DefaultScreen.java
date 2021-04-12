@@ -138,9 +138,9 @@ public class DefaultScreen implements Screen, EventHandler {
     /**
      * Handle a mouse event
      * @param id            The id off the mouse event
-     * @param x             The x coordinate off the mouse event
-     * @param y             The y coordinate off the mouse event
-     * @param clickCount    The click count off the mouse event
+     * @param x             The x coordinate of the mouse event
+     * @param y             The y coordinate of the mouse event
+     * @param clickCount    The click count of the mouse event
      * @param button        The button pressed on the mouse
      * @param modifiersEx   The modifiers active on the mouse
      */
@@ -153,10 +153,10 @@ public class DefaultScreen implements Screen, EventHandler {
 
     /**
      * Handle a key event
-     * @param id            The id off the key pressed
-     * @param keyCode       The code off the key pressed
-     * @param keyChar       The char off the key pressed
-     * @param modifiersEx   The modifiers off the key pressed
+     * @param id            The id of the key pressed
+     * @param keyCode       The code of the key pressed
+     * @param keyChar       The char of the key pressed
+     * @param modifiersEx   The modifiers of the key pressed
      */
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifiersEx) {
@@ -183,7 +183,7 @@ public class DefaultScreen implements Screen, EventHandler {
     }
 
     /**
-     * Get the document area off this window
+     * Get the document area of this window
      * @return the document area
      */
     public DocumentArea getDocArea() {
@@ -207,8 +207,8 @@ public class DefaultScreen implements Screen, EventHandler {
 
     /**
      * Add a bookmark to the bookmark bar
-     * @param name  The name off the bookmark
-     * @param url   The url off the bookmark
+     * @param name  The name of the bookmark
+     * @param url   The url of the bookmark
      */
     public void addBookmark(String name, String url) {
         this.bookmarkBar.addBookmark(name, url);

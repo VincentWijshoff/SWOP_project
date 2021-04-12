@@ -2,7 +2,9 @@ package tests;
 
 import gui.DefaultScreen.DefaultScreen;
 import gui.DefaultScreen.DocumentArea;
+import gui.DialogScreen.SaveBookmarkScreen;
 import gui.Objects.*;
+import gui.Screen;
 import gui.Window;
 import org.junit.jupiter.api.Test;
 
@@ -139,5 +141,75 @@ public class UseCaseTest {
         screen.getBookmarkBar().handleMouseEvent(MouseEvent.MOUSE_PRESSED,0, screen.getBookmarkBar().relativeYPos, 1);
         assertEquals("UC_1.a", screen.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
 
+    }
+
+    @Test
+    void testUCAddBookmark() throws InvocationTargetException, InterruptedException {
+        //1. User starts a Browsr application.
+        Window window = new Window("useCase");
+        java.awt.EventQueue.invokeAndWait(window::show);
+        java.awt.EventQueue.invokeAndWait(window::show); // twee is beter dan een
+        DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
+        //2. User presses ctrl + d -> open saveBookmarkScreen
+        screen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
+        Screen currentScreen = window.getCurrentScreen();
+        assertTrue("UC_2.a", currentScreen instanceof SaveBookmarkScreen);
+        SaveBookmarkScreen saveBookmarkScreen = (SaveBookmarkScreen) window.getCurrentScreen();
+        //user presses on bookmarkName input box
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 70, 1, 1, 1024);
+        //3. User types in a name of the bookmark he want to create
+        GUIInput bookmarkName = saveBookmarkScreen.getBookmarkName();
+        assertTrue("UC_3.a", bookmarkName.getInFocus());
+        typeString(window, "testname");
+        //user presses ENTER -> out of focus
+        currentScreen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ENTER, '\n', 0);
+        assertFalse("UC_3.b", bookmarkName.getInFocus());
+        assertTrue("UC_3.c", bookmarkName.getText().equals("testname"));
+        //user presses on bookmarkAddress input box
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 110, 1, 1, 1024);
+        //4. User types in the URL for the bookmark he want to create
+        GUIInput bookmarkAddress = saveBookmarkScreen.getBookmarkAddress();
+        assertTrue("UC_4.a", bookmarkAddress.getInFocus());
+        typeString(window, "https://www.google.com");
+        //user presses ENTER -> out of focus
+        currentScreen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ENTER, '\n', 0);
+        assertFalse("UC_4.b", bookmarkAddress.getInFocus());
+        assertTrue("UC_4.c", bookmarkAddress.getText().equals("https://www.google.com"));
+        //5. User presses confirm button
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 150, 180, 1, 1, 1024);
+        //default screen is showing again
+        DefaultScreen newScreen = (DefaultScreen) window.getCurrentScreen();
+        GUITable bookmarks = newScreen.getBookmarkBar().getBookmarks();
+        //TODO: see if "testname" is in bookmarks (but i dont know how to test)
+    }
+
+    @Test
+    void testUCCancelBookmark() throws InvocationTargetException, InterruptedException {
+        //1. User starts a Browsr application.
+        Window window = new Window("useCase");
+        java.awt.EventQueue.invokeAndWait(window::show);
+        java.awt.EventQueue.invokeAndWait(window::show); // twee is beter dan een
+        DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
+        //2. User presses ctrl + d -> open saveBookmarkScreen
+        screen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
+        Screen currentScreen = window.getCurrentScreen();
+        assertTrue("UC_2.a", currentScreen instanceof SaveBookmarkScreen);
+        SaveBookmarkScreen saveBookmarkScreen = (SaveBookmarkScreen) window.getCurrentScreen();
+        //user presses on bookmarkName input box
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 70, 1, 1, 1024);
+        //3. User types in a name of the bookmark he want to create
+        GUIInput bookmarkName = saveBookmarkScreen.getBookmarkName();
+        assertTrue("UC_3.a", bookmarkName.getInFocus());
+        typeString(window, "testname");
+        //user presses ENTER -> out of focus
+        currentScreen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ENTER, '\n', 0);
+        assertFalse("UC_3.b", bookmarkName.getInFocus());
+        assertTrue("UC_3.c", bookmarkName.getText().equals("testname"));
+        //5. User presses cancel button
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 20, 180, 1, 1, 1024);
+        //default screen is showing again
+        DefaultScreen newScreen = (DefaultScreen) window.getCurrentScreen();
+        GUITable bookmarks = newScreen.getBookmarkBar().getBookmarks();
+        //TODO: see if "testname" is NOT in bookmarks (but i dont know how to test)
     }
 }

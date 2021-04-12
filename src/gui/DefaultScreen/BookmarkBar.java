@@ -81,15 +81,15 @@ public class BookmarkBar {
     }
 
     /**
-     * Get the height off the bookmark bar
-     * @return The height off the bookmark bar
+     * Get the height of the bookmark bar
+     * @return The height of the bookmark bar
      */
     public int getHeight(){
         return this.height;
     }
 
     /**
-     * Get The table off all bookmarks
+     * Get The table of all bookmarks
      * @return  A GUITable with one row where all bookmarks are
      */
     public GUITable getBookmarks() {
@@ -98,7 +98,7 @@ public class BookmarkBar {
 
     /**
      * handles the key-presses while the address bar is in focus
-     * @param id        The id off the pressed button
+     * @param id        The id of the pressed button
      * @param keyCode   The keycode for the pressed button
      * @param keyChar   The char that was pressed
      * @param modifier  The modifier on the pressed key
