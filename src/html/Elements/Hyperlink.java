@@ -52,10 +52,9 @@ public class Hyperlink extends ContentSpan {
     /**
      * Create a hyperlink
      * @param c The creator which will create the visible object
-     * @return  The hyperlink visible object
      */
     @Override
-    public ArrayList<GUIObject> create(ContentSpanVisitor c){
-        return c.createHyperlink(this);
+    public void accept(ContentSpanVisitor c){
+        c.visitHyperlink(this);
     }
 }

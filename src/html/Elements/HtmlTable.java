@@ -46,10 +46,9 @@ public class HtmlTable extends ContentSpan {
     /**
      * Create the table
      * @param c The creator which will create the visible object
-     * @return  A list of elements that make up this table
      */
     @Override
-    public ArrayList<GUIObject> create(ContentSpanVisitor c){
-        return c.createHtmlTable(this);
+    public void accept(ContentSpanVisitor c){
+        c.visitHtmlTable(this);
     }
 }

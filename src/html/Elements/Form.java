@@ -47,11 +47,10 @@ public class Form extends ContentSpan{
     /**
      * Create a form
      * @param c The creator which will create the visible object
-     * @return  the list of elements that make up the form
      */
     @Override
-    public ArrayList<GUIObject> create(ContentSpanVisitor c){
-        return c.createForm(this);
+    public void accept(ContentSpanVisitor c){
+        c.visitForm(this);
     }
 
     /**

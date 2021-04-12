@@ -15,8 +15,8 @@ public class GUIRenderer implements ContentSpanVisitor {
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     @Override
-    public ArrayList<GUIObject> createForm(Form form) {
-        return form.getData().create(this);
+    public void visitForm(Form form) {
+        form.getData().accept(this);
     }
 
 
@@ -24,20 +24,20 @@ public class GUIRenderer implements ContentSpanVisitor {
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     @Override
-    public ArrayList<GUIObject> createHtmlTable(HtmlTable table) {
+    public void visitHtmlTable(HtmlTable table) {
         ArrayList<GUIObject> objects = new ArrayList<>();
 
         ArrayList<ArrayList<GUIObject>> rows = new ArrayList<>();
 
         for (HtmlTableRow row: table.getTableRows()) {
-            ArrayList<GUIObject> rows1 = row.create(this);
-            rows.add(rows1);
+            row.accept(this);
+            rows.add(this.objects);
         }
 
         GUITable table1 = new GUITable(rows);
         objects.add(table1);
 
-        return objects;
+        this.objects = objects;
     }
 
 
@@ -45,8 +45,9 @@ public class GUIRenderer implements ContentSpanVisitor {
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     @Override
-    public ArrayList<GUIObject> createHtmlTableCell(HtmlTableCell tableCell) {
-        return tableCell.getData().create(this);
+    public void visitHtmlTableCell(HtmlTableCell tableCell) {
+        tableCell.getData().accept(this);
+        //this.objects = tableCell.getData().accept(this);
     }
 
 
@@ -54,13 +55,14 @@ public class GUIRenderer implements ContentSpanVisitor {
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     @Override
-    public ArrayList<GUIObject> createHtmlTableRow(HtmlTableRow tableRow) {
+    public void visitHtmlTableRow(HtmlTableRow tableRow) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         ArrayList<HtmlTableCell> tableCells = tableRow.getTableData();
         for(HtmlTableCell cell : tableCells){
-            objects.addAll(cell.create(this));
+            cell.accept(this);
+            objects.addAll(this.objects);
         }
-        return objects;
+        this.objects = objects;
     }
 
 
@@ -68,10 +70,10 @@ public class GUIRenderer implements ContentSpanVisitor {
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     @Override
-    public ArrayList<GUIObject> createHyperlink(Hyperlink hyperlink) {
+    public void visitHyperlink(Hyperlink hyperlink) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         objects.add(new GUILink(hyperlink.getText(), hyperlink.getHref()));
-        return objects;
+        this.objects = objects;
     }
 
 
@@ -79,13 +81,13 @@ public class GUIRenderer implements ContentSpanVisitor {
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     @Override
-    public ArrayList<GUIObject> createSubmitButton(SubmitButton submitButton) {
+    public void visitSubmitButton(SubmitButton submitButton) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         GUIButton btn = new GUIButton("Submit");
         btn.setSubmit();
         btn.setMouseEvent((x1, y1, id, clickCount) -> System.out.println("go to url"));
         objects.add(btn);
-        return objects;
+        this.objects = objects;
     }
 
 
@@ -93,13 +95,13 @@ public class GUIRenderer implements ContentSpanVisitor {
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     @Override
-    public ArrayList<GUIObject> createTextInputField(TextInputField inputField) {
+    public void visitTextInputField(TextInputField inputField) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         GUIInput inp = new GUIInput();
         inp.setName(inputField.getName());
         objects.add(inp);
 
-        return objects;
+        this.objects = objects;
     }
 
 
@@ -107,10 +109,16 @@ public class GUIRenderer implements ContentSpanVisitor {
      * Create the corresponding GUIObject and return (as list of GUIObjects)
      */
     @Override
-    public ArrayList<GUIObject> createTextSpan(TextSpan textSpan) {
+    public void visitTextSpan(TextSpan textSpan) {
         ArrayList<GUIObject> objects = new ArrayList<>();
         objects.add(new GUIString(textSpan.getText()));
-        return objects;
+        this.objects = objects;
+    }
+
+    private ArrayList<GUIObject> objects = new ArrayList<>();
+
+    public ArrayList<GUIObject> getObjects(){
+        return this.objects;
     }
 
 }

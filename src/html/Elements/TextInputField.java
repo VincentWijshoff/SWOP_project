@@ -34,10 +34,9 @@ public class TextInputField extends ContentSpan{
     /**
      * Create this input field as visible object
      * @param c The creator which will create the visible object
-     * @return  The visible input field
      */
     @Override
-    public ArrayList<GUIObject> create(ContentSpanVisitor c){
-        return c.createTextInputField(this);
+    public void accept(ContentSpanVisitor c){
+        c.visitTextInputField(this);
     }
 }

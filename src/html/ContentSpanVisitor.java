@@ -10,20 +10,21 @@ import java.util.ArrayList;
  */
 public interface ContentSpanVisitor {
 
-    ArrayList<GUIObject> createForm(Form form);                             // create a from element
+    void visitForm(Form form);                             // create a from element
 
-    ArrayList<GUIObject> createHtmlTable(HtmlTable table);                  // create a table element
+    void visitHtmlTable(HtmlTable table);                  // create a table element
 
-    ArrayList<GUIObject> createHtmlTableCell(HtmlTableCell tableCell);      // create a table cell element
+    void visitHtmlTableCell(HtmlTableCell tableCell);      // create a table cell element
 
-    ArrayList<GUIObject> createHtmlTableRow(HtmlTableRow tableRow);         // create a html table row element
+    void visitHtmlTableRow(HtmlTableRow tableRow);         // create a html table row element
 
-    ArrayList<GUIObject> createHyperlink(Hyperlink hyperlink);              // create a hyperlink element
+    void visitHyperlink(Hyperlink hyperlink);              // create a hyperlink element
 
-    ArrayList<GUIObject> createSubmitButton(SubmitButton submitButton);     // create a submit button element
+    void visitSubmitButton(SubmitButton submitButton);     // create a submit button element
 
-    ArrayList<GUIObject> createTextInputField(TextInputField inputField);   // create a text input field element
+    void visitTextInputField(TextInputField inputField);   // create a text input field element
 
-    ArrayList<GUIObject> createTextSpan(TextSpan textSpan);                 // create a test element
+    void visitTextSpan(TextSpan textSpan);                 // create a test element
 
+    ArrayList<GUIObject> getObjects();
 }

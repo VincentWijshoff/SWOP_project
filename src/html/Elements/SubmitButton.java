@@ -16,10 +16,9 @@ public class SubmitButton extends ContentSpan{
     /**
      * Create the button
      * @param c The creator which will create the visible object
-     * @return  THe visible button element
      */
     @Override
-    public ArrayList<GUIObject> create(ContentSpanVisitor c){
-        return c.createSubmitButton(this);
+    public void accept(ContentSpanVisitor c){
+        c.visitSubmitButton(this);
     }
 }

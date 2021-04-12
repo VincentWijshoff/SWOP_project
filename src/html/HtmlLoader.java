@@ -148,7 +148,8 @@ public class HtmlLoader {
         Hyperlink aTag = new Hyperlink();
         lexer.eatToken();
         updateATag(aTag);
-        documentArea.addGUIObjects(aTag.create(this.contentSpanVisitor));
+        aTag.accept(this.contentSpanVisitor);
+        documentArea.addGUIObjects(this.contentSpanVisitor.getObjects());
     }
 
     /**
@@ -163,7 +164,8 @@ public class HtmlLoader {
         HtmlTable tableTag = new HtmlTable();
         lexer.eatToken();
         updateTableTag(tableTag);
-        documentArea.addGUIObjects(tableTag.create(this.contentSpanVisitor));
+        tableTag.accept(this.contentSpanVisitor);
+        documentArea.addGUIObjects(this.contentSpanVisitor.getObjects());
     }
 
     /**
@@ -180,7 +182,8 @@ public class HtmlLoader {
         lexer.eatToken();
         updateFormTag(formTag);
         //guiObjects is the list containing all GUIObjects to represent the Form object
-        ArrayList<GUIObject> guiObjects = formTag.create(this.contentSpanVisitor);
+        formTag.accept(this.contentSpanVisitor);
+        ArrayList<GUIObject> guiObjects = this.contentSpanVisitor.getObjects();
         ArrayList<GUIInput> inputs = new ArrayList<>();
         ArrayList<GUIButton> buttons = new ArrayList<>();
         guiObjects.forEach(obj -> inputs.addAll(obj.getInputs()));   //get all GUIInput objects from guiObjects
@@ -383,7 +386,7 @@ public class HtmlLoader {
      * Basic idea:
      *      - the next token should be an IDENTIFIER with value "name"
      *          -> update the name parameter of the object
-     * @param td    the table data object (this input tag belongs to)
+     * @param inputField    the table data object (this input tag belongs to)
      */
     private void updateTextInputField(TextInputField inputField){
         lexer.eatToken();
