@@ -329,34 +329,35 @@ m2=
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1230</x>
+      <x>1185</x>
       <y>500</y>
-      <w>185</w>
+      <w>230</w>
       <h>20</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 &lt;&lt;implements&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;350.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;440.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>1035</x>
       <y>460</y>
-      <w>200</w>
+      <w>155</w>
       <h>100</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 ContentSpanVisitor
 --
-+ createSubmitButton(SubmitButton) : ArrayList&lt;GUIObject&gt;
-+ createTextSpan(TextSpan) : ArrayList&lt;GUIObject&gt;
-+ createHyperLink(HyperLink) : ArrayList&lt;GUIObject&gt;
-+ createTextInputField(TextInputField) : ArrayList&lt;GUIObject&gt;
-+ createForm(Form) : ArrayList&lt;GUIObject&gt;
-+ createHtmlTable(HtmlTable) : ArrayList&lt;GUIObject&gt;
-+ createHtmlTableRow(HtmlTableRow) : ArrayList&lt;GUIObject&gt;
-+ createHtmlTableCell(HtmlTableCell) : ArrayList&lt;GUIObject&gt;</panel_attributes>
++ visitSubmitButton(SubmitButton) : void
++ visitTextSpan(TextSpan) : void
++ visitHyperLink(HyperLink) : void
++ visitTextInputField(TextInputField) : void
++ visitForm(Form) : void
++ visitHtmlTable(HtmlTable) : void
++ visitHtmlTableRow(HtmlTableRow) : void
++ visitHtmlTableCell(HtmlTableCell) : void
++ getObjects() : ArrayList&lt;GUIObject&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -369,7 +370,7 @@ ContentSpanVisitor
     </coordinates>
     <panel_attributes>ContentSpan
 --
-+ create(ContentSpanVisitor) : ArrayList&lt;GUIObject&gt;</panel_attributes>
++ accept(ContentSpanVisitor) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -388,7 +389,7 @@ ContentSpanVisitor
 + setText(String) : void
 + getHref() : String
 + setHref(String) : void
-+ create(ContentSpanVisitor) : ArrayList&lt;GUIObject&gt;</panel_attributes>
++ accept(ContentSpanVisitor) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -405,7 +406,7 @@ ContentSpanVisitor
 --
 + setText(String) : void
 + getText() : String
-+ create(ContentSpanVisitor) : ArrayList&lt;GUIObject&gt;</panel_attributes>
++ accept(ContentSpanVisitor) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -422,7 +423,7 @@ ContentSpanVisitor
 --
 + addRow() : HtmlTableRow
 + getTableRows() : ArrayList&lt;HtmlTableRow&gt;
-+ create(ContentSpanVisitor) : ArrayList&lt;GUIObject&gt;</panel_attributes>
++ accept(ContentSpanVisitor) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -439,7 +440,7 @@ ContentSpanVisitor
 --
 + addData() : HtmlTableCell
 + getTableData() : ArrayList&lt;HtmlTableCell&gt;
-+ create(ContentSpanVisitor) : ArrayList&lt;GUIObject&gt;</panel_attributes>
++ accept(ContentSpanVisitor) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -454,7 +455,7 @@ ContentSpanVisitor
 --
 + setData(ContentSpan) : void
 + getData() : ContentSpan
-+ create(ContentSpanVisitor) : ArrayList&lt;GUIObject&gt;</panel_attributes>
++ accept(ContentSpanVisitor) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -555,15 +556,15 @@ m2=0..*</panel_attributes>
     </coordinates>
     <panel_attributes>SubmitButton
 --
-+ create(ContentSpanVisitor) : ArrayList&lt;GUIObject&gt;</panel_attributes>
++ accept(ContentSpanVisitor) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>475</x>
+      <x>445</x>
       <y>155</y>
-      <w>105</w>
+      <w>135</w>
       <h>95</h>
     </coordinates>
     <panel_attributes>Form
@@ -574,7 +575,7 @@ m2=0..*</panel_attributes>
 + getAction() : String
 + setData(ContentSpan) : void
 + getData() : ContentSpan
-+ create(ContentSpanVisitor) : ArrayList&lt;GUIObject&gt;</panel_attributes>
++ accept(ContentSpanVisitor) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -591,7 +592,7 @@ m2=0..*</panel_attributes>
 --
 + setName(String) : void
 + getName() : String
-+ create(ContentSpanVisitor) : ArrayList&lt;GUIObject&gt;</panel_attributes>
++ accept(ContentSpanVisitor) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -816,9 +817,8 @@ m2=
       <h>80</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
-EventHandler
+PageLoader
 --
-getFontMetrics(): FontMetrics
 load(string) : void</panel_attributes>
     <additional_attributes/>
   </element>
@@ -832,7 +832,7 @@ load(string) : void</panel_attributes>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m2=0..1 
-eventHanlder</panel_attributes>
+PageLoader</panel_attributes>
     <additional_attributes>670.0;10.0;130.0;10.0;130.0;430.0;10.0;430.0</additional_attributes>
   </element>
   <element>
@@ -1013,13 +1013,13 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>665</x>
-      <y>970</y>
+      <y>1060</y>
       <w>310</w>
-      <h>215</h>
+      <h>125</h>
     </coordinates>
     <panel_attributes>&lt;&lt;implements&gt;&gt;
 lt=-&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;410.0;510.0;410.0;510.0;10.0;590.0;10.0</additional_attributes>
+    <additional_attributes>10.0;230.0;510.0;230.0;510.0;10.0;590.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1192,5 +1192,44 @@ extends</panel_attributes>
     <panel_attributes>lt=-&gt;&gt;
 &lt;&lt;implements&gt;&gt;</panel_attributes>
     <additional_attributes>100.0;10.0;100.0;190.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>960</x>
+      <y>1010</y>
+      <w>115</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+FontMetricsHandler
+--
+getFontMetrics(): FontMetrics</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>865</y>
+      <w>310</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;340.0;600.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1070</x>
+      <y>940</y>
+      <w>135</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m2=0..1 
+FontMetricsHandler</panel_attributes>
+    <additional_attributes>130.0;10.0;130.0;200.0;10.0;200.0</additional_attributes>
   </element>
 </diagram>
