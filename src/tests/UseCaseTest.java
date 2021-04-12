@@ -127,4 +127,17 @@ public class UseCaseTest {
         assertTrue("UC_5.b", docarea.getDrawnGUIObjects().get(0) instanceof GUITable);
 
     }
+
+    @Test
+    void testUCActivateBookmark() throws InterruptedException, InvocationTargetException {
+        //1. User starts a Browsr application.
+        Window window = new Window("useCase");
+        java.awt.EventQueue.invokeAndWait(window::show);
+        java.awt.EventQueue.invokeAndWait(window::show); // twee is beter dan een
+        DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
+
+        screen.getBookmarkBar().handleMouseEvent(MouseEvent.MOUSE_PRESSED,0, screen.getBookmarkBar().relativeYPos, 1);
+        assertEquals("UC_1.a", screen.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
+
+    }
 }
