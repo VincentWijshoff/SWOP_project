@@ -73,7 +73,8 @@ public class DocumentArea {
 
         obj.setPosition(obj.coordX + xOffset, obj.coordY+relativeYPos);
 
-        obj.setHandler(this.screen);
+        obj.setFontMetricsHandler(this.screen);
+        obj.setPageLoader(this.screen);
         obj.updateDimensions();
 
     }

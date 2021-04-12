@@ -1,16 +1,15 @@
 package tests.GUITests;
-import events.EventHandler;
+import events.FontMetricsHandler;
+import events.PageLoader;
 import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.*;
 import gui.Window;
 import html.HtmlLoader;
-import localDocuments.Docs;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -82,7 +81,8 @@ public class GUIObjectTest {
         row2.add(new GUILink("link", "href"));
         table1.addRow(row2);
 
-        table1.setHandler((EventHandler) window.getCurrentScreen());
+        table1.setFontMetricsHandler((FontMetricsHandler) window.getCurrentScreen());
+        table1.setPageLoader((PageLoader) window.getCurrentScreen());
         table1.updateDimensions();
         System.out.println("jaja");
 

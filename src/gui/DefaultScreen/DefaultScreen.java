@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 /**
  * The default screen
  */
-public class DefaultScreen implements Screen, EventHandler {
+public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
 
     // the elements that are on a default screen
     AddressBar addressBar;

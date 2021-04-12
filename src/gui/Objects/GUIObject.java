@@ -1,6 +1,7 @@
 package gui.Objects;
 
-import events.EventHandler;
+import events.FontMetricsHandler;
+import events.PageLoader;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,7 +21,8 @@ public abstract class GUIObject {
     public int coordY;
 
     // the link to the window area
-    public EventHandler eventHandler;
+    public FontMetricsHandler fontMetricsHandler;
+    public PageLoader pageLoader;
 
     /**
      * constructor of an object, it assigns a unique id
@@ -46,14 +48,14 @@ public abstract class GUIObject {
 
     /**
      * Constructor
-     * @param eventHandler  The event handler
+     * @param fontMetricsHandler  The event handler
      * @param x             The x coordinate
      * @param y             The y coordinate
      * @param w             The width
      * @param h             The height
      */
-    public GUIObject(EventHandler eventHandler, int x, int y, int w, int h) {
-        setHandler(eventHandler);
+    public GUIObject(FontMetricsHandler fontMetricsHandler, int x, int y, int w, int h) {
+        setFontMetricsHandler(fontMetricsHandler);
 
         this.id = UUID.randomUUID();
         this.coordX = x;
@@ -66,8 +68,12 @@ public abstract class GUIObject {
      * set the document area for a GUIObject
      * @param h  the document area that needs to be set
      */
-    public void setHandler(EventHandler h) {
-        this.eventHandler = h;
+    public void setFontMetricsHandler(FontMetricsHandler h) {
+        this.fontMetricsHandler = h;
+    }
+
+    public void setPageLoader(PageLoader p) {
+        this.pageLoader = p;
     }
 
     /**

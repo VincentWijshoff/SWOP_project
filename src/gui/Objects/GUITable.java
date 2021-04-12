@@ -1,6 +1,7 @@
 package gui.Objects;
 
-import events.EventHandler;
+import events.FontMetricsHandler;
+import events.PageLoader;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -77,12 +78,27 @@ public class GUITable extends GUIObject {
      * @param h  the document area that needs to be set
      */
     @Override
-    public void setHandler(EventHandler h) {
-        super.setHandler(h);
+    public void setFontMetricsHandler(FontMetricsHandler h) {
+        super.setFontMetricsHandler(h);
 
         for (ArrayList<GUIObject> row: tableRows) {
             for (GUIObject obj: row) {
-                obj.setHandler(h);
+                obj.setFontMetricsHandler(h);
+            }
+        }
+    }
+
+    /**
+     * set the handler for all objects in this table
+     * @param h  the document area that needs to be set
+     */
+    @Override
+    public void setPageLoader(PageLoader h) {
+        super.setPageLoader(h);
+
+        for (ArrayList<GUIObject> row: tableRows) {
+            for (GUIObject obj: row) {
+                obj.setPageLoader(h);
             }
         }
     }

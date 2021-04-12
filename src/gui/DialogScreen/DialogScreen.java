@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * The dialog screen
  */
-public abstract class DialogScreen implements Screen, EventHandler {
+public abstract class DialogScreen implements Screen, FontMetricsHandler {
 
     // window and screen objects
     gui.Window window;
@@ -83,13 +83,6 @@ public abstract class DialogScreen implements Screen, EventHandler {
     public FontMetrics getFontMetrics() {
         return window.getFontMetrics();
     }
-
-    /**
-     * Load a url
-     * @param url   A full url starting with http:// or a href
-     */
-    @Override
-    public void load(String url) { }
 
     /**
      * create the specified dialog screen

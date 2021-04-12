@@ -74,7 +74,8 @@ public class BookmarkBar {
     public void addBookmark(String name, String address){
         GUILink link = new GUILink(name, address);
 
-        link.setHandler(getScreen());
+        link.setFontMetricsHandler(getScreen());
+        link.setPageLoader(getScreen());
 
         this.getBookmarks().appendToRow(link, 0);
         this.getBookmarks().updateDimensions();

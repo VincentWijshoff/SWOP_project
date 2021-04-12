@@ -32,7 +32,8 @@ public class AddressBar {
     public AddressBar(String startAddress, DefaultScreen screen) {
         //this.w = width;
         this.inputField = new GUIInput(startAddress, this.abX, this.abY, 0, this.h, true);
-        this.inputField.setHandler(screen);
+        this.inputField.setFontMetricsHandler(screen);
+        this.inputField.setPageLoader(screen);
         this.screen = screen;
     }
 
@@ -42,7 +43,8 @@ public class AddressBar {
     public AddressBar(DefaultScreen screen) {
         //this.w = width;
         this.inputField = new GUIInput("", this.abX, this.abY, 0, this.h, true);
-        this.inputField.setHandler(screen);
+        this.inputField.setFontMetricsHandler(screen);
+        this.inputField.setPageLoader(screen);
         this.screen = screen;
     }
 

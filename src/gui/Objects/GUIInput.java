@@ -21,7 +21,7 @@ public class GUIInput extends GUIObject{
     private int cursorPosition;         //The current cursor position of the user
     private boolean inFocus = false;
     private boolean initialClick = true;
-    private boolean pageLoader = false;
+    private boolean pageLoaderInput = false;
 
     /**
      * Constructor, it will set the current text as the given parameter
@@ -44,7 +44,7 @@ public class GUIInput extends GUIObject{
     public GUIInput(String startTxt, int x, int y, int width, int height, boolean pageLoader){
         super(x, y, width, height);
         this.text = startTxt;
-        this.pageLoader = pageLoader;
+        this.pageLoaderInput = pageLoader;
     }
 
     /**
@@ -178,8 +178,8 @@ public class GUIInput extends GUIObject{
                     this.inFocus = false;
                     this.initialClick = true;
                     this.selectNone();
-                    if(this.pageLoader){
-                        this.eventHandler.load(this.getText());
+                    if(this.pageLoaderInput){
+                        this.pageLoader.load(this.getText());
                     }
                 } else if(keyCode != KeyEvent.VK_SHIFT && keyCode != KeyEvent.VK_CONTROL && keyCode != KeyEvent.VK_ALT){
                     // we assume a key was pressed that needs to be shown but is not a normal char

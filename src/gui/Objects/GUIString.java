@@ -1,6 +1,7 @@
 package gui.Objects;
 
-import events.EventHandler;
+import events.FontMetricsHandler;
+import events.PageLoader;
 
 import java.awt.*;
 
@@ -84,8 +85,19 @@ public class GUIString extends GUIObject {
      * @param h  the document area that needs to be set
      */
     @Override
-    public void setHandler(EventHandler h) {
-        this.eventHandler = h;
+    public void setFontMetricsHandler(FontMetricsHandler h) {
+        this.fontMetricsHandler = h;
+
+        this.updateDimensions();
+    }
+
+    /**
+     * set the document area for a GUIObject
+     * @param h  the document area that needs to be set
+     */
+    @Override
+    public void setPageLoader(PageLoader h) {
+        this.pageLoader = h;
 
         this.updateDimensions();
     }
@@ -95,7 +107,7 @@ public class GUIString extends GUIObject {
      */
     @Override
     public void updateDimensions() {
-        this.width = this.eventHandler.getFontMetrics().stringWidth(text);
-        this.height = this.eventHandler.getFontMetrics().getHeight();
+        this.width = this.fontMetricsHandler.getFontMetrics().stringWidth(text);
+        this.height = this.fontMetricsHandler.getFontMetrics().getHeight();
     }
 }

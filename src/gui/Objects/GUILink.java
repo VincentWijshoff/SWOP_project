@@ -66,7 +66,7 @@ public class GUILink extends GUIString {
 
         if (isInGUIObject(x, y) && id == MouseEvent.MOUSE_PRESSED) {
             //href is an absolute URL
-            this.eventHandler.load(this.href);
+            this.pageLoader.load(this.href);
         }
     }
 }
