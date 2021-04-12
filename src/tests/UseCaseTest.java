@@ -176,9 +176,10 @@ public class UseCaseTest {
         assertFalse("UC_4.b", bookmarkAddress.getInFocus());
         assertTrue("UC_4.c", bookmarkAddress.getText().equals("https://www.google.com"));
         //5. User presses confirm button
-        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 150, 180, 1, 1, 1024);
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 150, 180, 1, 1, 1024);
         //default screen is showing again
         DefaultScreen newScreen = (DefaultScreen) window.getCurrentScreen();
+
         GUITable bookmarks = newScreen.getBookmarkBar().getBookmarks();
         //TODO: see if "testname" is in bookmarks (but i dont know how to test)
     }
@@ -206,7 +207,7 @@ public class UseCaseTest {
         assertFalse("UC_3.b", bookmarkName.getInFocus());
         assertTrue("UC_3.c", bookmarkName.getText().equals("testname"));
         //5. User presses cancel button
-        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 20, 180, 1, 1, 1024);
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 20, 180, 1, 1, 1024);
         //default screen is showing again
         DefaultScreen newScreen = (DefaultScreen) window.getCurrentScreen();
         GUITable bookmarks = newScreen.getBookmarkBar().getBookmarks();
