@@ -520,6 +520,9 @@ public class GUIInput extends GUIObject{
         this.inFocus = f;
     }
 
+    public boolean getInFocus() {
+        return this.inFocus;
+    }
     // Form necessary things
 
     /**

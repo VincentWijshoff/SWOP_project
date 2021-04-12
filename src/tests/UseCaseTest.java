@@ -2,14 +2,13 @@ package tests;
 
 import gui.DefaultScreen.DefaultScreen;
 import gui.DefaultScreen.DocumentArea;
-import gui.Objects.GUILink;
-import gui.Objects.GUIObject;
-import gui.Objects.GUITable;
+import gui.Objects.*;
 import gui.Window;
 import org.junit.jupiter.api.Test;
 
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import static tests.TestUtil.*;
 public class UseCaseTest {
 
     @Test
-    void testUseCase() throws InvocationTargetException, InterruptedException {
+    void testUCEnterURL() throws InvocationTargetException, InterruptedException {
         //1. User starts a Browsr application.
         Window window = new Window("useCase");
         java.awt.EventQueue.invokeAndWait(window::show);
@@ -76,6 +75,56 @@ public class UseCaseTest {
             assertFalse("UC_6.c", obj instanceof GUILink);
             //error document has no GUILinks
         }
+
+    }
+
+    @Test
+    void testUCSubmitForm() throws InvocationTargetException, InterruptedException {
+        //1. User starts a Browsr application.
+        Window window = new Window("useCase");
+        java.awt.EventQueue.invokeAndWait(window::show);
+        DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
+        FontMetrics fm = window.getFontMetrics();
+        DocumentArea docarea = screen.getDocArea();
+
+        //2. User navigates to a desired webpage. (using AddressBar)
+        window.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 5, 25, 1, 1, 1024); // click on address bar
+        typeString(window, "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html\n");
+
+        //3. User clicks and modifies input field
+        for(GUIObject obj : screen.getDocArea().getDrawnGUIObjects()){
+            if(obj instanceof GUIInput){
+                GUIInput input = (GUIInput) obj;
+                obj.handleMouseEvent(docarea.xOffset + fm.stringWidth("Maximum number of words to show") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight(), MouseEvent.MOUSE_PRESSED, 1);
+                assertTrue("UC_3.a", input.getInFocus());
+                typeString(window, "test input");
+                assertEquals("UC_3.b", input.getText(), "test input");
+
+                input.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0); //left arrow
+                input.handleKeyEvent(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
+                input.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', KeyEvent.SHIFT_DOWN_MASK); //home shifting
+                input.handleKeyEvent(0, 0, ' ', 0); //end shifting
+                input.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, 'a', 0); //replace "test inpu" with "a" -> "at" is new text
+                assertEquals("UC_3.b", input.getText(), "at");
+
+                break;
+            }
+        }
+
+        //4. User clicks submit button
+        for(GUIObject obj : screen.getDocArea().getDrawnGUIObjects()){
+            if(obj instanceof GUIButton){
+                GUIButton button = (GUIButton) obj;
+                button.handleMouseEvent(docarea.xOffset , docarea.getRelativeYPos() + 3*fm.getHeight(), MouseEvent.MOUSE_RELEASED, 1);
+                break;
+            }
+        }
+
+        //5. Correct page is shown
+        assertEquals("UC_5.a", screen.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformactiontest.php?starts_with=at&max_nb_results=");
+        //We didnt fill out the second input so the returned page only contains an empty table
+        assertTrue("UC_5.b", docarea.getDrawnGUIObjects().size() == 1);
+        assertTrue("UC_5.b", docarea.getDrawnGUIObjects().get(0) instanceof GUITable);
 
     }
 }
