@@ -181,6 +181,7 @@ public class UseCaseTest {
         DefaultScreen newScreen = (DefaultScreen) window.getCurrentScreen();
 
         GUITable bookmarks = newScreen.getBookmarkBar().getBookmarks();
+        //TestUtil.containsGUILinkWith()
         //TODO: see if "testname" is in bookmarks (but i dont know how to test)
     }
 

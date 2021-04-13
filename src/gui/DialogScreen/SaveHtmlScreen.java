@@ -1,5 +1,6 @@
 package gui.DialogScreen;
 
+import commands.SaveHTMLOperation;
 import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIButton;
 import gui.Objects.GUIInput;
@@ -78,15 +79,8 @@ public class SaveHtmlScreen extends DialogScreen{
     private void onSaveFile() throws IOException {
         System.out.println("Saving: " + this.htmlCode + " to file: " + this.fileName.getText());
         String file = this.fileName.getText();
-        if(!file.endsWith(".html")){
-            file += ".html";
-        }
 
-        FileOutputStream outputStream = new FileOutputStream(file);
-        byte[] strToBytes = this.htmlCode.getBytes();
-        outputStream.write(strToBytes);
-
-        outputStream.close();
+        this.execute(new SaveHTMLOperation(file, this.htmlCode));
 
         this.returnToPreviousScreen();
     }
