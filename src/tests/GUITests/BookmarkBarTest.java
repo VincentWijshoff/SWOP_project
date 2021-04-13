@@ -18,20 +18,20 @@ import static tests.TestUtil.*;
 public class BookmarkBarTest {
 
     Window window;
-    DefaultScreen screen;
     FontMetrics fm;
 
     @BeforeAll
     public void setup() throws InvocationTargetException, InterruptedException {
         this.window = new Window("TestBrowser");
-        this.screen = new DefaultScreen(window);
         java.awt.EventQueue.invokeAndWait(this.window::show);
         fm = window.getFontMetrics();
     }
 
     @Test
     void testBookmarkBarInitialEmpty() throws  RuntimeException {
+        DefaultScreen screen = new DefaultScreen(window);
         BookmarkBar b = new BookmarkBar(0, screen);
+
         // the bookmarks are kept in a GUITable
         GUITable marks = b.getBookmarks();
         // the table should consist off only 1 row which is the
@@ -40,9 +40,11 @@ public class BookmarkBarTest {
 
     @Test
     void testBookmarkBarAddOneLink() throws  RuntimeException {
-        BookmarkBar b = new BookmarkBar(0, screen);
+        DefaultScreen screen = new DefaultScreen(window);
+        BookmarkBar b = screen.getBookmarkBar();
+
         // we add a new bookmark to the bookmark bar
-        this.screen.execute(new AddBookmarkOperation("testMark", "testAddress"));  // TODO //b.addBookmark("testMark", "testAddress");
+        screen.execute(new AddBookmarkOperation("testMark", "testAddress"));
         // we now check if the bookmark was added to the list off bookmarks
         GUITable marks = b.getBookmarks();
         // should be length 1
@@ -60,14 +62,15 @@ public class BookmarkBarTest {
 
     @Test
     void testBookmarkBarMultipleLinks() throws  RuntimeException {
-        BookmarkBar b = new BookmarkBar(0, screen);
+        DefaultScreen screen = new DefaultScreen(window);
+        BookmarkBar b = screen.getBookmarkBar();
+
         // we add new bookmarks to the bookmark bar
-        this.screen.execute(new AddBookmarkOperation("testMark", "testAddress"));
-        /*b.addBookmark("testMark1", "testAddress1");
-        b.addBookmark("testMark2", "testAddress2");
-        b.addBookmark("testMark3", "testAddress3");
-        b.addBookmark("testMark4", "testAddress4");
-        b.addBookmark("testMark5", "testAddress5");*/
+        screen.execute(new AddBookmarkOperation("testMark1", "testAddress1"));
+        screen.execute(new AddBookmarkOperation("testMark2", "testAddress2"));
+        screen.execute(new AddBookmarkOperation("testMark3", "testAddress3"));
+        screen.execute(new AddBookmarkOperation("testMark4", "testAddress4"));
+        screen.execute(new AddBookmarkOperation("testMark5", "testAddress5"));
         // we now check if the bookmark was added to the list off bookmarks
         GUITable marks = b.getBookmarks();
         // should be length 5
