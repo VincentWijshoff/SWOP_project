@@ -1,5 +1,6 @@
 package gui.DefaultScreen;
 
+import commands.BookmarkOperation;
 import events.*;
 import gui.DialogScreen.SaveBookmarkScreen;
 import gui.DialogScreen.SaveHtmlScreen;
@@ -114,6 +115,11 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
         this.documentArea.loadWelcomeDoc();
     }
 
+
+    public void execute(BookmarkOperation operation) {
+        operation.execute(this);
+    }
+
     /**
      * draw the screen
      * @param g The graphics needed to draw the screen
@@ -205,14 +211,6 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
      */
     public BookmarkBar getBookmarkBar() { return bookmarkBar; }
 
-    /**
-     * Add a bookmark to the bookmark bar
-     * @param name  The name of the bookmark
-     * @param url   The url of the bookmark
-     */
-    public void addBookmark(String name, String url) {
-        this.bookmarkBar.addBookmark(name, url);
-    }
 
     /**
      * Make the new dialog screen to save a bookmark

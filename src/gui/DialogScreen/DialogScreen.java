@@ -1,5 +1,6 @@
 package gui.DialogScreen;
 
+import commands.BookmarkOperation;
 import events.*;
 import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIObject;
@@ -110,5 +111,10 @@ public abstract class DialogScreen implements Screen, FontMetricsHandler {
      */
     protected void returnToPreviousScreen(){
         this.window.setScreen(this.previousScreen);
+    }
+
+    @Override
+    public void execute(BookmarkOperation bookmarkOperation) {
+        this.previousScreen.execute(bookmarkOperation);
     }
 }

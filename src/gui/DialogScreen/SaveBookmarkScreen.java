@@ -1,5 +1,6 @@
 package gui.DialogScreen;
 
+import commands.AddBookmarkOperation;
 import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIButton;
 import gui.Objects.GUIInput;
@@ -78,9 +79,18 @@ public class SaveBookmarkScreen extends DialogScreen{
     /**
      * Called when the add bookmark button was pressed
      */
-    private void onAddBookmark(){
+    /*private void onAddBookmark(){
         System.out.println("Adding bookmark with name: " + this.bookmarkName.getText() + ", on the URL: " + this.bookmarkAddress.getText());
         this.previousScreen.addBookmark(this.bookmarkName.getText(), this.bookmarkAddress.getText());
         this.returnToPreviousScreen();
+    }*/
+
+    private void onAddBookmark() {
+        System.out.println("Adding bookmark with name: " + this.bookmarkName.getText() + ", on the URL: " + this.bookmarkAddress.getText());
+
+        this.execute(new AddBookmarkOperation(this.bookmarkName.getText(), this.bookmarkAddress.getText()));
+
+        this.returnToPreviousScreen();
     }
+
 }

@@ -1,4 +1,5 @@
 package tests.GUITests;
+import commands.AddBookmarkOperation;
 import gui.DefaultScreen.BookmarkBar;
 import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUILink;
@@ -41,7 +42,7 @@ public class BookmarkBarTest {
     void testBookmarkBarAddOneLink() throws  RuntimeException {
         BookmarkBar b = new BookmarkBar(0, screen);
         // we add a new bookmark to the bookmark bar
-        b.addBookmark("testMark", "testAddress");
+        this.screen.execute(new AddBookmarkOperation("testMark", "testAddress"));  // TODO //b.addBookmark("testMark", "testAddress");
         // we now check if the bookmark was added to the list off bookmarks
         GUITable marks = b.getBookmarks();
         // should be length 1
@@ -61,11 +62,12 @@ public class BookmarkBarTest {
     void testBookmarkBarMultipleLinks() throws  RuntimeException {
         BookmarkBar b = new BookmarkBar(0, screen);
         // we add new bookmarks to the bookmark bar
-        b.addBookmark("testMark1", "testAddress1");
+        this.screen.execute(new AddBookmarkOperation("testMark", "testAddress"));
+        /*b.addBookmark("testMark1", "testAddress1");
         b.addBookmark("testMark2", "testAddress2");
         b.addBookmark("testMark3", "testAddress3");
         b.addBookmark("testMark4", "testAddress4");
-        b.addBookmark("testMark5", "testAddress5");
+        b.addBookmark("testMark5", "testAddress5");*/
         // we now check if the bookmark was added to the list off bookmarks
         GUITable marks = b.getBookmarks();
         // should be length 5

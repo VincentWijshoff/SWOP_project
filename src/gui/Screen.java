@@ -1,5 +1,7 @@
 package gui;
 
+import commands.BookmarkOperation;
+
 import java.awt.*;
 
 /**
@@ -37,4 +39,6 @@ public interface Screen {
      * called on startup and needs to show the welcome document
      */
     void handleShown();
+
+    void execute(BookmarkOperation operation);
 }

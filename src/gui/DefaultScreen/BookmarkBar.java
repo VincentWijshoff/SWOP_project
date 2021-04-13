@@ -1,5 +1,7 @@
 package gui.DefaultScreen;
 
+import commands.AddBookmarkOperation;
+import commands.BookmarkOperation;
 import gui.Objects.GUILink;
 import gui.Objects.GUITable;
 
@@ -58,8 +60,8 @@ public class BookmarkBar {
         g.setColor(oldColor);
 
         if(first){
-            this.addBookmark("home page Bart Jacobs", "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
-            this.addBookmark("home page Bart Jacobs 2.0", "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
+            this.screen.execute(new AddBookmarkOperation("home page Bart Jacobs", "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html"));
+            this.screen.execute(new AddBookmarkOperation("home page Bart Jacobs 2.0", "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html"));
             first = false;
         }
     }
@@ -71,7 +73,7 @@ public class BookmarkBar {
      * @param name      The name displayed off the new bookmark
      * @param address   The address off the new bookmark
      */
-    public void addBookmark(String name, String address){
+    /*public void addBookmark(String name, String address){
         GUILink link = new GUILink(name, address);
 
         link.setFontMetricsHandler(getScreen());
@@ -79,7 +81,7 @@ public class BookmarkBar {
 
         this.getBookmarks().appendToRow(link, 0);
         this.getBookmarks().updateDimensions();
-    }
+    }*/
 
     /**
      * Get the height of the bookmark bar
