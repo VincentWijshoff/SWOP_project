@@ -27,7 +27,6 @@ public class SaveHTMLOperation implements BookmarkOperation{
             outputStream.write(strToBytes);
 
             outputStream.close();
-            System.out.println("writing is done");
         }catch(Exception e){
             System.out.println("Something went wrong saving the file!");
         }
