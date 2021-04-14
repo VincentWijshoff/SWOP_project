@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>156</x>
+      <y>198</y>
+      <w>1200</w>
+      <h>294</h>
+    </coordinates>
+    <panel_attributes>title=Add bookmark
+obj=User~a ACTOR EXECUTION
+obj=:CanvasWindow~e EXECUTION
+obj=:Window~b EXECUTION
+obj=:Dialogscreen~c EXECUTION
+obj=:GUIButton~d EXECUTION
+
+
+a-&gt;&gt;&gt;e : Click on save button in dialogscreen
+e-&gt;&gt;&gt;b : handleMouseEvent(id, x, y, clickCount, button, modifiersEx);
+b-&gt;&gt;&gt;c : handleMouseEvent(id, x, y, clickCount, button, modifiersEx);
+c-&gt;&gt;&gt;d : handleMouseEvent(id, x, y, clickCount, button, modifiersEx)
+d-&gt;d + : handleMouseEvent()
+d-&gt;&gt;&gt;c : onAddBookmark() 
+
+//Vanaf hier evt operationzooi</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
