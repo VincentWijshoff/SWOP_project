@@ -264,5 +264,27 @@ public class ScreenTest {
         // the text should still be the same
         assertEquals("testScreenReturnExactState", newInput.getText(), "This is a test input");
 
-    }   
+    }
+
+    @Test
+    void testScreenMultipleScreenCalls() throws RuntimeException, InterruptedException, InvocationTargetException {
+        // we test if multiple dialog screens are created on top of a default screen, if the screens still operate
+        Window w = this.window;
+        DefaultScreen startScreen = new DefaultScreen(w);
+        int startSize = startScreen.getBookmarkBar().getBookmarks().getChildObjects().size();
+        SaveBookmarkScreen s1 = new SaveBookmarkScreen(w, startScreen, "link");
+        SaveBookmarkScreen s2 = new SaveBookmarkScreen(w, s1, "link");
+        SaveBookmarkScreen s3 = new SaveBookmarkScreen(w, s2, "link");
+        SaveBookmarkScreen s4 = new SaveBookmarkScreen(w, s3, "link");
+        SaveBookmarkScreen s5 = new SaveBookmarkScreen(w, s4, "link");
+        SaveBookmarkScreen s6 = new SaveBookmarkScreen(w, s5, "link");
+        SaveBookmarkScreen s7 = new SaveBookmarkScreen(w, s6, "link");
+        // we now use the 7th dialog screen to create a new bookmark
+        ArrayList<GUIObject> obj = s7.getGUIObjects();
+        GUIButton but = (GUIButton) obj.get(6);
+        but.handleMouseEvent(but.coordX + 1, but.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
+        int newSize = startScreen.getBookmarkBar().getBookmarks().getChildObjects().size();
+        assertEquals("testScreenMultipleScreenCalls", startSize + 1, newSize);
+        this.setup();
+    }
 }

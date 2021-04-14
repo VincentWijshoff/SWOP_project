@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public abstract class Docs {
 
-    private final static String welcomePath = "./localDocuments/WelcomeDoc.html";
-    private final static String errorPath = "./localDocuments/ErrorDoc.html";
+    private final static String welcomePath = "./src/localDocuments/WelcomeDoc.html";
+    private final static String errorPath = "./src/localDocuments/ErrorDoc.html";
 
     /**
      * Used to get content of our local documents.
