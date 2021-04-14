@@ -50,12 +50,13 @@ public class SaveHtmlScreen extends DialogScreen{
         // 2 buttons
         GUIButton cnclBtn = new GUIButton("Cancel", 20, 180, 100, 30);
         GUIButton saveBtn = new GUIButton("Save", 150, 180, 100, 30);
-        cnclBtn.setMouseEvent((x1, y1, id, clickCount) -> this.onCancel());
-        saveBtn.setMouseEvent((x1, y1, id, clickCount) -> {
+
+        cnclBtn.setMouseEvent(this::onCancel);
+        saveBtn.setMouseEvent(() -> {
             try {
-                this.onSaveFile();
+                SaveHtmlScreen.this.onSaveFile();
             } catch (IOException e){
-                this.onCancel();
+                SaveHtmlScreen.this.onCancel();
             }
         });
         this.addGUIObject(cnclBtn);

@@ -11,7 +11,7 @@ public class GUIButton extends GUIObject{
     //the text in the button
     String text;
     // the events that will happen when on button
-    MouseEventListener mouseListener;
+    Runnable mouseListener;
     //the current color of the button
     public Color buttonColor = Color.lightGray;
 
@@ -26,7 +26,10 @@ public class GUIButton extends GUIObject{
     public GUIButton(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = startTxt;
-        this.mouseListener = (x1, y1, id, clickCount) -> { };
+        this.mouseListener = new Runnable() {
+            @Override
+            public void run() { }
+        };
     }
 
     /**
@@ -36,7 +39,10 @@ public class GUIButton extends GUIObject{
     public GUIButton(String startTxt){
         super();
         this.text = startTxt;
-        this.mouseListener = (x1, y1, id, clickCount) -> { };
+        this.mouseListener = new Runnable() {
+            @Override
+            public void run() { }
+        };
     }
 
     /**
@@ -53,7 +59,7 @@ public class GUIButton extends GUIObject{
             return;
         }
         if(id == MouseEvent.MOUSE_RELEASED){
-            this.mouseListener.handleMouseEvent(x, y, id, clickCount);
+            this.mouseListener.run();
             this.buttonColor = Color.LIGHT_GRAY;
         }else{
             this.buttonColor = Color.DARK_GRAY;
@@ -61,24 +67,10 @@ public class GUIButton extends GUIObject{
     }
 
     /**
-     * An interface used so the functionality off the button can be set to a custom event
-     */
-    public interface MouseEventListener {
-        /**
-         * Handle a mouse event
-         * @param x             The x coordinate off tha mouse click
-         * @param y             The y coordinate off the mouse click
-         * @param id            The id off the mouse click
-         * @param clickCount    The click count off the mouse click
-         */
-        void handleMouseEvent(int x, int y, int id, int clickCount);
-    }
-
-    /**
      * Set a mouse event that will be called when the button was pressed
      * @param l The mouse event
      */
-    public void setMouseEvent(MouseEventListener l){
+    public void setMouseEvent(Runnable l){
         this.mouseListener = l;
     }
 

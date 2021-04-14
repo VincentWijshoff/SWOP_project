@@ -52,7 +52,7 @@ public class GUIObjectTest {
         // we test if an action set on a button actually works
         GUIButton b = new GUIButton("TestButton", 0, 0, 10, 10);
         AtomicBoolean acted = new AtomicBoolean(false);
-        b.setMouseEvent((x1, y1, id, clickCount) -> {
+        b.setMouseEvent(() -> {
             acted.set(true);
         });
         // we now do a mouse down event on the button, it should not activate

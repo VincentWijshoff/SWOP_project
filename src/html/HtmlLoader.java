@@ -189,7 +189,7 @@ public class HtmlLoader {
         guiObjects.forEach(obj -> inputs.addAll(obj.getInputs()));   //get all GUIInput objects from guiObjects
         guiObjects.forEach(obj -> buttons.addAll(obj.getButtons())); //get all GUIButton objects from guiObjects
         buttons.stream().filter(button -> button.isSubmit).forEach(btn -> btn.setMouseEvent(
-                (x1, y1, id, clickCount) -> {
+                () -> {
                     // this will fire if the submit button on the form was clicked
                     // form action
                     String action = formTag.getAction() + "?";

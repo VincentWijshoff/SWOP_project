@@ -52,8 +52,8 @@ public class SaveBookmarkScreen extends DialogScreen{
         // 2 buttons
         GUIButton cnclBtn = new GUIButton("Cancel", 20, 180, 100, 30);
         GUIButton addBtn = new GUIButton("Add Bookmark", 150, 180, 100, 30);
-        cnclBtn.setMouseEvent((x1, y1, id, clickCount) -> this.onCancel());
-        addBtn.setMouseEvent((x1, y1, id, clickCount) -> this.onAddBookmark());
+        cnclBtn.setMouseEvent(this::onCancel);
+        addBtn.setMouseEvent(this::onAddBookmark);
         this.addGUIObject(cnclBtn);
         this.addGUIObject(addBtn);
         this.getGUIObjects().forEach(obj -> obj.setFontMetricsHandler(this));
