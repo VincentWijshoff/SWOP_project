@@ -165,7 +165,7 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
                 this.makeSaveHtmlScreen();
                 return;
             } else if (keyCode == KeyEvent.VK_D){
-                this.makeSaveBookmarkBarScreen();
+                this.makeSaveBookmarkScreen();
                 return;
             }
         }
@@ -217,7 +217,7 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
     /**
      * Make the new dialog screen to save a bookmark
      */
-    private void makeSaveBookmarkBarScreen(){
+    private void makeSaveBookmarkScreen(){
         SaveBookmarkScreen s = new SaveBookmarkScreen(this.window, this, getAddress());
         this.window.setScreen(s);
     }

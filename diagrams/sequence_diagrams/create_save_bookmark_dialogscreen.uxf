@@ -4,30 +4,26 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>120</x>
-      <y>96</y>
-      <w>1104</w>
-      <h>600</h>
+      <x>0</x>
+      <y>200</y>
+      <w>1632</w>
+      <h>288</h>
     </coordinates>
-    <panel_attributes>title=Start bookmark adding page
+    <panel_attributes>title=Start save HTML page
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:Window~b EXECUTION
 obj=:DefaultScreen~c EXECUTION
-obj=:DialogScreen~d
 
-a-&gt;&gt;&gt;e : CTRL;
+
+a-&gt;&gt;&gt;e : CTRL + D;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-c-&gt;c + : Controlling = true;
-tick=
-a-&gt;&gt;&gt;e : D;
-e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-c-&gt;&gt;&gt;d : Screen dialog = new DialogScreen(this);on=d
-c-&gt;&gt;&gt;b : setScreen(dialog);
+c-&gt;c +: makeSaveBookmarkScreen();
+c-&gt;&gt;&gt;b: setScreen(new SaveBookmarkScreen);
 
-ref=d d :Bookmark page</panel_attributes>
+
+</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
