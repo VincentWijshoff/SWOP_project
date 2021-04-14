@@ -3,7 +3,7 @@ package commands;
 import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUILink;
 
-public class AddBookmarkOperation implements BookmarkOperation {
+public class AddBookmarkOperation implements BrowsrOperation {
 
     private String name;
     private String address;

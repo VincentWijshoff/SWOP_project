@@ -30,13 +30,4 @@ public class GUIRectangle extends GUIObject{
     public void draw(Graphics g) {
         g.drawRect(coordX, coordY, width, height);
     }
-
-    /**
-     * Handle a click on the rectangle
-     */
-    @Override
-    public void handleMouseEvent(int x, int y, int id, int clickCount) {
-        if (isInGUIObject(x, y))
-            System.out.println("You clicked on a GUIRectangle");
-    }
 }

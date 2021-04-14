@@ -1,6 +1,6 @@
 package gui;
 
-import commands.BookmarkOperation;
+import commands.BrowsrOperation;
 
 import java.awt.*;
 
@@ -40,5 +40,9 @@ public interface Screen {
      */
     void handleShown();
 
-    void execute(BookmarkOperation operation);
+    /**
+     * Execute the Bookmark operation
+     * @param operation the operation to execute
+     */
+    void execute(BrowsrOperation operation);
 }

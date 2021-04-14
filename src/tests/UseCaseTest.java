@@ -30,8 +30,9 @@ public class UseCaseTest {
 
 
         //2. Application shows a welcome document.
-        assertTrue("UC_2.a", screen.getAddress().equals("WelcomeDoc.html"));
-        assertTrue("UC_2.b", screen.getDocArea().getDrawnGUIObjects().size() == 8);
+        assertEquals("UC_2.a", screen.getAddress(), "WelcomeDoc.html");
+        System.out.println(screen.getDocArea().getDrawnGUIObjects().size());
+        assertEquals("UC_2.b", screen.getDocArea().getDrawnGUIObjects().size(),  8);
         //Welcome doc has 6 GUIStrings and 1 GUILink
 
         //3. User navigates to a desired webpage. (using AddressBar)

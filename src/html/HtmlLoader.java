@@ -38,7 +38,7 @@ public class HtmlLoader {
     /**
      * Setter of the documentArea
      */
-    public void setDocumentArea(DocumentArea documentArea) {
+    private void setDocumentArea(DocumentArea documentArea) {
         this.documentArea = documentArea;
     }
 

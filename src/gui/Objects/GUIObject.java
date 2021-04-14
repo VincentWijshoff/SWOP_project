@@ -21,8 +21,8 @@ public abstract class GUIObject {
     public int coordY;
 
     // the link to the window area
-    public FontMetricsHandler fontMetricsHandler;
-    public PageLoader pageLoader;
+    protected FontMetricsHandler fontMetricsHandler;
+    protected PageLoader pageLoader;
 
     /**
      * constructor of an object, it assigns a unique id

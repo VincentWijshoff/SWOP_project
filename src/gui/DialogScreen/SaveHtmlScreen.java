@@ -5,9 +5,9 @@ import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIButton;
 import gui.Objects.GUIInput;
 import gui.Objects.GUIString;
+import gui.Screen;
 import gui.Window;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -25,7 +25,7 @@ public class SaveHtmlScreen extends DialogScreen{
      * @param prevScreen the default screen that was shown before this screen
      * @param html the html to save
      */
-    public SaveHtmlScreen(Window window, DefaultScreen prevScreen, String html){
+    public SaveHtmlScreen(Window window, Screen prevScreen, String html){
         super(window, prevScreen);
         this.htmlCode = html;
         this.create();

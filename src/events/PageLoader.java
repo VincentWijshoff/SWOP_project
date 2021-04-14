@@ -1,7 +1,5 @@
 package events;
 
-import java.awt.*;
-
 /**
  * An interface for GUIObjects to load a page
  */

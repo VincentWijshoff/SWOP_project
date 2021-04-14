@@ -1,7 +1,6 @@
 package gui.Objects;
 
 import events.FontMetricsHandler;
-import events.PageLoader;
 
 import java.awt.*;
 
@@ -68,36 +67,12 @@ public class GUIString extends GUIObject {
     }
 
     /**
-     * Handle a click on this text
-     * @param x             The x coordinate of the mouse event
-     * @param y             The y coordinate of hte mouse event
-     * @param id            The id of the event
-     * @param clickCount    The click count of the event
-     */
-    @Override
-    public void handleMouseEvent(int x, int y, int id, int clickCount) {
-        if (isInGUIObject(x, y))
-            System.out.println("You clicked on a GUIString: "+ this.text);
-    }
-
-    /**
      * set the document area for a GUIObject
      * @param h  the document area that needs to be set
      */
     @Override
     public void setFontMetricsHandler(FontMetricsHandler h) {
         this.fontMetricsHandler = h;
-
-        this.updateDimensions();
-    }
-
-    /**
-     * set the document area for a GUIObject
-     * @param h  the document area that needs to be set
-     */
-    @Override
-    public void setPageLoader(PageLoader h) {
-        this.pageLoader = h;
 
         this.updateDimensions();
     }

@@ -2,11 +2,9 @@ package commands;
 
 import gui.DefaultScreen.DefaultScreen;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
-public class SaveHTMLOperation implements BookmarkOperation{
+public class SaveHTMLOperation implements BrowsrOperation {
 
     private String name;
     private String htmlCode;

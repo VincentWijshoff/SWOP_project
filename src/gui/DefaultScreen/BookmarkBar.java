@@ -1,8 +1,6 @@
 package gui.DefaultScreen;
 
 import commands.AddBookmarkOperation;
-import commands.BookmarkOperation;
-import gui.Objects.GUILink;
 import gui.Objects.GUITable;
 
 import java.awt.*;
@@ -67,21 +65,6 @@ public class BookmarkBar {
     }
 
     private  boolean first = true; //TODO remove when testing fase over
-
-    /**
-     * Add a bookmark to the bookmark bar
-     * @param name      The name displayed off the new bookmark
-     * @param address   The address off the new bookmark
-     */
-    /*public void addBookmark(String name, String address){
-        GUILink link = new GUILink(name, address);
-
-        link.setFontMetricsHandler(getScreen());
-        link.setPageLoader(getScreen());
-
-        this.getBookmarks().appendToRow(link, 0);
-        this.getBookmarks().updateDimensions();
-    }*/
 
     /**
      * Get the height of the bookmark bar

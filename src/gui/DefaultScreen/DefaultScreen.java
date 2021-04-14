@@ -1,6 +1,6 @@
 package gui.DefaultScreen;
 
-import commands.BookmarkOperation;
+import commands.BrowsrOperation;
 import events.*;
 import gui.DialogScreen.SaveBookmarkScreen;
 import gui.DialogScreen.SaveHtmlScreen;
@@ -116,7 +116,8 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
     }
 
 
-    public void execute(BookmarkOperation operation) {
+    @Override
+    public void execute(BrowsrOperation operation) {
         operation.execute(this);
     }
 
@@ -184,6 +185,7 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
      * Get the font metrics form the window area
      * @return  The font metrics
      */
+    @Override
     public FontMetrics getFontMetrics() {
         return window.getFontMetrics();
     }

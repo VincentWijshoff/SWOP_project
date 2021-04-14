@@ -1,9 +1,6 @@
 package html.Elements;
 
-import gui.Objects.GUIObject;
 import html.ContentSpanVisitor;
-
-import java.util.ArrayList;
 
 public class TextInputField extends ContentSpan{
 

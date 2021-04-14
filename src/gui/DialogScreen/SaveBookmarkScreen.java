@@ -1,10 +1,10 @@
 package gui.DialogScreen;
 
 import commands.AddBookmarkOperation;
-import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIButton;
 import gui.Objects.GUIInput;
 import gui.Objects.GUIString;
+import gui.Screen;
 import gui.Window;
 
 /**
@@ -23,7 +23,7 @@ public class SaveBookmarkScreen extends DialogScreen{
      * @param prevscreen the default screen that was shown before this screen
      * @param address the current address to fill in
      */
-    public SaveBookmarkScreen(Window window, DefaultScreen prevscreen, String address){
+    public SaveBookmarkScreen(Window window, Screen prevscreen, String address){
         super(window, prevscreen);
         this.currAddress = address;
         this.create();
@@ -57,7 +57,6 @@ public class SaveBookmarkScreen extends DialogScreen{
         this.addGUIObject(cnclBtn);
         this.addGUIObject(addBtn);
         this.getGUIObjects().forEach(obj -> obj.setFontMetricsHandler(this));
-        // this.getGUIObjects().forEach(GUIObject::setEventHandlers);
     }
 
     /**
@@ -75,15 +74,6 @@ public class SaveBookmarkScreen extends DialogScreen{
     public GUIInput getBookmarkAddress() {
         return bookmarkAddress;
     }
-
-    /**
-     * Called when the add bookmark button was pressed
-     */
-    /*private void onAddBookmark(){
-        System.out.println("Adding bookmark with name: " + this.bookmarkName.getText() + ", on the URL: " + this.bookmarkAddress.getText());
-        this.previousScreen.addBookmark(this.bookmarkName.getText(), this.bookmarkAddress.getText());
-        this.returnToPreviousScreen();
-    }*/
 
     private void onAddBookmark() {
         System.out.println("Adding bookmark with name: " + this.bookmarkName.getText() + ", on the URL: " + this.bookmarkAddress.getText());

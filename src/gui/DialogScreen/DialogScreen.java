@@ -1,6 +1,6 @@
 package gui.DialogScreen;
 
-import commands.BookmarkOperation;
+import commands.BrowsrOperation;
 import events.*;
 import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIObject;
@@ -17,7 +17,7 @@ public abstract class DialogScreen implements Screen, FontMetricsHandler {
 
     // window and screen objects
     gui.Window window;
-    DefaultScreen previousScreen;
+    Screen previousScreen;
 
     // list of all guiObjects
     ArrayList<GUIObject> guiObjects;
@@ -27,7 +27,7 @@ public abstract class DialogScreen implements Screen, FontMetricsHandler {
      * @param window the window that should have this dialogscreen
      * @param prevScreen the DefaultSCreen that was shown before this dialog screen
      */
-    public DialogScreen(Window window, DefaultScreen prevScreen){
+    public DialogScreen(Window window, Screen prevScreen){
         this.window = window;
         this.previousScreen = prevScreen;
         this.guiObjects = new ArrayList<>();
@@ -114,7 +114,7 @@ public abstract class DialogScreen implements Screen, FontMetricsHandler {
     }
 
     @Override
-    public void execute(BookmarkOperation bookmarkOperation) {
-        this.previousScreen.execute(bookmarkOperation);
+    public void execute(BrowsrOperation browsrOperation) {
+        this.previousScreen.execute(browsrOperation);
     }
 }

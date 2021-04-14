@@ -3,7 +3,6 @@ package gui.DefaultScreen;
 import gui.Objects.GUIInput;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 /**
  * The class for the address bar, this contains all necessary code for a functioning address bar
