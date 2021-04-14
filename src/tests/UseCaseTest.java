@@ -6,7 +6,9 @@ import gui.DialogScreen.SaveBookmarkScreen;
 import gui.Objects.*;
 import gui.Screen;
 import gui.Window;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 
 import java.awt.*;
@@ -17,12 +19,24 @@ import java.util.ArrayList;
 
 import static tests.TestUtil.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UseCaseTest {
+
+    Window window;
+    FontMetrics fm;
+
+    @BeforeAll
+    public void setup() throws InvocationTargetException, InterruptedException {
+        this.window = new Window("TestBrowser");
+        java.awt.EventQueue.invokeAndWait(this.window::show);
+        fm = window.getFontMetrics();
+    }
 
     @Test
     void testUCEnterURL() throws InvocationTargetException, InterruptedException {
         //1. User starts a Browsr application.
-        Window window = new Window("useCase");
+        setup();
+        Window window = this.window;
         java.awt.EventQueue.invokeAndWait(window::show);
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
         FontMetrics fm = window.getFontMetrics();
