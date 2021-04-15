@@ -67,14 +67,25 @@ public class SaveBookmarkScreen extends DialogScreen{
         this.returnToPreviousScreen();
     }
 
+    /**
+     * Get the name off the bookmark
+     * @return  The name off the bookmark
+     */
     public GUIInput getBookmarkName(){
         return this.bookmarkName;
     }
 
+    /**
+     * Get the address off the bookmark
+     * @return  The address of the bookmark
+     */
     public GUIInput getBookmarkAddress() {
         return bookmarkAddress;
     }
 
+    /**
+     * Needs to be executed when the add bookmark button was pressed, this will create a new add bookmark operation
+     */
     private void onAddBookmark() {
         System.out.println("Adding bookmark with name: " + this.bookmarkName.getText() + ", on the URL: " + this.bookmarkAddress.getText());
 

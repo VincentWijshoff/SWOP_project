@@ -3,7 +3,7 @@ package html.Elements;
 import html.ContentSpanVisitor;
 
 /**
- * A contentspan object
+ * A content span object
  */
 public class ContentSpan {
 

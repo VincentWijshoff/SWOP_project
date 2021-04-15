@@ -13,15 +13,15 @@ import java.util.ArrayList;
 public class GUIInput extends GUIObject{
 
     // needed parameters
-    private int startSelected = 0;      //The starting selected position
-    private int endSelected = 0;        //The ending selected position
-    private String text = "";           //The text in the input field
-    private String prevText = "";       //The previous text in the input field
-    private boolean shifting = false;   //A parameter to check if the user is pressing shift
-    private int cursorPosition;         //The current cursor position of the user
-    private boolean inFocus = false;
-    private boolean initialClick = true;
-    private boolean pageLoaderInput = false;
+    private int startSelected = 0;              // The starting selected position
+    private int endSelected = 0;                // The ending selected position
+    private String text = "";                   // The text in the input field
+    private String prevText = "";               // The previous text in the input field
+    private boolean shifting = false;           // A parameter to check if the user is pressing shift
+    private int cursorPosition;                 // The current cursor position of the user
+    private boolean inFocus = false;            // is the input in focus?
+    private boolean initialClick = true;        // is the click an initial click
+    private boolean pageLoaderInput = false;    // is the input the address bar input?
 
     /**
      * Constructor, it will set the current text as the given parameter
@@ -178,7 +178,7 @@ public class GUIInput extends GUIObject{
                     this.inFocus = false;
                     this.initialClick = true;
                     this.selectNone();
-                    if(this.pageLoaderInput){
+                    if(this.pageLoaderInput){ // if this is the address bar input, a page should load now
                         this.pageLoader.load(this.getText());
                     }
                 } else if(keyCode != KeyEvent.VK_SHIFT && keyCode != KeyEvent.VK_CONTROL && keyCode != KeyEvent.VK_ALT){
@@ -516,13 +516,22 @@ public class GUIInput extends GUIObject{
         g.drawString(viewedAddress, this.coordX+5, this.coordY+((int) (height/1.5)));
     }
 
+    /**
+     * Set the focus on this input
+     * @param f     How the focus should be set
+     */
     public void setFocus(boolean f){
         this.inFocus = f;
     }
 
+    /**
+     * Get the inFocus field off the input
+     * @return      The inFocus field
+     */
     public boolean getInFocus() {
         return this.inFocus;
     }
+
     // Form necessary things
 
     /**
@@ -545,6 +554,10 @@ public class GUIInput extends GUIObject{
         this.name = name;
     }
 
+    /**
+     * Get the name of the input
+     * @return      The name of the input
+     */
     public String getName(){
         return this.name;
     }

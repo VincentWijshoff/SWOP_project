@@ -93,6 +93,13 @@ public class BookmarkBar {
         this.bookmarks.handleKeyEvent(id, keyCode, keyChar, modifier);
     }
 
+    /**
+     * handle the mouse event on the bookmark bar
+     * @param id            The id off the mouse event
+     * @param x             The x coordinate of the mouse event
+     * @param y             The y coordinate of the mouse event
+     * @param clickCount    The click count of the mouse event
+     */
     public void handleMouseEvent(int id, int x, int y, int clickCount){
         this.bookmarks.handleMouseEvent(x, y, id, clickCount);
     }

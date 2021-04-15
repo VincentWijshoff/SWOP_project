@@ -106,6 +106,10 @@ public class GUIButton extends GUIObject{
         return inp;
     }
 
+    /**
+     * Get the text in the button
+     * @return  The text in teh button
+     */
     public String getText(){
         return this.text;
     }

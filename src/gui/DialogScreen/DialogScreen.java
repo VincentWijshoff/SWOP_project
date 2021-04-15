@@ -113,6 +113,10 @@ public abstract class DialogScreen implements Screen, FontMetricsHandler {
         this.window.setScreen(this.previousScreen);
     }
 
+    /**
+     * Send the browser operation to the previous screen
+     * @param browsrOperation   The browser operation to send
+     */
     @Override
     public void execute(BrowsrOperation browsrOperation) {
         this.previousScreen.execute(browsrOperation);

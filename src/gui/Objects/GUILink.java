@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
  */
 public class GUILink extends GUIString {
 
-    private final String href;
+    private final String href;  // href off this link
 
     /**
      * Create a GUILink

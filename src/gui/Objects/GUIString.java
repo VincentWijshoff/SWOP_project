@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class GUIString extends GUIObject {
 
-    String text;
+    String text;    // the text of this string
 
     /**
      * Create a new GUIString object

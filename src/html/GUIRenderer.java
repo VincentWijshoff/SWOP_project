@@ -115,8 +115,13 @@ public class GUIRenderer implements ContentSpanVisitor {
         this.objects = objects;
     }
 
+    // the gui objects last created
     private ArrayList<GUIObject> objects = new ArrayList<>();
 
+    /**
+     * get al the gui objects last created
+     * @return  the last created gui objects
+     */
     public ArrayList<GUIObject> getObjects(){
         return this.objects;
     }

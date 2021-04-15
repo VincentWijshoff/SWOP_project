@@ -72,6 +72,10 @@ public abstract class GUIObject {
         this.fontMetricsHandler = h;
     }
 
+    /**
+     * Set the page loader for this gui object
+     * @param p     The page loader
+     */
     public void setPageLoader(PageLoader p) {
         this.pageLoader = p;
     }

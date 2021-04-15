@@ -5,14 +5,23 @@ import gui.Objects.GUILink;
 
 public class AddBookmarkOperation implements BrowsrOperation {
 
-    private String name;
-    private String address;
+    private String name;        // the name off the bookmark
+    private String address;     // the address off the bookmark
 
+    /**
+     * Create the add bookmark operation
+     * @param name      The name off the new bookmark
+     * @param address   The address off the bookmark
+     */
     public AddBookmarkOperation(String name, String address) {
         this.name = name;
         this.address = address;
     }
 
+    /**
+     * Execute this operation
+     * @param screen    The default screen needed for the operation
+     */
     @Override
     public void execute(DefaultScreen screen) {
         GUILink link = new GUILink(this.name, this.address);

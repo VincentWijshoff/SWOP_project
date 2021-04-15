@@ -14,10 +14,11 @@ import java.util.Set;
 import java.net.URL;
 
 /**
- * The documentarea manages all GUIObjects that are drawn on the canvas
+ * The document area manages all GUIObjects that are drawn on the canvas
  */
 public class DocumentArea {
 
+    // necessary element for the document area
     private final Set<GUIObject> drawnGUIObjects = new HashSet<>();
     private final int relativeYPos;
     public final int xOffset = 5;
