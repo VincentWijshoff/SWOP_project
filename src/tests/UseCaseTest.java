@@ -6,7 +6,7 @@ import gui.DialogScreen.SaveBookmarkScreen;
 import gui.Objects.*;
 import gui.Screen;
 import gui.Window;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -25,7 +25,7 @@ public class UseCaseTest {
     Window window;
     FontMetrics fm;
 
-    @BeforeAll
+    @BeforeEach
     public void setup() throws InvocationTargetException, InterruptedException {
         this.window = new Window("TestBrowser");
         java.awt.EventQueue.invokeAndWait(this.window::show);
@@ -35,13 +35,8 @@ public class UseCaseTest {
     @Test
     void testUCEnterURL() throws InvocationTargetException, InterruptedException {
         //1. User starts a Browsr application.
-        setup();
-        Window window = this.window;
-        java.awt.EventQueue.invokeAndWait(window::show);
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
-        FontMetrics fm = window.getFontMetrics();
         DocumentArea docarea = screen.getDocArea();
-
 
         //2. Application shows a welcome document.
         assertEquals("UC_2.a", screen.getAddress(), "WelcomeDoc.html");
@@ -98,10 +93,7 @@ public class UseCaseTest {
     @Test
     void testUCSubmitForm() throws InvocationTargetException, InterruptedException {
         //1. User starts a Browsr application.
-        Window window = new Window("useCase");
-        java.awt.EventQueue.invokeAndWait(window::show);
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
-        FontMetrics fm = window.getFontMetrics();
         DocumentArea docarea = screen.getDocArea();
 
         //2. User navigates to a desired webpage. (using AddressBar)
@@ -148,8 +140,6 @@ public class UseCaseTest {
     @Test
     void testUCActivateBookmark() throws InterruptedException, InvocationTargetException {
         //1. User starts a Browsr application.
-        Window window = new Window("useCase");
-        java.awt.EventQueue.invokeAndWait(window::show);
         java.awt.EventQueue.invokeAndWait(window::show); // twee is beter dan een
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
 
@@ -160,10 +150,6 @@ public class UseCaseTest {
 
     @Test
     void testUCAddBookmark() throws InvocationTargetException, InterruptedException {
-        //1. User starts a Browsr application.
-        Window window = new Window("useCase");
-        java.awt.EventQueue.invokeAndWait(window::show);
-        java.awt.EventQueue.invokeAndWait(window::show); // twee is beter dan een
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
         //2. User presses ctrl + d -> open saveBookmarkScreen
         screen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
@@ -202,10 +188,6 @@ public class UseCaseTest {
 
     @Test
     void testUCCancelBookmark() throws InvocationTargetException, InterruptedException {
-        //1. User starts a Browsr application.
-        Window window = new Window("useCase");
-        java.awt.EventQueue.invokeAndWait(window::show);
-        java.awt.EventQueue.invokeAndWait(window::show); // twee is beter dan een
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
         //2. User presses ctrl + d -> open saveBookmarkScreen
         screen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
