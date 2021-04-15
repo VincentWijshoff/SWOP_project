@@ -35,7 +35,7 @@ public abstract class TestUtil {
         }
     }
 
-    public static boolean containsGUIStringWith(int x, int y, String text, ArrayList<GUIObject> objects) {
+    public static boolean containsGUIStringWithPos(int x, int y, String text, ArrayList<GUIObject> objects) {
         for (GUIObject obj: objects) {
             if (obj instanceof GUIString) {
                 GUIString guiString = (GUIString) obj;
@@ -48,11 +48,11 @@ public abstract class TestUtil {
         return false;
     }
 
-    public static boolean containsGUILinkWith(int x, int y, String text, String href, ArrayList<GUIObject> objects) {
+    public static boolean containsGUILinkWithPos(int x, int y, String text, String href, ArrayList<GUIObject> objects) {
         for (GUIObject obj: objects) {
             if (obj instanceof GUITable) {
                 GUITable guiTable = (GUITable) obj;
-                if (containsGUILinkWith(x, y, text, href, guiTable.getChildObjects())) {
+                if (containsGUILinkWithPos(x, y, text, href, guiTable.getChildObjects())) {
                     return true;
                 }
             }
@@ -62,6 +62,25 @@ public abstract class TestUtil {
                 if (guiLink.coordX == x &&
                         guiLink.coordY == y &&
                         guiLink.getText().equals(text) &&
+                        guiLink.getHref().equals(href))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean containsGUILinkWithText(String text, String href, ArrayList<GUIObject> objects) {
+        for (GUIObject obj: objects) {
+            if (obj instanceof GUITable) {
+                GUITable guiTable = (GUITable) obj;
+                if (containsGUILinkWithText(text, href, guiTable.getChildObjects())) {
+                    return true;
+                }
+            }
+
+            if (obj instanceof GUILink) {
+                GUILink guiLink = (GUILink) obj;
+                if (guiLink.getText().equals(text) &&
                         guiLink.getHref().equals(href))
                     return true;
             }

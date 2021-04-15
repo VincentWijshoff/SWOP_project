@@ -208,11 +208,11 @@ public class ScreenTest {
 
         //check if new bookmark has been added, position depends on if 2 default bookmarks have been drawn already //?TODO
         if (defScreen.getBookmarkBar().getBookmarks().getChildObjects().size() == 1) {
-            assertTrue("testScreenBookmarkScreen", containsGUILinkWith(0, defScreen.getBookmarkBar().relativeYPos, "testBookmark", "WelcomeDoc.html", defScreen.getBookmarkBar().getBookmarks().getChildObjects()));
+            assertTrue("testScreenBookmarkScreen", containsGUILinkWithPos(0, defScreen.getBookmarkBar().relativeYPos, "testBookmark", "WelcomeDoc.html", defScreen.getBookmarkBar().getBookmarks().getChildObjects()));
         }
         else { //size == 3
             int x = fm.stringWidth("home page Bart Jacobs") + fm.stringWidth("home page Bart Jacobs 2.0") + 2*GUITable.xMargin; //calculate x position of new bookmark
-            assertTrue("testScreenBookmarkScreen", containsGUILinkWith(x, defScreen.getBookmarkBar().relativeYPos, "testBookmark", "WelcomeDoc.html", defScreen.getBookmarkBar().getBookmarks().getChildObjects()));
+            assertTrue("testScreenBookmarkScreen", containsGUILinkWithPos(x, defScreen.getBookmarkBar().relativeYPos, "testBookmark", "WelcomeDoc.html", defScreen.getBookmarkBar().getBookmarks().getChildObjects()));
         }
     }
 

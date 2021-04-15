@@ -33,7 +33,7 @@ public class UseCaseTest {
     }
 
     @Test
-    void testUCEnterURL() throws InvocationTargetException, InterruptedException {
+    void testUCEnterURL() {
         //1. User starts a Browsr application.
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
         DocumentArea docarea = screen.getDocArea();
@@ -53,19 +53,19 @@ public class UseCaseTest {
         assertEquals("UC_4.a", screen.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
         ArrayList<GUIObject> renderedObjects = screen.getDocArea().getDrawnGUIObjects();
         assertTrue("UC_4.b", renderedObjects.size() == 11);
-        assertTrue("UC_4.j", containsGUIStringWith(docarea.xOffset, docarea.getRelativeYPos(), "HTML elements partially supported by Browsr:", renderedObjects));
+        assertTrue("UC_4.j", containsGUIStringWithPos(docarea.xOffset, docarea.getRelativeYPos(), "HTML elements partially supported by Browsr:", renderedObjects));
 
-        assertTrue("UC_4.d", containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "a", "a.html", renderedObjects));
-        assertTrue("UC_4.g", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight(), "Hyperlink anchors", renderedObjects));
+        assertTrue("UC_4.d", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "a", "a.html", renderedObjects));
+        assertTrue("UC_4.g", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight(), "Hyperlink anchors", renderedObjects));
 
-        assertTrue("UC_4.e", containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight(), "table", "table.html", renderedObjects));
-        assertTrue("UC_4.c", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 2*fm.getHeight(), "Tables", renderedObjects));
+        assertTrue("UC_4.e", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight(), "table", "table.html", renderedObjects));
+        assertTrue("UC_4.c", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 2*fm.getHeight(), "Tables", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + 3*fm.getHeight(), "tr", "tr.html", renderedObjects));
-        assertTrue("UC_4.i", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 3*fm.getHeight(), "Table rows", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 3*fm.getHeight(), "tr", "tr.html", renderedObjects));
+        assertTrue("UC_4.i", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 3*fm.getHeight(), "Table rows", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWith(docarea.xOffset,  docarea.getRelativeYPos()  + 4*fm.getHeight(), "td", "td.html", renderedObjects));
-        assertTrue("UC_4.f", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 4*fm.getHeight(), "Table cells containing table data", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(docarea.xOffset,  docarea.getRelativeYPos()  + 4*fm.getHeight(), "td", "td.html", renderedObjects));
+        assertTrue("UC_4.f", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 4*fm.getHeight(), "Table cells containing table data", renderedObjects));
         //This page has 4 GUILinks and 5 GUIStrings
 
         //5 User navigates to a desired webpage. (using hyperlink)
@@ -91,7 +91,7 @@ public class UseCaseTest {
     }
 
     @Test
-    void testUCSubmitForm() throws InvocationTargetException, InterruptedException {
+    void testUCSubmitForm() {
         //1. User starts a Browsr application.
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
         DocumentArea docarea = screen.getDocArea();
@@ -149,7 +149,7 @@ public class UseCaseTest {
     }
 
     @Test
-    void testUCAddBookmark() throws InvocationTargetException, InterruptedException {
+    void testUCAddBookmark() {
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
         //2. User presses ctrl + d -> open saveBookmarkScreen
         screen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
@@ -182,12 +182,11 @@ public class UseCaseTest {
         DefaultScreen newScreen = (DefaultScreen) window.getCurrentScreen();
 
         GUITable bookmarks = newScreen.getBookmarkBar().getBookmarks();
-        //TestUtil.containsGUILinkWith()
-        //TODO: see if "testname" is in bookmarks (but i dont know how to test)
+        assertTrue("UC_5.a", containsGUILinkWithText("testname", "https://www.google.com", bookmarks.getChildObjects()));
     }
 
     @Test
-    void testUCCancelBookmark() throws InvocationTargetException, InterruptedException {
+    void testUCCancelBookmark() {
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
         //2. User presses ctrl + d -> open saveBookmarkScreen
         screen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
@@ -200,6 +199,9 @@ public class UseCaseTest {
         GUIInput bookmarkName = saveBookmarkScreen.getBookmarkName();
         assertTrue("UC_3.a", bookmarkName.getInFocus());
         typeString(window, "testname");
+        //4. User types in a URL
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 110, 1, 1, 1024);
+        typeString(window, "https://www.google.com");
         //user presses ENTER -> out of focus
         currentScreen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ENTER, '\n', 0);
         assertFalse("UC_3.b", bookmarkName.getInFocus());
@@ -209,6 +211,6 @@ public class UseCaseTest {
         //default screen is showing again
         DefaultScreen newScreen = (DefaultScreen) window.getCurrentScreen();
         GUITable bookmarks = newScreen.getBookmarkBar().getBookmarks();
-        //TODO: see if "testname" is NOT in bookmarks (but i dont know how to test)
+        assertFalse("UC_5.a", containsGUILinkWithText("testname", "https://www.google.com", bookmarks.getChildObjects()));
     }
 }

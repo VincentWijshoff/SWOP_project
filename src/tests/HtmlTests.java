@@ -46,7 +46,7 @@ public class HtmlTests {
         DocumentArea docarea = screen.getDocArea();
 
         assertTrue(testName, screen.getDocArea().getDrawnGUIObjects().size() == 1);
-        assertTrue(testName, containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos(), "TEXT", "", screen.getDocArea().getDrawnGUIObjects()));
+        assertTrue(testName, containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos(), "TEXT", "", screen.getDocArea().getDrawnGUIObjects()));
     }
 
     @Test
@@ -66,9 +66,9 @@ public class HtmlTests {
 
         ArrayList<GUIObject> renderedObjects = screen.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, screen.getDocArea().getDrawnGUIObjects().size() == 4);
-        assertTrue(testName, containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos(), "TEXT", "a.html", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight(), "Text", "b.html", renderedObjects));
-        assertTrue(testName, containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "TEXT", "", renderedObjects));
+        assertTrue(testName, containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos(), "TEXT", "a.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight(), "Text", "b.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "TEXT", "", renderedObjects));
 
     }
 
@@ -88,9 +88,9 @@ public class HtmlTests {
 
         ArrayList<GUIObject> renderedObjects = screen.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, screen.getDocArea().getDrawnGUIObjects().size() == 4); //3 GUIStrings
-        assertTrue(testName, containsGUIStringWith(docarea.xOffset, docarea.getRelativeYPos(), "DATA", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(docarea.xOffset + fm.stringWidth("DATA") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight(), "SECOND COLUMN", renderedObjects));
-        assertTrue(testName, containsGUIStringWith(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "DATA", renderedObjects));
+        assertTrue(testName, containsGUIStringWithPos(docarea.xOffset, docarea.getRelativeYPos(), "DATA", renderedObjects));
+        assertTrue(testName, containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("DATA") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight(), "SECOND COLUMN", renderedObjects));
+        assertTrue(testName, containsGUIStringWithPos(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "DATA", renderedObjects));
     }
 
     @Test
@@ -115,19 +115,19 @@ public class HtmlTests {
 
         ArrayList<GUIObject> renderedObjects = screen.getDocArea().getDrawnGUIObjects();
         assertTrue(testName, screen.getDocArea().getDrawnGUIObjects().size() == 11); //9 GUIString
-        assertTrue("UC_4.j", containsGUIStringWith(docarea.xOffset, docarea.getRelativeYPos(), "HTML elements partially supported by Browsr:", renderedObjects));
+        assertTrue("UC_4.j", containsGUIStringWithPos(docarea.xOffset, docarea.getRelativeYPos(), "HTML elements partially supported by Browsr:", renderedObjects));
 
-        assertTrue("UC_4.d", containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "a", "a.html", renderedObjects));
-        assertTrue("UC_4.g", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight(), "Hyperlink anchors", renderedObjects));
+        assertTrue("UC_4.d", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "a", "a.html", renderedObjects));
+        assertTrue("UC_4.g", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight(), "Hyperlink anchors", renderedObjects));
 
-        assertTrue("UC_4.e", containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight(), "table", "table.html", renderedObjects));
-        assertTrue("UC_4.c", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 2*fm.getHeight(), "Tables", renderedObjects));
+        assertTrue("UC_4.e", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight(), "table", "table.html", renderedObjects));
+        assertTrue("UC_4.c", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 2*fm.getHeight(), "Tables", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWith(docarea.xOffset, docarea.getRelativeYPos() + 3*fm.getHeight(), "tr", "tr.html", renderedObjects));
-        assertTrue("UC_4.i", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 3*fm.getHeight(), "Table rows", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 3*fm.getHeight(), "tr", "tr.html", renderedObjects));
+        assertTrue("UC_4.i", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 3*fm.getHeight(), "Table rows", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWith(docarea.xOffset,  docarea.getRelativeYPos()  + 4*fm.getHeight(), "td", "td.html", renderedObjects));
-        assertTrue("UC_4.f", containsGUIStringWith(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 4*fm.getHeight(), "Table cells containing table data", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(docarea.xOffset,  docarea.getRelativeYPos()  + 4*fm.getHeight(), "td", "td.html", renderedObjects));
+        assertTrue("UC_4.f", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 4*fm.getHeight(), "Table cells containing table data", renderedObjects));
     }
 
     /**
