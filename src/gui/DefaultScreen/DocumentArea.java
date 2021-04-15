@@ -122,7 +122,6 @@ public class DocumentArea {
         isValidBrowsrPage(address);
         this.loader.initialise(address);
         loader.loadPage();
-
     }
 
     /**

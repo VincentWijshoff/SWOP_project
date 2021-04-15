@@ -1,48 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
       <x>0</x>
-      <y>70</y>
-      <w>2840</w>
-      <h>720</h>
+      <y>18</y>
+      <w>2115</w>
+      <h>549</h>
     </coordinates>
     <panel_attributes>title= Load page from given URL
-obj=:Window~a EXECUTION
+obj=:DefaultScreen~a EXECUTION
 obj=:AddressBar~b EXECUTION
 obj=:DocumentArea~c EXECUTION
 obj=BrowsrDocumentValidator~f 
-obj=:HtmlLoader~d CREATED_LATER EXECUTION
-obj=:HtmlLexer~e CREATED_LATER EXECUTION
+obj=:HtmlLoader~d EXECUTION
+found-&gt;a : load(String);
 
-found-&gt;a : load(URL);
-
-a-&gt;&gt;&gt;b : setAddress(URL);
+a-&gt;a + : createNewAddress(String);
+tick=
+a-&gt;&gt;&gt;b : setAddress(String);
 b-&gt;b + : this.address = URL;
 tick=
 
 a-&gt;&gt;&gt;c : loadAddress(URL);
-c-&gt;c + : this.DocGUIObjects.clear();
+c-&gt;c + : this.clearDocObjects();
 tick=
-c-&gt;&gt;&gt;f : assertIsValidBrowsrDocument(URL);
+c-&gt;&gt;&gt;f : isValidBrowsrPage(String);
 
-c-&gt;&gt;&gt;d : new HtmlLoader(URL);
+c-&gt;&gt;&gt;d : initialise(String);
 
 d-&gt;&gt;&gt;d + : loadHtml(URL);
 tick=
 
 c-&gt;&gt;&gt;d : loadPage();
-d-&gt;&gt;&gt;e : new HtmlLexer();
 
-ref=d e : Load and Lex html
-
-a-&gt;&gt;&gt;a + : this.repaint();
-tick=
-a-&gt;&gt;&gt;b : draw(Graphics);
-
-a-&gt;&gt;&gt;c : draw(Graphics);
+ref=d d : Load and Lex html
 </panel_attributes>
     <additional_attributes/>
   </element>

@@ -5,20 +5,49 @@
     <id>UMLSequenceAllInOne</id>
     <coordinates>
       <x>96</x>
-      <y>88</y>
+      <y>0</y>
       <w>1104</w>
-      <h>488</h>
+      <h>512</h>
     </coordinates>
     <panel_attributes>title=Load page from clicking on a url in the document area
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
-obj=:Window~b EXECUTION
+obj=:DefaultScreen~b EXECUTION
 obj=:DocumentArea~d EXECUTION
 obj=:GUIObject {abstract}~c EXECUTION
 
 a-&gt;&gt;&gt;e : Mouse Click;
 e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
-b-&gt;&gt;&gt;d : handleMouseEvent(ID, x, y);
+b-&gt;&gt;&gt;d : handleMouseEvent(ID, x, y, clickCount);
+combinedFragment=loop~loopid d c
+		d:[ GUIObject obj : this.DocGUIObjects ]
+		combinedFragment=opt~l2 d c
+		d:[ isInGUIObject(X, Y) ];
+		d-&gt;&gt;&gt;c : handleClick(); 
+		ref=c c :GUIObject handleClick
+		--=l2
+	--=loopid
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>96</x>
+      <y>520</y>
+      <w>1104</w>
+      <h>512</h>
+    </coordinates>
+    <panel_attributes>title=Load page from clicking on a url in the document area
+obj=User~a ACTOR EXECUTION
+obj=:CanvasWindow~e EXECUTION
+obj=:DefaultScreen~b EXECUTION
+obj=:BookmarkBar~d EXECUTION
+obj=:GUIObject {abstract}~c EXECUTION
+
+a-&gt;&gt;&gt;e : Mouse Click;
+e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
+b-&gt;&gt;&gt;d : handleMouseEvent(ID, x, y, clickCount);
 combinedFragment=loop~loopid d c
 		d:[ GUIObject obj : this.DocGUIObjects ]
 		combinedFragment=opt~l2 d c

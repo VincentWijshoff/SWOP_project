@@ -4,43 +4,37 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>48</x>
-      <y>384</y>
+      <x>0</x>
+      <y>248</y>
       <w>1280</w>
-      <h>352</h>
+      <h>320</h>
     </coordinates>
     <panel_attributes>title= Create GUIObject (hyperlink)
 obj=:HtmlLoader~a EXECUTION
-obj=renderer : Creator~b EXECUTION
-obj=:Hyperlink~c CREATED_LATER EXECUTION
-obj=:GUILink~d CREATED_LATER EXECUTION
+obj=:Hyperlink~c
+obj=:ContentSpanVisitor~b EXECUTION
+obj=:GUILink~d 
 
 found-&gt;a : makeHyperLink();
 
-a-&gt;&gt;&gt;c : hyperlink(renderer);
+a-&gt;&gt;&gt;c : hyperlink(contentSpanVisitor);on=c;
 
 c-&gt;&gt;&gt;b : create(HyperLink);
 
-b-&gt;&gt;&gt;d : GUILink();
+b-&gt;&gt;&gt;d : new GUILink();on=d;
 
-d.&gt;b : text, href;
+a-&gt;&gt;&gt;b : getObjects();
 
-b.&gt; c : GUILink;
+b.&gt;a : GUILink;
 
-c.&gt;a : GUILink; 
-
-a-&gt;lost: return GUILink;
-
-
-
-</panel_attributes>
+a-&gt;lost: return GUILink;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>48</x>
-      <y>136</y>
+      <x>0</x>
+      <y>0</y>
       <w>568</w>
       <h>224</h>
     </coordinates>
@@ -50,7 +44,7 @@ obj=:Creator~b
 
 found-&gt;a : new HtmlLoader(); on=a;
 
-a-&gt;&gt;&gt;b : renderer = new GUIRenderer(); on=b;
+a-&gt;&gt;&gt;b : contentSpanVisitor = new GUIRenderer(); on=b;
 
 a-&gt;lost: return;
 

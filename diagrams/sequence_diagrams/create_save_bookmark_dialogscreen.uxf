@@ -5,9 +5,9 @@
     <id>UMLSequenceAllInOne</id>
     <coordinates>
       <x>0</x>
-      <y>200</y>
+      <y>224</y>
       <w>1632</w>
-      <h>288</h>
+      <h>304</h>
     </coordinates>
     <panel_attributes>title=Start save HTML page
 obj=User~a ACTOR EXECUTION
@@ -20,6 +20,7 @@ a-&gt;&gt;&gt;e : CTRL + D;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 c-&gt;c +: makeSaveBookmarkScreen();
+tick=
 c-&gt;&gt;&gt;b: setScreen(new SaveBookmarkScreen);
 
 
