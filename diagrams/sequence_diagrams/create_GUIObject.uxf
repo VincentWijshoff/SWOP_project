@@ -4,10 +4,10 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>0</x>
-      <y>248</y>
-      <w>1280</w>
-      <h>320</h>
+      <x>104</x>
+      <y>360</y>
+      <w>1032</w>
+      <h>392</h>
     </coordinates>
     <panel_attributes>title= Create GUIObject (hyperlink)
 obj=:HtmlLoader~a EXECUTION
@@ -15,13 +15,16 @@ obj=:Hyperlink~c
 obj=:ContentSpanVisitor~b EXECUTION
 obj=:GUILink~d 
 
-found-&gt;a : makeHyperLink();
+found-&gt;a : loadPage();
 
-a-&gt;&gt;&gt;c : hyperlink(contentSpanVisitor);on=c;
+a-&gt;a +: handleA();
+tick=
 
-c-&gt;&gt;&gt;b : create(HyperLink);
+a-&gt;&gt;&gt;c : accept(contentSpanVisitor);on=c;
 
-b-&gt;&gt;&gt;d : new GUILink();on=d;
+c-&gt;&gt;&gt;b : visitHyperlink(HyperLink);
+
+b-&gt;&gt;&gt;d : new GUILink(text, href);on=d;
 
 a-&gt;&gt;&gt;b : getObjects();
 
@@ -33,14 +36,14 @@ a-&gt;lost: return GUILink;</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>0</x>
-      <y>0</y>
+      <x>104</x>
+      <y>112</y>
       <w>568</w>
       <h>224</h>
     </coordinates>
-    <panel_attributes>title= Create Creator
+    <panel_attributes>title= Create contentSpanVisitior
 obj=:HtmlLoader~a
-obj=:Creator~b
+obj=:contentSpanVisitior~b
 
 found-&gt;a : new HtmlLoader(); on=a;
 

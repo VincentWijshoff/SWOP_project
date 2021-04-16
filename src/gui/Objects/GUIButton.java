@@ -48,7 +48,7 @@ public class GUIButton extends GUIObject{
     /**
      * Handle the mouse event on the button
      * @param x             The x coordinate of the mouse event
-     * @param y             The y coordinate of hte mouse event
+     * @param y             The y coordinate of the mouse event
      * @param id            The id of the event
      * @param clickCount    The click count of the event
      */

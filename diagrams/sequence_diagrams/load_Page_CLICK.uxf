@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>8</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>80</x>
-      <y>152</y>
-      <w>1176</w>
-      <h>384</h>
+      <x>126</x>
+      <y>210</y>
+      <w>1029</w>
+      <h>336</h>
     </coordinates>
     <panel_attributes>title=Load page from clicking outside of addressbar after typing in adressbar
 obj=User~a ACTOR EXECUTION

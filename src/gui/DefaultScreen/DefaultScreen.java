@@ -148,7 +148,7 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
 
     /**
      * Handle a mouse event
-     * @param id            The id off the mouse event
+     * @param id            The id of the mouse event
      * @param x             The x coordinate of the mouse event
      * @param y             The y coordinate of the mouse event
      * @param clickCount    The click count of the mouse event

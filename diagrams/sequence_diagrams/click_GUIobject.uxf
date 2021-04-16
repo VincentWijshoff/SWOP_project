@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>8</zoom_level>
+  <zoom_level>5</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>568</x>
-      <y>8</y>
-      <w>304</w>
-      <h>168</h>
+      <x>465</x>
+      <y>425</y>
+      <w>255</w>
+      <h>125</h>
     </coordinates>
-    <panel_attributes>title=GUIObject handleClick
+    <panel_attributes>title=GUIString handle click
 obj=:GUIString~a EXECUTION
 
-found-&gt;a : handleClick();
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
 a-&gt;lost: return;
 </panel_attributes>
     <additional_attributes/>
@@ -20,15 +20,15 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>216</x>
-      <y>8</y>
-      <w>304</w>
-      <h>168</h>
+      <x>190</x>
+      <y>425</y>
+      <w>255</w>
+      <h>125</h>
     </coordinates>
-    <panel_attributes>title=GUIObject handleClick
+    <panel_attributes>title=GUIRectangle handle click
 obj=:GUIRectangle~a EXECUTION
 
-found-&gt;a : handleClick();
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
 a-&gt;lost: return;
 </panel_attributes>
     <additional_attributes/>
@@ -36,16 +36,121 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>216</x>
-      <y>208</y>
-      <w>576</w>
-      <h>200</h>
+      <x>185</x>
+      <y>945</y>
+      <w>260</w>
+      <h>245</h>
     </coordinates>
-    <panel_attributes>title=GUIObject handleClick
+    <panel_attributes>title=GUIInput handle click
+obj=:GUIInput~a EXECUTION
+
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
+combinedFragment=alt~loop2 a a; 
+a: [ ID == MouseEvent.MOUSE_PRESSED &amp;&amp; this.initialClick ]
+
+a-&gt;a+: selectAll()
+tick=
+..=loop2 ; a : [ ID == MouseEvent.MOUSE_PRESSED &amp;&amp; clickCount % 2 == 0 ]
+a-&gt;a+: selectAll()
+tick=
+..=loop2 ; a : [ ID == MouseEvent.MOUSE_PRESSED ]
+a-&gt;a+: selectNone()
+--=loop2
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>140</x>
+      <y>0</y>
+      <w>830</w>
+      <h>400</h>
+    </coordinates>
+    <panel_attributes>title=Handle user mouse click in DefaultScreen
+obj=User~a ACTOR EXECUTION
+obj=:CanvasWindow~b EXECUTION
+obj=:DefaultScreen~c EXECUTION
+obj=:DocumentArea~d EXECUTION
+obj=:BookmarkBar~e EXECUTION
+obj=:AddressBar~f EXECUTION
+obj=:GUIObject~g EXECUTION
+
+a-&gt;b : Mouse Click;
+b-&gt;c : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
+c-&gt;d : handleMouseEvent(ID, x, y, clickCount);
+d-&gt;g : handleMouseEvent(ID, x, y, clickCount);
+ref=g g :GUIObject handle click
+
+
+c-&gt;e : handleMouseEvent(ID, x, y, clickCount);
+e-&gt;g : handleMouseEvent(ID, x, y, clickCount);
+ref=g g :GUIObject handle click
+
+c-&gt;f : handleMouseEvent(ID, x, y, clickCount);
+f-&gt;g : handleMouseEvent(ID, x, y, clickCount);
+ref=g g :GUIObject handle click</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>170</x>
+      <y>725</y>
+      <w>755</w>
+      <h>215</h>
+    </coordinates>
+    <panel_attributes>title=GUITable handle click
+obj=:GUITable~a EXECUTION
+obj=:GUIRow~b EXECUTION
+obj=:GUIObject~c EXECUTION
+
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
+combinedFragment=loop~loopid a c;
+	a: [ row : this.tableRows ]
+	combinedFragment=loop~loop1 b c;
+		b: [ obj : this.row ]
+		b-&gt;c: handleMouseEvent(ID, x, y, clickCount);
+	--=loop1
+--=loopid
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>465</x>
+      <y>970</y>
+      <w>495</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>title=GUIButton handle click
+obj=:GUIButton~a EXECUTION
+obj=:MouseListener~b EXECUTION
+
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
+combinedFragment=alt~loop2 a b; 
+a: [ ID == MouseEvent.MOUSE_RELEASED ]
+
+a-&gt;b: run()
+
+--=loop2
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>210</x>
+      <y>580</y>
+      <w>485</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>title=GUILink handle click
 obj=:GUILink~a EXECUTION
 obj=:PageLoader~b EXECUTION
 
-found-&gt;a : handleClick();
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
 a-&gt;b : load(String);
 ref=b b :Load page from given URL</panel_attributes>
     <additional_attributes/>

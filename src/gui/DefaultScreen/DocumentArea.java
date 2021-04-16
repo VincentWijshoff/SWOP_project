@@ -192,8 +192,8 @@ public class DocumentArea {
 
     /**
      * handles the mouse-clicks for this document area
-     * @param id            The id off the mouse event
-     * @param clickCount    The click count off the user
+     * @param id            The id of the mouse event
+     * @param clickCount    The click count of the user
      * @param x             x position of the mouse event
      * @param y             y position of the mouse event
      */

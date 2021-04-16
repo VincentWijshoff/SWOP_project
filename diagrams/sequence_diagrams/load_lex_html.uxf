@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>7</zoom_level>
+  <zoom_level>5</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>0</x>
+      <x>260</x>
       <y>0</y>
-      <w>1918</w>
-      <h>1008</h>
+      <w>1370</w>
+      <h>720</h>
     </coordinates>
     <panel_attributes>title=Load and Lex html
 obj=:HtmlLoader~a EXECUTION
