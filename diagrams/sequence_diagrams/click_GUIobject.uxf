@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>5</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>465</x>
-      <y>425</y>
-      <w>255</w>
-      <h>125</h>
+      <x>520</x>
+      <y>680</y>
+      <w>408</w>
+      <h>200</h>
     </coordinates>
     <panel_attributes>title=GUIString handle click
 obj=:GUIString~a EXECUTION
@@ -20,10 +20,10 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>190</x>
-      <y>425</y>
-      <w>255</w>
-      <h>125</h>
+      <x>80</x>
+      <y>680</y>
+      <w>408</w>
+      <h>200</h>
     </coordinates>
     <panel_attributes>title=GUIRectangle handle click
 obj=:GUIRectangle~a EXECUTION
@@ -36,10 +36,10 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>185</x>
-      <y>945</y>
-      <w>260</w>
-      <h>245</h>
+      <x>72</x>
+      <y>1512</y>
+      <w>416</w>
+      <h>392</h>
     </coordinates>
     <panel_attributes>title=GUIInput handle click
 obj=:GUIInput~a EXECUTION
@@ -62,10 +62,10 @@ a-&gt;a+: selectNone()
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>140</x>
+      <x>0</x>
       <y>0</y>
-      <w>830</w>
-      <h>400</h>
+      <w>1328</w>
+      <h>640</h>
     </coordinates>
     <panel_attributes>title=Handle user mouse click in DefaultScreen
 obj=User~a ACTOR EXECUTION
@@ -95,10 +95,10 @@ ref=g g :GUIObject handle click</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>170</x>
-      <y>725</y>
-      <w>755</w>
-      <h>215</h>
+      <x>48</x>
+      <y>1160</y>
+      <w>1208</w>
+      <h>344</h>
     </coordinates>
     <panel_attributes>title=GUITable handle click
 obj=:GUITable~a EXECUTION
@@ -119,14 +119,14 @@ combinedFragment=loop~loopid a c;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>465</x>
-      <y>970</y>
-      <w>495</w>
-      <h>170</h>
+      <x>520</x>
+      <y>1552</y>
+      <w>792</w>
+      <h>272</h>
     </coordinates>
     <panel_attributes>title=GUIButton handle click
 obj=:GUIButton~a EXECUTION
-obj=:MouseListener~b EXECUTION
+obj=:Runnable~b EXECUTION
 
 found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
 combinedFragment=alt~loop2 a b; 
@@ -141,10 +141,10 @@ a-&gt;b: run()
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>210</x>
-      <y>580</y>
-      <w>485</w>
-      <h>140</h>
+      <x>112</x>
+      <y>928</y>
+      <w>776</w>
+      <h>224</h>
     </coordinates>
     <panel_attributes>title=GUILink handle click
 obj=:GUILink~a EXECUTION
