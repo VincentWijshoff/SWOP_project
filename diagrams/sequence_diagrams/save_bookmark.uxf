@@ -6,7 +6,7 @@
     <coordinates>
       <x>0</x>
       <y>96</y>
-      <w>1440</w>
+      <w>1432</w>
       <h>624</h>
     </coordinates>
     <panel_attributes>title=Add bookmark
@@ -17,7 +17,7 @@ obj=:BookmarkBar~h EXECUTION
 obj=:DefaultScreen~g EXECUTION
 obj=:Dialogscreen~c EXECUTION
 obj=:GUIButton~d EXECUTION
-obj=:AddBookmarkOpperation~f
+obj=:AddBookmarkOperation~f
 
 
 a-&gt;&gt;&gt;e : Click on save button in dialogscreen
