@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>0</x>
+      <y>175</y>
+      <w>2086</w>
+      <h>448</h>
+    </coordinates>
+    <panel_attributes>title=Save HTML source
+obj=User~a ACTOR EXECUTION
+obj=:CanvasWindow~e EXECUTION
+obj=:Window~b EXECUTION
+obj=:BookmarkBar~h EXECUTION
+obj=:DefaultScreen~g EXECUTION
+obj=:Dialogscreen~c EXECUTION
+obj=:GUIButton~d EXECUTION
+obj=:SaveHtmlOperation~f
+
+
+a-&gt;&gt;&gt;e : Click on save button in dialogscreen
+e-&gt;&gt;&gt;b : handleMouseEvent(id, x, y, clickCount, button, modifiersEx);
+b-&gt;&gt;&gt;c : handleMouseEvent(id, x, y, clickCount, button, modifiersEx);
+c-&gt;&gt;&gt;d : handleMouseEvent(id, x, y, clickCount, button, modifiersEx)
+d-&gt;&gt;&gt;c : onSaveFile()
+
+c-&gt;&gt;&gt;f : operation = new SaveHTMLOperation();on=f;
+
+c-&gt;&gt;&gt;c +: execute(operation); 
+tick=
+
+c-&gt;&gt;&gt;g : execute(operation);
+g-&gt;&gt;&gt;f : execute(DefaultScreen);
+
+f-&gt;&gt;&gt;a : write html to file system</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
