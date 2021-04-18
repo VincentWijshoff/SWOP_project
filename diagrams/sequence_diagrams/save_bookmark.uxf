@@ -5,9 +5,9 @@
     <id>UMLSequenceAllInOne</id>
     <coordinates>
       <x>0</x>
-      <y>96</y>
-      <w>1432</w>
-      <h>624</h>
+      <y>24</y>
+      <w>2384</w>
+      <h>536</h>
     </coordinates>
     <panel_attributes>title=Add bookmark
 obj=User~a ACTOR EXECUTION
@@ -24,10 +24,11 @@ a-&gt;&gt;&gt;e : Click on save button in dialogscreen
 e-&gt;&gt;&gt;b : handleMouseEvent(id, x, y, clickCount, button, modifiersEx);
 b-&gt;&gt;&gt;c : handleMouseEvent(id, x, y, clickCount, button, modifiersEx);
 c-&gt;&gt;&gt;d : handleMouseEvent(id, x, y, clickCount, button, modifiersEx)
-d-&gt;&gt;&gt;f : operation = new AddBookmarkOperation();on=f;
+d-&gt;&gt;&gt;c : onAddBookmak();
+c-&gt;&gt;&gt;f : operation = new AddBookmarkOperation();on=f;
 
-d-&gt;&gt;&gt;c : execute(operation); 
-
+c-&gt;&gt;&gt;c + : execute(operation); 
+tick=
 c-&gt;&gt;&gt;g : execute(operation);
 g-&gt;&gt;&gt;f : execute(DefaultScreen);
 

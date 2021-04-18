@@ -4,21 +4,21 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>260</x>
-      <y>0</y>
+      <x>15</x>
+      <y>80</y>
       <w>1370</w>
-      <h>720</h>
+      <h>755</h>
     </coordinates>
     <panel_attributes>title=Load and Lex html
 obj=:HtmlLoader~a EXECUTION
-obj=:HtmlLexer~b CREATED_LATER EXECUTION
-obj=:Hyperlink~c CREATED_LATER EXECUTION
-obj=:HtmlTable~e CREATED_LATER EXECUTION
-obj=:HtmlForm~f CREATED_LATER EXECUTION
+obj=:HtmlLexer~b
+obj=:Hyperlink~c
+obj=:HtmlTable~e
+obj=:HtmlForm~f
 obj=:DocumentArea~d EXECUTION
 
 found-&gt;a : loadPage();
-a-&gt;&gt;&gt;b : lexer = new HtmlLexer(htmlCode);
+a-&gt;&gt;&gt;b : lexer = new HtmlLexer(htmlCode);on=b;
 
 a-&gt;&gt;&gt;b : type = getTokenType();
 
@@ -29,7 +29,9 @@ combinedFragment=loop~loopid a b
 	combinedFragment=opt~loop1 a b;
 	a: [ type == HtmlLexer.TokenType.OPEN_START_TAG ]
 		combinedFragment=alt~loop2 a b; a: [ value.equals("a") ]
-			a-&gt;&gt;&gt;c : tag = new Hyperlink();
+			a-&gt;&gt;&gt;c : tag = new Hyperlink();on=c;
+			ref=c c :create GUIObject
+			
 			a-&gt;&gt;&gt;b :eatToken();
 			
 			a-&gt;&gt;&gt;a + : lexer = updateATag(lexer, tag);
@@ -37,7 +39,8 @@ combinedFragment=loop~loopid a b
 			a-&gt;&gt;&gt;d : addGUIObjects(tag); 
 			
 		..=loop2 ; a : [ isTable(value) ]
-			a-&gt;&gt;&gt;e : table = new HtmlTable();
+			a-&gt;&gt;&gt;e : table = new HtmlTable();on=e;
+			ref=e e :create GUIObject
 			a-&gt;&gt;&gt;b :eatToken();
 			
 			a-&gt;&gt;&gt;a + : lexer = updateTableTag(lexer, table);
@@ -45,7 +48,8 @@ combinedFragment=loop~loopid a b
 			a-&gt;&gt;&gt;d : addGUIObjects(table); 
 
 		..=loop2 ; a : [ value.equals("form") ]
-			a-&gt;&gt;&gt;f : form = new HtmlForm();
+			a-&gt;&gt;&gt;f : form = new HtmlForm();on=f;
+			ref=f f :create GUIObject
 			a-&gt;&gt;&gt;b :eatToken();
 			
 			a-&gt;&gt;&gt;a + : lexer = updateFormTag(lexer, table);

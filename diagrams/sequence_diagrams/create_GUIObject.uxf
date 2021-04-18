@@ -4,40 +4,37 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>104</x>
-      <y>360</y>
+      <x>80</x>
+      <y>328</y>
       <w>1032</w>
-      <h>392</h>
+      <h>352</h>
     </coordinates>
-    <panel_attributes>title= Create GUIObject (hyperlink)
+    <panel_attributes>title= Create GUIObject
 obj=:HtmlLoader~a EXECUTION
-obj=:Hyperlink~c
+obj=:ContentSpan~c
 obj=:ContentSpanVisitor~b EXECUTION
-obj=:GUILink~d 
+obj=:GUIObject~d 
 
 found-&gt;a : loadPage();
 
-a-&gt;a +: handleA();
-tick=
-
 a-&gt;&gt;&gt;c : accept(contentSpanVisitor);on=c;
 
-c-&gt;&gt;&gt;b : visitHyperlink(HyperLink);
+c-&gt;&gt;&gt;b : visit(ContentSpan);
 
-b-&gt;&gt;&gt;d : new GUILink(text, href);on=d;
+b-&gt;&gt;&gt;d : new GUIObject();on=d;
 
 a-&gt;&gt;&gt;b : getObjects();
 
-b.&gt;a : GUILink;
+b.&gt;a : GUIObject;
 
-a-&gt;lost: return GUILink;</panel_attributes>
+a-&gt;lost: return GUIObject;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>104</x>
-      <y>112</y>
+      <x>80</x>
+      <y>96</y>
       <w>568</w>
       <h>224</h>
     </coordinates>

@@ -4,8 +4,8 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>520</x>
-      <y>680</y>
+      <x>608</x>
+      <y>656</y>
       <w>408</w>
       <h>200</h>
     </coordinates>
@@ -20,8 +20,8 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>80</x>
-      <y>680</y>
+      <x>192</x>
+      <y>656</y>
       <w>408</w>
       <h>200</h>
     </coordinates>
@@ -36,8 +36,8 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>72</x>
-      <y>1512</y>
+      <x>1048</x>
+      <y>672</y>
       <w>416</w>
       <h>392</h>
     </coordinates>
@@ -62,7 +62,7 @@ a-&gt;a+: selectNone()
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>0</x>
+      <x>192</x>
       <y>0</y>
       <w>1328</w>
       <h>640</h>
@@ -95,10 +95,10 @@ ref=g g :GUIObject handle click</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>48</x>
-      <y>1160</y>
+      <x>192</x>
+      <y>1104</y>
       <w>1208</w>
-      <h>344</h>
+      <h>368</h>
     </coordinates>
     <panel_attributes>title=GUITable handle click
 obj=:GUITable~a EXECUTION
@@ -111,6 +111,7 @@ combinedFragment=loop~loopid a c;
 	combinedFragment=loop~loop1 b c;
 		b: [ obj : this.row ]
 		b-&gt;c: handleMouseEvent(ID, x, y, clickCount);
+		ref=c c :GUIObject handle click
 	--=loop1
 --=loopid
 </panel_attributes>
@@ -119,8 +120,8 @@ combinedFragment=loop~loopid a c;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>520</x>
-      <y>1552</y>
+      <x>192</x>
+      <y>1480</y>
       <w>792</w>
       <h>272</h>
     </coordinates>
@@ -141,8 +142,8 @@ a-&gt;b: run()
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>112</x>
-      <y>928</y>
+      <x>192</x>
+      <y>872</y>
       <w>776</w>
       <h>224</h>
     </coordinates>

@@ -4,8 +4,34 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>0</x>
-      <y>160</y>
+      <x>8</x>
+      <y>432</y>
+      <w>1632</w>
+      <h>304</h>
+    </coordinates>
+    <panel_attributes>title=Start save HTML page
+obj=User~a ACTOR EXECUTION
+obj=:CanvasWindow~e EXECUTION
+obj=:Window~b EXECUTION
+obj=:DefaultScreen~c EXECUTION
+
+
+a-&gt;&gt;&gt;e : CTRL + D;
+e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+c-&gt;c +: makeSaveBookmarkScreen();
+tick=
+c-&gt;&gt;&gt;b: setScreen(new SaveBookmarkScreen);
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>8</x>
+      <y>112</y>
       <w>1416</w>
       <h>304</h>
     </coordinates>
