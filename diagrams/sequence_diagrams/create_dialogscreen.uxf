@@ -1,53 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>8</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>8</x>
-      <y>432</y>
-      <w>1632</w>
-      <h>304</h>
+      <x>18</x>
+      <y>540</y>
+      <w>1269</w>
+      <h>522</h>
     </coordinates>
-    <panel_attributes>title=Start save HTML page
+    <panel_attributes>title=Start save bookmark page
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:Window~b EXECUTION
 obj=:DefaultScreen~c EXECUTION
+obj=:SaveBookMarkScreen~f
 
 
 a-&gt;&gt;&gt;e : CTRL + D;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-c-&gt;c +: makeSaveBookmarkScreen();
 tick=
-c-&gt;&gt;&gt;b: setScreen(new SaveBookmarkScreen);
-
-
-</panel_attributes>
+c-&gt;&gt;&gt;f: saveBookmarkScreen = new SaveBookmarkScreen(); on=f;
+c-&gt;&gt;&gt;b: setScreen(saveBookmarkScreen);
+b-&gt;b +: repaint()
+tick=
+b-&gt;&gt;&gt;f: draw(Graphics);</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>8</x>
-      <y>112</y>
-      <w>1416</w>
-      <h>304</h>
+      <x>18</x>
+      <y>0</y>
+      <w>1161</w>
+      <h>522</h>
     </coordinates>
     <panel_attributes>title=Start save HTML page
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:Window~b EXECUTION
 obj=:DefaultScreen~c EXECUTION
+obj=:SaveHTMLScreen~f
 
 
 a-&gt;&gt;&gt;e : CTRL + S;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-c-&gt;c +: makeSaveHtmlScreen();
+
 tick=
-c-&gt;&gt;&gt;b: setScreen(new SaveHtmlScreen);
+c-&gt;&gt;&gt;f: saveHTMLScreen = new SaveHTMLScreen(); on=f;
+c-&gt;&gt;&gt;b: setScreen(saveHTMLScreen);
+b-&gt;b +: repaint()
+tick=
+b-&gt;&gt;&gt;f: draw(Graphics);
 
 
 </panel_attributes>

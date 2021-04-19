@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>8</zoom_level>
+  <zoom_level>10</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>80</x>
-      <y>328</y>
-      <w>1032</w>
-      <h>352</h>
+      <x>120</x>
+      <y>360</y>
+      <w>1350</w>
+      <h>540</h>
     </coordinates>
     <panel_attributes>title= Create GUIObject
 obj=:HtmlLoader~a EXECUTION
-obj=:ContentSpan~c
+obj=:ContentSpan~c EXECUTION
 obj=:ContentSpanVisitor~b EXECUTION
 obj=:GUIObject~d 
 
 found-&gt;a : loadPage();
 
-a-&gt;&gt;&gt;c : accept(contentSpanVisitor);on=c;
 
-c-&gt;&gt;&gt;b : visit(ContentSpan);
 
-b-&gt;&gt;&gt;d : new GUIObject();on=d;
+
+combinedFragment=loop~loopid a d
+		a:[ ContentSpan contentSpan: this.contentSpans ]
+		a-&gt;&gt;&gt;c : accept(contentSpanVisitor);
+		c-&gt;&gt;&gt;b : visit(ContentSpan);
+
+		b-&gt;&gt;&gt;d : new GUIObject();on=d;
+		
+	--=loopid
 
 a-&gt;&gt;&gt;b : getObjects();
 
-b.&gt;a : GUIObject;
+b.&gt;a : ArrayList&lt;GUIObject&gt;;
 
 a-&gt;lost: return GUIObject;</panel_attributes>
     <additional_attributes/>
@@ -33,10 +39,10 @@ a-&gt;lost: return GUIObject;</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>80</x>
-      <y>96</y>
-      <w>568</w>
-      <h>224</h>
+      <x>120</x>
+      <y>70</y>
+      <w>710</w>
+      <h>280</h>
     </coordinates>
     <panel_attributes>title= Create contentSpanVisitior
 obj=:HtmlLoader~a

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>7</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>126</x>
-      <y>210</y>
-      <w>1029</w>
-      <h>336</h>
+      <x>198</x>
+      <y>153</y>
+      <w>900</w>
+      <h>549</h>
     </coordinates>
-    <panel_attributes>title=Load page from clicking outside of addressbar after typing in adressbar
+    <panel_attributes>title=Load page from clicking outside of addressbar
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:DefaultScreen~b EXECUTION
@@ -19,10 +19,12 @@ obj=:AddressBar~c EXECUTION
 a-&gt;&gt;&gt;e : Mouse Click;
 e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
 b-&gt;&gt;&gt;c : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
-c-&gt;&gt;&gt;b : load(String);
-b-&gt;&gt;&gt;b + : this.load(address)
+c-&gt;&gt;&gt;b : load(this.address);
+
+ref=b b :Load page from given URL
+e-&gt; e +: repaint()
 tick=
-ref=b b :Load page from given URL</panel_attributes>
+e-&gt;&gt;&gt;b : draw(Graphics)</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

@@ -6,10 +6,10 @@
     <coordinates>
       <x>56</x>
       <y>160</y>
-      <w>1176</w>
-      <h>384</h>
+      <w>800</w>
+      <h>488</h>
     </coordinates>
-    <panel_attributes>title=Load page from pressing ENTER in addressbar
+    <panel_attributes>title=Load page from pressing ENTER
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:DefaultScreen~b EXECUTION
@@ -19,11 +19,14 @@ a-&gt;&gt;&gt;e : ENTER;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-c-&gt;&gt;&gt;b : load(String);
-b-&gt;&gt;&gt;b + : this.load(address)
-tick=
+c-&gt;&gt;&gt;b : load(this.address);
+
+
 ref=b b :Load page from given URL
-</panel_attributes>
+
+e-&gt; e +: repaint()
+tick=
+e-&gt;&gt;&gt;b : draw(Graphics)</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

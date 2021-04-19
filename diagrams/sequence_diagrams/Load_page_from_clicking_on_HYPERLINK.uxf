@@ -7,9 +7,9 @@
       <x>96</x>
       <y>0</y>
       <w>1104</w>
-      <h>512</h>
+      <h>584</h>
     </coordinates>
-    <panel_attributes>title=Load page from clicking on a url in the document area
+    <panel_attributes>title=Load page from clicking on hyperlink in the document area
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:DefaultScreen~b EXECUTION
@@ -27,18 +27,21 @@ combinedFragment=loop~loopid d c
 		ref=c c :GUIObject handleClick
 		--=l2
 	--=loopid
-</panel_attributes>
+
+e-&gt; e +: repaint()
+tick=
+e-&gt;&gt;&gt;b : draw(Graphics)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
       <x>96</x>
-      <y>520</y>
+      <y>624</y>
       <w>1104</w>
-      <h>512</h>
+      <h>584</h>
     </coordinates>
-    <panel_attributes>title=Load page from clicking on a url in the document area
+    <panel_attributes>title=Load page from clicking on hyperlink in the bookmark bar
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:DefaultScreen~b EXECUTION
@@ -56,6 +59,10 @@ combinedFragment=loop~loopid d c
 		ref=c c :GUIObject handleClick
 		--=l2
 	--=loopid
+
+e-&gt; e +: repaint()
+tick=
+e-&gt;&gt;&gt;b : draw(Graphics)
 </panel_attributes>
     <additional_attributes/>
   </element>

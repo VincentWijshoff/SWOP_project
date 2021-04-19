@@ -5,15 +5,14 @@
     <id>UMLSequenceAllInOne</id>
     <coordinates>
       <x>0</x>
-      <y>175</y>
-      <w>2086</w>
-      <h>448</h>
+      <y>196</y>
+      <w>1197</w>
+      <h>574</h>
     </coordinates>
-    <panel_attributes>title=Save HTML source
+    <panel_attributes>title=Save HTML
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:Window~b EXECUTION
-obj=:BookmarkBar~h EXECUTION
 obj=:DefaultScreen~g EXECUTION
 obj=:Dialogscreen~c EXECUTION
 obj=:GUIButton~d EXECUTION
@@ -27,14 +26,15 @@ c-&gt;&gt;&gt;d : handleMouseEvent(id, x, y, clickCount, button, modifiersEx)
 d-&gt;&gt;&gt;c : onSaveFile()
 
 c-&gt;&gt;&gt;f : operation = new SaveHTMLOperation();on=f;
-
-c-&gt;&gt;&gt;c +: execute(operation); 
-tick=
-
 c-&gt;&gt;&gt;g : execute(operation);
-g-&gt;&gt;&gt;f : execute(DefaultScreen);
+g-&gt;&gt;&gt;f : execute(DefaultScreen); 
+off=f;
 
-f-&gt;&gt;&gt;a : write html to file system</panel_attributes>
+c-&gt;&gt;&gt;b : setScreen(previousScreen)
+off=c;off=d;
+b-&gt;b +: repaint()
+tick=
+b-&gt;&gt;&gt;g : draw(Graphics)</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

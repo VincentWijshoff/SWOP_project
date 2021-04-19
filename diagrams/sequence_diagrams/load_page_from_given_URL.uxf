@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>240</x>
+      <y>170</y>
+      <w>3320</w>
+      <h>800</h>
+    </coordinates>
+    <panel_attributes>title= Load page from given URL
+obj=:DefaultScreen~a EXECUTION
+obj=:Window~e EXECUTION
+obj=:AddressBar~b EXECUTION
+obj=:DocumentArea~c EXECUTION
+obj=BrowsrDocumentValidator~f EXECUTION
+obj=:HtmlLoader~d EXECUTION
+
+found-&gt;a : load(pageAddress);
+
+a-&gt;a + : url = createNewAddress(pageAddress);
+tick=
+a-&gt;&gt;&gt;b : setAddress(url);
+b-&gt;b + : this.address = url;
+tick=
+
+a-&gt;&gt;&gt;c : loadAddress(url);
+c-&gt;c + : this.clearDocObjects();
+tick=
+c-&gt;&gt;&gt;f : isValidBrowsrPage(url);
+
+c-&gt;&gt;&gt;d : initialise(url);
+
+d-&gt;&gt;&gt;d + : loadHtml(url);
+tick=
+
+c-&gt;&gt;&gt;d : loadPage();
+
+ref=d d : Load and Lex html
+
+e-&gt; e +: repaint()
+tick=
+e-&gt;&gt;&gt;a : draw(Graphics)
+a-&gt;&gt;&gt;b : draw(Graphics)
+a-&gt;&gt;&gt;c : draw(Graphics)</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
