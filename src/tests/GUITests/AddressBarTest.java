@@ -213,6 +213,7 @@ class AddressBarTest {
 		assertTrue(testName, a.getAddress().equals("/"));
 
 		a.setAddress("testAddressBar");
+		a.setInFocus();
 
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', 0);//go to beginning
 		a.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0);//go right 3 spaces

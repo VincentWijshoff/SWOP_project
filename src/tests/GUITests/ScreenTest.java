@@ -1,5 +1,6 @@
 package tests.GUITests;
 
+import gui.DefaultScreen.BookmarkBar;
 import gui.DefaultScreen.DefaultScreen;
 import gui.DialogScreen.SaveBookmarkScreen;
 import gui.DialogScreen.SaveHtmlScreen;
@@ -211,7 +212,7 @@ public class ScreenTest {
             assertTrue("testScreenBookmarkScreen", containsGUILinkWithPos(0, defScreen.getBookmarkBar().relativeYPos, "testBookmark", "WelcomeDoc.html", defScreen.getBookmarkBar().getBookmarks().getChildObjects()));
         }
         else { //size == 3
-            int x = fm.stringWidth("home page Bart Jacobs") + fm.stringWidth("home page Bart Jacobs 2.0") + 2*GUITable.xMargin; //calculate x position of new bookmark
+            int x = fm.stringWidth("home page Bart Jacobs") + fm.stringWidth("home page Bart Jacobs 2.0") + 2*GUITable.xMargin + BookmarkBar.relativeXPos; //calculate x position of new bookmark
             assertTrue("testScreenBookmarkScreen", containsGUILinkWithPos(x, defScreen.getBookmarkBar().relativeYPos, "testBookmark", "WelcomeDoc.html", defScreen.getBookmarkBar().getBookmarks().getChildObjects()));
         }
     }

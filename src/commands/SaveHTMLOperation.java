@@ -2,12 +2,14 @@ package commands;
 
 import gui.DefaultScreen.DefaultScreen;
 
-import java.io.FileOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class SaveHTMLOperation implements BrowsrOperation {
 
     private String name;        // The name of the new file
-    private String htmlCode;    // the html to put in the file
+    private final String htmlCode;    // the html to put in the file
 
     /**
      * Create a save html operation
@@ -29,12 +31,17 @@ public class SaveHTMLOperation implements BrowsrOperation {
             this.name += ".html";
         }
         try {
-            FileOutputStream outputStream = new FileOutputStream(this.name);
-            byte[] strToBytes = this.htmlCode.getBytes();
-            outputStream.write(strToBytes);
-
-            outputStream.close();
-        }catch(Exception e){
+            File myObj = new File(this.name);
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+            FileWriter myWriter = new FileWriter(this.name);
+            myWriter.write(this.htmlCode);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        }catch(IOException e){
             System.out.println("Something went wrong saving the file!");
         }
     }

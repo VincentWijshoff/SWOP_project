@@ -13,12 +13,13 @@ public class BookmarkBar {
 
     // GUI elements
     public final int relativeYPos;
+    public static final int relativeXPos = 5;
     private final int height = 25;
     private final GUITable bookmarks;
     private final DefaultScreen screen;
 
     /**
-     * create bookmarkbar
+     * create bookmark bar
      * @param relpos y position this bookmark bar starts at
      * @param screen screen this bookmark bar is part of
      */
@@ -26,7 +27,7 @@ public class BookmarkBar {
         this.relativeYPos = relpos;
         this.screen = screen;
 
-        this.bookmarks = new GUITable(0, relativeYPos);
+        this.bookmarks = new GUITable(relativeXPos, relativeYPos);
         this.bookmarks.addRow(new ArrayList<>());
     }
 
@@ -64,7 +65,7 @@ public class BookmarkBar {
         }
     }
 
-    private  boolean first = true; //TODO remove when testing fase over
+    private  boolean first = true; // initialise bookmark bar with 2 homepages from professor
 
     /**
      * Get the height of the bookmark bar

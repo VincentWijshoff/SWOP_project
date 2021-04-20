@@ -13,6 +13,7 @@ public class GUITable extends GUIObject {
 
     // needed parameters
     public static final int xMargin = 5;
+    public static final int yMargin = 5;
     ArrayList<ArrayList<GUIObject>> tableRows; //list of rows
 
     /**
@@ -140,7 +141,7 @@ public class GUITable extends GUIObject {
                 currentX += xMargin; //Add small margin between columns
                 currentX += getColumnWidth(tableRows, row.indexOf(obj));
             }
-            currentY += getRowHeight(row);
+            currentY += getRowHeight(row) + yMargin;
         }
         this.width = calculateWidth();
         this.height = calculateHeight();

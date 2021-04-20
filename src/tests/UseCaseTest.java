@@ -1,5 +1,6 @@
 package tests;
 
+import gui.DefaultScreen.BookmarkBar;
 import gui.DefaultScreen.DefaultScreen;
 import gui.DefaultScreen.DocumentArea;
 import gui.DialogScreen.SaveBookmarkScreen;
@@ -55,17 +56,17 @@ public class UseCaseTest {
         assertTrue("UC_4.b", renderedObjects.size() == 11);
         assertTrue("UC_4.j", containsGUIStringWithPos(docarea.xOffset, docarea.getRelativeYPos(), "HTML elements partially supported by Browsr:", renderedObjects));
 
-        assertTrue("UC_4.d", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), "a", "a.html", renderedObjects));
-        assertTrue("UC_4.g", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight(), "Hyperlink anchors", renderedObjects));
+        assertTrue("UC_4.d", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight() + GUITable.yMargin, "a", "a.html", renderedObjects));
+        assertTrue("UC_4.g", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight() + GUITable.yMargin, "Hyperlink anchors", renderedObjects));
 
-        assertTrue("UC_4.e", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight(), "table", "table.html", renderedObjects));
-        assertTrue("UC_4.c", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 2*fm.getHeight(), "Tables", renderedObjects));
+        assertTrue("UC_4.e", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight() + 2*GUITable.yMargin, "table", "table.html", renderedObjects));
+        assertTrue("UC_4.c", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 2*fm.getHeight() + 2*GUITable.yMargin, "Tables", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 3*fm.getHeight(), "tr", "tr.html", renderedObjects));
-        assertTrue("UC_4.i", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 3*fm.getHeight(), "Table rows", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 3*fm.getHeight() + 3*GUITable.yMargin, "tr", "tr.html", renderedObjects));
+        assertTrue("UC_4.i", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 3*fm.getHeight() + 3*GUITable.yMargin, "Table rows", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWithPos(docarea.xOffset,  docarea.getRelativeYPos()  + 4*fm.getHeight(), "td", "td.html", renderedObjects));
-        assertTrue("UC_4.f", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 4*fm.getHeight(), "Table cells containing table data", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(docarea.xOffset,  docarea.getRelativeYPos()  + 4*fm.getHeight() + 4*GUITable.yMargin, "td", "td.html", renderedObjects));
+        assertTrue("UC_4.f", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 4*fm.getHeight() + 4*GUITable.yMargin, "Table cells containing table data", renderedObjects));
         //This page has 4 GUILinks and 5 GUIStrings
 
         //5 User navigates to a desired webpage. (using hyperlink)
@@ -73,7 +74,7 @@ public class UseCaseTest {
         for(GUIObject obj : screen.getDocArea().getDrawnGUIObjects()){
             if(obj instanceof GUILink){
                 //press a hyperlink
-                obj.handleMouseEvent(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight(), MouseEvent.MOUSE_PRESSED, 1);
+                obj.handleMouseEvent(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight() + GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
                 //all hyperlinks will navigate to a non-browsr webpage -> show error document
                 href = ((GUILink) obj).getHref();
                 break;
@@ -104,7 +105,7 @@ public class UseCaseTest {
         for(GUIObject obj : screen.getDocArea().getDrawnGUIObjects()){
             if(obj instanceof GUIInput){
                 GUIInput input = (GUIInput) obj;
-                obj.handleMouseEvent(docarea.xOffset + fm.stringWidth("Maximum number of words to show") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight(), MouseEvent.MOUSE_PRESSED, 1);
+                obj.handleMouseEvent(docarea.xOffset + fm.stringWidth("Maximum number of words to show") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight() + 3*GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
                 assertTrue("UC_3.a", input.getInFocus());
                 typeString(window, "test input");
                 assertEquals("UC_3.b", input.getText(), "test input");
@@ -124,7 +125,7 @@ public class UseCaseTest {
         for(GUIObject obj : screen.getDocArea().getDrawnGUIObjects()){
             if(obj instanceof GUIButton){
                 GUIButton button = (GUIButton) obj;
-                button.handleMouseEvent(docarea.xOffset , docarea.getRelativeYPos() + 3*fm.getHeight(), MouseEvent.MOUSE_RELEASED, 1);
+                button.handleMouseEvent(button.coordX , button.coordY, MouseEvent.MOUSE_RELEASED, 1);
                 break;
             }
         }
@@ -143,7 +144,7 @@ public class UseCaseTest {
         java.awt.EventQueue.invokeAndWait(window::show); // twee is beter dan een
         DefaultScreen screen = (DefaultScreen) window.getCurrentScreen();
 
-        screen.getBookmarkBar().handleMouseEvent(MouseEvent.MOUSE_PRESSED,0, screen.getBookmarkBar().relativeYPos, 1);
+        screen.getBookmarkBar().handleMouseEvent(MouseEvent.MOUSE_PRESSED, BookmarkBar.relativeXPos, screen.getBookmarkBar().relativeYPos, 1);
         assertEquals("UC_1.a", screen.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
 
     }

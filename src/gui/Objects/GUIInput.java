@@ -66,8 +66,20 @@ public class GUIInput extends GUIObject{
     public GUIInput(String text) {
         super();
         this.text = text;
-        this.width = 70;
+        this.width = 100;
         this.height = 15;
+    }
+
+    /**
+     * Handle the updating of the dimensions of this string
+     */
+    @Override
+    public void updateDimensions() {
+        // set the height to the height off a string
+        this.height = this.fontMetricsHandler.getFontMetrics().getHeight();
+        // because the string will be in the middle off the text box, and we want it to be in the middle of a row
+        // we set the y coordinate a bit lower
+        this.coordY += (int) (this.height/6);
     }
 
     /**
@@ -75,7 +87,7 @@ public class GUIInput extends GUIObject{
      */
     public GUIInput(){
         super();
-        this.width = 70;
+        this.width = 100;
         this.height = 15;
     }
 
@@ -414,6 +426,7 @@ public class GUIInput extends GUIObject{
      */
     public void setText(String txt){
         this.text = txt;
+        this.inFocus = false;
     }
 
     /**
@@ -464,6 +477,7 @@ public class GUIInput extends GUIObject{
     public void start(){
         this.prevText = text;
         this.cursorPosition = this.text.length();
+        this.inFocus = true;
     }
 
     /**

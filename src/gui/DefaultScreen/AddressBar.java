@@ -40,7 +40,6 @@ public class AddressBar {
      * constructor for the address bar
      */
     public AddressBar(DefaultScreen screen) {
-        //this.w = width;
         this.inputField = new GUIInput("", this.abX, this.abY, 0, this.h, true);
         this.inputField.setFontMetricsHandler(screen);
         this.inputField.setPageLoader(screen);

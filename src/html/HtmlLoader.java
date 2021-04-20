@@ -8,9 +8,7 @@ import gui.Objects.GUIObject;
 import html.Elements.*;
 import localDocuments.Docs;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -98,13 +96,16 @@ public class HtmlLoader {
      * inspiration from https://www.programcreek.com/java-api-examples/?class=java.net.URL&method=openStream
      */
     private String loadHtml() throws IOException {
-        InputStream inputStream = url.openStream();
-        byte[] buf = new byte[1024];
-        StringBuilder sb = new StringBuilder();
-        while(-1 != inputStream.read(buf)) {
-            sb.append(new String(buf));
-        }
-        return sb.toString();
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(url.openStream()));
+
+        String inputLine;
+        StringBuilder result = new StringBuilder();
+        while ((inputLine = in.readLine()) != null)
+            result.append(inputLine);
+        in.close();
+        return result.toString();
     }
 
     /**
@@ -198,7 +199,6 @@ public class HtmlLoader {
                     String output = btn.getOutput().substring(0, btn.getOutput().length() - 1);
                     // finally we have the addition needed for the url
                     String finalized = action + output;
-                    System.out.println(finalized);
                     this.documentArea.load(finalized); //if this submit button has been clicked -> load this address
                 }));
         documentArea.addGUIObjects(guiObjects);

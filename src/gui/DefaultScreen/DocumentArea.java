@@ -127,7 +127,8 @@ public class DocumentArea {
     /**
      * generates the URL given the url (in string format)
      *
-     * @param   url string format of the URL of the next page
+     * @param   url     string format of the URL of the next page
+     * @param   href    the href to add
      * @return  the new URL (is null if an error occurred)
      */
     private URL generateAddress(String url, String href) throws MalformedURLException {

@@ -26,10 +26,7 @@ public class GUIButton extends GUIObject{
     public GUIButton(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = startTxt;
-        this.mouseListener = new Runnable() {
-            @Override
-            public void run() { }
-        };
+        this.mouseListener = () -> { };
     }
 
     /**
@@ -39,10 +36,7 @@ public class GUIButton extends GUIObject{
     public GUIButton(String startTxt){
         super();
         this.text = startTxt;
-        this.mouseListener = new Runnable() {
-            @Override
-            public void run() { }
-        };
+        this.mouseListener = () -> { };
     }
 
     /**
@@ -79,8 +73,10 @@ public class GUIButton extends GUIObject{
      */
     @Override
     public void updateDimensions() {
-        this.width = 70;
-        this.height = 15;
+        // want string in the middle and will be drawn 5 pixels from left side
+        this.width = this.fontMetricsHandler.getFontMetrics().stringWidth(text) + 10;
+        this.height = this.fontMetricsHandler.getFontMetrics().getHeight();
+        this.coordY += (int) (height/1.5);
     }
 
     /**
@@ -93,7 +89,9 @@ public class GUIButton extends GUIObject{
         g.fillRect(this.coordX, this.coordY, width, height);
         g.setColor(Color.BLACK);
         g.drawRect(this.coordX, this.coordY, width, height); // border
-        g.drawString(this.text, this.coordX+5, this.coordY+((int) (height/1.5)));
+        int txtPos = (int) (this.height / 2) + this.coordY + (this.fontMetricsHandler.getFontMetrics().getHeight() / 2) - 5;
+        // this.coordY+((int) (height/1.5))
+        g.drawString(this.text, this.coordX+5, txtPos);
     }
 
     /**

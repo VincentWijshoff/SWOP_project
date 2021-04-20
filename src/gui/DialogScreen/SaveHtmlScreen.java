@@ -1,7 +1,6 @@
 package gui.DialogScreen;
 
 import commands.SaveHTMLOperation;
-import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIButton;
 import gui.Objects.GUIInput;
 import gui.Objects.GUIString;
@@ -62,7 +61,6 @@ public class SaveHtmlScreen extends DialogScreen{
         this.addGUIObject(cnclBtn);
         this.addGUIObject(saveBtn);
         this.getGUIObjects().forEach(obj -> obj.setFontMetricsHandler(this));
-        // this.getGUIObjects().forEach(GUIObject::setEventHandlers);
     }
 
     /**
@@ -78,7 +76,7 @@ public class SaveHtmlScreen extends DialogScreen{
      * @throws IOException  Throws an error when the saving to a file went wrong
      */
     private void onSaveFile() throws IOException {
-        System.out.println("Saving: " + this.htmlCode + " to file: " + this.fileName.getText());
+        System.out.println("Saving to file: " + this.fileName.getText());
         String file = this.fileName.getText();
 
         this.execute(new SaveHTMLOperation(file, this.htmlCode));

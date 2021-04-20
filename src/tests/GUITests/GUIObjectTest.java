@@ -52,9 +52,7 @@ public class GUIObjectTest {
         // we test if an action set on a button actually works
         GUIButton b = new GUIButton("TestButton", 0, 0, 10, 10);
         AtomicBoolean acted = new AtomicBoolean(false);
-        b.setMouseEvent(() -> {
-            acted.set(true);
-        });
+        b.setMouseEvent(() -> acted.set(true));
         // we now do a mouse down event on the button, it should not activate
         b.handleMouseEvent(1, 1, MouseEvent.MOUSE_PRESSED, 1);
         assertFalse("ButtonTestSetAction", acted.get());
@@ -102,7 +100,7 @@ public class GUIObjectTest {
         assertEquals("3.a", row2.get(0).height, fm.getHeight());
         assertEquals("3.b", row2.get(0).width, fm.stringWidth("link"));
         assertEquals("3.c", row2.get(0).coordX, 0);
-        assertEquals("3.d", row2.get(0).coordY, fm.getHeight());
+        assertEquals("3.d", row2.get(0).coordY, fm.getHeight() + GUITable.yMargin);
 
     }
 
