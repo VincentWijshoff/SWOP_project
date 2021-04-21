@@ -6,8 +6,8 @@
     <coordinates>
       <x>198</x>
       <y>153</y>
-      <w>900</w>
-      <h>549</h>
+      <w>945</w>
+      <h>585</h>
     </coordinates>
     <panel_attributes>title=Load page from clicking outside of addressbar
 obj=User~a ACTOR EXECUTION
@@ -19,9 +19,12 @@ obj=:AddressBar~c EXECUTION
 a-&gt;&gt;&gt;e : Mouse Click;
 e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
 b-&gt;&gt;&gt;c : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
+combinedFragment=opt~l2 c b
+c: [ this.inFocus &amp;&amp; !this.onAddressBar(x,y) ]
 c-&gt;&gt;&gt;b : load(this.address);
 
 ref=b b :Load page from given URL
+--=l2
 e-&gt; e +: repaint()
 tick=
 e-&gt;&gt;&gt;b : draw(Graphics)</panel_attributes>

@@ -14,7 +14,7 @@ obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:DefaultScreen~b EXECUTION
 obj=:DocumentArea~d EXECUTION
-obj=:GUIObject {abstract}~c EXECUTION
+obj=:GUIObject~c EXECUTION
 
 a-&gt;&gt;&gt;e : Mouse Click;
 e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
@@ -37,7 +37,7 @@ e-&gt;&gt;&gt;b : draw(Graphics)</panel_attributes>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
       <x>96</x>
-      <y>624</y>
+      <y>600</y>
       <w>1104</w>
       <h>584</h>
     </coordinates>
@@ -46,7 +46,7 @@ obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:DefaultScreen~b EXECUTION
 obj=:BookmarkBar~d EXECUTION
-obj=:GUIObject {abstract}~c EXECUTION
+obj=:GUIObject~c EXECUTION
 
 a-&gt;&gt;&gt;e : Mouse Click;
 e-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount, button, modifiers);

@@ -4,8 +4,8 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>608</x>
-      <y>656</y>
+      <x>888</x>
+      <y>1072</y>
       <w>408</w>
       <h>200</h>
     </coordinates>
@@ -20,8 +20,8 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>192</x>
-      <y>656</y>
+      <x>888</x>
+      <y>1296</y>
       <w>408</w>
       <h>200</h>
     </coordinates>
@@ -36,7 +36,7 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>1048</x>
+      <x>888</x>
       <y>672</y>
       <w>416</w>
       <h>392</h>
@@ -62,7 +62,7 @@ a-&gt;a+: selectNone()
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>192</x>
+      <x>32</x>
       <y>0</y>
       <w>1328</w>
       <h>640</h>
@@ -95,22 +95,21 @@ ref=g g :GUIObject handle click</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>192</x>
-      <y>1104</y>
-      <w>1208</w>
+      <x>40</x>
+      <y>1160</y>
+      <w>816</w>
       <h>368</h>
     </coordinates>
     <panel_attributes>title=GUITable handle click
 obj=:GUITable~a EXECUTION
-obj=:GUIRow~b EXECUTION
 obj=:GUIObject~c EXECUTION
 
 found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
 combinedFragment=loop~loopid a c;
 	a: [ row : this.tableRows ]
-	combinedFragment=loop~loop1 b c;
-		b: [ obj : this.row ]
-		b-&gt;c: handleMouseEvent(ID, x, y, clickCount);
+	combinedFragment=loop~loop1 a c;
+		a: [ obj : row ]
+		a-&gt;c: handleMouseEvent(ID, x, y, clickCount);
 		ref=c c :GUIObject handle click
 	--=loop1
 --=loopid
@@ -120,8 +119,8 @@ combinedFragment=loop~loopid a c;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>192</x>
-      <y>1480</y>
+      <x>40</x>
+      <y>648</y>
       <w>792</w>
       <h>272</h>
     </coordinates>
@@ -142,8 +141,8 @@ a-&gt;b: run()
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>192</x>
-      <y>872</y>
+      <x>40</x>
+      <y>928</y>
       <w>776</w>
       <h>224</h>
     </coordinates>

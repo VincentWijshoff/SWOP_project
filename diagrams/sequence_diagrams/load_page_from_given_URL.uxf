@@ -4,10 +4,10 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>240</x>
-      <y>170</y>
+      <x>40</x>
+      <y>0</y>
       <w>3320</w>
-      <h>800</h>
+      <h>830</h>
     </coordinates>
     <panel_attributes>title= Load page from given URL
 obj=:DefaultScreen~a EXECUTION
@@ -21,6 +21,7 @@ found-&gt;a : load(pageAddress);
 
 a-&gt;a + : url = createNewAddress(pageAddress);
 tick=
+ref=a a : Create new address
 a-&gt;&gt;&gt;b : setAddress(url);
 b-&gt;b + : this.address = url;
 tick=
@@ -44,6 +45,34 @@ tick=
 e-&gt;&gt;&gt;a : draw(Graphics)
 a-&gt;&gt;&gt;b : draw(Graphics)
 a-&gt;&gt;&gt;c : draw(Graphics)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>40</x>
+      <y>840</y>
+      <w>1130</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>title= Create new address
+obj=:DefaultScreen~a EXECUTION
+obj=:AddressBar~b EXECUTION
+
+found-&gt;a : createNewAddress(address);
+
+combinedFragment=alt~loop2 a a; 
+a: [ address.startsWith("http") ]
+a-&gt;lost: address;
+..=loop2 ;
+
+a-&gt;&gt;&gt;b : currAddress = getAddress();
+
+a-&gt;a + : newAddress = addHref(currAddress, address);
+tick=
+a-&gt;lost: newAddress;
+--=loop2
+</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

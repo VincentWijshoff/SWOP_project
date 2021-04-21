@@ -4,7 +4,7 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>120</x>
+      <x>40</x>
       <y>360</y>
       <w>1350</w>
       <h>540</h>
@@ -31,15 +31,15 @@ combinedFragment=loop~loopid a d
 
 a-&gt;&gt;&gt;b : getObjects();
 
-b.&gt;a : ArrayList&lt;GUIObject&gt;;
+b.&gt;a : guiObjects;
 
-a-&gt;lost: return GUIObject;</panel_attributes>
+a-&gt;lost: return guiObjects;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>120</x>
+      <x>40</x>
       <y>70</y>
       <w>710</w>
       <h>280</h>

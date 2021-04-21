@@ -6,8 +6,8 @@
     <coordinates>
       <x>56</x>
       <y>160</y>
-      <w>800</w>
-      <h>488</h>
+      <w>840</w>
+      <h>520</h>
     </coordinates>
     <panel_attributes>title=Load page from pressing ENTER
 obj=User~a ACTOR EXECUTION
@@ -19,11 +19,13 @@ a-&gt;&gt;&gt;e : ENTER;
 e-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
 
 b-&gt;&gt;&gt;c : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+combinedFragment=opt~l2 c b
+c: [ this.inFocus &amp;&amp; keyCode == KeyEvent.VK_ENTER ]
 c-&gt;&gt;&gt;b : load(this.address);
 
 
 ref=b b :Load page from given URL
-
+--=l2
 e-&gt; e +: repaint()
 tick=
 e-&gt;&gt;&gt;b : draw(Graphics)</panel_attributes>
