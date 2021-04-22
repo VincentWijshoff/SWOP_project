@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public abstract class Docs {
 
-    private final static String welcomePath = "./src/localDocuments/WelcomeDoc.html";
-    private final static String errorPath = "./src/localDocuments/ErrorDoc.html";
+    private final static String welcomePath = "/localDocuments/WelcomeDoc.html";
+    private final static String errorPath = "/localDocuments/ErrorDoc.html";
 
     /**
      * Used to get content of our local documents.
@@ -17,8 +17,7 @@ public abstract class Docs {
     public static String getPage(String path) {
         StringBuilder content = new StringBuilder();
         try {
-            File welcomePageHtmlFile = new File(path);
-            Scanner myReader = new Scanner(welcomePageHtmlFile);
+            Scanner myReader = new Scanner(Docs.class.getResourceAsStream(path));
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 content.append(data);
