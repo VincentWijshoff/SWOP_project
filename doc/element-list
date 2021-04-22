@@ -1,7 +1,14 @@
 unnamed package
 browsrhtml
 canvaswindow
+commands
+events
 gui
+gui.DefaultScreen
+gui.DialogScreen
+gui.Objects
 html
 html.Elements
 localDocuments
+tests
+tests.GUITests
