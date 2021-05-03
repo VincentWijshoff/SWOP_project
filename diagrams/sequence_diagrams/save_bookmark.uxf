@@ -7,7 +7,7 @@
       <x>0</x>
       <y>32</y>
       <w>1560</w>
-      <h>744</h>
+      <h>656</h>
     </coordinates>
     <panel_attributes>title=Save bookmark
 obj=User~a ACTOR EXECUTION
@@ -29,9 +29,6 @@ c-&gt;&gt;&gt;f : operation = new AddBookmarkOperation();on=f;
 c-&gt;&gt;&gt;g : execute(operation);
 g-&gt;&gt;&gt;f : execute(DefaultScreen);
 
-f-&gt;&gt;&gt;g : addBookmark(String, String);
-
-g-&gt;&gt;&gt;h : addBookmark(String, String);
 off=f;
 
 c-&gt;&gt;&gt;b : setScreen(previousScreen)
