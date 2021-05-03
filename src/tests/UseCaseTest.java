@@ -116,7 +116,6 @@ public class UseCaseTest {
                 input.handleKeyEvent(0, 0, ' ', 0); //end shifting
                 input.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, 'a', 0); //replace "test inpu" with "a" -> "at" is new text
                 assertEquals("UC_3.b", input.getText(), "at");
-
                 break;
             }
         }
@@ -132,7 +131,7 @@ public class UseCaseTest {
 
         //5. Correct page is shown
         assertEquals("UC_5.a", screen.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformactiontest.php?starts_with=at&max_nb_results=");
-        //We didnt fill out the second input so the returned page only contains an empty table
+        //We didn't fill out the second input so the returned page only contains an empty table
         assertTrue("UC_5.b", docarea.getDrawnGUIObjects().size() == 1);
         assertTrue("UC_5.b", docarea.getDrawnGUIObjects().get(0) instanceof GUITable);
 

@@ -115,6 +115,11 @@ public class GUIRenderer implements ContentSpanVisitor {
         this.objects = objects;
     }
 
+    @Override
+    public void visitIframe(Iframe iframe) {
+
+    }
+
     // the gui objects last created
     private ArrayList<GUIObject> objects = new ArrayList<>();
 

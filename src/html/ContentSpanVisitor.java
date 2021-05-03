@@ -24,7 +24,9 @@ public interface ContentSpanVisitor {
 
     void visitTextInputField(TextInputField inputField);   // create a text input field element
 
-    void visitTextSpan(TextSpan textSpan);                 // create a test element
+    void visitTextSpan(TextSpan textSpan);                 // create a text element
+
+    void visitIframe(Iframe iframe);                       // create a iframe element
 
     ArrayList<GUIObject> getObjects();
 }
