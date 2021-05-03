@@ -1,7 +1,7 @@
 package html;
 
 import browsrhtml.HtmlLexer;
-import gui.DefaultScreen.DocumentArea;
+import gui.DefaultScreen.ChildPane;
 import gui.Objects.GUIButton;
 import gui.Objects.GUIInput;
 import gui.Objects.GUIObject;
@@ -21,23 +21,17 @@ public class HtmlLoader {
 
     private URL url; //the URL of the page
     private String htmlCode; //the string format of the html code
-    private DocumentArea documentArea; //the documentArea object
+    private ChildPane pane; //the documentArea object
     private final ContentSpanVisitor contentSpanVisitor;
     private HtmlLexer lexer;
 
     /**
      * Create a new HtmlLoader object
+     * @param pane
      */
-    public HtmlLoader(DocumentArea doc) {
+    public HtmlLoader(ChildPane pane) {
         this.contentSpanVisitor = new GUIRenderer();
-        setDocumentArea(doc);
-    }
-
-    /**
-     * Setter of the documentArea
-     */
-    private void setDocumentArea(DocumentArea documentArea) {
-        this.documentArea = documentArea;
+        this.pane = pane;
     }
 
     /**
@@ -144,7 +138,7 @@ public class HtmlLoader {
         lexer.eatToken();
         updateIframe(iframe);
         iframe.accept(this.contentSpanVisitor);
-        documentArea.addGUIObjects(this.contentSpanVisitor.getObjects());
+        this.pane.addGUIObjects(this.contentSpanVisitor.getObjects());
     }
 
     /**
@@ -195,7 +189,7 @@ public class HtmlLoader {
         lexer.eatToken();
         updateATag(aTag);
         aTag.accept(this.contentSpanVisitor);
-        documentArea.addGUIObjects(this.contentSpanVisitor.getObjects());
+        this.pane.addGUIObjects(this.contentSpanVisitor.getObjects());
     }
 
     /**
@@ -211,7 +205,7 @@ public class HtmlLoader {
         lexer.eatToken();
         updateTableTag(tableTag);
         tableTag.accept(this.contentSpanVisitor);
-        documentArea.addGUIObjects(this.contentSpanVisitor.getObjects());
+        this.pane.addGUIObjects(this.contentSpanVisitor.getObjects());
     }
 
     /**
@@ -244,9 +238,9 @@ public class HtmlLoader {
                     String output = btn.getOutput().substring(0, btn.getOutput().length() - 1);
                     // finally we have the addition needed for the url
                     String finalized = action + output;
-                    this.documentArea.load(finalized); //if this submit button has been clicked -> load this address
+                    this.pane.load(finalized); //if this submit button has been clicked -> load this address
                 }));
-        documentArea.addGUIObjects(guiObjects);
+        this.pane.addGUIObjects(guiObjects);
     }
 
     /**

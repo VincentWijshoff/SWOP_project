@@ -1,17 +1,12 @@
 package gui.DefaultScreen;
 
-import browsrhtml.BrowsrDocumentValidator;
 import gui.Objects.GUIObject;
-import html.HtmlLoader;
-import localDocuments.Docs;
 
 import java.awt.*;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.net.URL;
 
 /**
  * The document area manages all GUIObjects that are drawn on the canvas
@@ -19,11 +14,10 @@ import java.net.URL;
 public class DocumentArea {
 
     // necessary element for the document area
-    private final Set<GUIObject> drawnGUIObjects = new HashSet<>();
     private final int relativeYPos;
     public final int xOffset = 5;
     private final DefaultScreen screen;
-    private final HtmlLoader loader;
+    private Pane pane;
 
     /**
      * Class used to describe the entire Document section of our GUI.
@@ -33,7 +27,8 @@ public class DocumentArea {
     public DocumentArea(DefaultScreen screen, int relativeYpos) {
         this.screen = screen;
         this.relativeYPos = relativeYpos;
-        this.loader = new HtmlLoader(this);
+        this.pane = new ChildPane(this);
+        this.pane.setDimensions(this.xOffset, this.relativeYPos, 10, 10);
     }
 
     /**
@@ -57,38 +52,7 @@ public class DocumentArea {
      * @return Set of GUIObjects
      */
     public ArrayList<GUIObject> getDrawnGUIObjects() {
-        ArrayList<GUIObject> objs = new ArrayList<>();
-        for (GUIObject obj: drawnGUIObjects) {
-            objs.add(obj);
-            objs.addAll(obj.getChildObjects());
-        }
-        return objs;
-    }
-
-    /**
-     * add a GUIObject to the list off gui objects
-     * @param obj the object that needs to be added
-     */
-    public void addGUIObject(GUIObject obj) {
-        this.drawnGUIObjects.add(obj);
-
-        obj.setPosition(obj.coordX + xOffset, obj.coordY+relativeYPos);
-
-        obj.setFontMetricsHandler(this.screen);
-        obj.setPageLoader(this.screen);
-        obj.updateDimensions();
-
-    }
-
-    /**
-     * Add a list off gui objects to the current list off gui objects, also set the document area for each off these
-     * GUIObjects to this
-     * @param objects the array off GUIObjects
-     */
-    public void addGUIObjects(ArrayList<GUIObject> objects) {
-        for (GUIObject obj: objects) {
-            addGUIObject(obj);
-        }
+        return this.pane.getDrawnGUIObjects();
     }
 
     /**
@@ -96,17 +60,8 @@ public class DocumentArea {
      * @param g The graphics needed to draw the document area
      */
     public void draw(Graphics g) {
+        this.pane.draw(g);
         // Draw every GUIObject in the docArea
-        for (GUIObject obj : this.getDrawnGUIObjects()) {
-            obj.draw(g);
-        }
-    }
-
-     /**
-     * Clears the DocGUIObjects so a new page can be loaded
-     */
-    public void clearDocObjects(){
-        this.drawnGUIObjects.clear();
     }
 
     /**
@@ -117,51 +72,21 @@ public class DocumentArea {
      * post    The new page is loaded if the given url is valid, otherwise the errorDoc is loaded
      */
     public void loadAddress(String url) throws IOException {
-        URL address = generateAddress(url, "");
-        this.clearDocObjects(); //remove GUIObjects from previous page
-        isValidBrowsrPage(address);
-        this.loader.initialise(address);
-        loader.loadPage();
-    }
-
-    /**
-     * generates the URL given the url (in string format)
-     *
-     * @param   url     string format of the URL of the next page
-     * @param   href    the href to add
-     * @return  the new URL (is null if an error occurred)
-     */
-    private URL generateAddress(String url, String href) throws MalformedURLException {
-        return new URL(new URL(url), href);
-    }
-
-    /**
-     * checks if given address is a valid Browsr page
-     *
-     * @param   address the URL of the new page (or null if loading URL failed)
-     *
-     */
-    private void isValidBrowsrPage(URL address) throws IOException {
-        BrowsrDocumentValidator.assertIsValidBrowsrDocument(address); //check if new page is valid Browsr page
-
+        this.pane.loadAddress(url);
     }
 
     /**
      * Load the error document because an error occurred whit the loading
      */
     public void loadErrorDoc() {
-        this.drawnGUIObjects.clear();
-        this.loader.initialise(Docs.getErrorPage());
-        loader.loadPage();
+        this.pane.loadErrorDoc();
     }
 
     /**
      * Load the welcome document
      */
     public void loadWelcomeDoc() {
-        this.drawnGUIObjects.clear();
-        this.loader.initialise(Docs.getWelcomePage());
-        loader.loadPage();
+        this.pane.loadWelcomeDoc();
     }
 
     /**
@@ -169,7 +94,7 @@ public class DocumentArea {
      * @return  The html of the current webpage
      */
     public String getCurrentHtml() {
-        return this.loader.getHtmlCode();
+        return this.pane.getCurrentHtml();
     }
 
     /**
@@ -188,7 +113,7 @@ public class DocumentArea {
      * @param modifier  The modifier on the pressed key
      */
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
-        drawnGUIObjects.forEach(obj -> obj.handleKeyEvent(id, keyCode, keyChar, modifier));
+        this.pane.handleKeyEvent(id, keyCode, keyChar, modifier);
     }
 
     /**
@@ -199,7 +124,7 @@ public class DocumentArea {
      * @param y             y position of the mouse event
      */
     public void handleMouseEvent(int id, int x, int y, int clickCount){
-        drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
+        this.pane.handleMouseEvent(id, x, y, clickCount);
     }
 }
 
