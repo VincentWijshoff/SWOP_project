@@ -117,60 +117,60 @@ public class GUIObjectTest {
         assertEquals("stringTest", 10, s2.coordY);
     }
 
-//    @Test
-//    void formTest() throws InterruptedException, InvocationTargetException {
-//        // we want to check if a form of any size produces the correct link
-//        // we do this by loading a form, entering some things in to the input boxes and pressing the button
-//        String htmlCode = """
-//                <form action="http://formTest.php">
-//                <table>
-//                    <tr><td>
-//                        <table>
-//                            <tr><td><input type="text" name="test1">
-//                            <tr><td><input type="text" name="test2">
-//                            <tr><td><input type="text" name="test3">
-//                            <tr><td><input type="text" name="test4">
-//                            <tr><td><input type="text" name="test5">
-//                    </table>
-//                    <tr><td><input type="submit">
-//                </table>
-//                </form>
-//                """;
-//        // we need to load this in via loader, so we rerun the setup for a clean window
-//        this.setup();
-//        DefaultScreen screen = new DefaultScreen(window);
-//        HtmlLoader loader = new HtmlLoader(screen.getDocArea());
-//        // we load the html into the window
-//        screen.getDocArea().clearDocObjects();
-//        loader.initialise(htmlCode);
-//        loader.loadPage();
-//        // we want to input some things into each of the inputs
-//        // we know only the outer table is in the list of drawn gui objects
-//        ArrayList<GUIInput> inputs = screen.getDocArea().getDrawnGUIObjects().get(0).getInputs();
-//        System.out.println(screen.getDocArea().getDrawnGUIObjects().get(0).getChildObjects());
-//        assertEquals("formTest", inputs.size(), 5);
-//        assertEquals("formTest", inputs.get(0).getName(), "test1");
-//        assertEquals("formTest", inputs.get(1).getName(), "test2");
-//        assertEquals("formTest", inputs.get(2).getName(), "test3");
-//        assertEquals("formTest", inputs.get(3).getName(), "test4");
-//        assertEquals("formTest", inputs.get(4).getName(), "test5");
-//        // we input some things into the inputs
-//        int itt = 10;
-//        for(GUIInput inp : inputs){
-//            inp.setText("inptest" + itt);
-//            itt--;
-//        }
-//        // we expect only 1 button to be loaded
-//        ArrayList<GUIButton> buttons = screen.getDocArea().getDrawnGUIObjects().get(0).getButtons();
-//        assertEquals("formTest", buttons.size(), 1);
-//        GUIButton butt = buttons.get(0);
-//        // we press the button now
-//        butt.handleMouseEvent(butt.coordX + 1, butt.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
-//        // we expect the following link to be loaded (it is no valid link, but the link should have been changed
-//        // in the address bar)
-//        String loadlink = "http://formTest.php?test1=inptest10&test2=inptest9&test3=inptest8&test4=inptest7&test5=inptest6";
-//        assertEquals("formTest", loadlink, screen.getAddress());
-//    }
+    @Test
+    void formTest() throws InterruptedException, InvocationTargetException {
+        // we want to check if a form of any size produces the correct link
+        // we do this by loading a form, entering some things in to the input boxes and pressing the button
+        String htmlCode = """
+                <form action="http://formTest.php">
+                <table>
+                    <tr><td>
+                        <table>
+                            <tr><td><input type="text" name="test1">
+                            <tr><td><input type="text" name="test2">
+                            <tr><td><input type="text" name="test3">
+                            <tr><td><input type="text" name="test4">
+                            <tr><td><input type="text" name="test5">
+                    </table>
+                    <tr><td><input type="submit">
+                </table>
+                </form>
+                """;
+        // we need to load this in via loader, so we rerun the setup for a clean window
+        this.setup();
+        DefaultScreen screen = new DefaultScreen(window);
+        HtmlLoader loader = new HtmlLoader(screen.getDocArea().getFocusedPane());
+        // we load the html into the window
+        //screen.getDocArea().clearDocObjects();
+        loader.initialise(htmlCode);
+        loader.loadPage();
+        // we want to input some things into each of the inputs
+        // we know only the outer table is in the list of drawn gui objects
+        ArrayList<GUIInput> inputs = screen.getDocArea().getDrawnGUIObjects().get(0).getInputs();
+        System.out.println(screen.getDocArea().getDrawnGUIObjects().get(0).getChildObjects());
+        assertEquals("formTest", inputs.size(), 5);
+        assertEquals("formTest", inputs.get(0).getName(), "test1");
+        assertEquals("formTest", inputs.get(1).getName(), "test2");
+        assertEquals("formTest", inputs.get(2).getName(), "test3");
+        assertEquals("formTest", inputs.get(3).getName(), "test4");
+        assertEquals("formTest", inputs.get(4).getName(), "test5");
+        // we input some things into the inputs
+        int itt = 10;
+        for(GUIInput inp : inputs){
+            inp.setText("inptest" + itt);
+            itt--;
+        }
+        // we expect only 1 button to be loaded
+        ArrayList<GUIButton> buttons = screen.getDocArea().getDrawnGUIObjects().get(0).getButtons();
+        assertEquals("formTest", buttons.size(), 1);
+        GUIButton butt = buttons.get(0);
+        // we press the button now
+        butt.handleMouseEvent(butt.coordX + 1, butt.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
+        // we expect the following link to be loaded (it is no valid link, but the link should have been changed
+        // in the address bar)
+        String loadlink = "http://formTest.php?test1=inptest10&test2=inptest9&test3=inptest8&test4=inptest7&test5=inptest6";
+        assertEquals("formTest", loadlink, screen.getAddress());
+    }
 
     // any other gui element need no tests
 }

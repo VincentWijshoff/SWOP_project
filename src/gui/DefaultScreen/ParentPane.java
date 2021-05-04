@@ -149,4 +149,14 @@ public class ParentPane extends Pane{
         this.child1.setOutFocus();
         this.child2.setOutFocus();
     }
+
+    @Override
+    public ChildPane getFocusedPane() {
+        if (child1.isInFocus) {
+            return child1.getFocusedPane();
+        }
+        else {
+            return child2.getFocusedPane();
+        }
+    }
 }

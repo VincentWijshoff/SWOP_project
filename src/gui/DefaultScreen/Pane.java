@@ -94,4 +94,6 @@ public abstract class Pane {
     protected abstract void setInFocus();
 
     protected abstract void setOutFocus();
+
+    public abstract ChildPane getFocusedPane();
 }

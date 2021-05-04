@@ -160,6 +160,11 @@ public class ChildPane extends Pane {
         this.isInFocus = false;
     }
 
+    @Override
+    public ChildPane getFocusedPane() {
+        return this;
+    }
+
     /**
      * add a GUIObject to the list off gui objects
      * @param obj the object that needs to be added

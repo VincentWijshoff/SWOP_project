@@ -132,5 +132,9 @@ public class DocumentArea {
     public void setPane(Pane pane) {
         this.pane = pane;
     }
+
+    public ChildPane getFocusedPane() {
+        return this.pane.getFocusedPane();
+    }
 }
 
