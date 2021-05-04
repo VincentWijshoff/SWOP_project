@@ -3,6 +3,8 @@ package gui.Objects;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A button object
@@ -102,6 +104,17 @@ public class GUIButton extends GUIObject{
         ArrayList<GUIButton> inp = new ArrayList<>();
         inp.add(this);
         return inp;
+    }
+
+    @Override
+    public HashSet<GUIObject> copy() {
+        HashSet<GUIObject> cpy = new HashSet<>();
+        GUIButton copy = new GUIButton(this.text, this.coordX, this.coordY, this.width, this.height);
+        copy.mouseListener = this.mouseListener;
+        copy.isSubmit = this.isSubmit;
+        copy.output = this.output;
+        cpy.add(copy);
+        return cpy;
     }
 
     /**

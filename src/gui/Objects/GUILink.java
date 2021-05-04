@@ -2,6 +2,7 @@ package gui.Objects;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.HashSet;
 
 /**
  * A GUIObject that represents a hyperlink that is drawn on the canvas
@@ -68,5 +69,13 @@ public class GUILink extends GUIString {
             //href is an absolute URL
             this.pageLoader.load(this.href);
         }
+    }
+
+    @Override
+    public HashSet<GUIObject> copy() {
+        HashSet<GUIObject> cpy = new HashSet<>();
+        GUILink copy = new GUILink(this.text, this.coordX, this.coordY, this.href);
+        cpy.add(copy);
+        return cpy;
     }
 }

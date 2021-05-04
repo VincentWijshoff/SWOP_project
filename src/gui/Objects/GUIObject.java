@@ -5,6 +5,7 @@ import events.PageLoader;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.UUID;
 
 /**
@@ -152,5 +153,7 @@ public abstract class GUIObject {
     public ArrayList<GUIInput> getInputs(){
         return new ArrayList<>();
     }
+
+    public abstract HashSet<GUIObject> copy();
 
 }

@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * A input bar
@@ -556,6 +557,17 @@ public class GUIInput extends GUIObject{
         ArrayList<GUIInput> inp = new ArrayList<>();
         inp.add(this);
         return inp;
+    }
+
+    @Override
+    public HashSet<GUIObject> copy() {
+        HashSet<GUIObject> cpy = new HashSet<>();
+        GUIInput copy = new GUIInput(this.text, this.coordX, this.coordY, this.width, this.height);
+        copy.name = this.name;
+        copy.pageLoaderInput = this.pageLoaderInput;
+        copy.prevText = this.prevText;
+        cpy.add(copy);
+        return cpy;
     }
 
     String name;    //the name of this input

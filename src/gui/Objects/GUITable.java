@@ -5,6 +5,7 @@ import events.PageLoader;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * A gui table
@@ -57,6 +58,25 @@ public class GUITable extends GUIObject {
             }
         }
         return inputs;
+    }
+
+    @Override
+    public HashSet<GUIObject> copy() {
+        HashSet<GUIObject> cpy = new HashSet<>();
+        GUITable copy = new GUITable(this.coordX, this.coordY);
+
+        ArrayList<ArrayList<GUIObject>> tableRowCopy = new ArrayList<>();
+        for(ArrayList<GUIObject> row : this.tableRows){
+            ArrayList<GUIObject> rowCopy = new ArrayList<>();
+            for(GUIObject obj : row){
+                rowCopy.addAll(obj.copy());
+            }
+            tableRowCopy.add(rowCopy);
+        }
+        copy.tableRows = tableRowCopy;
+
+        cpy.add(copy);
+        return cpy;
     }
 
     /**

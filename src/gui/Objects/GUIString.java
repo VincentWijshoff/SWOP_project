@@ -3,6 +3,7 @@ package gui.Objects;
 import events.FontMetricsHandler;
 
 import java.awt.*;
+import java.util.HashSet;
 
 /**
  * A GUIObject that represents a string drawn on the canvas
@@ -49,6 +50,14 @@ public class GUIString extends GUIObject {
     @Override
     public void draw(Graphics g) {
         g.drawString(this.text, coordX, coordY + height);
+    }
+
+    @Override
+    public HashSet<GUIObject> copy() {
+        HashSet<GUIObject> cpy = new HashSet<>();
+        GUIString copy = new GUIString(this.text, this.coordX, this.coordY);
+        cpy.add(copy);
+        return cpy;
     }
 
     /*

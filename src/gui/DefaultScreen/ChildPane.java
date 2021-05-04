@@ -230,7 +230,16 @@ public class ChildPane extends Pane {
     }
 
     private Set<GUIObject> copyOfObjects(){
-        return Set.copyOf(this.drawnGUIObjects);
+        Set<GUIObject> copy = new HashSet<>();
+        for(GUIObject obj : this.drawnGUIObjects){
+            HashSet<GUIObject> cpy = obj.copy();
+            for(GUIObject guiCopy : cpy){
+                guiCopy.setPageLoader(docArea.getScreen());
+                guiCopy.setFontMetricsHandler(docArea.getScreen());
+            }
+            copy.addAll(cpy);
+        }
+        return copy;
     }
 
     /**

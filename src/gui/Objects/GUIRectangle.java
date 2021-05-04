@@ -1,6 +1,7 @@
 package gui.Objects;
 
 import java.awt.*;
+import java.util.HashSet;
 
 /**
  * A GUIObject that represents a rectangle drawn on the canvas
@@ -29,5 +30,13 @@ public class GUIRectangle extends GUIObject{
      */
     public void draw(Graphics g) {
         g.drawRect(coordX, coordY, width, height);
+    }
+
+    @Override
+    public HashSet<GUIObject> copy() {
+        HashSet<GUIObject> cpy = new HashSet<>();
+        GUIRectangle copy = new GUIRectangle(this.coordX, this.coordY, this.width, this.height);
+        cpy.add(copy);
+        return cpy;
     }
 }
