@@ -6,6 +6,7 @@ import html.HtmlLoader;
 import localDocuments.Docs;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,7 +24,7 @@ public class ChildPane extends Pane {
     }
 
     ChildPane(){
-
+        this.loader = new HtmlLoader(this);
     }
 
     /**
@@ -50,6 +51,12 @@ public class ChildPane extends Pane {
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
         drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
+        // TODO temporary for testing
+        if(MouseEvent.MOUSE_PRESSED == id) {
+            this.makeParentHorizontal();
+        } else if(MouseEvent.MOUSE_RELEASED == id){
+            this.makeParentVertical();
+        }
     }
 
     /**
@@ -135,11 +142,22 @@ public class ChildPane extends Pane {
     @Override
     public void draw(Graphics g) {
         if(this.isInFocus){
-            // TODO draw rectangle around border
+            // TODO we want a thick rectangle
+            g.drawRect(this.x, this.y, this.width, this.height);
         }
         for (GUIObject obj : this.getDrawnGUIObjects()) {
             obj.draw(g);
         }
+    }
+
+    @Override
+    protected void setInFocus() {
+        this.isInFocus = true;
+    }
+
+    @Override
+    protected void setOutFocus() {
+        this.isInFocus = false;
     }
 
     /**
@@ -163,22 +181,35 @@ public class ChildPane extends Pane {
     private void makeParentHorizontal(){
         // we change this into a parent pane
         ParentPane parent = new ParentPane();
+        parent.setDimensions(this.x, this.y, this.width, this.height);
         if(this.parentPane != null){
             parent.setParentPane(this.parentPane);
             this.parentPane.changeChild(parent, this);
+        }else{
+            // this is the upper most pane
+            this.docArea.setPane(parent);
         }
         // we then make 2 child panes exactly as this one is with a horizontal line
         int y1 = this.y;
         int y2 = this.y + this.height / 2;
         ChildPane c1 = new ChildPane();
         c1.setParentPane(parent);
-        c1.setDimensions(this.x, y1, this.width, this.height);
+        c1.setDimensions(this.x, y1, this.width, this.height/2);
+        c1.setGUIObjects(this.drawnGUIObjects);
         ChildPane c2 = new ChildPane();
         c2.setParentPane(parent);
-        c2.setDimensions(this.x, y2, this.width, this.height);
+        c2.setDimensions(this.x, y2, this.width, this.height/2);
+        c2.setGUIObjects(this.drawnGUIObjects);
+        // set children
+        parent.setChildren(c1, c2);
         //we set the first one in focus
-        // TODO set guiobjects in new panes with correct positions
+        parent.isInFocus = true;
         c1.isInFocus = true;
+    }
+
+    private void setGUIObjects(Set<GUIObject> drawnGUIObjects) {
+        this.drawnGUIObjects = drawnGUIObjects;
+        // TODO reset positions for each object
     }
 
     /**
@@ -187,21 +218,28 @@ public class ChildPane extends Pane {
     private void makeParentVertical(){
         // we change this into a parent pane
         ParentPane parent = new ParentPane();
+        parent.setDimensions(this.x, this.y, this.width, this.height);
         if(this.parentPane != null){
             parent.setParentPane(this.parentPane);
             this.parentPane.changeChild(parent, this);
+        }else{
+            this.docArea.setPane(parent);
         }
         // we then make 2 child panes exactly as this one is with a vertical line
         int x1 = this.x;
         int x2 = this.x + this.width / 2;
         ChildPane c1 = new ChildPane();
         c1.setParentPane(parent);
-        c1.setDimensions(x1, this.y, this.width, this.height);
+        c1.setDimensions(x1, this.y, this.width/2, this.height);
+        c1.setGUIObjects(this.drawnGUIObjects);
         ChildPane c2 = new ChildPane();
         c2.setParentPane(parent);
-        c2.setDimensions(x2, this.y, this.width, this.height);
-        // TODO set guiobjects in new panes with correct positions
+        c2.setDimensions(x2, this.y, this.width/2, this.height);
+        c2.setGUIObjects(this.drawnGUIObjects);
+        // set children
+        parent.setChildren(c1, c2);
         //we set the first one in focus
+        parent.isInFocus = true;
         c1.isInFocus = true;
     }
 }

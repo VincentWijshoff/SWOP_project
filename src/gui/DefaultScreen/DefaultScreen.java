@@ -138,6 +138,14 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
         this.addressBar.draw(g, this.window.getWidth());
     }
 
+    public int getWidth(){
+        return this.window.getWidth();
+    }
+
+    public int getHeight(){
+        return this.window.getHeight();
+    }
+
     /**
      * Get the current address of this window
      * @return the current address

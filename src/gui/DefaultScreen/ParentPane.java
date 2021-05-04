@@ -57,11 +57,11 @@ public class ParentPane extends Pane{
     void handleMouseEvent(int id, int x, int y, int clickCount) {
         // here we check the in focus things on the pane
         if(child1.isOnPane(x, y)){
-            child1.isInFocus = true;
-            child2.isInFocus = false;
-        }else{
-            child1.isInFocus = false;
-            child2.isInFocus = true;
+            child1.setInFocus();
+            child2.setOutFocus();
+        }else if(child2.isOnPane(x, y)){
+            child1.setOutFocus();
+            child2.setInFocus();
         }
         if(child1.isInFocus){
             child1.handleMouseEvent(id, x, y, clickCount);
@@ -128,6 +128,25 @@ public class ParentPane extends Pane{
     public void draw(Graphics g) {
         child1.draw(g);
         child2.draw(g);
-        // TODO line between panes?
+        if(child1.x == child2.x){
+            // same x so horizontal line on lowest y
+            g.drawLine(child1.x, Math.max(child1.y, child2.y), child1.x + child1.width, Math.max(child1.y, child2.y));
+        }else {
+            // not same x so vertical line on highest x
+            g.drawLine(Math.max(child1.x, child2.x), child1.y, Math.max(child1.x, child2.x), child1.y + child1.height);
+        }
+    }
+
+    @Override
+    protected void setInFocus() {
+        // it will fix focus on children later on
+        this.isInFocus = true;
+    }
+
+    @Override
+    protected void setOutFocus() {
+        this.isInFocus = false;
+        this.child1.setOutFocus();
+        this.child2.setOutFocus();
     }
 }

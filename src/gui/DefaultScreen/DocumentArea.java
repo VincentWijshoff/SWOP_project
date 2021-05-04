@@ -5,8 +5,6 @@ import gui.Objects.GUIObject;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * The document area manages all GUIObjects that are drawn on the canvas
@@ -16,6 +14,7 @@ public class DocumentArea {
     // necessary element for the document area
     private final int relativeYPos;
     public final int xOffset = 5;
+    public final int yOffset = 5;
     private final DefaultScreen screen;
     private Pane pane;
 
@@ -28,7 +27,7 @@ public class DocumentArea {
         this.screen = screen;
         this.relativeYPos = relativeYpos;
         this.pane = new ChildPane(this);
-        this.pane.setDimensions(this.xOffset, this.relativeYPos, 10, 10);
+        this.pane.setDimensions(this.xOffset, this.relativeYPos, 0, 0);
     }
 
     /**
@@ -86,6 +85,9 @@ public class DocumentArea {
      * Load the welcome document
      */
     public void loadWelcomeDoc() {
+        this.pane.setDimensions(this.xOffset, this.relativeYPos + this.yOffset,
+                this.screen.getWidth() - 2*this.xOffset,
+                this.screen.getHeight() - this.relativeYPos - 2*this.yOffset);
         this.pane.loadWelcomeDoc();
     }
 
@@ -125,6 +127,10 @@ public class DocumentArea {
      */
     public void handleMouseEvent(int id, int x, int y, int clickCount){
         this.pane.handleMouseEvent(id, x, y, clickCount);
+    }
+
+    public void setPane(Pane pane) {
+        this.pane = pane;
     }
 }
 

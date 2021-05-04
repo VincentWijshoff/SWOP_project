@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class Pane {
-    int x = 0;
-    int y = 0;
+    public int x = 0;
+    public int y = 0;
     int width = 0;
     int height = 0;
     HtmlLoader loader = null;
@@ -90,4 +90,8 @@ public abstract class Pane {
     public abstract void addGUIObjects(ArrayList<GUIObject> objects);
 
     public abstract void draw(Graphics g);
+
+    protected abstract void setInFocus();
+
+    protected abstract void setOutFocus();
 }
