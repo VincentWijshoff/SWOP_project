@@ -7,7 +7,6 @@ import localDocuments.Docs;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -197,14 +196,16 @@ public class ChildPane extends Pane {
         // we then make 2 child panes exactly as this one is with a horizontal line
         int y1 = this.y;
         int y2 = this.y + this.height / 2;
-        ChildPane c1 = new ChildPane(this.docArea);
+        ChildPane c1 = new ChildPane(this.docArea); // upper child
         c1.setParentPane(parent);
         c1.setDimensions(this.x, y1, this.width, this.height/2);
-        c1.setGUIObjects(this.drawnGUIObjects);
-        ChildPane c2 = new ChildPane(this.docArea);
+        c1.setGUIObjects(this.copyOfObjects());
+        //c1.updateGUIPositions(0, 0);
+        ChildPane c2 = new ChildPane(this.docArea); // lower child
         c2.setParentPane(parent);
         c2.setDimensions(this.x, y2, this.width, this.height/2);
-        c2.setGUIObjects(this.drawnGUIObjects);
+        c2.setGUIObjects(this.copyOfObjects());
+        c2.updateGUIPositions(0, this.height/2);
         // set children
         parent.setChildren(c1, c2);
         //we set the first one in focus
@@ -214,7 +215,22 @@ public class ChildPane extends Pane {
 
     private void setGUIObjects(Set<GUIObject> drawnGUIObjects) {
         this.drawnGUIObjects = drawnGUIObjects;
-        // TODO reset positions for each object
+    }
+
+    /**
+     * we want to update the positions off all gui objects, so we will add the x and y divs to their old positions
+     * @param xDiv  the difference in x from the old position
+     * @param yDiv  the difference in y from their old position
+     */
+    private void updateGUIPositions(int xDiv, int  yDiv){
+        for(GUIObject obj : this.drawnGUIObjects){
+            obj.setPosition(obj.coordX + xDiv, obj.coordY + yDiv);
+            obj.updateDimensions();
+        }
+    }
+
+    private Set<GUIObject> copyOfObjects(){
+        return Set.copyOf(this.drawnGUIObjects);
     }
 
     /**
@@ -233,14 +249,16 @@ public class ChildPane extends Pane {
         // we then make 2 child panes exactly as this one is with a vertical line
         int x1 = this.x;
         int x2 = this.x + this.width / 2;
-        ChildPane c1 = new ChildPane(this.docArea);
+        ChildPane c1 = new ChildPane(this.docArea); // left child
         c1.setParentPane(parent);
         c1.setDimensions(x1, this.y, this.width/2, this.height);
-        c1.setGUIObjects(this.drawnGUIObjects);
-        ChildPane c2 = new ChildPane(this.docArea);
+        c1.setGUIObjects(this.copyOfObjects());
+        //c1.updateGUIPositions(0, 0);
+        ChildPane c2 = new ChildPane(this.docArea); // right child
         c2.setParentPane(parent);
         c2.setDimensions(x2, this.y, this.width/2, this.height);
-        c2.setGUIObjects(this.drawnGUIObjects);
+        c2.setGUIObjects(this.copyOfObjects());
+        c2.updateGUIPositions(this.width / 2, 0);
         // set children
         parent.setChildren(c1, c2);
         //we set the first one in focus
