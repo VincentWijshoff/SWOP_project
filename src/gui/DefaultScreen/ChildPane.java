@@ -23,10 +23,6 @@ public class ChildPane extends Pane {
         this.loader = new HtmlLoader(this);
     }
 
-    ChildPane(){
-        this.loader = new HtmlLoader(this);
-    }
-
     /**
      * Handle a key event on this pane
      *
@@ -197,11 +193,11 @@ public class ChildPane extends Pane {
         // we then make 2 child panes exactly as this one is with a horizontal line
         int y1 = this.y;
         int y2 = this.y + this.height / 2;
-        ChildPane c1 = new ChildPane();
+        ChildPane c1 = new ChildPane(this.docArea);
         c1.setParentPane(parent);
         c1.setDimensions(this.x, y1, this.width, this.height/2);
         c1.setGUIObjects(this.drawnGUIObjects);
-        ChildPane c2 = new ChildPane();
+        ChildPane c2 = new ChildPane(this.docArea);
         c2.setParentPane(parent);
         c2.setDimensions(this.x, y2, this.width, this.height/2);
         c2.setGUIObjects(this.drawnGUIObjects);
@@ -233,11 +229,11 @@ public class ChildPane extends Pane {
         // we then make 2 child panes exactly as this one is with a vertical line
         int x1 = this.x;
         int x2 = this.x + this.width / 2;
-        ChildPane c1 = new ChildPane();
+        ChildPane c1 = new ChildPane(this.docArea);
         c1.setParentPane(parent);
         c1.setDimensions(x1, this.y, this.width/2, this.height);
         c1.setGUIObjects(this.drawnGUIObjects);
-        ChildPane c2 = new ChildPane();
+        ChildPane c2 = new ChildPane(this.docArea);
         c2.setParentPane(parent);
         c2.setDimensions(x2, this.y, this.width/2, this.height);
         c2.setGUIObjects(this.drawnGUIObjects);
