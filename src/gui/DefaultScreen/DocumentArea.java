@@ -28,6 +28,7 @@ public class DocumentArea {
         this.relativeYPos = relativeYpos;
         this.pane = new ChildPane(this);
         this.pane.setDimensions(this.xOffset, this.relativeYPos, 0, 0);
+        this.pane.setInFocus();
     }
 
     /**

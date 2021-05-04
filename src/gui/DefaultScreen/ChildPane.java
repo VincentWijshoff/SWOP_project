@@ -6,6 +6,7 @@ import html.HtmlLoader;
 import localDocuments.Docs;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -33,6 +34,15 @@ public class ChildPane extends Pane {
      */
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
+        if(modifier == KeyEvent.CTRL_DOWN_MASK && id == KeyEvent.KEY_PRESSED){
+            if(keyCode == KeyEvent.VK_H){
+                // split with draggable vertical separator
+                this.makeParentVertical();
+            }else if(keyCode == KeyEvent.VK_V){
+                //split with draggable horizontal separator
+                this.makeParentHorizontal();
+            }
+        }
         drawnGUIObjects.forEach(obj -> obj.handleKeyEvent(id, keyCode, keyChar, modifier));
     }
 
@@ -47,12 +57,6 @@ public class ChildPane extends Pane {
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
         drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
-        // TODO temporary for testing
-        if(MouseEvent.MOUSE_PRESSED == id) {
-            this.makeParentHorizontal();
-        } else if(MouseEvent.MOUSE_RELEASED == id){
-            this.makeParentVertical();
-        }
     }
 
     /**
