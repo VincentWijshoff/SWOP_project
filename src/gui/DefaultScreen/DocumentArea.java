@@ -86,7 +86,7 @@ public class DocumentArea {
      * Load the welcome document
      */
     public void loadWelcomeDoc() {
-        this.pane.setDimensions(this.xOffset, this.relativeYPos + this.yOffset,
+        this.pane.setDimensions(this.xOffset, this.relativeYPos,
                 this.screen.getWidth() - 2*this.xOffset,
                 this.screen.getHeight() - this.relativeYPos - 2*this.yOffset);
         this.pane.loadWelcomeDoc();
