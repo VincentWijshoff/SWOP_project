@@ -274,4 +274,11 @@ public class ChildPane extends Pane {
         parent.isInFocus = true;
         c1.isInFocus = true;
     }
+
+    /**
+     * Clears the GUIObjects so a new page can be loaded
+     */
+    public void clearDocObjects(){
+        this.drawnGUIObjects.clear();
+    }
 }
