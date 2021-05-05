@@ -13,6 +13,8 @@ import java.util.HashSet;
  */
 public class GUIInput extends GUIObject{
 
+    public Scrollbar scrollbar;
+
     // needed parameters
     private int startSelected = 0;              // The starting selected position
     private int endSelected = 0;                // The ending selected position
@@ -31,6 +33,7 @@ public class GUIInput extends GUIObject{
     public GUIInput(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = startTxt;
+        this.scrollbar = new Scrollbar(this);
     }
 
     /**
@@ -46,6 +49,7 @@ public class GUIInput extends GUIObject{
         super(x, y, width, height);
         this.text = startTxt;
         this.pageLoaderInput = pageLoader;
+        this.scrollbar = new Scrollbar(this);
     }
 
     /**
@@ -58,6 +62,7 @@ public class GUIInput extends GUIObject{
     public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = "";
+        this.scrollbar = new Scrollbar(this);
     }
 
     /**
@@ -69,6 +74,17 @@ public class GUIInput extends GUIObject{
         this.text = text;
         this.width = 100;
         this.height = 15;
+        this.scrollbar = new Scrollbar(this);
+    }
+
+    /**
+     * Construct a GUIInput
+     */
+    public GUIInput(){
+        super();
+        this.width = 100;
+        this.height = 15;
+        this.scrollbar = new Scrollbar(this);
     }
 
     /**
@@ -84,15 +100,6 @@ public class GUIInput extends GUIObject{
     }
 
     /**
-     * Construct a GUIInput
-     */
-    public GUIInput(){
-        super();
-        this.width = 100;
-        this.height = 15;
-    }
-
-    /**
      * Handle the mouse event on this input
      * @param x             The x coordinate of the mouse event
      * @param y             The y coordinate of hte mouse event
@@ -100,7 +107,9 @@ public class GUIInput extends GUIObject{
      * @param clickCount    The click count of the event
      */
     public void handleMouseEvent(int x, int y, int id, int clickCount){
-        if (!this.isInGUIObject(x, y)) {
+        if (this.scrollbar.isOnScrollBar(x, y)) {
+            this.scrollbar.handleMouseEvent(id, x, y, clickCount);
+        } else if (!this.isInGUIObject(x, y)) {
             this.selectNone();
             this.inFocus = false;
             this.initialClick = true;
@@ -507,8 +516,8 @@ public class GUIInput extends GUIObject{
     @Override
     public void draw(Graphics g){
         g.setColor(Color.BLACK);
-        g.drawRect(this.coordX, this.coordY, width, height); // border
-        g.clearRect(this.coordX+1, this.coordY+1, width-1, height-1); // actual address bar (white part)
+        g.drawRect(this.coordX, this.coordY, width, height+this.scrollbar.getHeight()); // border
+        g.clearRect(this.coordX+1, this.coordY+1, width-1, height+this.scrollbar.getHeight()-1); // actual address bar (white part)
 
         String viewedAddress = this.getText();
         if(inFocus && !this.isSelecting()){
@@ -529,6 +538,7 @@ public class GUIInput extends GUIObject{
         }
 
         g.drawString(viewedAddress, this.coordX+5, this.coordY+((int) (height/1.5)));
+        this.scrollbar.draw(g);
     }
 
     /**

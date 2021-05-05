@@ -10,7 +10,7 @@ import java.awt.*;
 public class AddressBar {
 
     //graphic element
-    final int yLimit = 50;
+    int yLimit = 50;
 
     private final GUIInput inputField;  // The input field for the address bar
     private final DefaultScreen screen; // The screen that is the main distributor of the events
@@ -34,6 +34,7 @@ public class AddressBar {
         this.inputField.setFontMetricsHandler(screen);
         this.inputField.setPageLoader(screen);
         this.screen = screen;
+        this.yLimit += this.inputField.scrollbar.getHeight();
     }
 
     /**
@@ -44,6 +45,7 @@ public class AddressBar {
         this.inputField.setFontMetricsHandler(screen);
         this.inputField.setPageLoader(screen);
         this.screen = screen;
+        this.yLimit += this.inputField.scrollbar.getHeight();
     }
 
     /**
@@ -93,7 +95,7 @@ public class AddressBar {
         return (X >= this.abX &&
                 X <= this.abX + this.w &&
                 Y >= this.abY &&
-                Y <= this.abY + this.h);
+                Y <= this.abY + this.h + this.inputField.scrollbar.getHeight());
     }
 
     /**
@@ -153,5 +155,4 @@ public class AddressBar {
         this.inFocus = false;
         this.inputField.start();
     }
-
 }
