@@ -42,6 +42,11 @@ public class Scrollbar {
         setBoundaries();
         this.slider.width = caculateSliderWidth(g);
 
+        // Reposition the slider if it has to grow to the left (move to left and grow instead of growing outside of border)
+        if ((this.slider.coordX + this.slider.width) > this.endCoordX) {
+            this.slider.coordX = this.endCoordX - this.slider.width;
+        }
+
         // Scrollbar outline
         g.setColor(Color.GRAY);
         g.fillRect(this.getInputField().coordX, this.getInputField().coordY+this.getInputField().height-1, this.scrollbarWidth, scrollbarHeight+2);
@@ -103,9 +108,10 @@ public class Scrollbar {
     public void setBoundaries() {
         this.scrollbarWidth = this.getInputField().width;
         this.maxSliderWidth = this.getInputField().width-10;
+        if (this.maxSliderWidth < 0) this.maxSliderWidth = 0;
 
         // Coords used to limit the movement of the scrollbar slider
-        this.startCoordX = this.getInputField().coordX+5;
+        this.startCoordX = this.getInputField().coordX+5;;
         this.endCoordX = this.startCoordX + this.maxSliderWidth;
     }
 
