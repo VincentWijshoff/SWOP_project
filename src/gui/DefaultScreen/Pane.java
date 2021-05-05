@@ -96,4 +96,6 @@ public abstract class Pane {
     protected abstract void setOutFocus();
 
     public abstract ChildPane getFocusedPane();
+
+    protected abstract void updateDimensions(int x, int y, int width, int height);
 }

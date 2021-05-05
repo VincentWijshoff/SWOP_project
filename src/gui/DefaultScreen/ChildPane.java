@@ -40,6 +40,13 @@ public class ChildPane extends Pane {
             }else if(keyCode == KeyEvent.VK_V){
                 //split with draggable horizontal separator
                 this.makeParentHorizontal();
+            }else if(keyCode == KeyEvent.VK_X){
+                if(this.parentPane == null){
+                    this.loadWelcomeDoc();
+                }else{
+                    // remove this from parent pane, parent will do the rest
+                    this.parentPane.removeChild(this);
+                }
             }
         }
         drawnGUIObjects.forEach(obj -> obj.handleKeyEvent(id, keyCode, keyChar, modifier));
@@ -55,6 +62,11 @@ public class ChildPane extends Pane {
      */
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
+        if(this.isOnPane(x, y)){
+            this.setInFocus();
+        }else{
+            this.setOutFocus();
+        }
         drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
     }
 
@@ -164,6 +176,14 @@ public class ChildPane extends Pane {
         return this;
     }
 
+    @Override
+    protected void updateDimensions(int x, int y, int width, int height) {
+        int xDiv = x - this.x;
+        int yDiv = y - this.y;
+        this.updateGUIPositions(xDiv, yDiv);
+        this.setDimensions(x, y, width, height);
+    }
+
     /**
      * add a GUIObject to the list off gui objects
      * @param obj the object that needs to be added
@@ -184,7 +204,7 @@ public class ChildPane extends Pane {
      */
     private void makeParentHorizontal(){
         // we change this into a parent pane
-        ParentPane parent = new ParentPane();
+        ParentPane parent = new ParentPane(this.docArea);
         parent.setDimensions(this.x, this.y, this.width, this.height);
         if(this.parentPane != null){
             parent.setParentPane(this.parentPane);
@@ -247,7 +267,7 @@ public class ChildPane extends Pane {
      */
     private void makeParentVertical(){
         // we change this into a parent pane
-        ParentPane parent = new ParentPane();
+        ParentPane parent = new ParentPane(this.docArea);
         parent.setDimensions(this.x, this.y, this.width, this.height);
         if(this.parentPane != null){
             parent.setParentPane(this.parentPane);

@@ -11,8 +11,8 @@ public class ParentPane extends Pane{
     Pane child1;
     Pane child2;
 
-    ParentPane(){
-
+    ParentPane(DocumentArea docArea){
+        this.docArea = docArea;
     }
 
     void changeChild(ParentPane parent, ChildPane child){
@@ -37,6 +37,23 @@ public class ParentPane extends Pane{
             child1.handleKeyEvent(id, keyCode, keyChar, modifier);
         }else{
             child2.handleKeyEvent(id, keyCode, keyChar, modifier);
+        }
+    }
+
+    @Override
+    public void updateDimensions(int x, int y, int w, int h){
+        super.setDimensions(x, y, w, h);
+        // we need to update the child dimensions
+        if(this.child1 != null && this.child2 != null){
+            if(child1.x == child2.x){
+                // same x different y
+                child1.updateDimensions(this.x, this.y, this.width, this.height/2);
+                child2.updateDimensions(this.x, this.y + this.height/2, this.width, this.height/2);
+            }else{
+                // same y different x
+                child1.updateDimensions(this.x, this.y, this.width/2, this.height);
+                child2.updateDimensions(this.x + this.width/2, this.y, this.width/2, this.height);
+            }
         }
     }
 
@@ -157,6 +174,36 @@ public class ParentPane extends Pane{
         }
         else {
             return child2.getFocusedPane();
+        }
+    }
+
+    public void removeChild(ChildPane childPane) {
+        if(this.child1 == childPane){
+            removeThisSubPane(this.child2);
+        }else{
+            removeThisSubPane(this.child1);
+        }
+    }
+
+    private void removeThisSubPane(Pane child) {
+        //we remove this parent pane
+        //we set the parent pane of the remaining child as this parent
+        child.setParentPane(this.parentPane);
+        //we then switch this for the given pane as child in this parent
+        if(this.parentPane == null){
+            this.docArea.setPane(child);
+        }else{
+            this.switchChild(this, child);
+        }
+        // we set the dimension off the new child as this dimension
+        child.updateDimensions(this.x, this.y, this.width, this.height);
+    }
+
+    private void switchChild(Pane c1, Pane child) {
+        if(this.child1 == c1){
+            this.child1 = child;
+        }else{
+            this.child2 = child;
         }
     }
 }
