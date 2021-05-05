@@ -25,6 +25,7 @@ public class GUIInput extends GUIObject{
     private boolean inFocus = false;            // is the input in focus?
     private boolean initialClick = true;        // is the click an initial click
     private boolean pageLoaderInput = false;    // is the input the address bar input?
+    private String shownText = "";
 
     /**
      * Constructor, it will set the current text as the given parameter
@@ -33,6 +34,7 @@ public class GUIInput extends GUIObject{
     public GUIInput(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = startTxt;
+        //this.shownText = calculateShownText();
         this.scrollbar = new Scrollbar(this);
     }
 
@@ -48,6 +50,7 @@ public class GUIInput extends GUIObject{
     public GUIInput(String startTxt, int x, int y, int width, int height, boolean pageLoader){
         super(x, y, width, height);
         this.text = startTxt;
+        //this.shownText = calculateShownText();
         this.pageLoaderInput = pageLoader;
         this.scrollbar = new Scrollbar(this);
     }
@@ -62,6 +65,7 @@ public class GUIInput extends GUIObject{
     public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = "";
+        this.shownText = "";
         this.scrollbar = new Scrollbar(this);
     }
 
@@ -72,6 +76,7 @@ public class GUIInput extends GUIObject{
     public GUIInput(String text) {
         super();
         this.text = text;
+        //this.shownText = calculateShownText();
         this.width = 100;
         this.height = 15;
         this.scrollbar = new Scrollbar(this);
@@ -88,11 +93,31 @@ public class GUIInput extends GUIObject{
     }
 
     /**
+     * calculate the text that is shown in the InputField when a char has been added
+     * @param address   the string to be shown
+     * @return the string that will be printed in the field
+     */
+    private String calculateShownText(String address){
+        int lengthText = this.fontMetricsHandler.getFontMetrics().stringWidth(address);
+        if(lengthText <= width){
+            return address; //string fits in InputField
+        }
+        String result = address;
+        while (true){
+            result = result.substring(1);
+            if(this.fontMetricsHandler.getFontMetrics().stringWidth(result) < width){
+                return result;
+            }
+        }
+    }
+
+
+    /**
      * Handle the updating of the dimensions of this string
      */
     @Override
     public void updateDimensions() {
-        // set the height to the height off a string
+        // set the height to the height of a string
         this.height = this.fontMetricsHandler.getFontMetrics().getHeight();
         // because the string will be in the middle off the text box, and we want it to be in the middle of a row
         // we set the y coordinate a bit lower
@@ -523,6 +548,9 @@ public class GUIInput extends GUIObject{
         if(inFocus && !this.isSelecting()){
             // when the address bar is in focus, a text cursor needs to be shown at the correct position of the current string
             viewedAddress = this.addChar(viewedAddress, '|', this.getCursorPosition());
+            //this.text = viewedAddress;
+            viewedAddress = calculateShownText(viewedAddress);
+            //this.shownText = viewedAddress;
         }
 
         if(this.isSelecting()){
