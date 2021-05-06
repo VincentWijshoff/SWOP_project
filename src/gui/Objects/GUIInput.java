@@ -313,9 +313,12 @@ public class GUIInput extends GUIObject{
     private void onSpacePress(){
         // space bar
         if (this.startSelected != this.endSelected) {
-            // now every bit  the current selected text must be replaced with the newly pressed character
+            // now every bit the current selected text must be replaced with the newly pressed character
             this.totalText = this.replaceSelected(this.startSelected + leftIndex, this.endSelected + leftIndex, this.totalText, " ");
             this.shownText = this.replaceSelected(this.startSelected, this.endSelected, this.shownText, " ");
+            //a part of the text has been replaced, so we add the remainder to shownText and calculate the new shownText
+            //so the text has not a white space in between
+            shownText += totalText.substring(this.totalText.length() - rightIndex);
             this.shownText = calculateShownTextRight(shownText);
             // this.address = " ";
             this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
@@ -323,8 +326,10 @@ public class GUIInput extends GUIObject{
             // now only input new chars on the position of the text cursor
             this.totalText = addChar(this.totalText, ' ', this.cursorPosition + leftIndex);
             this.shownText = addChar(this.shownText, ' ', this.cursorPosition);
+            String tempShownText = this.shownText;
             this.shownText = calculateShownTextRight(shownText);
-            this.cursorPosition += 1;
+            if(this.shownText.equals(tempShownText))//no char has been removed
+                this.cursorPosition += 1;
         }
         this.startSelected = this.cursorPosition;
         this.endSelected = this.cursorPosition;
@@ -342,7 +347,6 @@ public class GUIInput extends GUIObject{
                     this.shownText = this.totalText.charAt(leftIndex-1) + this.shownText;
                     this.shownText = calculateShownTextLeft(this.shownText);
                     this.leftIndex -= 1;
-
                 }
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
@@ -383,6 +387,11 @@ public class GUIInput extends GUIObject{
                 if (this.cursorPosition < this.shownText.length()) {
                     this.cursorPosition++;
                 }else if (this.rightIndex > 0){
+                    if(shownText.length() + rightIndex-1 > shownText.length()){
+                        //a part of the text has been replaced and now the text fits the box -> reset rightIndex
+                        rightIndex = 0;
+                        return;
+                    }
                     this.shownText = this.shownText + this.totalText.charAt(shownText.length() + rightIndex-1);
                     this.shownText = calculateShownTextRight(this.shownText);
                     this.cursorPosition++;
@@ -406,23 +415,28 @@ public class GUIInput extends GUIObject{
         if (this.startSelected != this.endSelected) {
             this.totalText = replaceSelected(this.startSelected + leftIndex, this.endSelected + leftIndex, this.totalText, "");
             this.shownText = replaceSelected(this.startSelected, this.endSelected, this.shownText, "");
+            shownText += totalText.substring(this.totalText.length() - rightIndex);
             this.shownText = calculateShownTextRight(shownText);
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
         } else {
             if (this.cursorPosition > 0) {
-                this.totalText = this.removeAt(this.totalText, --this.cursorPosition + leftIndex);
-                this.shownText = this.removeAt(this.shownText, this.cursorPosition);
+                this.totalText = this.removeAt(this.totalText, this.cursorPosition - 1 + leftIndex);
+                this.shownText = this.removeAt(this.shownText, this.cursorPosition - 1);
+                if(rightIndex != 0){
+                    shownText += totalText.charAt(this.totalText.length() - rightIndex);
+                    rightIndex--;
+                }
 
-                this.shownText = calculateShownTextRight(shownText);
+                //this.shownText = calculateShownTextRight(shownText);
+                this.cursorPosition -= 1;
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
             }
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////
     /**
      * When the user pressed the delete button
      */
