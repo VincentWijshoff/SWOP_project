@@ -127,7 +127,9 @@ public class DocumentArea {
      * @param y             y position of the mouse event
      */
     public void handleMouseEvent(int id, int x, int y, int clickCount){
-        this.pane.handleMouseEvent(id, x, y, clickCount);
+        if (this.pane.isOnPane(x, y)) {
+            this.pane.handleMouseEvent(id, x, y, clickCount);
+        }
     }
 
     public void setPane(Pane pane) {
