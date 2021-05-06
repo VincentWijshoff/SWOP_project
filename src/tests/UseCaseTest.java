@@ -1,6 +1,7 @@
 package tests;
 
 import gui.DefaultScreen.BookmarkBar;
+import gui.DefaultScreen.ChildPane;
 import gui.DefaultScreen.DefaultScreen;
 import gui.DefaultScreen.DocumentArea;
 import gui.DialogScreen.SaveBookmarkScreen;
@@ -54,19 +55,19 @@ public class UseCaseTest {
         assertEquals("UC_4.a", screen.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
         ArrayList<GUIObject> renderedObjects = screen.getDocArea().getDrawnGUIObjects();
         assertTrue("UC_4.b", renderedObjects.size() == 11);
-        assertTrue("UC_4.j", containsGUIStringWithPos(docarea.xOffset, docarea.getRelativeYPos(), "HTML elements partially supported by Browsr:", renderedObjects));
+        assertTrue("UC_4.j", containsGUIStringWithPos(ChildPane.xOffset, docarea.getRelativeYPos(), "HTML elements partially supported by Browsr:", renderedObjects));
 
-        assertTrue("UC_4.d", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight() + GUITable.yMargin, "a", "a.html", renderedObjects));
-        assertTrue("UC_4.g", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight() + GUITable.yMargin, "Hyperlink anchors", renderedObjects));
+        assertTrue("UC_4.d", containsGUILinkWithPos(ChildPane.xOffset, docarea.getRelativeYPos() + fm.getHeight() + GUITable.yMargin, "a", "a.html", renderedObjects));
+        assertTrue("UC_4.g", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight() + GUITable.yMargin, "Hyperlink anchors", renderedObjects));
 
-        assertTrue("UC_4.e", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight() + 2*GUITable.yMargin, "table", "table.html", renderedObjects));
-        assertTrue("UC_4.c", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 2*fm.getHeight() + 2*GUITable.yMargin, "Tables", renderedObjects));
+        assertTrue("UC_4.e", containsGUILinkWithPos(ChildPane.xOffset, docarea.getRelativeYPos() + 2*fm.getHeight() + 2*GUITable.yMargin, "table", "table.html", renderedObjects));
+        assertTrue("UC_4.c", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 2*fm.getHeight() + 2*GUITable.yMargin, "Tables", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWithPos(docarea.xOffset, docarea.getRelativeYPos() + 3*fm.getHeight() + 3*GUITable.yMargin, "tr", "tr.html", renderedObjects));
-        assertTrue("UC_4.i", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 3*fm.getHeight() + 3*GUITable.yMargin, "Table rows", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(ChildPane.xOffset, docarea.getRelativeYPos() + 3*fm.getHeight() + 3*GUITable.yMargin, "tr", "tr.html", renderedObjects));
+        assertTrue("UC_4.i", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 3*fm.getHeight() + 3*GUITable.yMargin, "Table rows", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWithPos(docarea.xOffset,  docarea.getRelativeYPos()  + 4*fm.getHeight() + 4*GUITable.yMargin, "td", "td.html", renderedObjects));
-        assertTrue("UC_4.f", containsGUIStringWithPos(docarea.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 4*fm.getHeight() + 4*GUITable.yMargin, "Table cells containing table data", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(ChildPane.xOffset,  docarea.getRelativeYPos()  + 4*fm.getHeight() + 4*GUITable.yMargin, "td", "td.html", renderedObjects));
+        assertTrue("UC_4.f", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, docarea.getRelativeYPos() + 4*fm.getHeight() + 4*GUITable.yMargin, "Table cells containing table data", renderedObjects));
         //This page has 4 GUILinks and 5 GUIStrings
 
         //5 User navigates to a desired webpage. (using hyperlink)
@@ -74,7 +75,7 @@ public class UseCaseTest {
         for(GUIObject obj : screen.getDocArea().getDrawnGUIObjects()){
             if(obj instanceof GUILink){
                 //press a hyperlink
-                obj.handleMouseEvent(docarea.xOffset, docarea.getRelativeYPos() + fm.getHeight() + GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
+                obj.handleMouseEvent(ChildPane.xOffset, docarea.getRelativeYPos() + fm.getHeight() + GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
                 //all hyperlinks will navigate to a non-browsr webpage -> show error document
                 href = ((GUILink) obj).getHref();
                 break;
@@ -105,7 +106,7 @@ public class UseCaseTest {
         for(GUIObject obj : screen.getDocArea().getDrawnGUIObjects()){
             if(obj instanceof GUIInput){
                 GUIInput input = (GUIInput) obj;
-                obj.handleMouseEvent(docarea.xOffset + fm.stringWidth("Maximum number of words to show") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight() + 3*GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
+                obj.handleMouseEvent(ChildPane.xOffset + fm.stringWidth("Maximum number of words to show") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight() + 3*GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
                 assertTrue("UC_3.a", input.getInFocus());
                 typeString(window, "test input");
                 assertEquals("UC_3.b", input.getShownText(), "test input");
@@ -167,7 +168,7 @@ public class UseCaseTest {
         assertFalse("UC_3.b", bookmarkName.getInFocus());
         assertTrue("UC_3.c", bookmarkName.getShownText().equals("testname"));
         //user presses on bookmarkAddress input box
-        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 110, 1, 1, 1024);
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 120, 1, 1, 1024);
         //4. User types in the URL for the bookmark he want to create
         GUIInput bookmarkAddress = saveBookmarkScreen.getBookmarkAddress();
         assertTrue("UC_4.a", bookmarkAddress.getInFocus());
@@ -200,7 +201,7 @@ public class UseCaseTest {
         assertTrue("UC_3.a", bookmarkName.getInFocus());
         typeString(window, "testname");
         //4. User types in a URL
-        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 110, 1, 1, 1024);
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 120, 1, 1, 1024);
         typeString(window, "https://www.google.com");
         //user presses ENTER -> out of focus
         currentScreen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ENTER, '\n', 0);

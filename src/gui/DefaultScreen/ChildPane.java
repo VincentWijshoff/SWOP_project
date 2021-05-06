@@ -17,6 +17,7 @@ import java.util.Set;
 public class ChildPane extends Pane {
 
     private Set<GUIObject> drawnGUIObjects = new HashSet<>();
+    public static final int xOffset = 5;
 
     ChildPane(DocumentArea docArea){
         this.docArea = docArea;
@@ -191,7 +192,7 @@ public class ChildPane extends Pane {
     public void addGUIObject(GUIObject obj) {
         this.drawnGUIObjects.add(obj);
 
-        obj.setPosition(obj.coordX + this.x, obj.coordY+this.y);
+        obj.setPosition(obj.coordX + this.x + ChildPane.xOffset, obj.coordY + this.y);
 
         obj.setFontMetricsHandler(this.docArea.getScreen());
         obj.setPageLoader(this.docArea.getScreen());
