@@ -108,14 +108,14 @@ public class UseCaseTest {
                 obj.handleMouseEvent(docarea.xOffset + fm.stringWidth("Maximum number of words to show") + GUITable.xMargin, docarea.getRelativeYPos() + fm.getHeight() + 3*GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
                 assertTrue("UC_3.a", input.getInFocus());
                 typeString(window, "test input");
-                assertEquals("UC_3.b", input.getText(), "test input");
+                assertEquals("UC_3.b", input.getShownText(), "test input");
 
                 input.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0); //left arrow
                 input.handleKeyEvent(0, 0, ' ', KeyEvent.SHIFT_DOWN_MASK); //start shifting
                 input.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_HOME, ' ', KeyEvent.SHIFT_DOWN_MASK); //home shifting
                 input.handleKeyEvent(0, 0, ' ', 0); //end shifting
                 input.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_SLASH, 'a', 0); //replace "test inpu" with "a" -> "at" is new text
-                assertEquals("UC_3.b", input.getText(), "at");
+                assertEquals("UC_3.b", input.getShownText(), "at");
                 break;
             }
         }
@@ -165,7 +165,7 @@ public class UseCaseTest {
         //user presses ENTER -> out of focus
         currentScreen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ENTER, '\n', 0);
         assertFalse("UC_3.b", bookmarkName.getInFocus());
-        assertTrue("UC_3.c", bookmarkName.getText().equals("testname"));
+        assertTrue("UC_3.c", bookmarkName.getShownText().equals("testname"));
         //user presses on bookmarkAddress input box
         currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 110, 1, 1, 1024);
         //4. User types in the URL for the bookmark he want to create
@@ -175,7 +175,7 @@ public class UseCaseTest {
         //user presses ENTER -> out of focus
         currentScreen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ENTER, '\n', 0);
         assertFalse("UC_4.b", bookmarkAddress.getInFocus());
-        assertTrue("UC_4.c", bookmarkAddress.getText().equals("https://www.google.com"));
+        assertTrue("UC_4.c", bookmarkAddress.getShownText().equals("https://www.google.com"));
         //5. User presses confirm button
         currentScreen.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 150, 180, 1, 1, 1024);
         //default screen is showing again
@@ -205,7 +205,7 @@ public class UseCaseTest {
         //user presses ENTER -> out of focus
         currentScreen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ENTER, '\n', 0);
         assertFalse("UC_3.b", bookmarkName.getInFocus());
-        assertTrue("UC_3.c", bookmarkName.getText().equals("testname"));
+        assertTrue("UC_3.c", bookmarkName.getShownText().equals("testname"));
         //5. User presses cancel button
         currentScreen.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 20, 180, 1, 1, 1024);
         //default screen is showing again

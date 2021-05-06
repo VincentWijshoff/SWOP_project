@@ -1,7 +1,5 @@
 package gui.Objects;
 
-import gui.DefaultScreen.AddressBar;
-
 import java.awt.*;
 
 // Horizontal
@@ -65,7 +63,7 @@ public class Scrollbar {
      *          equal to the ratio of the inputfield-width and inputfield-text-width.
      */
     private int caculateSliderWidth(Graphics g) {
-        String text = this.getInputField().getText();
+        String text = this.getInputField().getShownText();
         int textWidth = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
         int inputFieldWidth = this.getInputField().width;
 

@@ -157,7 +157,7 @@ public class GUIObjectTest {
         // we input some things into the inputs
         int itt = 10;
         for(GUIInput inp : inputs){
-            inp.setText("inptest" + itt);
+            inp.setShownText("inptest" + itt);
             itt--;
         }
         // we expect only 1 button to be loaded
