@@ -167,7 +167,7 @@ public class UseCaseTest {
         assertFalse("UC_3.b", bookmarkName.getInFocus());
         assertTrue("UC_3.c", bookmarkName.getText().equals("testname"));
         //user presses on bookmarkAddress input box
-        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 110, 1, 1, 1024);
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 120, 1, 1, 1024);
         //4. User types in the URL for the bookmark he want to create
         GUIInput bookmarkAddress = saveBookmarkScreen.getBookmarkAddress();
         assertTrue("UC_4.a", bookmarkAddress.getInFocus());
@@ -200,7 +200,7 @@ public class UseCaseTest {
         assertTrue("UC_3.a", bookmarkName.getInFocus());
         typeString(window, "testname");
         //4. User types in a URL
-        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 110, 1, 1, 1024);
+        currentScreen.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 100, 120, 1, 1, 1024);
         typeString(window, "https://www.google.com");
         //user presses ENTER -> out of focus
         currentScreen.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_ENTER, '\n', 0);
