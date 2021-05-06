@@ -193,7 +193,7 @@ public class ParentPane extends Pane{
         if(this.parentPane == null){
             this.docArea.setPane(child);
         }else{
-            this.switchChild(this, child);
+            this.parentPane.switchChild(this, child);
         }
         // we set the dimension off the new child as this dimension
         child.updateDimensions(this.x, this.y, this.width, this.height);
