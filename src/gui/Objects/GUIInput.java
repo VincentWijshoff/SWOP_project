@@ -101,7 +101,7 @@ public class GUIInput extends GUIObject{
      */
     private String calculateShownTextRight(String address){
         int lengthText = this.fontMetricsHandler.getFontMetrics().stringWidth(address);
-        if(lengthText <= width){
+        if(lengthText < width - 5){
             return address; //string fits in InputField
         }
         String result = address;
@@ -109,9 +109,10 @@ public class GUIInput extends GUIObject{
         while (true){
             result = result.substring(1);
             index++;
-            if(this.fontMetricsHandler.getFontMetrics().stringWidth(result) < width){
+            if(this.fontMetricsHandler.getFontMetrics().stringWidth(result) < width-5){
                 if(address.equals(this.shownText)) {
                     this.leftIndex = index;
+                    System.out.println("new index left= " + leftIndex);
                 }
                 return result;
             }
@@ -138,14 +139,13 @@ public class GUIInput extends GUIObject{
         while (true){
             result = result.substring(0, result.length() - 1); //Delete last char
             index--;
-            if(this.fontMetricsHandler.getFontMetrics().stringWidth(result) < width){
+            if(this.fontMetricsHandler.getFontMetrics().stringWidth(result) < width - 5){
                 if(address.equals(this.shownText)) {
                     this.rightIndex = index;
                     System.out.println("new index right= " + rightIndex);
                 }
                 return result;
             }
-
         }
     }
 
@@ -288,11 +288,18 @@ public class GUIInput extends GUIObject{
             this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
         } else {
             // now only input new chars on the position of the text cursor
+
+            //add the char to the total text (use cursorPosition + leftIndex as position)
             this.totalText = addChar(this.totalText, keyChar, this.cursorPosition + leftIndex);
+            //add the char to the shown text
             this.shownText = addChar(this.shownText, keyChar, this.cursorPosition);
+            //make sure the shown text fits in the box
             this.shownText = calculateShownTextRight(this.shownText);
+            //a char has been added, so increment the position of the cursor
             this.cursorPosition += 1;
             if(this.cursorPosition > shownText.length()){
+                //if the position of the cursor is too high, set it to the length of shownText
+                //this happens when a char has been added and the text became too big for the box
                 this.cursorPosition = shownText.length();
             }
         }
@@ -365,10 +372,16 @@ public class GUIInput extends GUIObject{
         if(!this.shifting) {
             if (this.startSelected != this.endSelected) {
                 this.cursorPosition = Math.max(this.startSelected, this.endSelected);
-                if (this.cursorPosition == 0 && this.rightIndex != 0 && this.rightIndex <= this.totalText.length()) {
-                    this.shownText = this.shownText + this.totalText.charAt(rightIndex - 1);
+                if (this.cursorPosition == 0 && this.rightIndex != 0 && this.rightIndex < this.totalText.length()) {
+                    this.shownText = this.shownText + this.totalText.charAt(rightIndex-1);
                     this.shownText = calculateShownTextRight(this.shownText);
-                    this.leftIndex += 1;
+                    int oldLength = this.cursorPosition;
+                    this.cursorPosition = this.shownText.length();
+                    this.startSelected = this.cursorPosition;
+                    this.endSelected = this.cursorPosition;
+
+                    this.rightIndex += (this.cursorPosition - oldLength) + 1;
+                    System.out.println("rightindex= " + rightIndex);
                 }
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
@@ -377,10 +390,16 @@ public class GUIInput extends GUIObject{
                     this.cursorPosition++;
                     this.startSelected = this.cursorPosition;
                     this.endSelected = this.cursorPosition;
-                }else if (this.rightIndex != 0 && this.rightIndex <= this.totalText.length()){
+                }else if (this.rightIndex != 0 && this.rightIndex < this.totalText.length()){
                     this.shownText = this.shownText + this.totalText.charAt(rightIndex-1);
                     this.shownText = calculateShownTextRight(this.shownText);
-                    this.leftIndex += 1;
+                    int oldLength = this.cursorPosition;
+                    this.cursorPosition = this.shownText.length();
+                    this.startSelected = this.cursorPosition;
+                    this.endSelected = this.cursorPosition;
+
+                    this.rightIndex += (this.cursorPosition - oldLength) + 1;
+                    System.out.println("rightindex= " + rightIndex);
                 }
             }
         } else{
@@ -499,7 +518,6 @@ public class GUIInput extends GUIObject{
      * @return          the string with the inserted char at the position
      */
     private String addChar(String str, char ch, int position) {
-
         int len = str.length();
         char[] updatedArr = new char[len + 1];
         try {
@@ -624,11 +642,10 @@ public class GUIInput extends GUIObject{
         String viewedAddress = this.shownText;
         if(inFocus && !this.isSelecting()){
             // when the address bar is in focus, a text cursor needs to be shown at the correct position of the current string
-            System.out.println("vieuwedaddress= " + viewedAddress.length() + "cursorpos= " + cursorPosition);
+            //if(this.cursorPosition > viewedAddress.length())
+            //  this.cursorPosition = viewedAddress.length();
             viewedAddress = this.addChar(viewedAddress, '|', this.getCursorPosition());
 
-            // viewedAddress = calculateShownTextRight(viewedAddress);
-            //this.shownText = viewedAddress;
         }
 
         if(this.isSelecting()){
