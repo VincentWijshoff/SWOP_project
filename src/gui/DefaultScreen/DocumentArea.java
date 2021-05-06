@@ -13,8 +13,6 @@ public class DocumentArea {
 
     // necessary element for the document area
     private final int relativeYPos;
-    public final int xOffset = 5;
-    public final int yOffset = 5;
     private final DefaultScreen screen;
     private Pane pane;
 
@@ -27,7 +25,7 @@ public class DocumentArea {
         this.screen = screen;
         this.relativeYPos = relativeYpos;
         this.pane = new ChildPane(this);
-        this.pane.setDimensions(this.xOffset, this.relativeYPos, 0, 0);
+        this.pane.setDimensions(0, this.relativeYPos, 0, 0);
         this.pane.setInFocus();
     }
 
@@ -86,9 +84,9 @@ public class DocumentArea {
      * Load the welcome document
      */
     public void loadWelcomeDoc() {
-        this.pane.setDimensions(this.xOffset, this.relativeYPos,
-                this.screen.getWidth() - 2*this.xOffset,
-                this.screen.getHeight() - this.relativeYPos - 2*this.yOffset);
+        this.pane.setDimensions(0, this.relativeYPos,
+                this.screen.getWidth(),
+                this.screen.getHeight() - this.relativeYPos);
         this.pane.loadWelcomeDoc();
     }
 
