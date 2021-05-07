@@ -71,10 +71,10 @@ public abstract class Pane {
      * @return      True if the coordinates are on this pane
      */
     boolean isOnPane(int x, int y){
-        return x >= this.x &&
-                x <= this.x + this.width &&
-                y >= this.y &&
-                y <= this.y + this.height;
+        return x > this.x &&
+                x < this.x + this.width &&
+                y > this.y &&
+                y < this.y + this.height;
     }
 
     public abstract void loadWelcomeDoc();

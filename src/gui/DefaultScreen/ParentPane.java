@@ -10,6 +10,7 @@ public class ParentPane extends Pane{
 
     Pane child1;
     Pane child2;
+    int linePosition;
 
     ParentPane(DocumentArea docArea){
         this.docArea = docArea;
@@ -44,22 +45,43 @@ public class ParentPane extends Pane{
     public void updateDimensions(int x, int y, int w, int h){
         super.setDimensions(x, y, w, h);
         // we need to update the child dimensions
-        if(this.child1 != null && this.child2 != null){
-            if(child1.x == child2.x){
-                // same x different y
-                child1.updateDimensions(this.x, this.y, this.width, this.height/2);
-                child2.updateDimensions(this.x, this.y + this.height/2, this.width, this.height/2);
-            }else{
-                // same y different x
-                child1.updateDimensions(this.x, this.y, this.width/2, this.height);
-                child2.updateDimensions(this.x + this.width/2, this.y, this.width/2, this.height);
-            }
-        }
+        updateChildren();
+//        if(this.child1 != null && this.child2 != null){
+//            if(child1.x == child2.x){
+//                // same x different y
+//                child1.updateDimensions(this.x, this.y, this.width, this.height - this.linePosition);
+//                child2.updateDimensions(this.x, this.linePosition, this.width, this.height + this.y - this.linePosition);
+//            }else{
+//                // same y different x
+//                child1.updateDimensions(this.x, this.y, this.width - this.linePosition, this.height);
+//                child2.updateDimensions(this.linePosition, this.y, this.width + this.x - this.linePosition, this.height);
+//            }
+//        }
     }
 
     void setChildren(ChildPane p1, ChildPane p2){
         this.child1 = p1;
         this.child2 = p2;
+        if(child1.x == child2.x) {
+            this.linePosition = this.y + this.height/2;
+        }else{
+            this.linePosition = this.x + this.width/2;
+        }
+    }
+
+    boolean isMovingLine = false;
+
+    void updateChildren(){
+        // update the children with new line position
+        if(child1.x == child2.x){
+                child1.updateDimensions(this.x, this.y, this.width, this.linePosition - this.y);
+                child2.updateDimensions(this.x, this.linePosition, this.width, this.height + this.y - this.linePosition);
+            }else{
+                // same y different x
+                child1.updateDimensions(this.x, this.y, this.linePosition - this.x, this.height);
+                child2.updateDimensions(this.linePosition, this.y, this.width + this.x - this.linePosition, this.height);
+            }    // same x different y
+
     }
 
     /**
@@ -76,14 +98,35 @@ public class ParentPane extends Pane{
         if(child1.isOnPane(x, y)){
             child1.setInFocus();
             child2.setOutFocus();
+            this.isMovingLine = false;
         }else if(child2.isOnPane(x, y)){
             child1.setOutFocus();
             child2.setInFocus();
+            this.isMovingLine = false;
+        }
+        if(isOnLine(x, y)){
+            //now on line, so moving line
+            this.isMovingLine = true;
+            // update positions off children
+            if(child1.x == child2.x){
+                this.linePosition = y;
+            }else{
+                this.linePosition = x;
+            }
+            this.updateChildren();
         }
         if(child1.isInFocus){
             child1.handleMouseEvent(id, x, y, clickCount);
         }else{
             child2.handleMouseEvent(id, x, y, clickCount);
+        }
+    }
+
+    private boolean isOnLine(int x, int y) {
+        if(child1.x == child2.x){
+            return Math.abs(y - this.linePosition) <= 5;
+        }else{
+            return Math.abs(x - this.linePosition) <= 5;
         }
     }
 
@@ -147,10 +190,10 @@ public class ParentPane extends Pane{
         child2.draw(g);
         if(child1.x == child2.x){
             // same x so horizontal line on lowest y
-            g.drawLine(child1.x, Math.max(child1.y, child2.y), child1.x + child1.width, Math.max(child1.y, child2.y));
+            g.drawLine(child1.x, this.linePosition, child1.x + child1.width, this.linePosition);
         }else {
             // not same x so vertical line on highest x
-            g.drawLine(Math.max(child1.x, child2.x), child1.y, Math.max(child1.x, child2.x), child1.y + child1.height);
+            g.drawLine(this.linePosition, child1.y, this.linePosition, child1.y + child1.height);
         }
     }
 
