@@ -421,15 +421,17 @@ public class GUIInput extends GUIObject{
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
         } else {
-            if (this.cursorPosition > 0) {
+            if(this.cursorPosition == 0 && leftIndex > 0){
+                this.totalText = this.removeAt(this.totalText, leftIndex - 1);
+                this.leftIndex--;
+                //no need to increment cursorPosition, since shownText is not affected
+            }else if (this.cursorPosition > 0) {
                 this.totalText = this.removeAt(this.totalText, this.cursorPosition - 1 + leftIndex);
                 this.shownText = this.removeAt(this.shownText, this.cursorPosition - 1);
                 if(rightIndex != 0){
                     shownText += totalText.charAt(this.totalText.length() - rightIndex);
                     rightIndex--;
                 }
-
-                //this.shownText = calculateShownTextRight(shownText);
                 this.cursorPosition -= 1;
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
@@ -443,17 +445,27 @@ public class GUIInput extends GUIObject{
     private void onDelete(){
         //delete
         if (this.startSelected != this.endSelected) {
-            this.totalText = replaceSelected(this.startSelected, this.endSelected, this.totalText, "");
-            this.shownText = calculateShownTextRight(totalText);
+            this.totalText = replaceSelected(this.startSelected + leftIndex, this.endSelected + leftIndex, this.totalText, "");
+            this.shownText = replaceSelected(this.startSelected, this.endSelected, this.shownText, "");
+            shownText += totalText.substring(this.totalText.length() - rightIndex);
+            this.shownText = calculateShownTextRight(shownText);
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
         } else {
             if (this.cursorPosition < this.shownText.length()) {
-                this.totalText = this.removeAt(this.totalText, this.cursorPosition);
-                this.shownText = calculateShownTextRight(totalText);
+                this.totalText = this.removeAt(this.totalText, this.cursorPosition + leftIndex);
+                this.shownText = this.removeAt(this.shownText, this.cursorPosition);
+                if(rightIndex != 0){
+                    shownText += totalText.charAt(this.totalText.length() - rightIndex);
+                    rightIndex--;
+                }
+                this.shownText = calculateShownTextRight(shownText);
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
+            }else if(this.cursorPosition == this.shownText.length() && rightIndex > 0){
+                this.totalText = this.removeAt(this.totalText, this.cursorPosition + leftIndex);
+                rightIndex--;
             }
         }
     }
@@ -490,8 +502,10 @@ public class GUIInput extends GUIObject{
     private void onEscape(){
         //escape
         this.totalText = prevText;
+        leftIndex = 0;
+        rightIndex = 0;
         this.shownText = calculateShownTextLeft(totalText);
-        this.cursorPosition = this.totalText.length();
+        this.cursorPosition = this.shownText.length();
         this.startSelected = this.cursorPosition;
         this.endSelected = this.cursorPosition;
     }

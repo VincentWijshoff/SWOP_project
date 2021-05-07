@@ -58,8 +58,8 @@ public class DocumentArea {
      * @param g The graphics needed to draw the document area
      */
     public void draw(Graphics g) {
+        this.pane.updateDimensions(0, this.relativeYPos, this.screen.getWidth(), this.screen.getHeight() - this.relativeYPos);
         this.pane.draw(g);
-        // Draw every GUIObject in the docArea
     }
 
     /**
