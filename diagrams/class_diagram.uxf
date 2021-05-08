@@ -845,16 +845,16 @@ documentArea</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1456</x>
+      <x>1664</x>
       <y>1056</y>
-      <w>776</w>
+      <w>568</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 
 m2=0..*
 drawnGUIObjects</panel_attributes>
-    <additional_attributes>10.0;20.0;950.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;690.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -935,16 +935,16 @@ contentSpanVisitor</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1296</x>
+      <x>1304</x>
       <y>792</y>
-      <w>112</w>
+      <w>104</w>
       <h>144</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
 loader
 m2=1</panel_attributes>
-    <additional_attributes>10.0;150.0;110.0;150.0;110.0;10.0</additional_attributes>
+    <additional_attributes>10.0;150.0;100.0;150.0;100.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -1324,20 +1324,20 @@ previousScreen</panel_attributes>
     <coordinates>
       <x>776</x>
       <y>888</y>
-      <w>288</w>
+      <w>296</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
 m2=1
 has &gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;340.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;350.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>888</x>
-      <y>1048</y>
+      <x>1424</x>
+      <y>944</y>
       <w>256</w>
       <h>56</h>
     </coordinates>
@@ -1351,45 +1351,45 @@ drawlines()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>920</x>
-      <y>944</y>
-      <w>144</w>
-      <h>120</h>
+      <x>1304</x>
+      <y>936</y>
+      <w>136</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 
 m2=2
 children</panel_attributes>
-    <additional_attributes>10.0;130.0;10.0;10.0;160.0;10.0</additional_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1040</x>
-      <y>976</y>
-      <w>160</w>
-      <h>88</h>
+      <x>1304</x>
+      <y>992</y>
+      <w>336</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=.&gt;&gt;
 &lt;&lt;implements&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;50.0;180.0;50.0;180.0;10.0</additional_attributes>
+    <additional_attributes>310.0;10.0;310.0;40.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1176</x>
+      <x>1544</x>
       <y>1008</y>
-      <w>184</w>
-      <h>56</h>
+      <w>24</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>210.0;50.0;210.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1208</x>
-      <y>1048</y>
+      <x>1416</x>
+      <y>1040</y>
       <w>256</w>
       <h>56</h>
     </coordinates>
@@ -1404,22 +1404,35 @@ objects
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1048</x>
-      <y>840</y>
+      <x>1056</x>
+      <y>808</y>
       <w>256</w>
-      <h>144</h>
+      <h>304</h>
     </coordinates>
     <panel_attributes>/Pane/
 --
 x, y, height, width
 docArea
 isInFocus
+parent
 --
-setDimensions()
-handle mouse
-handle key
-load(address)
-isOnPane(pos)
+setDimensions(int, int) : void
+setParentPane(Pane) : void
+handleMouseEVent(int, int, int, int) : void
+handleKeyEvent(int, int, char, int) : void
+load(string) : void
+isOnPane(int, int) : boolean
+loadWelcomeDoc() : void
+loadErrorDoc() : void
+loadAddress(string) : void
+getCurrentHtml() : string
+getDrawnGUIObjects() : ArrayList&lt;GUIObject&gt;
+addGUIObjects(ArrayList&lt;GUIObject&gt;) : void
+draw(Graphics) : void
+setInFocus() : void
+setOutFocus() : void
+getFocusedPane() : Pane
+updateDimensions(int, int, int, int) : void
 </panel_attributes>
     <additional_attributes/>
   </element>
