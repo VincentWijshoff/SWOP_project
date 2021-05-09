@@ -845,16 +845,16 @@ documentArea</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1664</x>
-      <y>1056</y>
-      <w>568</w>
-      <h>40</h>
+      <x>1912</x>
+      <y>992</y>
+      <w>320</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 
 m2=0..*
 drawnGUIObjects</panel_attributes>
-    <additional_attributes>10.0;20.0;690.0;20.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;380.0;100.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -1339,13 +1339,16 @@ has &gt;</panel_attributes>
       <x>1424</x>
       <y>944</y>
       <w>256</w>
-      <h>56</h>
+      <h>96</h>
     </coordinates>
     <panel_attributes>Parent Pane
 --
-Pane
-drawlines()
-</panel_attributes>
+linePosition : int
+--
+changeChild(ParentPane, ChildPane) : void
+setChildren(ChildPane, ChildPane) : void
+updateChildren() : void
+removeChild(ChildPane) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1366,37 +1369,40 @@ children</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1304</x>
-      <y>992</y>
+      <y>1032</y>
       <w>336</w>
-      <h>48</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=.&gt;&gt;
+
+
 &lt;&lt;implements&gt;&gt;</panel_attributes>
-    <additional_attributes>310.0;10.0;310.0;40.0;10.0;40.0</additional_attributes>
+    <additional_attributes>310.0;10.0;310.0;70.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1544</x>
-      <y>1008</y>
-      <w>24</w>
-      <h>48</h>
+      <y>992</y>
+      <w>336</w>
+      <h>112</h>
     </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=.
+
+</panel_attributes>
+    <additional_attributes>400.0;10.0;400.0;120.0;10.0;120.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1416</x>
-      <y>1040</y>
+      <x>1728</x>
+      <y>944</y>
       <w>256</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>Child Pane
 --
-objects
-
+clearObjects() : void
 
 </panel_attributes>
     <additional_attributes/>
@@ -1407,14 +1413,13 @@ objects
       <x>1056</x>
       <y>808</y>
       <w>256</w>
-      <h>304</h>
+      <h>288</h>
     </coordinates>
     <panel_attributes>/Pane/
 --
 x, y, height, width
 docArea
 isInFocus
-parent
 --
 setDimensions(int, int) : void
 setParentPane(Pane) : void
@@ -1463,5 +1468,19 @@ updateDimensions(int, int, int, int) : void
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>170.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>984</x>
+      <y>968</y>
+      <w>88</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+
+m2=1
+parent</panel_attributes>
+    <additional_attributes>90.0;80.0;10.0;80.0;10.0;10.0;90.0;10.0</additional_attributes>
   </element>
 </diagram>
