@@ -154,8 +154,7 @@ public class ChildPane extends Pane {
     @Override
     public void draw(Graphics g) {
         if(this.isInFocus){
-            // TODO we want a thick rectangle
-            g.drawRect(this.x, this.y, this.width, this.height);
+            g.drawRect(this.x + 2, this.y + 2, this.width - 4, this.height - 4);
         }
         for (GUIObject obj : this.getDrawnGUIObjects()) {
             obj.draw(g);
