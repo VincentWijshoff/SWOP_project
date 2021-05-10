@@ -84,6 +84,8 @@ public class ParentPane extends Pane{
 
     }
 
+    private static final int lineBounds = 50;
+
     /**
      * Handle a mouse event on this pane
      *
@@ -109,9 +111,14 @@ public class ParentPane extends Pane{
             this.isMovingLine = true;
             // update positions off children
             if(child1.x == child2.x){
-                this.linePosition = y;
+                // the line can only go to 10 pixels from borders
+                if (Math.abs(this.y - y) >= lineBounds && Math.abs(this.y + this.height - y) >= lineBounds) {
+                    this.linePosition = y;
+                }
             }else{
-                this.linePosition = x;
+                if(Math.abs(this.x - x) >= lineBounds && Math.abs(this.x + this.width - x) >= lineBounds) {
+                    this.linePosition = x;
+                }
             }
             this.updateChildren();
         }
