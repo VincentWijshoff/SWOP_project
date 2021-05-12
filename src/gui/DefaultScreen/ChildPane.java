@@ -16,9 +16,13 @@ import java.util.Set;
 
 public class ChildPane extends Pane {
 
-    private Set<GUIObject> drawnGUIObjects = new HashSet<>();
-    public static final int xOffset = 5;
+    private Set<GUIObject> drawnGUIObjects = new HashSet<>(); // the set off gui objects
+    public static final int xOffset = 5; // the x offset to draw all objects
 
+    /**
+     * constructor
+     * @param docArea   the document area
+     */
     ChildPane(DocumentArea docArea){
         this.docArea = docArea;
         this.loader = new HtmlLoader(this);
@@ -134,6 +138,10 @@ public class ChildPane extends Pane {
         return this.loader.getHtmlCode();
     }
 
+    /**
+     * get all gui objects from this pane
+     * @return  All gui objects on this pane
+     */
     @Override
     public ArrayList<GUIObject> getDrawnGUIObjects() {
         ArrayList<GUIObject> objs = new ArrayList<>();
@@ -144,6 +152,10 @@ public class ChildPane extends Pane {
         return objs;
     }
 
+    /**
+     * add an array off gui objects to current gui objects
+     * @param objects
+     */
     @Override
     public void addGUIObjects(ArrayList<GUIObject> objects) {
         for (GUIObject obj: objects) {
@@ -151,6 +163,10 @@ public class ChildPane extends Pane {
         }
     }
 
+    /**
+     * draw all gui object sin this pane
+     * @param g the graphics needed to draw
+     */
     @Override
     public void draw(Graphics g) {
         if(this.isInFocus){
@@ -161,21 +177,38 @@ public class ChildPane extends Pane {
         }
     }
 
+    /**
+     * set this pane in focus
+     */
     @Override
     protected void setInFocus() {
         this.isInFocus = true;
     }
 
+    /**
+     * set this pane out of focus
+     */
     @Override
     protected void setOutFocus() {
         this.isInFocus = false;
     }
 
+    /**
+     * get the ane that is in focus, this can only be called if this pane is in focus
+     * @return  this pane
+     */
     @Override
     public ChildPane getFocusedPane() {
         return this;
     }
 
+    /**
+     * update the dimensions off this pane and update positions off gui objects if needed
+     * @param x         the new x position off the pane
+     * @param y         the new y position of the pane
+     * @param width     the new width of the pane
+     * @param height    the new height of the pane
+     */
     @Override
     protected void updateDimensions(int x, int y, int width, int height) {
         int xDiv = x - this.x;
@@ -233,6 +266,10 @@ public class ChildPane extends Pane {
         c1.isInFocus = true;
     }
 
+    /**
+     * set the gui objects off this pane
+     * @param drawnGUIObjects   the gui objects to set
+     */
     private void setGUIObjects(Set<GUIObject> drawnGUIObjects) {
         this.drawnGUIObjects = drawnGUIObjects;
     }
@@ -249,6 +286,10 @@ public class ChildPane extends Pane {
         }
     }
 
+    /**
+     * get a copy of all gui objects in this pane
+     * @return  a copy of al gui objects
+     */
     private Set<GUIObject> copyOfObjects(){
         Set<GUIObject> copy = new HashSet<>();
         for(GUIObject obj : this.drawnGUIObjects){

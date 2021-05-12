@@ -8,14 +8,23 @@ import java.util.ArrayList;
 
 public class ParentPane extends Pane{
 
-    Pane child1;
-    Pane child2;
-    int linePosition;
+    Pane child1; // the first child
+    Pane child2; // the second child
+    int linePosition;   // the position off the separator line between the children
 
+    /**
+     * constructor
+     * @param docArea   the document area
+     */
     ParentPane(DocumentArea docArea){
         this.docArea = docArea;
     }
 
+    /**
+     * switch one off the child panes with a parent pane
+     * @param parent    the parent pane that will be the new child off this parent
+     * @param child     the child pane to switch out
+     */
     void changeChild(ParentPane parent, ChildPane child){
         if(this.child1 == child){
             this.child1 = parent;
@@ -41,24 +50,25 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * update the dimension off this parent pane, will also update children dimension
+     * @param x the new x coordinate
+     * @param y the new y coordinate
+     * @param w the new width
+     * @param h the new height
+     */
     @Override
     public void updateDimensions(int x, int y, int w, int h){
         super.setDimensions(x, y, w, h);
         // we need to update the child dimensions
         updateChildren();
-//        if(this.child1 != null && this.child2 != null){
-//            if(child1.x == child2.x){
-//                // same x different y
-//                child1.updateDimensions(this.x, this.y, this.width, this.height - this.linePosition);
-//                child2.updateDimensions(this.x, this.linePosition, this.width, this.height + this.y - this.linePosition);
-//            }else{
-//                // same y different x
-//                child1.updateDimensions(this.x, this.y, this.width - this.linePosition, this.height);
-//                child2.updateDimensions(this.linePosition, this.y, this.width + this.x - this.linePosition, this.height);
-//            }
-//        }
     }
 
+    /**
+     * set the children for this parent pane
+     * @param p1    the first child
+     * @param p2    the second child
+     */
     void setChildren(ChildPane p1, ChildPane p2){
         this.child1 = p1;
         this.child2 = p2;
@@ -69,8 +79,11 @@ public class ParentPane extends Pane{
         }
     }
 
-    boolean isMovingLine = false;
+    boolean isMovingLine = false; // is the line moving
 
+    /**
+     * update the dimensions for all children with own dimensions and separator line
+     */
     void updateChildren(){
         // update the children with new line position
         if(child1.x == child2.x){
@@ -84,7 +97,7 @@ public class ParentPane extends Pane{
 
     }
 
-    private static final int lineBounds = 50;
+    private static final int lineBounds = 50; // the bounds for the separator line
 
     /**
      * Handle a mouse event on this pane
@@ -122,13 +135,21 @@ public class ParentPane extends Pane{
             }
             this.updateChildren();
         }
-        if(child1.isInFocus){
-            child1.handleMouseEvent(id, x, y, clickCount);
-        }else{
-            child2.handleMouseEvent(id, x, y, clickCount);
+        if(!isMovingLine) {
+            if (child1.isInFocus) {
+                child1.handleMouseEvent(id, x, y, clickCount);
+            } else {
+                child2.handleMouseEvent(id, x, y, clickCount);
+            }
         }
     }
 
+    /**
+     * check if the coordinates are on the separator line
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @return  true if the coordinates are on the line
+     */
     private boolean isOnLine(int x, int y) {
         if(child1.x == child2.x){
             return Math.abs(y - this.linePosition) <= 5;
@@ -137,6 +158,9 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * load the welcome document
+     */
     @Override
     public void loadWelcomeDoc() {
         if(child1.isInFocus){
@@ -146,6 +170,9 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * load the error document
+     */
     @Override
     public void loadErrorDoc() {
         if(child1.isInFocus){
@@ -155,6 +182,11 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * load the address
+     * @param url   the url to the web page
+     * @throws IOException  if an error occurred trying to load the page
+     */
     @Override
     public void loadAddress(String url) throws IOException {
         if(child1.isInFocus){
@@ -164,6 +196,10 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * get the current html off the child in focus
+     * @return  the html off the child in focus
+     */
     @Override
     public String getCurrentHtml() {
         if(child1.isInFocus){
@@ -173,6 +209,10 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * get all gui objects from the child in focus
+     * @return  the gui objects from the child in focus
+     */
     @Override
     public ArrayList<GUIObject> getDrawnGUIObjects() {
         if(child1.isInFocus){
@@ -182,6 +222,10 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * add a list off gui objects to the child in focus
+     * @param objects   the list to add to the child in focus
+     */
     @Override
     public void addGUIObjects(ArrayList<GUIObject> objects) {
         if(child1.isInFocus){
@@ -191,6 +235,10 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * draw both children and the separator line
+     * @param g the graphics needed to draw
+     */
     @Override
     public void draw(Graphics g) {
         child1.draw(g);
@@ -204,12 +252,18 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * sets the focus on this pane
+     */
     @Override
     protected void setInFocus() {
         // it will fix focus on children later on
         this.isInFocus = true;
     }
 
+    /**
+     * sets this and both children out of focus
+     */
     @Override
     protected void setOutFocus() {
         this.isInFocus = false;
@@ -217,6 +271,10 @@ public class ParentPane extends Pane{
         this.child2.setOutFocus();
     }
 
+    /**
+     * get the pane in focus
+     * @return  the pane in focus
+     */
     @Override
     public ChildPane getFocusedPane() {
         if (child1.isInFocus) {
@@ -227,6 +285,10 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * remove the given child from these children
+     * @param childPane the child that should be removed
+     */
     public void removeChild(ChildPane childPane) {
         if(this.child1 == childPane){
             removeThisSubPane(this.child2);
@@ -235,6 +297,10 @@ public class ParentPane extends Pane{
         }
     }
 
+    /**
+     * remove the given pane from children and remove this parent as a sub pane
+     * @param child the child to be removed
+     */
     private void removeThisSubPane(Pane child) {
         //we remove this parent pane
         //we set the parent pane of the remaining child as this parent
@@ -249,6 +315,11 @@ public class ParentPane extends Pane{
         child.updateDimensions(this.x, this.y, this.width, this.height);
     }
 
+    /**
+     * switch the given child with the new child
+     * @param c1    the given child
+     * @param child the new child
+     */
     private void switchChild(Pane c1, Pane child) {
         if(this.child1 == c1){
             this.child1 = child;
