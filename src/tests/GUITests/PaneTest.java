@@ -180,7 +180,7 @@ public class PaneTest {
     void testPaneDragSeparator() throws RuntimeException, InterruptedException, InvocationTargetException {
         this.setup();
         String testName = "testPaneDragSeparator";
-        // test if splitting a pane horizontal wil duplicate the pane nad draw correctly
+        // test if dragging line works
         assertTrue(testName, this.window.getCurrentScreen() instanceof DefaultScreen);
         DefaultScreen scr = (DefaultScreen) this.window.getCurrentScreen();
         // click simulation on the screen to set focus on a child pane
@@ -203,5 +203,30 @@ public class PaneTest {
         assertEquals(testName, parent.linePosition, startPos + 4);
         // finaly we check if one of the children was moved down
         assertTrue(testName, parent.linePosition == parent.child1.y || parent.linePosition == parent.child2.y);
+    }
+
+    @Test
+    void testPaneRejoin() throws RuntimeException, InterruptedException, InvocationTargetException {
+        this.setup();
+        String testName = "testPaneRejoin";
+        assertTrue(testName, this.window.getCurrentScreen() instanceof DefaultScreen);
+        DefaultScreen scr = (DefaultScreen) this.window.getCurrentScreen();
+        // click simulation on the screen to set focus on a child pane
+        scr.getDocArea().handleMouseEvent(MouseEvent.MOUSE_PRESSED,10,50, 1);
+        ChildPane initPane = scr.getDocArea().getFocusedPane();
+        ArrayList<GUIObject> startObjects = initPane.getDrawnGUIObjects();
+        // we split the pane vertically
+        scr.getDocArea().handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_V, 'v', KeyEvent.CTRL_DOWN_MASK);
+        // we rejoin the pane
+        scr.getDocArea().handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_X, 'x', KeyEvent.CTRL_DOWN_MASK);
+        ChildPane secondPane = scr.getDocArea().getFocusedPane();
+        ArrayList<GUIObject> secondObjects = secondPane.getDrawnGUIObjects();
+        // the 2 lists should be the same
+        assertEquals(testName, startObjects.size(), secondObjects.size());
+        for (int i = 0 ; i < startObjects.size(); i++){
+            GUIObject startObj = startObjects.get(i);
+            GUIObject c1Obj = secondObjects.get(i);
+            this.isEqualObject(startObj, c1Obj, testName);
+        }
     }
 }
