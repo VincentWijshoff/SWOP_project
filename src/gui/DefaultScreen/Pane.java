@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public abstract class Pane {
     public int x = 0;
     public int y = 0;
-    int width = 0;
-    int height = 0;
+    public int width = 0;
+    public int height = 0;
     HtmlLoader loader = null;
     DocumentArea docArea = null;
     boolean isInFocus = false;
-    ParentPane parentPane = null;
+    public ParentPane parentPane = null;
 
     /**
      * Set the dimension for this pane

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class ParentPane extends Pane{
 
-    Pane child1; // the first child
-    Pane child2; // the second child
-    int linePosition;   // the position off the separator line between the children
+    public Pane child1; // the first child
+    public Pane child2; // the second child
+    public int linePosition;   // the position off the separator line between the children
 
     /**
      * constructor
