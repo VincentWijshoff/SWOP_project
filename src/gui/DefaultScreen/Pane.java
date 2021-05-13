@@ -10,12 +10,13 @@ import java.util.ArrayList;
 public abstract class Pane {
     public int x = 0;
     public int y = 0;
-    int width = 0;
-    int height = 0;
+    public int width = 0;
+    public int height = 0;
     HtmlLoader loader = null;
-    DocumentArea docArea = null;
+    PaneManager screen = null;
+    AddressBarManager addressBarManager;
     boolean isInFocus = false;
-    ParentPane parentPane = null;
+    public ParentPane parentPane = null;
 
     /**
      * Set the dimension for this pane
@@ -58,10 +59,10 @@ public abstract class Pane {
      * @param url   The given url or href
      */
     public void load(String url){
-        if(this.docArea == null){
+        if(this.screen == null){
             throw new RuntimeException("The document area was not initialised");
         }
-        this.docArea.load(url);
+        this.screen.load(url);
     }
 
     /**
@@ -71,29 +72,69 @@ public abstract class Pane {
      * @return      True if the coordinates are on this pane
      */
     boolean isOnPane(int x, int y){
-        return x >= this.x &&
-                x <= this.x + this.width &&
-                y >= this.y &&
-                y <= this.y + this.height;
+        return x > this.x &&
+                x < this.x + this.width &&
+                y > this.y &&
+                y < this.y + this.height;
     }
 
+    /**
+     * load the welcome doc
+     */
     public abstract void loadWelcomeDoc();
 
+    /**
+     * load the error doc
+     */
     public abstract void loadErrorDoc();
 
+    /**
+     * @param url load the page at this url
+     * @throws IOException
+     */
     public abstract void loadAddress(String url) throws IOException;
 
+    /**
+     * @return the html of the currently loaded page of this pane
+     */
     public abstract String getCurrentHtml();
 
+    /**
+     * @return the currently drawn gui objects on this pane
+     */
     public abstract ArrayList<GUIObject> getDrawnGUIObjects();
 
+    /**
+     * @param objects add these guiobjects to this pane
+     */
     public abstract void addGUIObjects(ArrayList<GUIObject> objects);
 
+    /**
+     * draw this pane and its objects
+     * @param g graphics object
+     */
     public abstract void draw(Graphics g);
 
+    /**
+     * set this pane in focus
+     */
     protected abstract void setInFocus();
 
+    /**
+     * set this pane out of focus
+     */
     protected abstract void setOutFocus();
 
+    /**
+     * @return the child pane that is currently focused
+     */
     public abstract ChildPane getFocusedPane();
+
+    /**
+     * @param x the x position to set this pane to
+     * @param y the y postition to set this pane to
+     * @param width the width to set this pane to
+     * @param height the height to set this pane to
+     */
+    protected abstract void updateDimensions(int x, int y, int width, int height);
 }

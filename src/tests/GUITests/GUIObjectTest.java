@@ -139,15 +139,15 @@ public class GUIObjectTest {
         // we need to load this in via loader, so we rerun the setup for a clean window
         this.setup();
         DefaultScreen screen = new DefaultScreen(window);
-        HtmlLoader loader = new HtmlLoader(screen.getDocArea().getFocusedPane());
+        HtmlLoader loader = new HtmlLoader(screen.getFocusedPane());
         // we load the html into the window
         //screen.getDocArea().clearDocObjects();
         loader.initialise(htmlCode);
         loader.loadPage();
         // we want to input some things into each of the inputs
         // we know only the outer table is in the list of drawn gui objects
-        ArrayList<GUIInput> inputs = screen.getDocArea().getDrawnGUIObjects().get(0).getInputs();
-        System.out.println(screen.getDocArea().getDrawnGUIObjects().get(0).getChildObjects());
+        ArrayList<GUIInput> inputs = screen.getPane().getDrawnGUIObjects().get(0).getInputs();
+        System.out.println(screen.getPane().getDrawnGUIObjects().get(0).getChildObjects());
         assertEquals("formTest", inputs.size(), 5);
         assertEquals("formTest", inputs.get(0).getName(), "test1");
         assertEquals("formTest", inputs.get(1).getName(), "test2");
@@ -157,11 +157,11 @@ public class GUIObjectTest {
         // we input some things into the inputs
         int itt = 10;
         for(GUIInput inp : inputs){
-            inp.setText("inptest" + itt);
+            inp.setShownText("inptest" + itt);
             itt--;
         }
         // we expect only 1 button to be loaded
-        ArrayList<GUIButton> buttons = screen.getDocArea().getDrawnGUIObjects().get(0).getButtons();
+        ArrayList<GUIButton> buttons = screen.getPane().getDrawnGUIObjects().get(0).getButtons();
         assertEquals("formTest", buttons.size(), 1);
         GUIButton butt = buttons.get(0);
         // we press the button now

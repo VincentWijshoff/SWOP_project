@@ -13,12 +13,12 @@ import java.awt.event.KeyEvent;
 /**
  * The default screen
  */
-public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
+public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader, PaneManager, AddressBarManager {
 
     // the elements that are on a default screen
     AddressBar addressBar;
     BookmarkBar bookmarkBar;
-    DocumentArea documentArea;
+    Pane rootPane;
     // the window
     gui.Window window;
 
@@ -31,7 +31,9 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
 
         this.addressBar = new AddressBar("WelcomeDoc.html", this);
         this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit, this);
-        this.documentArea = new DocumentArea(this, this.addressBar.yLimit + this.bookmarkBar.getHeight());
+        this.rootPane = new ChildPane(this, this);
+        this.rootPane.setDimensions(0, this.addressBar.yLimit + this.bookmarkBar.getHeight(), 0, 0);
+        this.rootPane.setInFocus();
     }
 
     /**
@@ -43,10 +45,10 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
         try {
             System.out.println("Loading webpage: " + url);
             this.addressBar.setAddress(url);
-            this.documentArea.loadAddress(url);
+            this.rootPane.loadAddress(url);
         } catch (Exception e) {
             System.out.println("loading Error Page");
-            this.documentArea.loadErrorDoc();
+            this.rootPane.loadErrorDoc();
         }
     }
 
@@ -112,7 +114,10 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
      * Called on startup, needs to show the welcome document
      */
     public void handleShown() {
-        this.documentArea.loadWelcomeDoc();
+        this.rootPane.setDimensions(0, this.rootPane.y,
+                this.getWidth(),
+                this.getHeight() - this.rootPane.y);
+        this.rootPane.loadWelcomeDoc();
     }
 
 
@@ -131,8 +136,9 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
      */
     @Override
     public void draw(Graphics g) {
-        this.documentArea.draw(g);
-
+        int paneYPos = this.addressBar.yLimit + this.bookmarkBar.getHeight();
+        this.rootPane.updateDimensions(0, paneYPos, this.getWidth(), this.getHeight() - paneYPos);
+        this.rootPane.draw(g);
         // Draw AddressBar
         this.bookmarkBar.draw(g, this.window.getWidth());
         this.addressBar.draw(g, this.window.getWidth());
@@ -165,9 +171,12 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
      */
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount, int button, int modifiersEx) {
-        this.documentArea.handleMouseEvent(id, x, y, clickCount);
         this.bookmarkBar.handleMouseEvent(id, x, y, clickCount);
         this.addressBar.handleMouseEvent(id, x, y, clickCount);
+
+        if (this.rootPane.isOnPane(x, y)) {
+            this.rootPane.handleMouseEvent(id, x, y, clickCount);
+        }
     }
 
     /**
@@ -188,9 +197,10 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
                 return;
             }
         }
-        this.documentArea.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
         this.bookmarkBar.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
         this.addressBar.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
+        this.rootPane.handleKeyEvent(id, keyCode, keyChar, modifiersEx);
+
     }
 
     /**
@@ -201,15 +211,6 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
     public FontMetrics getFontMetrics() {
         return window.getFontMetrics();
     }
-
-    /**
-     * Get the document area of this window
-     * @return the document area
-     */
-    public DocumentArea getDocArea() {
-        return this.documentArea;
-    }
-
 
     /**
      * Get the address bar of this window
@@ -238,7 +239,53 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
      * Make the new dialog screen to save the webpage as a html file
      */
     private void makeSaveHtmlScreen(){
-        SaveHtmlScreen s = new SaveHtmlScreen(this.window, this, this.documentArea.getCurrentHtml());
+        SaveHtmlScreen s = new SaveHtmlScreen(this.window, this, this.rootPane.getCurrentHtml());
         this.window.setScreen(s);
+    }
+
+    /**
+     * @return this
+     */
+    @Override
+    public PageLoader getPageLoader() {
+        return this;
+    }
+
+    /**
+     * @return this
+     */
+    @Override
+    public FontMetricsHandler getFontMetricsHandler() {
+        return this;
+    }
+
+    /**
+     * @param pane the pane to set as root pane for this defaultscreen
+     */
+    public void setPane(Pane pane) {
+        this.rootPane = pane;
+    }
+
+    /**
+     * @return the pane that is currently in focus
+     */
+    public ChildPane getFocusedPane() {
+        return this.rootPane.getFocusedPane();
+    }
+
+    /**
+     * @return the root pane of this screen
+     */
+    public Pane getPane() {
+        return this.rootPane;
+    }
+
+    /**
+     * set the address in the address bar
+     * @param address the address to set
+     */
+    @Override
+    public void setAddress(String address) {
+        this.addressBar.setAddress(address);
     }
 }

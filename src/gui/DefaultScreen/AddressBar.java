@@ -74,7 +74,7 @@ public class AddressBar {
      * @param aBarText  the address that will be set
      */
     public void setAddress(String aBarText) {
-        this.inputField.setText(aBarText);
+        this.inputField.setShownText(aBarText);
     }
 
     /**
@@ -82,7 +82,7 @@ public class AddressBar {
      * @return the address currently in the address bar
      */
     public String getAddress() {
-        return this.inputField.getText();
+        return this.inputField.getShownText();
     }
 
     /**

@@ -84,7 +84,7 @@ public class ScreenTest {
         assertEquals("testScreenSaveScreen", str2.coordY, inp.coordY);
         assertTrue("testScreenSaveScreen", str2.coordX < inp.coordX);
         // the input should also be empty on startup
-        assertEquals("testScreenSaveScreen", inp.getText(), "");
+        assertEquals("testScreenSaveScreen", inp.getShownText(), "");
         // the first button should be the cancel button
         assertEquals("testScreenSaveScreen", but1.getText(), "Cancel");
         // the second button should be the save button
@@ -105,14 +105,14 @@ public class ScreenTest {
         // we alter the name first
         assertTrue("testScreenSaveScreen", obj.get(2) instanceof GUIInput);
         GUIInput inp2 = (GUIInput) obj.get(2);
-        inp2.setText("testFile");
+        inp2.setShownText("testFile");
         // if we press the button now, the file should be made and the window should return to the old window
         but3.handleMouseEvent(but3.coordX + 1, but3.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
         assertTrue("testScreenSaveScreen", this.window.getCurrentScreen().equals(oldScreen));
         // the file should be made and containing the html off the default screen
         assertTrue("testScreenSaveScreen", oldScreen instanceof DefaultScreen);
         DefaultScreen defaultScreen = (DefaultScreen) oldScreen;
-        String html = defaultScreen.getDocArea().getCurrentHtml();
+        String html = defaultScreen.getPane().getCurrentHtml();
         // this html should be in a file called "testFile.html"which we just created
         String content = "";
 
@@ -178,9 +178,9 @@ public class ScreenTest {
         assertEquals("testScreenBookmarkScreen", str3.coordY, inp2.coordY);
         assertTrue("testScreenBookmarkScreen", str3.coordX < inp2.coordX);
         // the input should also be empty on startup
-        assertEquals("testScreenBookmarkScreen", inp1.getText(), "");
+        assertEquals("testScreenBookmarkScreen", inp1.getShownText(), "");
         // the second input should be defaulted to the current address
-        assertEquals("testScreenBookmarkScreen", inp2.getText(), defScreen.getAddress());
+        assertEquals("testScreenBookmarkScreen", inp2.getShownText(), defScreen.getAddress());
         // the first button should be the cancel button
         assertEquals("testScreenBookmarkScreen", but1.getText(), "Cancel");
         // the second button should be the save button
@@ -202,7 +202,7 @@ public class ScreenTest {
         // we will alter the name off the new bookmark first
         assertTrue("testScreenBookmarkScreen", obj.get(2) instanceof GUIInput);
         GUIInput inp3 = (GUIInput) obj.get(2);
-        inp3.setText("testBookmark");
+        inp3.setShownText("testBookmark");
         // click the add bookmark button
         but3.handleMouseEvent(but3.coordX + 1, but3.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
         assertTrue("testScreenBookmarkScreen", this.window.getCurrentScreen().equals(oldScreen));
@@ -227,7 +227,7 @@ public class ScreenTest {
         DefaultScreen def = (DefaultScreen) oldScreen;
         def.load("https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
         // the correct loading off this page will be tested in specific test, we will assume here it worked
-        ArrayList<GUIObject> oldObjects = def.getDocArea().getDrawnGUIObjects();
+        ArrayList<GUIObject> oldObjects = def.getPane().getDrawnGUIObjects();
         // we know 2 inputs are present in this screen, but we will take the first input to change up
         GUIInput oldInput = null;
         for (GUIObject obj : oldObjects){
@@ -239,8 +239,8 @@ public class ScreenTest {
         // the input should not be undefined (null)
         assertFalse("testScreenReturnExactState", oldInput == null);
         // now we set some text in the input
-        oldInput.setText("This is a test input");
-        assertEquals("testScreenReturnExactState", oldInput.getText(), "This is a test input");
+        oldInput.setShownText("This is a test input");
+        assertEquals("testScreenReturnExactState", oldInput.getShownText(), "This is a test input");
         // we can now switch screens to one off the dialog screens
         this.window.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
         assertTrue("testScreenReturnExactState", this.window.getCurrentScreen() instanceof SaveBookmarkScreen);
@@ -253,7 +253,7 @@ public class ScreenTest {
         Screen newScreen = this.window.getCurrentScreen();
         assertTrue("testScreenReturnExactState", oldScreen instanceof DefaultScreen);
         DefaultScreen newdef = (DefaultScreen) oldScreen;
-        ArrayList<GUIObject> newObjects = newdef.getDocArea().getDrawnGUIObjects();
+        ArrayList<GUIObject> newObjects = newdef.getPane().getDrawnGUIObjects();
         GUIInput newInput = null;
         for (GUIObject objn : newObjects){
             if ( objn instanceof GUIInput){
@@ -263,7 +263,7 @@ public class ScreenTest {
         }
         assertFalse("testScreenReturnExactState", newInput == null);
         // the text should still be the same
-        assertEquals("testScreenReturnExactState", newInput.getText(), "This is a test input");
+        assertEquals("testScreenReturnExactState", newInput.getShownText(), "This is a test input");
 
     }
 

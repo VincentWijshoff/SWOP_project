@@ -1,6 +1,7 @@
 package gui.DefaultScreen;
 
 import browsrhtml.BrowsrDocumentValidator;
+import gui.Objects.FrameWrapper;
 import gui.Objects.GUIObject;
 import html.HtmlLoader;
 import localDocuments.Docs;
@@ -16,10 +17,19 @@ import java.util.Set;
 
 public class ChildPane extends Pane {
 
-    private Set<GUIObject> drawnGUIObjects = new HashSet<>();
+    private FrameWrapper frame = new FrameWrapper();
+    public static final int xOffset = 5; // the x offset to draw all objects
+    private String address;
 
-    ChildPane(DocumentArea docArea){
-        this.docArea = docArea;
+
+    /**
+     * constructor
+     * @param screen   the default screen
+     */
+    ChildPane(PaneManager screen, AddressBarManager addressBarManager){
+        this.screen = screen;
+        this.addressBarManager = addressBarManager;
+        this.address = addressBarManager.getAddress();
         this.loader = new HtmlLoader(this);
     }
 
@@ -40,9 +50,17 @@ public class ChildPane extends Pane {
             }else if(keyCode == KeyEvent.VK_V){
                 //split with draggable horizontal separator
                 this.makeParentHorizontal();
+            }else if(keyCode == KeyEvent.VK_X){
+                if(this.parentPane == null){
+                    this.loadWelcomeDoc();
+                }else{
+                    // remove this from parent pane, parent will do the rest
+                    this.parentPane.removeChild(this);
+                }
             }
         }
-        drawnGUIObjects.forEach(obj -> obj.handleKeyEvent(id, keyCode, keyChar, modifier));
+
+        frame.handleKeyEvent(id, keyCode, keyChar, modifier);
     }
 
     /**
@@ -55,7 +73,12 @@ public class ChildPane extends Pane {
      */
     @Override
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
-        drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
+        if(this.isOnPane(x, y)){
+            this.setInFocus();
+        }else{
+            this.setOutFocus();
+        }
+        frame.handleMouseEvent(x, y, id, clickCount);
     }
 
     /**
@@ -67,7 +90,8 @@ public class ChildPane extends Pane {
      */
     public void loadAddress(String url) throws IOException {
         URL address = generateAddress(url, "");
-        this.drawnGUIObjects.clear();
+        this.frame.clear();
+        this.address = address.toString();
         isValidBrowsrPage(address);
         this.loader.initialise(address);
         loader.loadPage();
@@ -99,7 +123,7 @@ public class ChildPane extends Pane {
      * Load the error document because an error occurred whit the loading
      */
     public void loadErrorDoc() {
-        this.drawnGUIObjects.clear();
+        this.frame.clear();
         this.loader.initialise(Docs.getErrorPage());
         loader.loadPage();
     }
@@ -108,7 +132,7 @@ public class ChildPane extends Pane {
      * Load the welcome document
      */
     public void loadWelcomeDoc() {
-        this.drawnGUIObjects.clear();
+        this.frame.clear();
         this.loader.initialise(Docs.getWelcomePage());
         loader.loadPage();
     }
@@ -121,16 +145,24 @@ public class ChildPane extends Pane {
         return this.loader.getHtmlCode();
     }
 
+    /**
+     * get all gui objects from this pane
+     * @return  All gui objects on this pane
+     */
     @Override
     public ArrayList<GUIObject> getDrawnGUIObjects() {
         ArrayList<GUIObject> objs = new ArrayList<>();
-        for (GUIObject obj: drawnGUIObjects) {
+        for (GUIObject obj: frame.getDrawnGUIObjects()) {
             objs.add(obj);
             objs.addAll(obj.getChildObjects());
         }
         return objs;
     }
 
+    /**
+     * add an array off gui objects to current gui objects
+     * @param objects gui objects to add
+     */
     @Override
     public void addGUIObjects(ArrayList<GUIObject> objects) {
         for (GUIObject obj: objects) {
@@ -138,30 +170,57 @@ public class ChildPane extends Pane {
         }
     }
 
+    /**
+     * draw all gui object sin this pane
+     * @param g the graphics needed to draw
+     */
     @Override
     public void draw(Graphics g) {
         if(this.isInFocus){
-            // TODO we want a thick rectangle
-            g.drawRect(this.x, this.y, this.width, this.height);
+            g.drawRect(this.x + 2, this.y + 2, this.width - 4, this.height - 4);
         }
-        for (GUIObject obj : this.getDrawnGUIObjects()) {
-            obj.draw(g);
-        }
+        frame.draw(g);
     }
 
+    /**
+     * set this pane in focus
+     */
     @Override
     protected void setInFocus() {
         this.isInFocus = true;
+        this.addressBarManager.setAddress(this.address);
     }
 
+    /**
+     * set this pane out of focus
+     */
     @Override
     protected void setOutFocus() {
         this.isInFocus = false;
     }
 
+    /**
+     * get the ane that is in focus, this can only be called if this pane is in focus
+     * @return  this pane
+     */
     @Override
     public ChildPane getFocusedPane() {
         return this;
+    }
+
+    /**
+     * update the dimensions off this pane and update positions off gui objects if needed
+     * @param x         the new x position off the pane
+     * @param y         the new y position of the pane
+     * @param width     the new width of the pane
+     * @param height    the new height of the pane
+     */
+    @Override
+    protected void updateDimensions(int x, int y, int width, int height) {
+        int xDiv = x - this.x;
+        int yDiv = y - this.y;
+        this.updateGUIPositions(xDiv, yDiv);
+        this.setDimensions(x, y, width, height);
     }
 
     /**
@@ -169,12 +228,12 @@ public class ChildPane extends Pane {
      * @param obj the object that needs to be added
      */
     public void addGUIObject(GUIObject obj) {
-        this.drawnGUIObjects.add(obj);
+        this.frame.add(obj);
 
-        obj.setPosition(obj.coordX + this.x, obj.coordY+this.y);
+        obj.setPosition(obj.coordX + this.x + ChildPane.xOffset, obj.coordY + this.y);
 
-        obj.setFontMetricsHandler(this.docArea.getScreen());
-        obj.setPageLoader(this.docArea.getScreen());
+        obj.setFontMetricsHandler(this.screen.getFontMetricsHandler());
+        obj.setPageLoader(this.screen.getPageLoader());
         obj.updateDimensions();
 
     }
@@ -184,24 +243,24 @@ public class ChildPane extends Pane {
      */
     private void makeParentHorizontal(){
         // we change this into a parent pane
-        ParentPane parent = new ParentPane();
+        ParentPane parent = new ParentPane(this.screen, this.addressBarManager);
         parent.setDimensions(this.x, this.y, this.width, this.height);
         if(this.parentPane != null){
             parent.setParentPane(this.parentPane);
             this.parentPane.changeChild(parent, this);
         }else{
             // this is the upper most pane
-            this.docArea.setPane(parent);
+            this.screen.setPane(parent);
         }
         // we then make 2 child panes exactly as this one is with a horizontal line
         int y1 = this.y;
         int y2 = this.y + this.height / 2;
-        ChildPane c1 = new ChildPane(this.docArea); // upper child
+        ChildPane c1 = new ChildPane(this.screen, this.addressBarManager); // upper child
         c1.setParentPane(parent);
         c1.setDimensions(this.x, y1, this.width, this.height/2);
         c1.setGUIObjects(this.copyOfObjects());
         //c1.updateGUIPositions(0, 0);
-        ChildPane c2 = new ChildPane(this.docArea); // lower child
+        ChildPane c2 = new ChildPane(this.screen, this.addressBarManager); // lower child
         c2.setParentPane(parent);
         c2.setDimensions(this.x, y2, this.width, this.height/2);
         c2.setGUIObjects(this.copyOfObjects());
@@ -213,8 +272,12 @@ public class ChildPane extends Pane {
         c1.isInFocus = true;
     }
 
+    /**
+     * set the gui objects off this pane
+     * @param drawnGUIObjects   the gui objects to set
+     */
     private void setGUIObjects(Set<GUIObject> drawnGUIObjects) {
-        this.drawnGUIObjects = drawnGUIObjects;
+        this.frame.setGUIObjects(drawnGUIObjects);
     }
 
     /**
@@ -223,19 +286,23 @@ public class ChildPane extends Pane {
      * @param yDiv  the difference in y from their old position
      */
     private void updateGUIPositions(int xDiv, int  yDiv){
-        for(GUIObject obj : this.drawnGUIObjects){
+        for(GUIObject obj : this.frame.getDrawnGUIObjects()){
             obj.setPosition(obj.coordX + xDiv, obj.coordY + yDiv);
             obj.updateDimensions();
         }
     }
 
+    /**
+     * get a copy of all gui objects in this pane
+     * @return  a copy of al gui objects
+     */
     private Set<GUIObject> copyOfObjects(){
         Set<GUIObject> copy = new HashSet<>();
-        for(GUIObject obj : this.drawnGUIObjects){
+        for(GUIObject obj : this.frame.getDrawnGUIObjects()){
             HashSet<GUIObject> cpy = obj.copy();
             for(GUIObject guiCopy : cpy){
-                guiCopy.setPageLoader(docArea.getScreen());
-                guiCopy.setFontMetricsHandler(docArea.getScreen());
+                guiCopy.setPageLoader(this.screen.getPageLoader());
+                guiCopy.setFontMetricsHandler(this.screen.getFontMetricsHandler());
             }
             copy.addAll(cpy);
         }
@@ -247,23 +314,23 @@ public class ChildPane extends Pane {
      */
     private void makeParentVertical(){
         // we change this into a parent pane
-        ParentPane parent = new ParentPane();
+        ParentPane parent = new ParentPane(this.screen, this.addressBarManager);
         parent.setDimensions(this.x, this.y, this.width, this.height);
         if(this.parentPane != null){
             parent.setParentPane(this.parentPane);
             this.parentPane.changeChild(parent, this);
         }else{
-            this.docArea.setPane(parent);
+            this.screen.setPane(parent);
         }
         // we then make 2 child panes exactly as this one is with a vertical line
         int x1 = this.x;
         int x2 = this.x + this.width / 2;
-        ChildPane c1 = new ChildPane(this.docArea); // left child
+        ChildPane c1 = new ChildPane(this.screen, this.addressBarManager); // left child
         c1.setParentPane(parent);
         c1.setDimensions(x1, this.y, this.width/2, this.height);
         c1.setGUIObjects(this.copyOfObjects());
         //c1.updateGUIPositions(0, 0);
-        ChildPane c2 = new ChildPane(this.docArea); // right child
+        ChildPane c2 = new ChildPane(this.screen, this.addressBarManager); // right child
         c2.setParentPane(parent);
         c2.setDimensions(x2, this.y, this.width/2, this.height);
         c2.setGUIObjects(this.copyOfObjects());
@@ -279,6 +346,6 @@ public class ChildPane extends Pane {
      * Clears the GUIObjects so a new page can be loaded
      */
     public void clearDocObjects(){
-        this.drawnGUIObjects.clear();
+        this.frame.clear();
     }
 }
