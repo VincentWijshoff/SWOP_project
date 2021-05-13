@@ -20,6 +20,9 @@ public class Scrollbar {
     private int maxSliderWidth = 0; // Depends on the width of the inputField.
     int startCoordX, endCoordX;
 
+    public int getMaxSliderWidth() {
+        return maxSliderWidth;
+    }
 
     /**
      * Constructor for Scrollbar
@@ -68,7 +71,7 @@ public class Scrollbar {
      *          equal to the ratio of the inputfield-width and inputfield-text-width.
      */
     private int caculateSliderWidth(Graphics g) {
-        String text = this.getInputField().getTotalText();
+        String text = this.getInputField().getText();
         int textWidth = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
         int inputFieldWidth = this.getInputField().width;
 
@@ -114,7 +117,7 @@ public class Scrollbar {
     private void slide(int sliderMovement) {
         FontMetrics fm = this.inputField.fontMetricsHandler.getFontMetrics();
 
-        double rel = ((double) fm.stringWidth(this.inputField.getTotalText()))   // rel = 1.8            1.9
+        double rel = ((double) fm.stringWidth(this.inputField.getText()))   // rel = 1.8            1.9
                 / ((double) this.maxSliderWidth);
 
         // Dit is echt zooi (int vs double mest), zorgt ervoor dat de scrollbar beetje nauwkeuriger is
@@ -133,7 +136,7 @@ public class Scrollbar {
         if (this.slider.coordX == this.startCoordX || this.getInputField().textPos > 0) this.getInputField().textPos = 0;
         // Max right offset
         else if (this.slider.coordX + this.slider.width >= this.endCoordX)
-            this.getInputField().textPos = this.startCoordX - (fm.stringWidth(this.inputField.getTotalText()) - this.maxSliderWidth+10);
+            this.getInputField().textPos = this.startCoordX - (fm.stringWidth(this.inputField.getText()) - this.maxSliderWidth+10);
 
         //System.out.println("textPos: " + this.getInputField().textPos + ", rest: " + rest);
     }

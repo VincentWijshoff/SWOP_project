@@ -18,16 +18,13 @@ public class GUIInput extends GUIObject{
     // needed parameters
     private int startSelected = 0;              // The starting selected position
     private int endSelected = 0;                // The ending selected position
+    private String text = "";                   // The text in the input field
     private String prevText = "";               // The previous text in the input field
     private boolean shifting = false;           // A parameter to check if the user is pressing shift
-    private int cursorPosition;                 // The current cursor position of the user (relative to shownText)
+    private int cursorPosition;                 // The current cursor position of the user
     private boolean inFocus = false;            // is the input in focus?
     private boolean initialClick = true;        // is the click an initial click
     private boolean pageLoaderInput = false;    // is the input the address bar input?
-    //private String shownText = "";              // The text in the input field that is showing
-    private String totalText = "";              // The total text
-    private int leftIndex = 0;
-    private int rightIndex = 0;
 
     public int textPos = 0;
 
@@ -37,7 +34,7 @@ public class GUIInput extends GUIObject{
      */
     public GUIInput(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
-        this.totalText = startTxt;
+        this.text = startTxt;
         this.scrollbar = new Scrollbar(this);
     }
 
@@ -52,7 +49,7 @@ public class GUIInput extends GUIObject{
      */
     public GUIInput(String startTxt, int x, int y, int width, int height, boolean pageLoader){
         super(x, y, width, height);
-        this.totalText = startTxt;
+        this.text = startTxt;
         this.pageLoaderInput = pageLoader;
         this.scrollbar = new Scrollbar(this);
     }
@@ -66,7 +63,7 @@ public class GUIInput extends GUIObject{
      */
     public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
-        this.totalText = "";
+        this.text = "";
         this.scrollbar = new Scrollbar(this);
     }
 
@@ -76,7 +73,7 @@ public class GUIInput extends GUIObject{
      */
     public GUIInput(String text) {
         super();
-        this.totalText = text;
+        this.text = text;
         this.width = 100;
         this.height = 15;
         this.scrollbar = new Scrollbar(this);
@@ -93,60 +90,11 @@ public class GUIInput extends GUIObject{
     }
 
     /**
-     * calculate the text that is shown in the InputField when a char has been added
-     * @param address   the string to be shown
-     * @return the string that will be printed in the field
-     */
-    private String calculateShownTextRight(String address){
-        int lengthText = this.fontMetricsHandler.getFontMetrics().stringWidth(address);
-        if(lengthText < width - 5){
-            return address; //string fits in InputField
-        }
-        String result = address;
-        int index = leftIndex;
-        while (true){
-            result = result.substring(1);
-            index++;
-            if(this.fontMetricsHandler.getFontMetrics().stringWidth(result) < width-5){
-                if(address.equals(this.shownText)) {
-                    this.leftIndex = index;
-                }
-                return result;
-            }
-        }
-    }
-
-    /**
-     * calculate the text that is shown in the InputField when a char has been added
-     * @param address   the string to be shown
-     * @return the string that will be printed in the field
-     */
-    private String calculateShownTextLeft(String address){
-        int lengthText = this.fontMetricsHandler.getFontMetrics().stringWidth(address);
-        if(lengthText <= width){
-            return address; //string fits in InputField
-        }
-        String result = address;
-        int index = rightIndex;
-        while (true){
-            result = result.substring(0, result.length() - 1); //Delete last char
-            index++;
-            if(this.fontMetricsHandler.getFontMetrics().stringWidth(result) < width - 5){
-                if(address.equals(this.shownText)) {
-                    this.rightIndex = index;
-                }
-                return result;
-            }
-        }
-    }
-
-
-    /**
      * Handle the updating of the dimensions of this string
      */
     @Override
     public void updateDimensions() {
-        // set the height to the height of a string
+        // set the height to the height off a string
         this.height = this.fontMetricsHandler.getFontMetrics().getHeight();
         // because the string will be in the middle off the text box, and we want it to be in the middle of a row
         // we set the y coordinate a bit lower
@@ -176,7 +124,7 @@ public class GUIInput extends GUIObject{
 
             //the current url is selected (blue background)
             this.selectAll();
-            this.prevText = this.totalText;
+            this.prevText = this.text;
 
             // keyboard focus (with text cursor) is done with the inFocus variable and the "|" is added
             // in the painting area
@@ -255,7 +203,7 @@ public class GUIInput extends GUIObject{
                     this.initialClick = true;
                     this.selectNone();
                     if(this.pageLoaderInput){ // if this is the address bar input, a page should load now
-                        this.pageLoader.load(this.getShownText());
+                        this.pageLoader.load(this.getText());
                     }
                 } else if(keyCode != KeyEvent.VK_SHIFT && keyCode != KeyEvent.VK_CONTROL && keyCode != KeyEvent.VK_ALT){
                     // we assume a key was pressed that needs to be shown but is not a normal char
@@ -274,33 +222,16 @@ public class GUIInput extends GUIObject{
         // this will only happen if the pressed button is an actual char
         if (this.startSelected != this.endSelected) {
             // now every bit of the current text must be replaced with the newly pressed character
-            this.totalText = replaceSelected(this.startSelected + leftIndex, this.endSelected + leftIndex, this.totalText, "" + keyChar);
-            this.shownText = replaceSelected(this.startSelected, this.endSelected, this.shownText, "" + keyChar);
-            this.shownText = calculateShownTextRight(this.shownText);
+            this.text = replaceSelected(this.startSelected, this.endSelected, this.text, "" + keyChar);
             this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
         } else {
             // now only input new chars on the position of the text cursor
+            this.text = addChar(this.text, keyChar, this.cursorPosition);
+            this.cursorPosition += 1;
 
-            //add the char to the total text (use cursorPosition + leftIndex as position)
-            this.totalText = addChar(this.totalText, keyChar, this.cursorPosition + leftIndex);
-            //add the char to the shown text
-            this.shownText = addChar(this.shownText, keyChar, this.cursorPosition);
-            //keep a copy to check if a character has been removed from shownText
-            String tempShownText = this.shownText;
-            //make sure the shown text fits in the box
-            this.shownText = calculateShownTextRight(shownText);
-            //a char has been added, so increment the position of the cursor
-            if(tempShownText.equals(this.shownText)){
-                //no char has been removed from shownText so increment
-                //else don't increment since a char has been removed and the cursor stays at the same place
-                this.cursorPosition += 1;
-            }
-
-            if(this.cursorPosition > shownText.length()){
-                //if the position of the cursor is too high, set it to the length of shownText
-                //this happens when a char has been added and the text became too big for the box
-                this.cursorPosition = shownText.length();
-            }
+        }
+        if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+            textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
         }
         this.startSelected = this.cursorPosition;
         this.endSelected = this.cursorPosition;
@@ -312,23 +243,18 @@ public class GUIInput extends GUIObject{
     private void onSpacePress(){
         // space bar
         if (this.startSelected != this.endSelected) {
-            // now every bit the current selected text must be replaced with the newly pressed character
-            this.totalText = this.replaceSelected(this.startSelected + leftIndex, this.endSelected + leftIndex, this.totalText, " ");
-            this.shownText = this.replaceSelected(this.startSelected, this.endSelected, this.shownText, " ");
-            //a part of the text has been replaced, so we add the remainder to shownText and calculate the new shownText
-            //so the text has not a white space in between
-            shownText += totalText.substring(this.totalText.length() - rightIndex);
-            this.shownText = calculateShownTextRight(shownText);
+            // now every bit  the current selected text must be replaced with the newly pressed character
+            this.text = this.replaceSelected(this.startSelected, this.endSelected, this.text, " ");
             // this.address = " ";
             this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
         } else {
             // now only input new chars on the position of the text cursor
-            this.totalText = addChar(this.totalText, ' ', this.cursorPosition + leftIndex);
-            this.shownText = addChar(this.shownText, ' ', this.cursorPosition);
-            String tempShownText = this.shownText;
-            this.shownText = calculateShownTextRight(shownText);
-            if(this.shownText.equals(tempShownText))//no char has been removed
-                this.cursorPosition += 1;
+            this.text = addChar(this.text, ' ', this.cursorPosition);
+            this.cursorPosition += 1;
+
+            if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+                textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
+            }
         }
         this.startSelected = this.cursorPosition;
         this.endSelected = this.cursorPosition;
@@ -342,22 +268,21 @@ public class GUIInput extends GUIObject{
         if(!this.shifting) {
             if (this.startSelected != this.endSelected) {
                 this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-                if(this.cursorPosition == 0 && this.leftIndex > 0){
-                    this.shownText = this.totalText.charAt(leftIndex-1) + this.shownText;
-                    this.shownText = calculateShownTextLeft(this.shownText);
-                    this.leftIndex -= 1;
-                }
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
             } else {
                 if (this.cursorPosition > 0) {
                     this.cursorPosition--;
+
+                    //if user is moving left with cursor and is close to left bound, move text as well
+                    int preCursorTextLen = this.fontMetricsHandler.getFontMetrics().stringWidth(text.substring(0, cursorPosition));
+                    if(preCursorTextLen+textPos < coordX){
+                        textPos += this.fontMetricsHandler.getFontMetrics().stringWidth(text.charAt(cursorPosition) + "|");
+                        if(textPos>0) textPos=0;
+                    }
+
                     this.startSelected = this.cursorPosition;
                     this.endSelected = this.cursorPosition;
-                }else if(this.cursorPosition == 0 && leftIndex > 0){
-                    this.shownText = this.totalText.charAt(leftIndex-1) + this.shownText;
-                    this.shownText = calculateShownTextLeft(this.shownText);
-                    this.leftIndex -= 1;
                 }
             }
         } else{
@@ -376,31 +301,29 @@ public class GUIInput extends GUIObject{
         if(!this.shifting) {
             if (this.startSelected != this.endSelected) {
                 this.cursorPosition = Math.max(this.startSelected, this.endSelected);
-                if (this.cursorPosition == this.shownText.length() && this.rightIndex > 0) {
-                    this.shownText = this.shownText + this.totalText.charAt(shownText.length() + rightIndex-1);
-                    this.shownText = calculateShownTextRight(this.shownText);
-                    this.cursorPosition += 1;
-                    this.rightIndex -=  1;
-                }
+                this.startSelected = this.cursorPosition;
+                this.endSelected = this.cursorPosition;
             } else {
-                if (this.cursorPosition < this.shownText.length()) {
+                if (this.cursorPosition < this.text.length()) {
                     this.cursorPosition++;
-                }else if (this.rightIndex > 0){
-                    if(shownText.length() + rightIndex-1 > shownText.length()){
-                        //a part of the text has been replaced and now the text fits the box -> reset rightIndex
-                        rightIndex = 0;
-                        return;
+                    if(this.cursorPosition != this.text.length()) {
+                        //if user is moving right with cursor and is close to right bound, move text as well
+                        if(this.cursorPosition == this.text.length()-1 && fontMetricsHandler.getFontMetrics().stringWidth(text) > this.scrollbar.getMaxSliderWidth()){
+                            textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
+                        }else {
+                            int afterCursorTextLen = this.fontMetricsHandler.getFontMetrics().stringWidth(text.substring(0, cursorPosition));
+                            if (afterCursorTextLen + textPos + coordX + 10 > this.scrollbar.endCoordX) {
+                                textPos -= this.fontMetricsHandler.getFontMetrics().stringWidth(text.charAt(cursorPosition) + "|");
+                            }
+                        }
                     }
-                    this.shownText = this.shownText + this.totalText.charAt(shownText.length() + rightIndex-1);
-                    this.shownText = calculateShownTextRight(this.shownText);
-                    this.cursorPosition++;
-                    this.rightIndex -= 1;
+
+                    this.startSelected = this.cursorPosition;
+                    this.endSelected = this.cursorPosition;
                 }
             }
-            this.startSelected = this.cursorPosition;
-            this.endSelected = this.cursorPosition;
         } else{
-            if(this.endSelected < this.shownText.length()){
+            if(this.endSelected < this.text.length()){
                 this.endSelected++;
             }
         }
@@ -412,26 +335,17 @@ public class GUIInput extends GUIObject{
     private void onBackSpace(){
         //backspace
         if (this.startSelected != this.endSelected) {
-            this.totalText = replaceSelected(this.startSelected + leftIndex, this.endSelected + leftIndex, this.totalText, "");
-            this.shownText = replaceSelected(this.startSelected, this.endSelected, this.shownText, "");
-            shownText += totalText.substring(this.totalText.length() - rightIndex);
-            this.shownText = calculateShownTextRight(shownText);
+            this.text = replaceSelected(this.startSelected, this.endSelected, this.text, "");
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
         } else {
-            if(this.cursorPosition == 0 && leftIndex > 0){
-                this.totalText = this.removeAt(this.totalText, leftIndex - 1);
-                this.leftIndex--;
-                //no need to increment cursorPosition, since shownText is not affected
-            }else if (this.cursorPosition > 0) {
-                this.totalText = this.removeAt(this.totalText, this.cursorPosition - 1 + leftIndex);
-                this.shownText = this.removeAt(this.shownText, this.cursorPosition - 1);
-                if(rightIndex != 0){
-                    shownText += totalText.charAt(this.totalText.length() - rightIndex);
-                    rightIndex--;
+            if (this.cursorPosition > 0) {
+                this.text = this.removeAt(this.text, --this.cursorPosition);
+                if(cursorPosition!= 0) {
+                    this.textPos += fontMetricsHandler.getFontMetrics().stringWidth(Character.toString(this.text.charAt(cursorPosition - 1)));
+                    if (textPos > 0) textPos = 0;
                 }
-                this.cursorPosition -= 1;
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
             }
@@ -444,27 +358,17 @@ public class GUIInput extends GUIObject{
     private void onDelete(){
         //delete
         if (this.startSelected != this.endSelected) {
-            this.totalText = replaceSelected(this.startSelected + leftIndex, this.endSelected + leftIndex, this.totalText, "");
-            this.shownText = replaceSelected(this.startSelected, this.endSelected, this.shownText, "");
-            shownText += totalText.substring(this.totalText.length() - rightIndex);
-            this.shownText = calculateShownTextRight(shownText);
+            this.text = replaceSelected(this.startSelected, this.endSelected, this.text, "");
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
         } else {
-            if (this.cursorPosition < this.shownText.length()) {
-                this.totalText = this.removeAt(this.totalText, this.cursorPosition + leftIndex);
-                this.shownText = this.removeAt(this.shownText, this.cursorPosition);
-                if(rightIndex != 0){
-                    shownText += totalText.charAt(this.totalText.length() - rightIndex);
-                    rightIndex--;
-                }
-                this.shownText = calculateShownTextRight(shownText);
+            if (this.cursorPosition < this.text.length()) {
+                this.textPos += fontMetricsHandler.getFontMetrics().stringWidth(Character.toString(this.text.charAt(cursorPosition)));
+                if(textPos>0) textPos=0;
+                this.text = this.removeAt(this.text, this.cursorPosition);
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
-            }else if(this.cursorPosition == this.shownText.length() && rightIndex > 0){
-                this.totalText = this.removeAt(this.totalText, this.cursorPosition + leftIndex);
-                rightIndex--;
             }
         }
     }
@@ -475,6 +379,7 @@ public class GUIInput extends GUIObject{
     private void onHome(){
         //home
         this.cursorPosition = 0;
+        this.textPos = 0;
         if(!this.shifting) {
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
@@ -488,7 +393,12 @@ public class GUIInput extends GUIObject{
      */
     private void onEnd(){
         //end
-        this.cursorPosition = this.shownText.length();
+        this.cursorPosition = this.text.length();
+        if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+            textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
+        }else{
+            textPos = 0;
+        }
         if(!this.shifting) {
             this.startSelected = this.cursorPosition;
         }
@@ -500,11 +410,8 @@ public class GUIInput extends GUIObject{
      */
     private void onEscape(){
         //escape
-        this.totalText = prevText;
-        leftIndex = 0;
-        rightIndex = 0;
-        this.shownText = calculateShownTextLeft(totalText);
-        this.cursorPosition = this.shownText.length();
+        this.text = prevText;
+        this.cursorPosition = this.text.length();
         this.startSelected = this.cursorPosition;
         this.endSelected = this.cursorPosition;
     }
@@ -562,30 +469,17 @@ public class GUIInput extends GUIObject{
      * Get the current text in the input field
      * @return  The current text
      */
-    public String getShownText(){
-        return this.shownText;
+    public String getText(){
+        return this.text;
     }
 
     /**
      * Set the text in the input field
      * @param txt   The text that needs to be set
      */
-    public void setShownText(String txt){
-        this.shownText = txt;
+    public void setText(String txt){
+        this.text = txt;
         this.inFocus = false;
-    }
-
-    public String getTotalText(){
-        return this.totalText;
-    }
-
-    /**
-     * Set the text in the input field
-     * @param txt   The text that needs to be set
-     */
-    public void setTotalText(String txt){
-        this.totalText = txt;
-        //this.inFocus = false;
     }
 
     /**
@@ -610,7 +504,7 @@ public class GUIInput extends GUIObject{
      * @return      A list of length 2 with the start and ending x coordinates of the selected parts
      */
     private int[] getSelectedPositions(Graphics g){
-        return this.getSelectedPositions(this.startSelected, this.endSelected, this.shownText, g);
+        return this.getSelectedPositions(this.startSelected, this.endSelected, this.text, g);
     }
 
     /**
@@ -618,7 +512,7 @@ public class GUIInput extends GUIObject{
      */
     private void selectAll(){
         this.startSelected = 0;
-        this.endSelected = this.shownText.length();
+        this.endSelected = this.text.length();
     }
 
     /**
@@ -634,8 +528,8 @@ public class GUIInput extends GUIObject{
      * position of the cursor correctly
      */
     public void start(){
-        this.prevText = totalText;
-        this.cursorPosition = this.shownText.length();
+        this.prevText = text;
+        this.cursorPosition = this.text.length();
         this.inFocus = true;
     }
 
@@ -668,19 +562,16 @@ public class GUIInput extends GUIObject{
         g.drawRect(this.coordX, this.coordY, width, height+this.scrollbar.getHeight()); // border
         g.clearRect(this.coordX+1, this.coordY+1, width-1, height+this.scrollbar.getHeight()-1); // actual address bar (white part)
 
-        String viewedAddress = this.shownText;
+        String viewedAddress = this.getText();
         if(inFocus && !this.isSelecting()){
             // when the address bar is in focus, a text cursor needs to be shown at the correct position of the current string
-            if(this.cursorPosition > viewedAddress.length())
-                this.cursorPosition = viewedAddress.length();
             viewedAddress = this.addChar(viewedAddress, '|', this.getCursorPosition());
-
         }
 
         if(this.isSelecting()){
             //the text is selected so a blue background needs to be drawn
             g.setColor(Color.CYAN);
-            int tmp = (int) g.getFontMetrics().getStringBounds(this.getShownText(), g).getHeight();
+            int tmp = (int) g.getFontMetrics().getStringBounds(this.getText(), g).getHeight();
             int[] xCords = this.getSelectedPositions(g);
             g.fillRect(this.coordX+5 + xCords[0],
                     this.coordY + 3 + ((int) (height/1.5)) - tmp,
@@ -727,7 +618,7 @@ public class GUIInput extends GUIObject{
     @Override
     public HashSet<GUIObject> copy() {
         HashSet<GUIObject> cpy = new HashSet<>();
-        GUIInput copy = new GUIInput(this.shownText, this.coordX, this.coordY, this.width, this.height);
+        GUIInput copy = new GUIInput(this.text, this.coordX, this.coordY, this.width, this.height);
         copy.name = this.name;
         copy.pageLoaderInput = this.pageLoaderInput;
         copy.prevText = this.prevText;
@@ -758,6 +649,6 @@ public class GUIInput extends GUIObject{
      * @return  This name + "=" + the utf-8 encoding of the given input
      */
     public String getFormOutput(){
-        return this.name + "=" + URLEncoder.encode(this.shownText, StandardCharsets.UTF_8);
+        return this.name + "=" + URLEncoder.encode(this.text, StandardCharsets.UTF_8);
     }
 }

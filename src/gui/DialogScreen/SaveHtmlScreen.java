@@ -76,8 +76,8 @@ public class SaveHtmlScreen extends DialogScreen{
      * @throws IOException  Throws an error when the saving to a file went wrong
      */
     private void onSaveFile() throws IOException {
-        System.out.println("Saving to file: " + this.fileName.getShownText());
-        String file = this.fileName.getShownText();
+        System.out.println("Saving to file: " + this.fileName.getText());
+        String file = this.fileName.getText();
 
         this.execute(new SaveHTMLOperation(file, this.htmlCode));
 
