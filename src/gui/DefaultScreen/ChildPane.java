@@ -1,6 +1,7 @@
 package gui.DefaultScreen;
 
 import browsrhtml.BrowsrDocumentValidator;
+import gui.Objects.FrameWrapper;
 import gui.Objects.GUIObject;
 import html.HtmlLoader;
 import localDocuments.Docs;
@@ -16,7 +17,7 @@ import java.util.Set;
 
 public class ChildPane extends Pane {
 
-    private Set<GUIObject> drawnGUIObjects = new HashSet<>(); // the set off gui objects
+    private FrameWrapper frame = new FrameWrapper();
     public static final int xOffset = 5; // the x offset to draw all objects
 
     /**
@@ -54,7 +55,8 @@ public class ChildPane extends Pane {
                 }
             }
         }
-        drawnGUIObjects.forEach(obj -> obj.handleKeyEvent(id, keyCode, keyChar, modifier));
+
+        frame.handleKeyEvent(id, keyCode, keyChar, modifier);
     }
 
     /**
@@ -72,7 +74,7 @@ public class ChildPane extends Pane {
         }else{
             this.setOutFocus();
         }
-        drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
+        frame.handleMouseEvent(x, y, id, clickCount);
     }
 
     /**
@@ -84,7 +86,7 @@ public class ChildPane extends Pane {
      */
     public void loadAddress(String url) throws IOException {
         URL address = generateAddress(url, "");
-        this.drawnGUIObjects.clear();
+        this.frame.clear();
         isValidBrowsrPage(address);
         this.loader.initialise(address);
         loader.loadPage();
@@ -116,7 +118,7 @@ public class ChildPane extends Pane {
      * Load the error document because an error occurred whit the loading
      */
     public void loadErrorDoc() {
-        this.drawnGUIObjects.clear();
+        this.frame.clear();
         this.loader.initialise(Docs.getErrorPage());
         loader.loadPage();
     }
@@ -125,7 +127,7 @@ public class ChildPane extends Pane {
      * Load the welcome document
      */
     public void loadWelcomeDoc() {
-        this.drawnGUIObjects.clear();
+        this.frame.clear();
         this.loader.initialise(Docs.getWelcomePage());
         loader.loadPage();
     }
@@ -145,7 +147,7 @@ public class ChildPane extends Pane {
     @Override
     public ArrayList<GUIObject> getDrawnGUIObjects() {
         ArrayList<GUIObject> objs = new ArrayList<>();
-        for (GUIObject obj: drawnGUIObjects) {
+        for (GUIObject obj: frame.getDrawnGUIObjects()) {
             objs.add(obj);
             objs.addAll(obj.getChildObjects());
         }
@@ -172,9 +174,7 @@ public class ChildPane extends Pane {
         if(this.isInFocus){
             g.drawRect(this.x + 2, this.y + 2, this.width - 4, this.height - 4);
         }
-        for (GUIObject obj : this.getDrawnGUIObjects()) {
-            obj.draw(g);
-        }
+        frame.draw(g);
     }
 
     /**
@@ -222,7 +222,7 @@ public class ChildPane extends Pane {
      * @param obj the object that needs to be added
      */
     public void addGUIObject(GUIObject obj) {
-        this.drawnGUIObjects.add(obj);
+        this.frame.add(obj);
 
         obj.setPosition(obj.coordX + this.x + ChildPane.xOffset, obj.coordY + this.y);
 
@@ -271,7 +271,7 @@ public class ChildPane extends Pane {
      * @param drawnGUIObjects   the gui objects to set
      */
     private void setGUIObjects(Set<GUIObject> drawnGUIObjects) {
-        this.drawnGUIObjects = drawnGUIObjects;
+        this.frame.setGUIObjects(drawnGUIObjects);
     }
 
     /**
@@ -280,7 +280,7 @@ public class ChildPane extends Pane {
      * @param yDiv  the difference in y from their old position
      */
     private void updateGUIPositions(int xDiv, int  yDiv){
-        for(GUIObject obj : this.drawnGUIObjects){
+        for(GUIObject obj : this.frame.getDrawnGUIObjects()){
             obj.setPosition(obj.coordX + xDiv, obj.coordY + yDiv);
             obj.updateDimensions();
         }
@@ -292,7 +292,7 @@ public class ChildPane extends Pane {
      */
     private Set<GUIObject> copyOfObjects(){
         Set<GUIObject> copy = new HashSet<>();
-        for(GUIObject obj : this.drawnGUIObjects){
+        for(GUIObject obj : this.frame.getDrawnGUIObjects()){
             HashSet<GUIObject> cpy = obj.copy();
             for(GUIObject guiCopy : cpy){
                 guiCopy.setPageLoader(this.screen);
@@ -340,6 +340,6 @@ public class ChildPane extends Pane {
      * Clears the GUIObjects so a new page can be loaded
      */
     public void clearDocObjects(){
-        this.drawnGUIObjects.clear();
+        this.frame.clear();
     }
 }
