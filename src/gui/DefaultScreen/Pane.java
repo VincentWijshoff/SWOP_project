@@ -13,7 +13,7 @@ public abstract class Pane {
     public int width = 0;
     public int height = 0;
     HtmlLoader loader = null;
-    DefaultScreen screen = null;
+    PaneManager screen = null;
     boolean isInFocus = false;
     public ParentPane parentPane = null;
 

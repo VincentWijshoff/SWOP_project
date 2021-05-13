@@ -24,7 +24,7 @@ public class ChildPane extends Pane {
      * constructor
      * @param screen   the default screen
      */
-    ChildPane(DefaultScreen screen){
+    ChildPane(PaneManager screen){
         this.screen = screen;
         this.loader = new HtmlLoader(this);
     }
@@ -226,8 +226,8 @@ public class ChildPane extends Pane {
 
         obj.setPosition(obj.coordX + this.x + ChildPane.xOffset, obj.coordY + this.y);
 
-        obj.setFontMetricsHandler(this.screen);
-        obj.setPageLoader(this.screen);
+        obj.setFontMetricsHandler(this.screen.getFontMetricsHandler());
+        obj.setPageLoader(this.screen.getPageLoader());
         obj.updateDimensions();
 
     }
@@ -295,8 +295,8 @@ public class ChildPane extends Pane {
         for(GUIObject obj : this.frame.getDrawnGUIObjects()){
             HashSet<GUIObject> cpy = obj.copy();
             for(GUIObject guiCopy : cpy){
-                guiCopy.setPageLoader(this.screen);
-                guiCopy.setFontMetricsHandler(this.screen);
+                guiCopy.setPageLoader(this.screen.getPageLoader());
+                guiCopy.setFontMetricsHandler(this.screen.getFontMetricsHandler());
             }
             copy.addAll(cpy);
         }

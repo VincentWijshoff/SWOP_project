@@ -1472,16 +1472,18 @@ parent</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>630</x>
+      <x>574</x>
       <y>742</y>
-      <w>154</w>
+      <w>210</w>
       <h>175</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
-AddressBarManager
+PaneManager
 --
-setAddress()
-getAddressBar()</panel_attributes>
+getPageLoader() : PageLoader
+getFontMetricsHandler() : FontMetricsHandler
+setPane(Pane) : void
+load(url) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

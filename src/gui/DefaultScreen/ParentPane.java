@@ -16,7 +16,7 @@ public class ParentPane extends Pane{
      * constructor
      * @param screen   the default screen
      */
-    ParentPane(DefaultScreen screen){
+    ParentPane(PaneManager screen){
         this.screen = screen;
     }
 

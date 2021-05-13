@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 /**
  * The default screen
  */
-public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
+public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader, PaneManager {
 
     // the elements that are on a default screen
     AddressBar addressBar;
@@ -241,6 +241,16 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
     private void makeSaveHtmlScreen(){
         SaveHtmlScreen s = new SaveHtmlScreen(this.window, this, this.rootPane.getCurrentHtml());
         this.window.setScreen(s);
+    }
+
+    @Override
+    public PageLoader getPageLoader() {
+        return this;
+    }
+
+    @Override
+    public FontMetricsHandler getFontMetricsHandler() {
+        return this;
     }
 
     public void setPane(Pane pane) {
