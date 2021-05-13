@@ -19,7 +19,7 @@ public class Scrollbar {
     private static int sliderHeight = 13;
     private int maxSliderWidth = 0; // Depends on the width of the inputField.
     int startCoordX, endCoordX;
-    int lengthChar = 0;
+    double lengthToAdd = 0;
 
 
     /**
@@ -104,46 +104,65 @@ public class Scrollbar {
 
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
         if (this.slider.isOnSlider(x, y) || this.slider.isSliding) {
+
             int sliderXInit = this.slider.coordX;
             this.slider.handleMouseEvent(id, x, y, clickCount);
             int sliderX = this.slider.coordX;
+            int sliderMovement = sliderXInit - sliderX;
+
             String totalText = this.inputField.getTotalText();
-            FontMetrics fontMetrics = this.inputField.fontMetricsHandler.getFontMetrics();
-            char newchar;
-            System.out.println("left: " + this.inputField.getLeftIndex() + "right: " + this.inputField.getRightIndex());
             FontMetrics fm = this.inputField.fontMetricsHandler.getFontMetrics();
-            double rel = fm.stringWidth(this.inputField.getTotalText())/ fm.stringWidth(this.inputField.getShownText());
-            if(sliderXInit > sliderX){ //swiped left
-                lengthChar -= (sliderXInit - sliderX)*rel;
-                System.out.println("lengthchar: "+ lengthChar);
-                while(lengthChar < 0){
+            System.out.println("left: " + this.inputField.getLeftIndex() + "right: " + this.inputField.getRightIndex());
+//            System.out.println("Grijs stuk: " + (this.slider.coordX - this.startCoordX));
+//            System.out.println(("Rest stuk: " + this.slider.width));
+//            System.out.println(("Som: " + (this.slider.width + (this.slider.coordX - this.startCoordX))));
+//            System.out.println("showntext: " + fm.stringWidth(this.inputField.getShownText()));
+//            System.out.println("totalText: " + fm.stringWidth(this.inputField.getTotalText()));
+
+
+            char newchar;
+            double rel = fm.stringWidth(this.inputField.getTotalText())/fm.stringWidth(this.inputField.getShownText());
+            lengthToAdd -= sliderMovement*rel;
+            System.out.println("First lengthToAdd: "+ lengthToAdd);
+
+            if(sliderMovement > 0){ //swiped left
+                while(lengthToAdd <= 0){
                     if(this.inputField.getLeftIndex()==0) {
-                        System.out.println("resetting lengthchar");
-                        lengthChar = 0;
-                    }else {
+                        System.out.println("Slider zou links moeten staan");
+                        //System.out.println("resetting lengthchar");
+                        //lengthToAdd = 0;
+                        break;
+                    } else {
                         newchar = totalText.charAt(this.inputField.getLeftIndex() - 1);
-                        System.out.println("lengthchar= " + lengthChar);
-                        lengthChar += fontMetrics.stringWidth(Character.toString(newchar));
+                        System.out.println("width of char: " + fm.stringWidth(Character.toString(newchar)));
+                        System.out.println("lengthToAdd= " + lengthToAdd);
+                        lengthToAdd += fm.stringWidth(Character.toString(newchar));
+                        System.out.println("new lengthToAdd= " + lengthToAdd);
+
                         this.inputField.setShownText(newchar + this.inputField.getShownText());
                         this.inputField.setLeftIndex(this.inputField.getLeftIndex() - 1);
                     }
                 }
                 this.inputField.setShownText(this.inputField.calculateShownTextLeft(this.inputField.getShownText()));
-            }else if(sliderXInit < sliderX){ //swiped right
-                lengthChar += (sliderX - sliderXInit)*rel;
+            }
+
+            else if(sliderMovement < 0) { //swiped right
+
                 int pos;
-                System.out.println("lengthchar: "+ lengthChar);
-                while(lengthChar > 0){
+                while(lengthToAdd >= 0){
                     if(this.inputField.getRightIndex()==0) {
-                        lengthChar = 0;
+                        System.out.println("Slider zou rechts moeten staan");
+                        //lengthToAdd = 0;
+                        break;
                     }else {
-                        pos = this.inputField.getTotalText().length() - this.inputField.getRightIndex() + 1;
+                        pos = this.inputField.getTotalText().length() - this.inputField.getRightIndex();
                         newchar = totalText.charAt(pos);
-                        lengthChar -= fontMetrics.stringWidth(Character.toString(newchar));
+                        lengthToAdd -= fm.stringWidth(Character.toString(newchar));
                         this.inputField.setShownText(this.inputField.getShownText() + newchar);
                         this.inputField.setRightIndex(this.inputField.getRightIndex() - 1);
                     }
                 }
+
                 this.inputField.setShownText(this.inputField.calculateShownTextRight(this.inputField.getShownText()));
             }
 
