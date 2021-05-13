@@ -161,7 +161,7 @@ public class ChildPane extends Pane {
 
     /**
      * add an array off gui objects to current gui objects
-     * @param objects
+     * @param objects gui objects to add
      */
     @Override
     public void addGUIObjects(ArrayList<GUIObject> objects) {

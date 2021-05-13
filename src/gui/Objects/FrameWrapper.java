@@ -12,15 +12,23 @@ public class FrameWrapper extends GUIObject {
 
     private Set<GUIObject> guiObjects = new HashSet<>();
 
+    /**
+     * Create an empty FrameWrapper
+     */
     public FrameWrapper() {
-
     }
 
+    /**
+     * @param guiObjects create a FrameWrapper with these objects
+     */
     public FrameWrapper(Set<GUIObject> guiObjects ) {
         this.guiObjects = guiObjects;
-
     }
 
+    /**
+     * Draw this FrameWrapper and its objects
+     * @param g the graphics needed to draw each object
+     */
     @Override
     public void draw(Graphics g) {
         //TODO add calculations for which objects to show and positioning of objects
@@ -30,6 +38,9 @@ public class FrameWrapper extends GUIObject {
         }
     }
 
+    /**
+     * @return a copy of this framewrapper with the same guiobjects
+     */
     @Override
     public HashSet<GUIObject> copy() {
         HashSet<GUIObject> cpy = new HashSet<>();
@@ -38,28 +49,54 @@ public class FrameWrapper extends GUIObject {
         return cpy;
     }
 
+    /**
+     * Handle a key event
+     * @param id            The id of the key pressed
+     * @param keyCode       The code of the key pressed
+     * @param keyChar       The char of the key pressed
+     * @param modifier   The modifiers of the key pressed
+     */
     @Override
     public void handleKeyEvent(int id, int keyCode, char keyChar, int modifier) {
         guiObjects.forEach(obj -> obj.handleKeyEvent(id, keyCode, keyChar, modifier));
     }
 
+    /**
+     * Handle a mouse event
+     * @param id            The id of the mouse event
+     * @param x             The x coordinate of the mouse event
+     * @param y             The y coordinate of the mouse event
+     * @param clickCount    The click count of the mouse event
+     */
     @Override
     public void handleMouseEvent(int x, int y, int id, int clickCount) {
         guiObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
     }
 
+    /**
+     * @param obj the guiobject to add to this frame
+     */
     public void add(GUIObject obj) {
         guiObjects.add(obj);
     }
 
+    /**
+     * Clear all guiobjects of this frame
+     */
     public void clear() {
         guiObjects.clear();
     }
 
+    /**
+     * @return all guiobjects of this frame
+     */
     public Set<GUIObject> getDrawnGUIObjects() {
         return guiObjects;
     }
 
+    /**
+     * @param objs the gui objects this frame will have
+     */
     public void setGUIObjects(Set<GUIObject> objs) {
         this.guiObjects = objs;
     }

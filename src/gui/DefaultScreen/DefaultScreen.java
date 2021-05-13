@@ -243,28 +243,47 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader, Pa
         this.window.setScreen(s);
     }
 
+    /**
+     * @return this
+     */
     @Override
     public PageLoader getPageLoader() {
         return this;
     }
 
+    /**
+     * @return this
+     */
     @Override
     public FontMetricsHandler getFontMetricsHandler() {
         return this;
     }
 
+    /**
+     * @param pane the pane to set as root pane for this defaultscreen
+     */
     public void setPane(Pane pane) {
         this.rootPane = pane;
     }
 
+    /**
+     * @return the pane that is currently in focus
+     */
     public ChildPane getFocusedPane() {
         return this.rootPane.getFocusedPane();
     }
 
+    /**
+     * @return the root pane of this screen
+     */
     public Pane getPane() {
         return this.rootPane;
     }
 
+    /**
+     * set the address in the address bar
+     * @param address the address to set
+     */
     @Override
     public void setAddress(String address) {
         this.addressBar.setAddress(address);
