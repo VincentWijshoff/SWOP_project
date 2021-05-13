@@ -4,7 +4,7 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>888</x>
+      <x>856</x>
       <y>1072</y>
       <w>408</w>
       <h>200</h>
@@ -20,7 +20,7 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>888</x>
+      <x>856</x>
       <y>1296</y>
       <w>408</w>
       <h>200</h>
@@ -36,7 +36,7 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>888</x>
+      <x>856</x>
       <y>672</y>
       <w>416</w>
       <h>392</h>
@@ -62,7 +62,7 @@ a-&gt;a+: selectNone()
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>32</x>
+      <x>0</x>
       <y>0</y>
       <w>1328</w>
       <h>640</h>
@@ -71,7 +71,7 @@ a-&gt;a+: selectNone()
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~b EXECUTION
 obj=:DefaultScreen~c EXECUTION
-obj=:DocumentArea~d EXECUTION
+obj=:Pane~d EXECUTION
 obj=:BookmarkBar~e EXECUTION
 obj=:AddressBar~f EXECUTION
 obj=:GUIObject~g EXECUTION
@@ -95,7 +95,7 @@ ref=g g :GUIObject handle click</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>40</x>
+      <x>8</x>
       <y>1160</y>
       <w>816</w>
       <h>368</h>
@@ -119,7 +119,7 @@ combinedFragment=loop~loopid a c;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>40</x>
+      <x>8</x>
       <y>648</y>
       <w>792</w>
       <h>272</h>
@@ -141,7 +141,7 @@ a-&gt;b: run()
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>40</x>
+      <x>8</x>
       <y>928</y>
       <w>776</w>
       <h>224</h>

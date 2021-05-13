@@ -4,7 +4,7 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>49</x>
+      <x>0</x>
       <y>0</y>
       <w>1918</w>
       <h>1057</h>
@@ -15,7 +15,7 @@ obj=:HtmlLexer~b
 obj=:Hyperlink~c
 obj=:HtmlTable~e
 obj=:HtmlForm~f
-obj=:DocumentArea~d EXECUTION
+obj=:Pane~d EXECUTION
 
 found-&gt;a : loadPage();
 a-&gt;&gt;&gt;b : lexer = new HtmlLexer(htmlCode);on=b;

@@ -4,7 +4,7 @@
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>40</x>
+      <x>0</x>
       <y>0</y>
       <w>3320</w>
       <h>830</h>
@@ -13,7 +13,7 @@
 obj=:DefaultScreen~a EXECUTION
 obj=:Window~e EXECUTION
 obj=:AddressBar~b EXECUTION
-obj=:DocumentArea~c EXECUTION
+obj=:Pane~c EXECUTION
 obj=BrowsrDocumentValidator~f EXECUTION
 obj=:HtmlLoader~d EXECUTION
 
@@ -50,7 +50,7 @@ a-&gt;&gt;&gt;c : draw(Graphics)</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>40</x>
+      <x>0</x>
       <y>840</y>
       <w>1130</w>
       <h>480</h>

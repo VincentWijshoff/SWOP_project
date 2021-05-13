@@ -13,7 +13,7 @@
 obj=User~a ACTOR EXECUTION
 obj=:CanvasWindow~e EXECUTION
 obj=:DefaultScreen~b EXECUTION
-obj=:DocumentArea~d EXECUTION
+obj=:Pane~d EXECUTION
 obj=:GUIObject~c EXECUTION
 
 a-&gt;&gt;&gt;e : Mouse Click;
