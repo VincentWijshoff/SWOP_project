@@ -68,7 +68,7 @@ public class Scrollbar {
      *          equal to the ratio of the inputfield-width and inputfield-text-width.
      */
     private int caculateSliderWidth(Graphics g) {
-        String text = this.getInputField().getShownText();
+        String text = this.getInputField().getTotalText();
         int textWidth = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
         int inputFieldWidth = this.getInputField().width;
 
@@ -86,8 +86,8 @@ public class Scrollbar {
 
     /**
      * Check if the given coordinates collide with the position of this object
-     * @param x the x coordinate
-     * @param y the y coordinate
+     * @param X the x coordinate
+     * @param Y the y coordinate
      * @return  true if the given position collides with the position of the object
      */
     public boolean isOnScrollBar(int X, int Y) {
@@ -114,7 +114,7 @@ public class Scrollbar {
     private void slide(int sliderMovement) {
         FontMetrics fm = this.inputField.fontMetricsHandler.getFontMetrics();
 
-        double rel = ((double) fm.stringWidth(this.inputField.getText()))   // rel = 1.8            1.9
+        double rel = ((double) fm.stringWidth(this.inputField.getTotalText()))   // rel = 1.8            1.9
                 / ((double) this.maxSliderWidth);
 
         // Dit is echt zooi (int vs double mest), zorgt ervoor dat de scrollbar beetje nauwkeuriger is
@@ -133,7 +133,7 @@ public class Scrollbar {
         if (this.slider.coordX == this.startCoordX || this.getInputField().textPos > 0) this.getInputField().textPos = 0;
         // Max right offset
         else if (this.slider.coordX + this.slider.width >= this.endCoordX)
-            this.getInputField().textPos = this.startCoordX - (fm.stringWidth(this.inputField.getText()) - this.maxSliderWidth+10);
+            this.getInputField().textPos = this.startCoordX - (fm.stringWidth(this.inputField.getTotalText()) - this.maxSliderWidth+10);
 
         //System.out.println("textPos: " + this.getInputField().textPos + ", rest: " + rest);
     }

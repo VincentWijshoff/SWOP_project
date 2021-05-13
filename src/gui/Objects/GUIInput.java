@@ -24,7 +24,7 @@ public class GUIInput extends GUIObject{
     private boolean inFocus = false;            // is the input in focus?
     private boolean initialClick = true;        // is the click an initial click
     private boolean pageLoaderInput = false;    // is the input the address bar input?
-    private String shownText = "";              // The text in the input field that is showing
+    //private String shownText = "";              // The text in the input field that is showing
     private String totalText = "";              // The total text
     private int leftIndex = 0;
     private int rightIndex = 0;
@@ -37,7 +37,6 @@ public class GUIInput extends GUIObject{
      */
     public GUIInput(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
-        this.shownText = startTxt;
         this.totalText = startTxt;
         this.scrollbar = new Scrollbar(this);
     }
@@ -53,7 +52,6 @@ public class GUIInput extends GUIObject{
      */
     public GUIInput(String startTxt, int x, int y, int width, int height, boolean pageLoader){
         super(x, y, width, height);
-        this.shownText = startTxt;
         this.totalText = startTxt;
         this.pageLoaderInput = pageLoader;
         this.scrollbar = new Scrollbar(this);
@@ -68,7 +66,6 @@ public class GUIInput extends GUIObject{
      */
     public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
-        this.shownText = "";
         this.totalText = "";
         this.scrollbar = new Scrollbar(this);
     }
@@ -79,7 +76,6 @@ public class GUIInput extends GUIObject{
      */
     public GUIInput(String text) {
         super();
-        this.shownText = text;
         this.totalText = text;
         this.width = 100;
         this.height = 15;
@@ -577,6 +573,19 @@ public class GUIInput extends GUIObject{
     public void setShownText(String txt){
         this.shownText = txt;
         this.inFocus = false;
+    }
+
+    public String getTotalText(){
+        return this.totalText;
+    }
+
+    /**
+     * Set the text in the input field
+     * @param txt   The text that needs to be set
+     */
+    public void setTotalText(String txt){
+        this.totalText = txt;
+        //this.inFocus = false;
     }
 
     /**
