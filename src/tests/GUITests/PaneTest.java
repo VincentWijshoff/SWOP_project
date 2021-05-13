@@ -37,7 +37,7 @@ public class PaneTest {
         // the initial pane should be a child pane
         assertTrue("testPaneInitial", this.window.getCurrentScreen() instanceof DefaultScreen);
         DefaultScreen scr = (DefaultScreen) this.window.getCurrentScreen();
-        Pane initPane = scr.getDocArea().getPane();
+        Pane initPane = scr.getPane();
         assertTrue( "testPaneInitial", initPane instanceof ChildPane);
     }
 
@@ -49,8 +49,8 @@ public class PaneTest {
         assertTrue(testName, this.window.getCurrentScreen() instanceof DefaultScreen);
         DefaultScreen scr = (DefaultScreen) this.window.getCurrentScreen();
         // click simulation on the screen to set focus on a child pane
-        scr.getDocArea().handleMouseEvent(MouseEvent.MOUSE_PRESSED,10,50, 1);
-        ChildPane initPane = scr.getDocArea().getFocusedPane();
+        scr.handleMouseEvent(MouseEvent.MOUSE_PRESSED,10,50, 1, 0, 0);
+        ChildPane initPane = scr.getFocusedPane();
         // start dimensions and gui objects
         int startX = initPane.x;
         int startY = initPane.y;
@@ -58,9 +58,9 @@ public class PaneTest {
         int startHeight = initPane.height;
         ArrayList<GUIObject> startObjects = initPane.getDrawnGUIObjects();
         // we split the pane horizontally
-        scr.getDocArea().handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_H, 'h', KeyEvent.CTRL_DOWN_MASK);
+        scr.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_H, 'h', KeyEvent.CTRL_DOWN_MASK);
         // the focused pane should not be the same anymore
-        ChildPane p1 = scr.getDocArea().getFocusedPane();
+        ChildPane p1 = scr.getFocusedPane();
         assertFalse(testName, initPane == p1);
         // the parent pane of the focused child cannot be null
         ParentPane parent = p1.parentPane;
@@ -133,8 +133,8 @@ public class PaneTest {
         assertTrue(testName, this.window.getCurrentScreen() instanceof DefaultScreen);
         DefaultScreen scr = (DefaultScreen) this.window.getCurrentScreen();
         // click simulation on the screen to set focus on a child pane
-        scr.getDocArea().handleMouseEvent(MouseEvent.MOUSE_PRESSED,10,50, 1);
-        ChildPane initPane = scr.getDocArea().getFocusedPane();
+        scr.handleMouseEvent(MouseEvent.MOUSE_PRESSED,10,50, 1, 0, 0);
+        ChildPane initPane = scr.getFocusedPane();
         // start dimensions and gui objects
         int startX = initPane.x;
         int startY = initPane.y;
@@ -142,9 +142,9 @@ public class PaneTest {
         int startHeight = initPane.height;
         ArrayList<GUIObject> startObjects = initPane.getDrawnGUIObjects();
         // we split the pane vertically
-        scr.getDocArea().handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_V, 'v', KeyEvent.CTRL_DOWN_MASK);
+        scr.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_V, 'v', KeyEvent.CTRL_DOWN_MASK);
         // the focused pane should not be the same anymore
-        ChildPane p1 = scr.getDocArea().getFocusedPane();
+        ChildPane p1 = scr.getFocusedPane();
         assertFalse(testName, initPane == p1);
         // the parent pane of the focused child cannot be null
         ParentPane parent = p1.parentPane;
@@ -184,13 +184,13 @@ public class PaneTest {
         assertTrue(testName, this.window.getCurrentScreen() instanceof DefaultScreen);
         DefaultScreen scr = (DefaultScreen) this.window.getCurrentScreen();
         // click simulation on the screen to set focus on a child pane
-        scr.getDocArea().handleMouseEvent(MouseEvent.MOUSE_PRESSED,10,50, 1);
-        ChildPane initPane = scr.getDocArea().getFocusedPane();
+        scr.handleMouseEvent(MouseEvent.MOUSE_PRESSED,10,50, 1, 0, 0);
+        ChildPane initPane = scr.getFocusedPane();
         ArrayList<GUIObject> startObjects = initPane.getDrawnGUIObjects();
         // we split the pane vertically
-        scr.getDocArea().handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_V, 'v', KeyEvent.CTRL_DOWN_MASK);
+        scr.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_V, 'v', KeyEvent.CTRL_DOWN_MASK);
         // the focused pane should not be the same anymore
-        ChildPane p1 = scr.getDocArea().getFocusedPane();
+        ChildPane p1 = scr.getFocusedPane();
         assertFalse(testName, initPane == p1);
         // the parent pane of the focused child cannot be null
         ParentPane parent = p1.parentPane;
@@ -199,7 +199,7 @@ public class PaneTest {
         // should be in middle at beginning
         assertEquals(testName, startPos, parent.y + parent.height/2);
         // pressing 4 pixels below t should drag it to that position
-        scr.getDocArea().handleMouseEvent(MouseEvent.MOUSE_PRESSED, parent.x + 10, startPos + 4, 1);
+        scr.handleMouseEvent(MouseEvent.MOUSE_PRESSED, parent.x + 10, startPos + 4, 1, 0, 0);
         assertEquals(testName, parent.linePosition, startPos + 4);
         // finaly we check if one of the children was moved down
         assertTrue(testName, parent.linePosition == parent.child1.y || parent.linePosition == parent.child2.y);
@@ -212,14 +212,14 @@ public class PaneTest {
         assertTrue(testName, this.window.getCurrentScreen() instanceof DefaultScreen);
         DefaultScreen scr = (DefaultScreen) this.window.getCurrentScreen();
         // click simulation on the screen to set focus on a child pane
-        scr.getDocArea().handleMouseEvent(MouseEvent.MOUSE_PRESSED,10,50, 1);
-        ChildPane initPane = scr.getDocArea().getFocusedPane();
+        scr.handleMouseEvent(MouseEvent.MOUSE_PRESSED,10,50, 1, 0, 0);
+        ChildPane initPane = scr.getFocusedPane();
         ArrayList<GUIObject> startObjects = initPane.getDrawnGUIObjects();
         // we split the pane vertically
-        scr.getDocArea().handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_V, 'v', KeyEvent.CTRL_DOWN_MASK);
+        scr.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_V, 'v', KeyEvent.CTRL_DOWN_MASK);
         // we rejoin the pane
-        scr.getDocArea().handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_X, 'x', KeyEvent.CTRL_DOWN_MASK);
-        ChildPane secondPane = scr.getDocArea().getFocusedPane();
+        scr.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_X, 'x', KeyEvent.CTRL_DOWN_MASK);
+        ChildPane secondPane = scr.getFocusedPane();
         ArrayList<GUIObject> secondObjects = secondPane.getDrawnGUIObjects();
         // the 2 lists should be the same
         assertEquals(testName, startObjects.size(), secondObjects.size());

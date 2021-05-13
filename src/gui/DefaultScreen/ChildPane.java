@@ -21,10 +21,10 @@ public class ChildPane extends Pane {
 
     /**
      * constructor
-     * @param docArea   the document area
+     * @param screen   the default screen
      */
-    ChildPane(DocumentArea docArea){
-        this.docArea = docArea;
+    ChildPane(DefaultScreen screen){
+        this.screen = screen;
         this.loader = new HtmlLoader(this);
     }
 
@@ -226,8 +226,8 @@ public class ChildPane extends Pane {
 
         obj.setPosition(obj.coordX + this.x + ChildPane.xOffset, obj.coordY + this.y);
 
-        obj.setFontMetricsHandler(this.docArea.getScreen());
-        obj.setPageLoader(this.docArea.getScreen());
+        obj.setFontMetricsHandler(this.screen);
+        obj.setPageLoader(this.screen);
         obj.updateDimensions();
 
     }
@@ -237,24 +237,24 @@ public class ChildPane extends Pane {
      */
     private void makeParentHorizontal(){
         // we change this into a parent pane
-        ParentPane parent = new ParentPane(this.docArea);
+        ParentPane parent = new ParentPane(this.screen);
         parent.setDimensions(this.x, this.y, this.width, this.height);
         if(this.parentPane != null){
             parent.setParentPane(this.parentPane);
             this.parentPane.changeChild(parent, this);
         }else{
             // this is the upper most pane
-            this.docArea.setPane(parent);
+            this.screen.setPane(parent);
         }
         // we then make 2 child panes exactly as this one is with a horizontal line
         int y1 = this.y;
         int y2 = this.y + this.height / 2;
-        ChildPane c1 = new ChildPane(this.docArea); // upper child
+        ChildPane c1 = new ChildPane(this.screen); // upper child
         c1.setParentPane(parent);
         c1.setDimensions(this.x, y1, this.width, this.height/2);
         c1.setGUIObjects(this.copyOfObjects());
         //c1.updateGUIPositions(0, 0);
-        ChildPane c2 = new ChildPane(this.docArea); // lower child
+        ChildPane c2 = new ChildPane(this.screen); // lower child
         c2.setParentPane(parent);
         c2.setDimensions(this.x, y2, this.width, this.height/2);
         c2.setGUIObjects(this.copyOfObjects());
@@ -295,8 +295,8 @@ public class ChildPane extends Pane {
         for(GUIObject obj : this.drawnGUIObjects){
             HashSet<GUIObject> cpy = obj.copy();
             for(GUIObject guiCopy : cpy){
-                guiCopy.setPageLoader(docArea.getScreen());
-                guiCopy.setFontMetricsHandler(docArea.getScreen());
+                guiCopy.setPageLoader(this.screen);
+                guiCopy.setFontMetricsHandler(this.screen);
             }
             copy.addAll(cpy);
         }
@@ -308,23 +308,23 @@ public class ChildPane extends Pane {
      */
     private void makeParentVertical(){
         // we change this into a parent pane
-        ParentPane parent = new ParentPane(this.docArea);
+        ParentPane parent = new ParentPane(this.screen);
         parent.setDimensions(this.x, this.y, this.width, this.height);
         if(this.parentPane != null){
             parent.setParentPane(this.parentPane);
             this.parentPane.changeChild(parent, this);
         }else{
-            this.docArea.setPane(parent);
+            this.screen.setPane(parent);
         }
         // we then make 2 child panes exactly as this one is with a vertical line
         int x1 = this.x;
         int x2 = this.x + this.width / 2;
-        ChildPane c1 = new ChildPane(this.docArea); // left child
+        ChildPane c1 = new ChildPane(this.screen); // left child
         c1.setParentPane(parent);
         c1.setDimensions(x1, this.y, this.width/2, this.height);
         c1.setGUIObjects(this.copyOfObjects());
         //c1.updateGUIPositions(0, 0);
-        ChildPane c2 = new ChildPane(this.docArea); // right child
+        ChildPane c2 = new ChildPane(this.screen); // right child
         c2.setParentPane(parent);
         c2.setDimensions(x2, this.y, this.width/2, this.height);
         c2.setGUIObjects(this.copyOfObjects());

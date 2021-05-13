@@ -112,7 +112,7 @@ public class ScreenTest {
         // the file should be made and containing the html off the default screen
         assertTrue("testScreenSaveScreen", oldScreen instanceof DefaultScreen);
         DefaultScreen defaultScreen = (DefaultScreen) oldScreen;
-        String html = defaultScreen.getDocArea().getCurrentHtml();
+        String html = defaultScreen.getPane().getCurrentHtml();
         // this html should be in a file called "testFile.html"which we just created
         String content = "";
 
@@ -227,7 +227,7 @@ public class ScreenTest {
         DefaultScreen def = (DefaultScreen) oldScreen;
         def.load("https://people.cs.kuleuven.be/~bart.jacobs/swop/browsrformtest.html");
         // the correct loading off this page will be tested in specific test, we will assume here it worked
-        ArrayList<GUIObject> oldObjects = def.getDocArea().getDrawnGUIObjects();
+        ArrayList<GUIObject> oldObjects = def.getPane().getDrawnGUIObjects();
         // we know 2 inputs are present in this screen, but we will take the first input to change up
         GUIInput oldInput = null;
         for (GUIObject obj : oldObjects){
@@ -253,7 +253,7 @@ public class ScreenTest {
         Screen newScreen = this.window.getCurrentScreen();
         assertTrue("testScreenReturnExactState", oldScreen instanceof DefaultScreen);
         DefaultScreen newdef = (DefaultScreen) oldScreen;
-        ArrayList<GUIObject> newObjects = newdef.getDocArea().getDrawnGUIObjects();
+        ArrayList<GUIObject> newObjects = newdef.getPane().getDrawnGUIObjects();
         GUIInput newInput = null;
         for (GUIObject objn : newObjects){
             if ( objn instanceof GUIInput){

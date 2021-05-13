@@ -14,10 +14,10 @@ public class ParentPane extends Pane{
 
     /**
      * constructor
-     * @param docArea   the document area
+     * @param screen   the default screen
      */
-    ParentPane(DocumentArea docArea){
-        this.docArea = docArea;
+    ParentPane(DefaultScreen screen){
+        this.screen = screen;
     }
 
     /**
@@ -307,7 +307,7 @@ public class ParentPane extends Pane{
         child.setParentPane(this.parentPane);
         //we then switch this for the given pane as child in this parent
         if(this.parentPane == null){
-            this.docArea.setPane(child);
+            this.screen.setPane(child);
         }else{
             this.parentPane.switchChild(this, child);
         }

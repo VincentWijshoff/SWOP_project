@@ -13,7 +13,7 @@ public abstract class Pane {
     public int width = 0;
     public int height = 0;
     HtmlLoader loader = null;
-    DocumentArea docArea = null;
+    DefaultScreen screen = null;
     boolean isInFocus = false;
     public ParentPane parentPane = null;
 
@@ -58,10 +58,10 @@ public abstract class Pane {
      * @param url   The given url or href
      */
     public void load(String url){
-        if(this.docArea == null){
+        if(this.screen == null){
             throw new RuntimeException("The document area was not initialised");
         }
-        this.docArea.load(url);
+        this.screen.load(url);
     }
 
     /**
