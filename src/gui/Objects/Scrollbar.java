@@ -19,6 +19,7 @@ public class Scrollbar {
     private static int sliderHeight = 13;
     private int maxSliderWidth = 0; // Depends on the width of the inputField.
     int startCoordX, endCoordX;
+    int lengthChar = 0;
 
 
     /**
@@ -35,14 +36,23 @@ public class Scrollbar {
                 this.getInputField().coordY+this.getInputField().height+1, this.maxSliderWidth, sliderHeight);
     }
 
+    public Scrollbar() {
+
+    }
+
     public void draw(Graphics g) {
         // Update the widths (they should change when the user resizes the window).
         setBoundaries();
+        int initWidth = this.slider.width;
         this.slider.width = caculateSliderWidth(g);
 
         // Reposition the slider if it has to grow to the left (move to left and grow instead of growing outside of border)
         if ((this.slider.coordX + this.slider.width) > this.endCoordX) {
             this.slider.coordX = this.endCoordX - this.slider.width;
+        }else if(this.slider.width < initWidth && initWidth > 0){
+            this.slider.coordX += initWidth-this.slider.width;
+        }else if(this.slider.width > initWidth && initWidth > 0){
+            this.slider.coordX += this.slider.width-initWidth;
         }
 
         // Scrollbar outline
@@ -63,7 +73,7 @@ public class Scrollbar {
      *          equal to the ratio of the inputfield-width and inputfield-text-width.
      */
     private int caculateSliderWidth(Graphics g) {
-        String text = this.getInputField().getShownText();
+        String text = this.getInputField().getTotalText();
         int textWidth = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
         int inputFieldWidth = this.getInputField().width;
 
@@ -81,8 +91,8 @@ public class Scrollbar {
 
     /**
      * Check if the given coordinates collide with the position of this object
-     * @param x the x coordinate
-     * @param y the y coordinate
+     * @param X the x coordinate
+     * @param Y the y coordinate
      * @return  true if the given position collides with the position of the object
      */
     public boolean isOnScrollBar(int X, int Y) {
@@ -94,7 +104,49 @@ public class Scrollbar {
 
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
         if (this.slider.isOnSlider(x, y) || this.slider.isSliding) {
+            int sliderXInit = this.slider.coordX;
             this.slider.handleMouseEvent(id, x, y, clickCount);
+            int sliderX = this.slider.coordX;
+            String totalText = this.inputField.getTotalText();
+            FontMetrics fontMetrics = this.inputField.fontMetricsHandler.getFontMetrics();
+            char newchar;
+            System.out.println("left: " + this.inputField.getLeftIndex() + "right: " + this.inputField.getRightIndex());
+            FontMetrics fm = this.inputField.fontMetricsHandler.getFontMetrics();
+            double rel = fm.stringWidth(this.inputField.getTotalText())/ fm.stringWidth(this.inputField.getShownText());
+            if(sliderXInit > sliderX){ //swiped left
+                lengthChar -= (sliderXInit - sliderX)*rel;
+                System.out.println("lengthchar: "+ lengthChar);
+                while(lengthChar < 0){
+                    if(this.inputField.getLeftIndex()==0) {
+                        System.out.println("resetting lengthchar");
+                        lengthChar = 0;
+                    }else {
+                        newchar = totalText.charAt(this.inputField.getLeftIndex() - 1);
+                        System.out.println("lengthchar= " + lengthChar);
+                        lengthChar += fontMetrics.stringWidth(Character.toString(newchar));
+                        this.inputField.setShownText(newchar + this.inputField.getShownText());
+                        this.inputField.setLeftIndex(this.inputField.getLeftIndex() - 1);
+                    }
+                }
+                this.inputField.setShownText(this.inputField.calculateShownTextLeft(this.inputField.getShownText()));
+            }else if(sliderXInit < sliderX){ //swiped right
+                lengthChar += (sliderX - sliderXInit)*rel;
+                int pos;
+                System.out.println("lengthchar: "+ lengthChar);
+                while(lengthChar > 0){
+                    if(this.inputField.getRightIndex()==0) {
+                        lengthChar = 0;
+                    }else {
+                        pos = this.inputField.getTotalText().length() - this.inputField.getRightIndex() + 1;
+                        newchar = totalText.charAt(pos);
+                        lengthChar -= fontMetrics.stringWidth(Character.toString(newchar));
+                        this.inputField.setShownText(this.inputField.getShownText() + newchar);
+                        this.inputField.setRightIndex(this.inputField.getRightIndex() - 1);
+                    }
+                }
+                this.inputField.setShownText(this.inputField.calculateShownTextRight(this.inputField.getShownText()));
+            }
+
         } else {
             System.out.println("Clicked next to scrollbar slider!");
         }

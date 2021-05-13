@@ -11,6 +11,7 @@ import java.util.Set;
 public class FrameWrapper extends GUIObject {
 
     private Set<GUIObject> guiObjects = new HashSet<>();
+    private Scrollbar scrollbar = new Scrollbar();
 
     public FrameWrapper() {
 

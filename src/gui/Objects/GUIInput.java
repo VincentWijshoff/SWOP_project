@@ -99,7 +99,7 @@ public class GUIInput extends GUIObject{
      * @param address   the string to be shown
      * @return the string that will be printed in the field
      */
-    private String calculateShownTextRight(String address){
+    public String calculateShownTextRight(String address){
         int lengthText = this.fontMetricsHandler.getFontMetrics().stringWidth(address);
         if(lengthText < width - 5){
             return address; //string fits in InputField
@@ -123,7 +123,7 @@ public class GUIInput extends GUIObject{
      * @param address   the string to be shown
      * @return the string that will be printed in the field
      */
-    private String calculateShownTextLeft(String address){
+    public String calculateShownTextLeft(String address){
         int lengthText = this.fontMetricsHandler.getFontMetrics().stringWidth(address);
         if(lengthText <= width){
             return address; //string fits in InputField
@@ -627,6 +627,22 @@ public class GUIInput extends GUIObject{
         this.inFocus = true;
     }
 
+    public int getLeftIndex() {
+        return leftIndex;
+    }
+
+    public void setLeftIndex(int leftIndex) {
+        this.leftIndex = leftIndex;
+    }
+
+    public void setRightIndex(int rightIndex) {
+        this.rightIndex = rightIndex;
+    }
+
+    public int getRightIndex() {
+        return rightIndex;
+    }
+
     /**
      * gets the selected position from a word
      * @param start the start of the selection
@@ -688,6 +704,8 @@ public class GUIInput extends GUIObject{
     public void setFocus(boolean f){
         this.inFocus = f;
     }
+
+    public String getTotalText(){ return this.totalText; }
 
     /**
      * Get the inFocus field off the input
