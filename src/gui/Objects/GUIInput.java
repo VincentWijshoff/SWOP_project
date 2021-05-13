@@ -26,6 +26,8 @@ public class GUIInput extends GUIObject{
     private boolean initialClick = true;        // is the click an initial click
     private boolean pageLoaderInput = false;    // is the input the address bar input?
 
+    public int textPos = 0;
+
     /**
      * Constructor, it will set the current text as the given parameter
      * @param startTxt  The starting text in the input field
@@ -206,6 +208,7 @@ public class GUIInput extends GUIObject{
                 } else if(keyCode != KeyEvent.VK_SHIFT && keyCode != KeyEvent.VK_CONTROL && keyCode != KeyEvent.VK_ALT){
                     // we assume a key was pressed that needs to be shown but is not a normal char
                     this.onCharPress(keyChar);
+                    //this.textPos += this.fontMetricsHandler.getFontMetrics().stringWidth(Character.toString(keyChar));
                 }
             }
         }
@@ -537,7 +540,10 @@ public class GUIInput extends GUIObject{
             g.setColor(Color.BLACK);
         }
 
-        g.drawString(viewedAddress, this.coordX+5, this.coordY+((int) (height/1.5)));
+        Shape oldClip = g.getClip();
+        g.setClip(this.coordX, this.coordY, this.width, this.height);
+        g.drawString(viewedAddress, this.coordX+5+textPos, this.coordY+((int) (height/1.5)));
+        g.setClip(oldClip);
         this.scrollbar.draw(g);
     }
 
