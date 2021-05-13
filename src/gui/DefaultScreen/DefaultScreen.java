@@ -13,13 +13,12 @@ import java.awt.event.KeyEvent;
 /**
  * The default screen
  */
-public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
+public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader, AddressBarManager {
 
     // the elements that are on a default screen
     AddressBar addressBar;
     BookmarkBar bookmarkBar;
     Pane rootPane;
-    // the window
     gui.Window window;
 
     /**
@@ -31,7 +30,7 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
 
         this.addressBar = new AddressBar("WelcomeDoc.html", this);
         this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit, this);
-        this.rootPane = new ChildPane(this);
+        this.rootPane = new ChildPane(this, this);
         this.rootPane.setDimensions(0, this.addressBar.yLimit + this.bookmarkBar.getHeight(), 0, 0);
         this.rootPane.setInFocus();
     }
@@ -253,5 +252,10 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader {
 
     public Pane getPane() {
         return this.rootPane;
+    }
+
+    @Override
+    public void setAddress(String address) {
+        this.addressBar.setAddress(address);
     }
 }

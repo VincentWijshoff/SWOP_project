@@ -16,7 +16,8 @@ public class ParentPane extends Pane{
      * constructor
      * @param screen   the default screen
      */
-    ParentPane(DefaultScreen screen){
+    ParentPane(DefaultScreen screen, AddressBarManager addressBarManager) {
+        this.addressBarManager = addressBarManager;
         this.screen = screen;
     }
 

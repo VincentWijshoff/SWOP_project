@@ -19,13 +19,16 @@ public class ChildPane extends Pane {
 
     private FrameWrapper frame = new FrameWrapper();
     public static final int xOffset = 5; // the x offset to draw all objects
+    private String address;
 
     /**
      * constructor
      * @param screen   the default screen
      */
-    ChildPane(DefaultScreen screen){
+    ChildPane(DefaultScreen screen, AddressBarManager addressBarManager){
         this.screen = screen;
+        this.addressBarManager = addressBarManager;
+        this.address = addressBarManager.getAddress();
         this.loader = new HtmlLoader(this);
     }
 
@@ -87,6 +90,7 @@ public class ChildPane extends Pane {
     public void loadAddress(String url) throws IOException {
         URL address = generateAddress(url, "");
         this.frame.clear();
+        this.address = address.toString();
         isValidBrowsrPage(address);
         this.loader.initialise(address);
         loader.loadPage();
@@ -182,6 +186,7 @@ public class ChildPane extends Pane {
      */
     @Override
     protected void setInFocus() {
+        this.addressBarManager.setAddress(address);
         this.isInFocus = true;
     }
 
@@ -237,7 +242,7 @@ public class ChildPane extends Pane {
      */
     private void makeParentHorizontal(){
         // we change this into a parent pane
-        ParentPane parent = new ParentPane(this.screen);
+        ParentPane parent = new ParentPane(this.screen, this.addressBarManager);
         parent.setDimensions(this.x, this.y, this.width, this.height);
         if(this.parentPane != null){
             parent.setParentPane(this.parentPane);
@@ -249,12 +254,12 @@ public class ChildPane extends Pane {
         // we then make 2 child panes exactly as this one is with a horizontal line
         int y1 = this.y;
         int y2 = this.y + this.height / 2;
-        ChildPane c1 = new ChildPane(this.screen); // upper child
+        ChildPane c1 = new ChildPane(this.screen, this.addressBarManager); // upper child
         c1.setParentPane(parent);
         c1.setDimensions(this.x, y1, this.width, this.height/2);
         c1.setGUIObjects(this.copyOfObjects());
         //c1.updateGUIPositions(0, 0);
-        ChildPane c2 = new ChildPane(this.screen); // lower child
+        ChildPane c2 = new ChildPane(this.screen, this.addressBarManager); // lower child
         c2.setParentPane(parent);
         c2.setDimensions(this.x, y2, this.width, this.height/2);
         c2.setGUIObjects(this.copyOfObjects());
@@ -308,7 +313,7 @@ public class ChildPane extends Pane {
      */
     private void makeParentVertical(){
         // we change this into a parent pane
-        ParentPane parent = new ParentPane(this.screen);
+        ParentPane parent = new ParentPane(this.screen, this.addressBarManager);
         parent.setDimensions(this.x, this.y, this.width, this.height);
         if(this.parentPane != null){
             parent.setParentPane(this.parentPane);
@@ -319,12 +324,12 @@ public class ChildPane extends Pane {
         // we then make 2 child panes exactly as this one is with a vertical line
         int x1 = this.x;
         int x2 = this.x + this.width / 2;
-        ChildPane c1 = new ChildPane(this.screen); // left child
+        ChildPane c1 = new ChildPane(this.screen, this.addressBarManager); // left child
         c1.setParentPane(parent);
         c1.setDimensions(x1, this.y, this.width/2, this.height);
         c1.setGUIObjects(this.copyOfObjects());
         //c1.updateGUIPositions(0, 0);
-        ChildPane c2 = new ChildPane(this.screen); // right child
+        ChildPane c2 = new ChildPane(this.screen, this.addressBarManager); // right child
         c2.setParentPane(parent);
         c2.setDimensions(x2, this.y, this.width/2, this.height);
         c2.setGUIObjects(this.copyOfObjects());

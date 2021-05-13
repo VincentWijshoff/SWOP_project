@@ -14,6 +14,7 @@ public abstract class Pane {
     public int height = 0;
     HtmlLoader loader = null;
     DefaultScreen screen = null;
+    AddressBarManager addressBarManager;
     boolean isInFocus = false;
     public ParentPane parentPane = null;
 
