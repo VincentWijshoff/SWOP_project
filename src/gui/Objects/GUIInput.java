@@ -223,15 +223,16 @@ public class GUIInput extends GUIObject {
         return this.getStringWidth(text) <= this.width - 5;
     }
 
+    private int offset = 0;
+    public int getOffset() { return this.offset; }
+    public void setOffset(int amount) {
+        if (amount > 0) this.offset = 0;
+        else if (amount < this.scrollBar.calcMaxOffset(this.getText())) this.offset = this.scrollBar.calcMaxOffset(this.getText());
+        else this.offset = amount;
 
-    private int getOffset() {
-        return this.scrollBar.offset;
+        this.scrollBar.getSlider().coordX = this.scrollBar.calculateSliderX();
     }
-    private void setOffset(int amount) {
-        if (amount > 0) this.scrollBar.offset = 0;
-        else if (amount < this.scrollBar.calcMaxOffset(text)) this.scrollBar.offset = this.scrollBar.calcMaxOffset(text);
-        else this.scrollBar.offset = amount;
-    }
+
 
     /**
      * When the user pressed a char on the keyboard
@@ -253,11 +254,11 @@ public class GUIInput extends GUIObject {
         if(!this.textFits(text) && this.cursorPosition == text.length()){
             //set the position so the last character is on last position of the inputField
             this.setOffset(this.scrollBar.calcMaxOffset(text));
-
         } else if(textFits(text)){
             //the entire string fits, so position = 0
             this.setOffset(0);
         }
+
         this.startSelected = this.cursorPosition;
         this.endSelected = this.cursorPosition;
     }
@@ -310,7 +311,6 @@ public class GUIInput extends GUIObject {
                     if(preCursorTextLen+this.getOffset() < coordX){
                         //move string to right, so the new char plus the cursor (|) fits the box
                         this.setOffset(getOffset() + this.getStringWidth(text.charAt(cursorPosition) + "|"));
-                        //if(textPos>0) textPos=0;
                     }
 
                     this.startSelected = this.cursorPosition;
@@ -641,7 +641,8 @@ public class GUIInput extends GUIObject {
 
         Shape oldClip = g.getClip();
         g.setClip(this.coordX, this.coordY, this.width, this.height);
-        g.drawString(viewedAddress, this.coordX+5+this.getOffset(), this.coordY+((int) (height/1.5)));
+        setOffset(getOffset()); // Is needed to check for edge cases
+        g.drawString(viewedAddress, this.coordX+5+getOffset(), this.coordY+((int) (height/1.5)));
         g.setClip(oldClip);
         this.scrollBar.draw(g);
     }

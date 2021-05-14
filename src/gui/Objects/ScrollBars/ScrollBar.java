@@ -9,7 +9,7 @@ public abstract class ScrollBar {
     private int scrollbarHeight;
     private int scrollBarCoordX;
     private int scrollBarCoordY;
-    private int offset;
+    //private int offset;
     private static final int buffer = 5;
 
 
@@ -26,14 +26,14 @@ public abstract class ScrollBar {
     public int getScrollbarHeight() { return this.scrollbarHeight; }
     public int getScrollbarCoordX() { return this.scrollBarCoordX; }
     public int getScrollbarCoordY() { return this.scrollBarCoordY; }
-    public int getOffset() { return this.offset; }
+    //public int getOffset() { return this.offset; }
     public int getBuffer() { return buffer; }
 
     public void setScrollbarWidth(int width) { this.scrollbarWidth = width; }
     public void setScrollbarHeight(int height) { this.scrollbarHeight = height; }
     public void setScrollbarCoordX(int x) { this.scrollBarCoordX = x; }
     public void setScrollBarCoordY(int y) { this.scrollBarCoordY = y; }
-    public void setOffset(int amount) { this.offset = amount; }
+    //public void setOffset(int amount) { this.offset = amount; }
 
     /**
      * Check if the given coordinates collide with the position of this object

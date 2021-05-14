@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 public class ScrollbarSlider {
 
     HorizontalScrollBar horizontalScrollBar;
-    int coordX, coordY, width, height;
+    public int coordX, coordY, width, height;
 
     // Relative position of click in the slider
     int cursorStartX;
