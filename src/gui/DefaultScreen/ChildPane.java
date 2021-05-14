@@ -179,7 +179,11 @@ public class ChildPane extends Pane {
         if(this.isInFocus){
             g.drawRect(this.x + 2, this.y + 2, this.width - 4, this.height - 4);
         }
+
+        Shape oldClip = g.getClip();
+        g.setClip(this.x, this.y, this.width, this.height);
         frame.draw(g);
+        g.setClip(oldClip);
     }
 
     /**
