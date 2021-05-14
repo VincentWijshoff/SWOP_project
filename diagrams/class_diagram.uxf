@@ -1483,7 +1483,9 @@ PaneManager
 getPageLoader() : PageLoader
 getFontMetricsHandler() : FontMetricsHandler
 setPane(Pane) : void
-load(url) : void</panel_attributes>
+load(url) : void
+setAddress(string) : void
+getAddress() : string</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
