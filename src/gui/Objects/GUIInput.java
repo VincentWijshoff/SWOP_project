@@ -230,10 +230,12 @@ public class GUIInput extends GUIObject{
             this.cursorPosition += 1;
 
         }
+        //check if the string needs to be moved (if it became too big for the inputField)
         if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+            //set the position so the last character is on last position of the inputField
             textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
         }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
-            System.out.println("resetting");
+            //the entire string fits, so position = 0
             textPos = 0;
         }
         this.startSelected = this.cursorPosition;
@@ -248,20 +250,22 @@ public class GUIInput extends GUIObject{
         if (this.startSelected != this.endSelected) {
             // now every bit  the current selected text must be replaced with the newly pressed character
             this.text = this.replaceSelected(this.startSelected, this.endSelected, this.text, " ");
-            // this.address = " ";
             this.cursorPosition = Math.min(this.startSelected, this.endSelected) + 1;
         } else {
             // now only input new chars on the position of the text cursor
             this.text = addChar(this.text, ' ', this.cursorPosition);
             this.cursorPosition += 1;
-
-            if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
-                textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
-            }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
-                System.out.println("resetting");
-                textPos = 0;
-            }
         }
+
+        //check if the string needs to be moved (if it became too big for the inputField)
+        if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+            //set the position so the last character is on last position of the inputField
+            textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
+        }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
+            //the entire string fits, so position = 0
+            textPos = 0;
+        }
+
         this.startSelected = this.cursorPosition;
         this.endSelected = this.cursorPosition;
     }
@@ -283,6 +287,7 @@ public class GUIInput extends GUIObject{
                     //if user is moving left with cursor and is close to left bound, move text as well
                     int preCursorTextLen = this.fontMetricsHandler.getFontMetrics().stringWidth(text.substring(0, cursorPosition));
                     if(preCursorTextLen+textPos < coordX){
+                        //move string to right, so the new char plus the cursor (|) fits the box
                         textPos += this.fontMetricsHandler.getFontMetrics().stringWidth(text.charAt(cursorPosition) + "|");
                         if(textPos>0) textPos=0;
                     }
@@ -295,7 +300,6 @@ public class GUIInput extends GUIObject{
             //left arrow while pressing shift
             if(this.endSelected > 0){
                 this.endSelected--;
-                System.out.println("endselected= "+ endSelected);
             }
         }
     }
@@ -313,13 +317,16 @@ public class GUIInput extends GUIObject{
             } else {
                 if (this.cursorPosition < this.text.length()) {
                     this.cursorPosition++;
+
                     if(this.cursorPosition != this.text.length()) {
                         //if user is moving right with cursor and is close to right bound, move text as well
                         if(this.cursorPosition == this.text.length()-1 && fontMetricsHandler.getFontMetrics().stringWidth(text) > this.scrollbar.getMaxSliderWidth()){
+                            //set the position so the last character is on last position of the inputField
                             textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
-                        }else {
-                            int afterCursorTextLen = this.fontMetricsHandler.getFontMetrics().stringWidth(text.substring(0, cursorPosition));
-                            if (afterCursorTextLen + textPos + coordX + 10 > this.scrollbar.endCoordX) {
+                        } else {
+                            int preCursorTextLen = this.fontMetricsHandler.getFontMetrics().stringWidth(text.substring(0, cursorPosition));
+                            if (preCursorTextLen + textPos + coordX + 10 > this.scrollbar.endCoordX) {
+                                //move string to left, so the new char plus the cursor (|) fits the box
                                 textPos -= this.fontMetricsHandler.getFontMetrics().stringWidth(text.charAt(cursorPosition) + "|");
                             }
                         }
@@ -344,18 +351,22 @@ public class GUIInput extends GUIObject{
         if (this.startSelected != this.endSelected) {
             this.text = replaceSelected(this.startSelected, this.endSelected, this.text, "");
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
+
+            //check if the string needs to be moved (if it became too big for the inputField)
             if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+                //set the position so the last character is on last position of the inputField
                 textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
             }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
-                System.out.println("resetting");
                 textPos = 0;
             }
+
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
         } else {
             if (this.cursorPosition > 0) {
                 this.text = this.removeAt(this.text, --this.cursorPosition);
                 if(cursorPosition!= 0) {
+                    //add the length of the deleted char, so we move the text right
                     this.textPos += fontMetricsHandler.getFontMetrics().stringWidth(Character.toString(this.text.charAt(cursorPosition - 1)));
                     if (textPos > 0) textPos = 0;
                 }
@@ -373,18 +384,22 @@ public class GUIInput extends GUIObject{
         if (this.startSelected != this.endSelected) {
             this.text = replaceSelected(this.startSelected, this.endSelected, this.text, "");
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
+
+            //check if the string needs to be moved (if it became too big for the inputField)
             if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+                //set the position so the last character is on last position of the inputField
                 textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
             }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
-                System.out.println("resetting");
                 textPos = 0;
             }
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
         } else {
             if (this.cursorPosition < this.text.length()) {
+                //add the length of the deleted char, so we move the text right
                 this.textPos += fontMetricsHandler.getFontMetrics().stringWidth(Character.toString(this.text.charAt(cursorPosition)));
                 if(textPos>0) textPos=0;
+
                 this.text = this.removeAt(this.text, this.cursorPosition);
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
@@ -414,6 +429,7 @@ public class GUIInput extends GUIObject{
         //end
         this.cursorPosition = this.text.length();
         if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+            //set the position so the last character is on last position of the inputField
             textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
         }else{
             textPos = 0;
