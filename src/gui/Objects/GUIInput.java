@@ -1,5 +1,7 @@
 package gui.Objects;
 
+import gui.Objects.ScrollBars.InputScrollBar;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -9,11 +11,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
- * A input bar
+ * An input bar
  */
-public class GUIInput extends GUIObject{
+public class GUIInput extends GUIObject {
 
-    public Scrollbar scrollbar;
+    public InputScrollBar scrollBar;
 
     // needed parameters
     private int startSelected = 0;              // The starting selected position
@@ -26,7 +28,7 @@ public class GUIInput extends GUIObject{
     private boolean initialClick = true;        // is the click an initial click
     private boolean pageLoaderInput = false;    // is the input the address bar input?
 
-    public int textPos = 0;
+    //public int textPos = 0;
 
     /**
      * Constructor, it will set the current text as the given parameter
@@ -35,7 +37,7 @@ public class GUIInput extends GUIObject{
     public GUIInput(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = startTxt;
-        this.scrollbar = new Scrollbar(this);
+        this.scrollBar = new InputScrollBar(this);
     }
 
     /**
@@ -51,7 +53,7 @@ public class GUIInput extends GUIObject{
         super(x, y, width, height);
         this.text = startTxt;
         this.pageLoaderInput = pageLoader;
-        this.scrollbar = new Scrollbar(this);
+        this.scrollBar = new InputScrollBar(this);
     }
 
     /**
@@ -64,7 +66,7 @@ public class GUIInput extends GUIObject{
     public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = "";
-        this.scrollbar = new Scrollbar(this);
+        this.scrollBar = new InputScrollBar(this);
     }
 
     /**
@@ -76,7 +78,7 @@ public class GUIInput extends GUIObject{
         this.text = text;
         this.width = 100;
         this.height = 15;
-        this.scrollbar = new Scrollbar(this);
+        this.scrollBar = new InputScrollBar(this);
     }
 
     /**
@@ -86,7 +88,7 @@ public class GUIInput extends GUIObject{
         super();
         this.width = 100;
         this.height = 15;
-        this.scrollbar = new Scrollbar(this);
+        this.scrollBar = new InputScrollBar(this);
     }
 
     /**
@@ -95,7 +97,7 @@ public class GUIInput extends GUIObject{
     @Override
     public void updateDimensions() {
         // set the height to the height off a string
-        this.height = this.fontMetricsHandler.getFontMetrics().getHeight();
+        this.height = this.getFontMetrics().getHeight();
         // because the string will be in the middle off the text box, and we want it to be in the middle of a row
         // we set the y coordinate a bit lower
         this.coordY += (int) (this.height/6);
@@ -109,8 +111,8 @@ public class GUIInput extends GUIObject{
      * @param clickCount    The click count of the event
      */
     public void handleMouseEvent(int x, int y, int id, int clickCount){
-        if (this.scrollbar.isOnScrollBar(x, y)) {
-            this.scrollbar.handleMouseEvent(id, x, y, clickCount);
+        if (this.scrollBar.isOnScrollBar(x, y)) {
+            this.scrollBar.handleMouseEvent(id, x, y, clickCount);
         } else if (!this.isInGUIObject(x, y)) {
             this.selectNone();
             this.inFocus = false;
@@ -208,10 +210,27 @@ public class GUIInput extends GUIObject{
                 } else if(keyCode != KeyEvent.VK_SHIFT && keyCode != KeyEvent.VK_CONTROL && keyCode != KeyEvent.VK_ALT){
                     // we assume a key was pressed that needs to be shown but is not a normal char
                     this.onCharPress(keyChar);
-                    //this.textPos += this.fontMetricsHandler.getFontMetrics().stringWidth(Character.toString(keyChar));
                 }
             }
         }
+    }
+
+    public int getStringWidth(String text) {
+        return this.getFontMetrics().stringWidth(text);
+    }
+
+    private boolean textFits(String text) {
+        return this.getStringWidth(text) <= this.width - 5;
+    }
+
+
+    private int getOffset() {
+        return this.scrollBar.offset;
+    }
+    private void setOffset(int amount) {
+        if (amount > 0) this.scrollBar.offset = 0;
+        else if (amount < this.scrollBar.calcMaxOffset(text)) this.scrollBar.offset = this.scrollBar.calcMaxOffset(text);
+        else this.scrollBar.offset = amount;
     }
 
     /**
@@ -231,12 +250,13 @@ public class GUIInput extends GUIObject{
 
         }
         //check if the string needs to be moved (if it became too big for the inputField)
-        if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+        if(!this.textFits(text) && this.cursorPosition == text.length()){
             //set the position so the last character is on last position of the inputField
-            textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
-        }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
+            this.setOffset(this.scrollBar.calcMaxOffset(text));
+
+        } else if(textFits(text)){
             //the entire string fits, so position = 0
-            textPos = 0;
+            this.setOffset(0);
         }
         this.startSelected = this.cursorPosition;
         this.endSelected = this.cursorPosition;
@@ -258,12 +278,13 @@ public class GUIInput extends GUIObject{
         }
 
         //check if the string needs to be moved (if it became too big for the inputField)
-        if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+        if(!this.textFits(text) && this.cursorPosition == text.length()){
             //set the position so the last character is on last position of the inputField
-            textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
-        }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
+            this.setOffset(this.scrollBar.calcMaxOffset(text));
+
+        }else if(this.textFits(text)){
             //the entire string fits, so position = 0
-            textPos = 0;
+            this.setOffset(0);
         }
 
         this.startSelected = this.cursorPosition;
@@ -285,11 +306,11 @@ public class GUIInput extends GUIObject{
                     this.cursorPosition--;
 
                     //if user is moving left with cursor and is close to left bound, move text as well
-                    int preCursorTextLen = this.fontMetricsHandler.getFontMetrics().stringWidth(text.substring(0, cursorPosition));
-                    if(preCursorTextLen+textPos < coordX){
+                    int preCursorTextLen = this.getStringWidth(text.substring(0, cursorPosition));
+                    if(preCursorTextLen+this.getOffset() < coordX){
                         //move string to right, so the new char plus the cursor (|) fits the box
-                        textPos += this.fontMetricsHandler.getFontMetrics().stringWidth(text.charAt(cursorPosition) + "|");
-                        if(textPos>0) textPos=0;
+                        this.setOffset(getOffset() + this.getStringWidth(text.charAt(cursorPosition) + "|"));
+                        //if(textPos>0) textPos=0;
                     }
 
                     this.startSelected = this.cursorPosition;
@@ -320,14 +341,18 @@ public class GUIInput extends GUIObject{
 
                     if(this.cursorPosition != this.text.length()) {
                         //if user is moving right with cursor and is close to right bound, move text as well
-                        if(this.cursorPosition == this.text.length()-1 && fontMetricsHandler.getFontMetrics().stringWidth(text) > this.scrollbar.getMaxSliderWidth()){
+                        if(this.cursorPosition == this.text.length()-1 &&
+                                !this.textFits(text)) {
+                                //this.getStringWidth(text) > this.frameWrapper.getHorizontalScrollbar().getMaxSliderWidth()){
+
                             //set the position so the last character is on last position of the inputField
-                            textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
+                            this.setOffset(this.scrollBar.calcMaxOffset(text));
+
                         } else {
-                            int preCursorTextLen = this.fontMetricsHandler.getFontMetrics().stringWidth(text.substring(0, cursorPosition));
-                            if (preCursorTextLen + textPos + coordX + 10 > this.scrollbar.endCoordX) {
+                            int preCursorTextLen = this.getStringWidth(text.substring(0, cursorPosition));
+                            if (preCursorTextLen + this.getOffset() + coordX + 10 > this.scrollBar.getSliderEndX()) {
                                 //move string to left, so the new char plus the cursor (|) fits the box
-                                textPos -= this.fontMetricsHandler.getFontMetrics().stringWidth(text.charAt(cursorPosition) + "|");
+                                this.setOffset(getOffset() - this.getStringWidth(text.charAt(cursorPosition) + "|"));
                             }
                         }
                     }
@@ -353,11 +378,12 @@ public class GUIInput extends GUIObject{
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
 
             //check if the string needs to be moved (if it became too big for the inputField)
-            if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+            if(!this.textFits(text) && this.cursorPosition == text.length()){
                 //set the position so the last character is on last position of the inputField
-                textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
-            }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
-                textPos = 0;
+                this.setOffset(this.scrollBar.calcMaxOffset(text));
+
+            } else if(this.textFits(text)){
+                this.setOffset(0);
             }
 
             this.startSelected = this.cursorPosition;
@@ -367,8 +393,7 @@ public class GUIInput extends GUIObject{
                 this.text = this.removeAt(this.text, --this.cursorPosition);
                 if(cursorPosition!= 0) {
                     //add the length of the deleted char, so we move the text right
-                    this.textPos += fontMetricsHandler.getFontMetrics().stringWidth(Character.toString(this.text.charAt(cursorPosition - 1)));
-                    if (textPos > 0) textPos = 0;
+                    this.setOffset(getOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition - 1))));
                 }
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
@@ -386,19 +411,18 @@ public class GUIInput extends GUIObject{
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
 
             //check if the string needs to be moved (if it became too big for the inputField)
-            if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+            if(!this.textFits(text) && this.cursorPosition == text.length()){
                 //set the position so the last character is on last position of the inputField
-                textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
-            }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
-                textPos = 0;
+                this.setOffset(this.scrollBar.calcMaxOffset(text));
+            } else if (this.textFits(text)) {
+                this.setOffset(0);
             }
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
         } else {
             if (this.cursorPosition < this.text.length()) {
                 //add the length of the deleted char, so we move the text right
-                this.textPos += fontMetricsHandler.getFontMetrics().stringWidth(Character.toString(this.text.charAt(cursorPosition)));
-                if(textPos>0) textPos=0;
+                this.setOffset(getOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition))));
 
                 this.text = this.removeAt(this.text, this.cursorPosition);
                 this.startSelected = this.cursorPosition;
@@ -413,7 +437,7 @@ public class GUIInput extends GUIObject{
     private void onHome(){
         //home
         this.cursorPosition = 0;
-        this.textPos = 0;
+        this.setOffset(0);
         if(!this.shifting) {
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
@@ -428,11 +452,11 @@ public class GUIInput extends GUIObject{
     private void onEnd(){
         //end
         this.cursorPosition = this.text.length();
-        if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+        if(!this.textFits(text) && this.cursorPosition == text.length()){
             //set the position so the last character is on last position of the inputField
-            textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
-        }else{
-            textPos = 0;
+            this.setOffset(this.scrollBar.calcMaxOffset(text));
+        } else{
+            this.setOffset(0);
         }
         if(!this.shifting) {
             this.startSelected = this.cursorPosition;
@@ -594,8 +618,8 @@ public class GUIInput extends GUIObject{
     @Override
     public void draw(Graphics g){
         g.setColor(Color.BLACK);
-        g.drawRect(this.coordX, this.coordY, width, height+this.scrollbar.getHeight()); // border
-        g.clearRect(this.coordX+1, this.coordY+1, width-1, height+this.scrollbar.getHeight()-1); // actual address bar (white part)
+        g.drawRect(this.coordX, this.coordY, width, height+this.scrollBar.getScrollbarHeight()); // border
+        g.clearRect(this.coordX+1, this.coordY+1, width-1, height+this.scrollBar.getScrollbarHeight()-1); // actual address bar (white part)
 
         String viewedAddress = this.getText();
         if(inFocus && !this.isSelecting()){
@@ -608,7 +632,7 @@ public class GUIInput extends GUIObject{
             g.setColor(Color.CYAN);
             int tmp = (int) g.getFontMetrics().getStringBounds(this.getText(), g).getHeight();
             int[] xCords = this.getSelectedPositions(g);
-            g.fillRect(this.coordX+5 + textPos + xCords[0],
+            g.fillRect(this.coordX+5 + this.getOffset() + xCords[0],
                     this.coordY + 3 + ((int) (height/1.5)) - tmp,
                     xCords[1] - xCords[0],
                     tmp); // text background
@@ -617,9 +641,9 @@ public class GUIInput extends GUIObject{
 
         Shape oldClip = g.getClip();
         g.setClip(this.coordX, this.coordY, this.width, this.height);
-        g.drawString(viewedAddress, this.coordX+5+textPos, this.coordY+((int) (height/1.5)));
+        g.drawString(viewedAddress, this.coordX+5+this.getOffset(), this.coordY+((int) (height/1.5)));
         g.setClip(oldClip);
-        this.scrollbar.draw(g);
+        this.scrollBar.draw(g);
     }
 
     /**

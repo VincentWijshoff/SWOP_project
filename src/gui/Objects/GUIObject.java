@@ -116,6 +116,8 @@ public abstract class GUIObject {
      */
     public void draw(Graphics g) { }
 
+    public void draw(Graphics g, int offsetX, int offsetY) { }
+
     /**
      * Get the list of all child objects
      * @return  The list of child objects of this object
@@ -155,5 +157,9 @@ public abstract class GUIObject {
     }
 
     public abstract HashSet<GUIObject> copy();
+
+    public FontMetrics getFontMetrics() {
+        return this.fontMetricsHandler.getFontMetrics();
+    }
 
 }

@@ -1,4 +1,4 @@
-package gui.Objects;
+package gui.Objects.ScrollBars;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
  */
 public class ScrollbarSlider {
 
-    Scrollbar scrollbar;
+    HorizontalScrollBar horizontalScrollBar;
     int coordX, coordY, width, height;
 
     // Relative position of click in the slider
@@ -26,8 +26,8 @@ public class ScrollbarSlider {
      * @param width     The width of the slider
      * @param height    The height of the slider
      */
-    public ScrollbarSlider(Scrollbar scrollbar, int x, int y, int width, int height) {
-        this.scrollbar = scrollbar;
+    public ScrollbarSlider(HorizontalScrollBar horizontalScrollBar, int x, int y, int width, int height) {
+        this.horizontalScrollBar = horizontalScrollBar;
         this.coordX = x;
         this.coordY = y;
         this.width = width;
@@ -79,12 +79,12 @@ public class ScrollbarSlider {
             int newSliderCoordX = x-this.cursorStartX;
 
             // Keep the slider within scrollbar boundaries
-            if ((newSliderCoordX > this.scrollbar.startCoordX) && (newSliderCoordX+this.width < this.scrollbar.endCoordX)) {
+            if ((newSliderCoordX > this.horizontalScrollBar.getSliderStartX()) && (newSliderCoordX+this.width < this.horizontalScrollBar.getSliderEndX())) {
                 this.coordX = newSliderCoordX; // Slide with mouse
-            } else if (newSliderCoordX <= this.scrollbar.startCoordX) {
-                this.coordX = this.scrollbar.startCoordX; // Slide most left
+            } else if (newSliderCoordX <= this.horizontalScrollBar.getSliderStartX()) {
+                this.coordX = this.horizontalScrollBar.getSliderStartX(); // Slide most left
             } else {
-                this.coordX = this.scrollbar.endCoordX-this.width; // Slide most right
+                this.coordX = this.horizontalScrollBar.getSliderEndX()-this.width; // Slide most right
             }
         }
 
