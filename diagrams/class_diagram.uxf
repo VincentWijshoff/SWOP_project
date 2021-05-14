@@ -829,20 +829,6 @@ m2=1
     <additional_attributes>10.0;10.0;10.0;70.0;150.0;70.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1729</x>
-      <y>847</y>
-      <w>224</w>
-      <h>448</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;
-
-m2=1
-wrapper</panel_attributes>
-    <additional_attributes>10.0;10.0;160.0;10.0;160.0;610.0;300.0;610.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
       <x>1043</x>
@@ -1281,32 +1267,6 @@ previousScreen</panel_attributes>
     <additional_attributes>220.0;470.0;220.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>133</x>
-      <y>476</y>
-      <w>238</w>
-      <h>196</h>
-    </coordinates>
-    <panel_attributes>DocumentArea
-R.I.P.
---
-- relativeYPos : int
-- xOffset : int
---
-+ getScreen() : DefaultScreen
-+ getRelativeYPos() : int
-
-+ loadAddress(String) : void
-+ loadErrorDoc() : void
-+ loadWelcomeDoc() : void
-+ getCurrentHtml() : String
-+ load(String) : void
-+ handleMouseEvent(int, int, int, int) : void
-+ handleKeyEvent(int, int, char, int) : void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>777</x>
@@ -1555,59 +1515,17 @@ m2=1</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1939</x>
-      <y>1239</y>
-      <w>196</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>FrameWrapper
---
-2 constructoren voor 1 of 2 scrollbars
-
-
-
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>2030</x>
-      <y>1302</y>
-      <w>84</w>
-      <h>119</h>
-    </coordinates>
-    <panel_attributes>lt=-
-m1=1
-m2=1 maar soms 2</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2023</x>
-      <y>1120</y>
-      <w>35</w>
-      <h>133</h>
+      <x>1673</x>
+      <y>868</y>
+      <w>280</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-m1=
-m2=0..n
-has</panel_attributes>
-    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2072</x>
-      <y>1120</y>
-      <w>56</w>
-      <h>133</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-extends</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+
+m2=0..*
+drawnGUIObjects</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;380.0;100.0</additional_attributes>
   </element>
 </diagram>
