@@ -20,6 +20,9 @@ public class Scrollbar {
     private int maxSliderWidth = 0; // Depends on the width of the inputField.
     int startCoordX, endCoordX;
 
+    public int getMaxSliderWidth() {
+        return maxSliderWidth;
+    }
 
     /**
      * Constructor for Scrollbar
@@ -38,11 +41,16 @@ public class Scrollbar {
     public void draw(Graphics g) {
         // Update the widths (they should change when the user resizes the window).
         setBoundaries();
+        int initWidth = this.slider.width;
         this.slider.width = caculateSliderWidth(g);
 
         // Reposition the slider if it has to grow to the left (move to left and grow instead of growing outside of border)
         if ((this.slider.coordX + this.slider.width) > this.endCoordX) {
             this.slider.coordX = this.endCoordX - this.slider.width;
+        } else if(this.slider.width < initWidth && initWidth > 0){
+            this.slider.coordX += initWidth-this.slider.width;
+        } else if(this.slider.width > initWidth && initWidth > 0){
+            this.slider.coordX += this.slider.width-initWidth;
         }
 
         // Scrollbar outline
@@ -63,7 +71,7 @@ public class Scrollbar {
      *          equal to the ratio of the inputfield-width and inputfield-text-width.
      */
     private int caculateSliderWidth(Graphics g) {
-        String text = this.getInputField().getShownText();
+        String text = this.getInputField().getText();
         int textWidth = (int) g.getFontMetrics().getStringBounds(text, g).getWidth();
         int inputFieldWidth = this.getInputField().width;
 
@@ -81,8 +89,8 @@ public class Scrollbar {
 
     /**
      * Check if the given coordinates collide with the position of this object
-     * @param x the x coordinate
-     * @param y the y coordinate
+     * @param X the x coordinate
+     * @param Y the y coordinate
      * @return  true if the given position collides with the position of the object
      */
     public boolean isOnScrollBar(int X, int Y) {
@@ -92,12 +100,45 @@ public class Scrollbar {
                 Y <= this.scrollBarCoordY + this.scrollbarHeight);
     }
 
+
+
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
         if (this.slider.isOnSlider(x, y) || this.slider.isSliding) {
+            int sliderXInit = this.slider.coordX;
             this.slider.handleMouseEvent(id, x, y, clickCount);
+            slide(sliderXInit - this.slider.coordX);
+
         } else {
             System.out.println("Clicked next to scrollbar slider!");
         }
+    }
+
+    private double rest = 0;
+    private void slide(int sliderMovement) {
+        FontMetrics fm = this.inputField.fontMetricsHandler.getFontMetrics();
+
+        double rel = ((double) fm.stringWidth(this.inputField.getText()))   // rel = 1.8            1.9
+                / ((double) this.maxSliderWidth);
+
+        // Dit is echt zooi (int vs double mest), zorgt ervoor dat de scrollbar beetje nauwkeuriger is
+        rest += rel - Math.floor(rel);                                      // rest = 0.8           1.7
+        double usableRest = Math.floor(rest);                               // usableRest = 0       1.0
+        rest -= usableRest;                                                 // rest = 0.8           0.7
+        rel = Math.floor(rel) + usableRest;                                 // rel = 1.0 + 0 = 1    1.0 + 1.0 = 2
+
+        int relMovement = sliderMovement * (int) rel;
+        //System.out.println("relMovement: " + relMovement + " = " + sliderMovement + "*" + rel);
+
+        // Swiped
+        if(relMovement != 0) this.getInputField().textPos += relMovement;
+
+        // Max left offset
+        if (this.slider.coordX == this.startCoordX || this.getInputField().textPos > 0) this.getInputField().textPos = 0;
+        // Max right offset
+        else if (this.slider.coordX + this.slider.width >= this.endCoordX)
+            this.getInputField().textPos = this.startCoordX - (fm.stringWidth(this.inputField.getText()) - this.maxSliderWidth+10);
+
+        //System.out.println("textPos: " + this.getInputField().textPos + ", rest: " + rest);
     }
 
     /**

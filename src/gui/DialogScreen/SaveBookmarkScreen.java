@@ -87,9 +87,9 @@ public class SaveBookmarkScreen extends DialogScreen{
      * Needs to be executed when the add bookmark button was pressed, this will create a new add bookmark operation
      */
     private void onAddBookmark() {
-        System.out.println("Adding bookmark with name: " + this.bookmarkName.getShownText() + ", on the URL: " + this.bookmarkAddress.getShownText());
+        System.out.println("Adding bookmark with name: " + this.bookmarkName.getText() + ", on the URL: " + this.bookmarkAddress.getText());
 
-        this.execute(new AddBookmarkOperation(this.bookmarkName.getShownText(), this.bookmarkAddress.getShownText()));
+        this.execute(new AddBookmarkOperation(this.bookmarkName.getText(), this.bookmarkAddress.getText()));
 
         this.returnToPreviousScreen();
     }

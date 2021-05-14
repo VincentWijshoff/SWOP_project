@@ -107,7 +107,7 @@ public class PaneTest {
         }else if(o1 instanceof GUIInput){
             assertTrue(testName, o2 instanceof GUIInput);
             assertEquals(testName, ((GUIInput) o1).getName(), ((GUIInput) o2).getName());
-            assertEquals(testName, ((GUIInput) o1).getShownText(), ((GUIInput) o2).getShownText());
+            assertEquals(testName, ((GUIInput) o1).getText(), ((GUIInput) o2).getText());
         }else if(o1 instanceof GUIButton){
             assertTrue(testName, o2 instanceof GUIButton);
             assertEquals(testName, ((GUIButton) o1).getText(), ((GUIButton) o2).getText());
