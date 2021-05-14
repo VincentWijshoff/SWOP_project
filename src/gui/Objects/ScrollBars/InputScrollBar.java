@@ -139,7 +139,7 @@ public class InputScrollBar extends HorizontalScrollBar {
      * @post The width of the total scrollbar = the width of the InputField.
      * @post The x- and y-coordinate of the scrollbar = the x- and y-coordinate of the InputField.
      */
-    public void setBoundaries() {
+    private void setBoundaries() {
         setScrollbarWidth(this.getInputField().width);
 
         setScrollbarCoordX(this.getInputField().coordX);
