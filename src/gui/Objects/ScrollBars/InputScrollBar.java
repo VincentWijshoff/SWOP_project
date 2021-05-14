@@ -19,20 +19,22 @@ public class InputScrollBar extends HorizontalScrollBar {
         this.inputField = input;
 
         this.setBoundaries();
-        setSlider(new ScrollbarSlider(this, getSliderStartX(), getSliderStartY(), getMaxSliderWidth(), sliderHeight));
+        setSlider(new ScrollbarSlider(this, getSliderStartX(), getSliderStartY(), getMaxSliderWidth(), getSliderHeight()));
     }
 
+    // Slider has to be below the InputField.
     private int getSliderStartY() { return this.getInputField().coordY+this.getInputField().height+1; }
 
 
     public void draw(Graphics g) {
-        // Update the widths (they should change when the user resizes the window).
+        // Possible resize of the screen.
         setBoundaries();
+
+        // Update the width of the slider.
         getSlider().width = caculateSliderWidth();
 
-        // Reposition the slider if it has to grow to the left (move to left and grow instead of growing outside of border)
+        // Reposition the slider so it matches the visible text.
         getSlider().coordX = calculateSliderX();
-
 
         // Scrollbar outline
         g.setColor(Color.GRAY);
@@ -44,9 +46,9 @@ public class InputScrollBar extends HorizontalScrollBar {
 
 
     /**
-     * The width of the scrollbar slider is dependant on the width of the input field and the content of the input field.
+     * The width of the scrollbar slider is dependant on the width and content of the input field.
      * @return the width of the slider
-     * post    if the text fits inside the input field, the slider will have its max size.
+     * @post    if the text fits inside the input field, the slider will have its max size.
      *          if the text doesn't fit, the slider will have a width so that the ratio between slider and scrollbar is
      *          equal to the ratio of the inputfield-width and inputfield-text-width.
      */
@@ -58,7 +60,7 @@ public class InputScrollBar extends HorizontalScrollBar {
         // The text fits inside the inputfield:
         if (textWidth < inputFieldWidth) {
             this.getSlider().canSlide = false;
-            this.getInputField().setOffset(0);
+            this.getInputField().setOffset(0); // Text have no offset.
             return maxSliderWidth;
         }
         // The text doesn't fit inside:
@@ -68,31 +70,25 @@ public class InputScrollBar extends HorizontalScrollBar {
         }
     }
 
+    /**
+     * Calculates the position of the scrollbar slider. Automatically updates
+     * when the user presses keys.
+     * @return the new x-coordinate of the slider.
+     */
     public int calculateSliderX() {
         int offset = this.getInputField().getOffset();
+
+        // Moves the slider according to what text is displayed (automatic updating for KeyEvents).
         if (offset == 0) return getSliderStartX();
         else if (offset == calcMaxOffset(this.getInputField().getText())) return getSliderEndX() - getSlider().width;
-        else {
-
-            return getSliderStartX() + (offset*(-1) * this.getInputField().width / this.getInputField().getStringWidth(this.getInputField().getText()));
-        }
-
-        /*if ((getSlider().coordX + getSlider().width) > getSliderEndX()) {
-            getSlider().coordX = getSliderEndX() - getSlider().width;
-        }
-        else if (this.getInputField().getOffset() != 0) {
-            if(getSlider().width < initWidth) { // Getting smaller
-                getSlider().coordX += initWidth - getSlider().width;
-            }
-            else if (getSlider().width > initWidth) { // Getting bigger
-
-            }
-        }
-        /*else if(getSlider().width > initWidth && this.getInputField().getOffset() != 0) {
-            getSlider().coordX += getSlider().width-initWidth;
-        }*/
+        else return getSliderStartX() + (offset*(-1) * this.getInputField().width / this.getInputField().getStringWidth(this.getInputField().getText()));
     }
 
+    /**
+     * Calculates the maximum valid offset based on the length of the given string.
+     * @param text the text
+     * @return the maximum amount of pixels the string can be moved
+     */
     public int calcMaxOffset(String text) {
         return getSliderStartX() - (Math.abs(this.getInputField().getStringWidth(text) - getMaxSliderWidth()+10));
     }
@@ -138,12 +134,14 @@ public class InputScrollBar extends HorizontalScrollBar {
     }
 
     /**
-     * Sets scrollbar properties using the input field dimensions
+     * Sets scrollbar properties using the input field dimensions.
+     * Needed for when user resizes the window.
+     * @post The width of the total scrollbar = the width of the InputField.
+     * @post The x- and y-coordinate of the scrollbar = the x- and y-coordinate of the InputField.
      */
     public void setBoundaries() {
         setScrollbarWidth(this.getInputField().width);
 
-        // Coords used to limit the movement of the scrollbar slider
         setScrollbarCoordX(this.getInputField().coordX);
         setScrollBarCoordY(this.getInputField().coordY + this.getInputField().height);
     }
