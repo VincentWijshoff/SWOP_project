@@ -232,6 +232,9 @@ public class GUIInput extends GUIObject{
         }
         if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
             textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
+        }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
+            System.out.println("resetting");
+            textPos = 0;
         }
         this.startSelected = this.cursorPosition;
         this.endSelected = this.cursorPosition;
@@ -254,6 +257,9 @@ public class GUIInput extends GUIObject{
 
             if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
                 textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
+            }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
+                System.out.println("resetting");
+                textPos = 0;
             }
         }
         this.startSelected = this.cursorPosition;
@@ -289,6 +295,7 @@ public class GUIInput extends GUIObject{
             //left arrow while pressing shift
             if(this.endSelected > 0){
                 this.endSelected--;
+                System.out.println("endselected= "+ endSelected);
             }
         }
     }
@@ -337,6 +344,12 @@ public class GUIInput extends GUIObject{
         if (this.startSelected != this.endSelected) {
             this.text = replaceSelected(this.startSelected, this.endSelected, this.text, "");
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
+            if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+                textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
+            }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
+                System.out.println("resetting");
+                textPos = 0;
+            }
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
         } else {
@@ -360,6 +373,12 @@ public class GUIInput extends GUIObject{
         if (this.startSelected != this.endSelected) {
             this.text = replaceSelected(this.startSelected, this.endSelected, this.text, "");
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
+            if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) > this.width - 5 && this.cursorPosition == text.length()){
+                textPos = this.scrollbar.startCoordX - (fontMetricsHandler.getFontMetrics().stringWidth(text) - this.scrollbar.getMaxSliderWidth()+10);
+            }else if(this.fontMetricsHandler.getFontMetrics().stringWidth(text) < this.width - 5){
+                System.out.println("resetting");
+                textPos = 0;
+            }
             this.startSelected = this.cursorPosition;
             this.endSelected = this.cursorPosition;
         } else {
@@ -573,7 +592,7 @@ public class GUIInput extends GUIObject{
             g.setColor(Color.CYAN);
             int tmp = (int) g.getFontMetrics().getStringBounds(this.getText(), g).getHeight();
             int[] xCords = this.getSelectedPositions(g);
-            g.fillRect(this.coordX+5 + xCords[0],
+            g.fillRect(this.coordX+5 + textPos + xCords[0],
                     this.coordY + 3 + ((int) (height/1.5)) - tmp,
                     xCords[1] - xCords[0],
                     tmp); // text background
