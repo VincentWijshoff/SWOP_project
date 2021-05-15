@@ -120,7 +120,7 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
     private double rest = 0;
 
     public void slide(int sliderMovement) {
-        double rel = ((double) this.getPane().getContentWidth())   // rel = 1.8            1.9
+        double rel = ((double) this.getPane().getContentWidth())            // rel = 1.8            1.9
                 / ((double) getMaxSliderWidth());
 
         // (int vs double mest) zorgt ervoor dat de scrollbar beetje nauwkeuriger is

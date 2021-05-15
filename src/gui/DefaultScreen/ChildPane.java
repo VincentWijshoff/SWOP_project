@@ -40,7 +40,7 @@ public class ChildPane extends Pane {
     public int getXOffset() { return this.xOffset; }
 
     public void setXOffset(int amount) {
-        if (amount > 0) this.xOffset = 0;
+        if (amount >= 0) this.xOffset = 0;
         else if (amount < this.horScrollBar.calcMaxOffset()) this.xOffset = this.horScrollBar.calcMaxOffset();
         else this.xOffset = amount;
 
@@ -207,6 +207,8 @@ public class ChildPane extends Pane {
 
         Shape oldClip = g.getClip();
         g.setClip(this.x, this.y, this.width, this.height);
+        this.setXOffset(this.getXOffset()); // Needed to check edge cases
+        this.setYOffset(this.getYOffset()); // Needed to check edge cases
         int xScrollOffset = this.getXOffset();
         int yScrollOffset = this.getYOffset();
         for (GUIObject obj : this.getDrawnGUIObjects()) {
@@ -265,7 +267,7 @@ public class ChildPane extends Pane {
     public void addGUIObject(GUIObject obj) {
         this.drawnGUIObjects.add(obj);
 
-        obj.setPosition(obj.coordX + this.x + ChildPane.xBorderOffset, obj.coordY + this.y);
+        obj.setPosition(obj.coordX + this.x + getXOffset() + ChildPane.xBorderOffset, obj.coordY + this.y);
 
         obj.setFontMetricsHandler(this.screen.getFontMetricsHandler());
         obj.setPageLoader(this.screen.getPageLoader());
