@@ -76,7 +76,7 @@ public class InputScrollBar extends HorizontalScrollBar {
      * @return the new x-coordinate of the slider.
      */
     public int calculateSliderX() {
-        int offset = this.getInputField().getOffset();
+        int offset = this.getInputField().getInputScrollOffset();
 
         // Moves the slider according to what text is displayed (automatic updating for KeyEvents).
         if (offset == 0) return getSliderStartX();
@@ -123,10 +123,10 @@ public class InputScrollBar extends HorizontalScrollBar {
         int relMovement = sliderMovement * (int) rel;
 
         // Swiped
-        if(relMovement != 0) this.getInputField().setOffset(this.getInputField().getOffset() + relMovement);
+        if(relMovement != 0) this.getInputField().setOffset(this.getInputField().getInputScrollOffset() + relMovement);
 
         // Max left offset
-        if (getSlider().coordX == getSliderStartX() || this.getInputField().getOffset() > 0) this.getInputField().setOffset(0);
+        if (getSlider().coordX == getSliderStartX() || this.getInputField().getInputScrollOffset() > 0) this.getInputField().setOffset(0);
         // Max right offset
         else if (getSlider().coordX + getSlider().width >= getSliderEndX())
             this.getInputField().setOffset(this.calcMaxOffset(this.getInputField().getText()));

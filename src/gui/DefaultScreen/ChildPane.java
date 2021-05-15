@@ -41,10 +41,20 @@ public class ChildPane extends Pane {
 
     public void setXOffset(int amount) {
         if (amount > 0) this.xOffset = 0;
-        else if (amount < this.horScrollBar.calcMaxOffset(this.getDrawnGUIObjects())) this.xOffset = this.horScrollBar.calcMaxOffset(this.getDrawnGUIObjects());
+        else if (amount < this.horScrollBar.calcMaxOffset()) this.xOffset = this.horScrollBar.calcMaxOffset();
         else this.xOffset = amount;
 
         this.horScrollBar.getSlider().coordX = this.horScrollBar.calculateSliderX();
+    }
+
+    public int getYOffset() { return this.yOffset; }
+
+    public void setYOffset(int amount) {
+//        if (amount > 0) this.yOffset = 0;
+//        else if (amount < this.verScrollBar.calcMaxOffset()) this.yOffset = this.verScrollBar.calcMaxOffset();
+//        else this.yOffset = amount;
+//
+//        this.verScrollBar.getSlider().coordY = this.verScrollBar.calculateSliderY();
     }
 
 
@@ -92,7 +102,8 @@ public class ChildPane extends Pane {
         }else{
             this.setOutFocus();
         }
-        drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
+        if (this.getHorScrollBar().isOnScrollBar(x, y)) this.getHorScrollBar().handleMouseEvent(id, x, y, clickCount);
+        else drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
     }
 
     /**
@@ -196,8 +207,10 @@ public class ChildPane extends Pane {
 
         Shape oldClip = g.getClip();
         g.setClip(this.x, this.y, this.width, this.height);
+        int xScrollOffset = this.getXOffset();
+        int yScrollOffset = this.getYOffset();
         for (GUIObject obj : this.getDrawnGUIObjects()) {
-            obj.draw(g);
+            obj.draw(g, xScrollOffset, yScrollOffset);
         }
         g.setClip(oldClip);
         if (this.getHorScrollBar() != null) this.getHorScrollBar().draw(g);
@@ -372,5 +385,14 @@ public class ChildPane extends Pane {
     }
 
     public HorizontalPaneScrollBar getHorScrollBar() { return this.horScrollBar; }
+
+    public int getContentWidth() {
+        int max = 0;
+        for (GUIObject guiObject : this.getDrawnGUIObjects()) {
+            //System.out.println(guiObject.getClass().getName() + " = " + guiObject.coordX + " + "+ guiObject.width);
+            max = Math.max(max, guiObject.coordX + guiObject.width);
+        }
+        return max;
+    }
 
 }

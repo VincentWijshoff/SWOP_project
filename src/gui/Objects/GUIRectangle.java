@@ -28,9 +28,10 @@ public class GUIRectangle extends GUIObject{
      * Draw the rectangle
      * @param g the graphics needed to draw each object
      */
-    public void draw(Graphics g) {
-        g.drawRect(coordX, coordY, width, height);
-    }
+    public void draw(Graphics g, int... paneOffsets) {
+        int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
+        int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
+        g.drawRect(coordX + xOffset, coordY + yOffset, width, height); }
 
     @Override
     public HashSet<GUIObject> copy() {

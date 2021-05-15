@@ -138,10 +138,10 @@ public class GUITable extends GUIObject {
      * @param g the graphics needed to draw each object
      */
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int... paneOffsets) {
         for (ArrayList<GUIObject> row: tableRows) {
             for(GUIObject obj: row) {
-                obj.draw(g);
+                obj.draw(g, paneOffsets);
             }
         }
     }

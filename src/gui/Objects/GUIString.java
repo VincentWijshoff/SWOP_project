@@ -48,8 +48,10 @@ public class GUIString extends GUIObject {
      * @param g the graphics needed to draw each object
      */
     @Override
-    public void draw(Graphics g) {
-        g.drawString(this.text, coordX, coordY + height);
+    public void draw(Graphics g, int... paneOffsets) {
+        int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
+        int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
+        g.drawString(this.text, coordX + xOffset, coordY + yOffset + height);
     }
 
     @Override

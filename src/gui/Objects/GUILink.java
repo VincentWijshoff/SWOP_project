@@ -46,12 +46,16 @@ public class GUILink extends GUIString {
      * @param g the graphics needed to draw the GUILink
      */
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int... paneOffsets) {
+        int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
+        int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
+        int x = this.coordX + xOffset;
+        int y = this.coordY + yOffset;
 
         Color oldColor = g.getColor();
         g.setColor(Color.BLUE);
-        g.drawString(text, coordX, coordY + height);
-        g.drawLine(coordX, coordY+height, coordX+this.width, coordY+height);
+        g.drawString(text, x, y + height);
+        g.drawLine(x, y+height, x+this.width, y+height);
         g.setColor(oldColor);
     }
 

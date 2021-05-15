@@ -222,7 +222,7 @@ public class GUIInput extends GUIObject {
         return this.getStringWidth(text) <= this.width - 5;
     }
 
-    public int getOffset() { return this.offset; }
+    public int getInputScrollOffset() { return this.offset; }
 
     public void setOffset(int amount) {
         if (amount > 0) this.offset = 0;
@@ -307,9 +307,9 @@ public class GUIInput extends GUIObject {
 
                     //if user is moving left with cursor and is close to left bound, move text as well
                     int preCursorTextLen = this.getStringWidth(text.substring(0, cursorPosition));
-                    if(preCursorTextLen+this.getOffset() < coordX){
+                    if(preCursorTextLen+this.getInputScrollOffset() < coordX){
                         //move string to right, so the new char plus the cursor (|) fits the box
-                        this.setOffset(getOffset() + this.getStringWidth(text.charAt(cursorPosition) + "|"));
+                        this.setOffset(getInputScrollOffset() + this.getStringWidth(text.charAt(cursorPosition) + "|"));
                     }
 
                     this.startSelected = this.cursorPosition;
@@ -349,9 +349,9 @@ public class GUIInput extends GUIObject {
 
                         } else {
                             int preCursorTextLen = this.getStringWidth(text.substring(0, cursorPosition));
-                            if (preCursorTextLen + this.getOffset() + coordX + 10 > this.scrollBar.getSliderEndX()) {
+                            if (preCursorTextLen + this.getInputScrollOffset() + coordX + 10 > this.scrollBar.getSliderEndX()) {
                                 //move string to left, so the new char plus the cursor (|) fits the box
-                                this.setOffset(getOffset() - this.getStringWidth(text.charAt(cursorPosition) + "|"));
+                                this.setOffset(getInputScrollOffset() - this.getStringWidth(text.charAt(cursorPosition) + "|"));
                             }
                         }
                     }
@@ -392,7 +392,7 @@ public class GUIInput extends GUIObject {
                 this.text = this.removeAt(this.text, --this.cursorPosition);
                 if(cursorPosition!= 0) {
                     //add the length of the deleted char, so we move the text right
-                    this.setOffset(getOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition - 1))));
+                    this.setOffset(getInputScrollOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition - 1))));
                 }
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
@@ -421,7 +421,7 @@ public class GUIInput extends GUIObject {
         } else {
             if (this.cursorPosition < this.text.length()) {
                 //add the length of the deleted char, so we move the text right
-                this.setOffset(getOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition))));
+                this.setOffset(getInputScrollOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition))));
 
                 this.text = this.removeAt(this.text, this.cursorPosition);
                 this.startSelected = this.cursorPosition;
@@ -615,10 +615,15 @@ public class GUIInput extends GUIObject {
      * @param g         the java drawing graphics
      */
     @Override
-    public void draw(Graphics g){
+    public void draw(Graphics g, int... paneOffsets) {
+        int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
+        int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
+        int x = this.coordX + xOffset;
+        int y = this.coordY + yOffset;
+
         g.setColor(Color.BLACK);
-        g.drawRect(this.coordX, this.coordY, width, height+this.scrollBar.getScrollbarHeight()); // border
-        g.clearRect(this.coordX+1, this.coordY+1, width-1, height+this.scrollBar.getScrollbarHeight()-1); // actual address bar (white part)
+        g.drawRect(x, y, width, height+this.scrollBar.getScrollbarHeight()); // border
+        g.clearRect(x+1, y+1, width-1, height+this.scrollBar.getScrollbarHeight()-1); // actual address bar (white part)
 
         String viewedAddress = this.getText();
         if(inFocus && !this.isSelecting()){
@@ -631,17 +636,17 @@ public class GUIInput extends GUIObject {
             g.setColor(Color.CYAN);
             int tmp = (int) g.getFontMetrics().getStringBounds(this.getText(), g).getHeight();
             int[] xCords = this.getSelectedPositions(g);
-            g.fillRect(this.coordX+5 + this.getOffset() + xCords[0],
-                    this.coordY + 3 + ((int) (height/1.5)) - tmp,
+            g.fillRect(x+5 + this.getInputScrollOffset() + xCords[0],
+                    y+3 + ((int) (height/1.5)) - tmp,
                     xCords[1] - xCords[0],
                     tmp); // text background
             g.setColor(Color.BLACK);
         }
 
         Shape oldClip = g.getClip();
-        g.setClip(this.coordX, this.coordY, this.width, this.height);
-        setOffset(getOffset()); // Is needed to check for edge cases
-        g.drawString(viewedAddress, this.coordX+5+getOffset(), this.coordY+((int) (height/1.5)));
+        g.setClip(x, y, this.width, this.height);
+        setOffset(getInputScrollOffset()); // Is needed to check for edge cases
+        g.drawString(viewedAddress, x+5 + getInputScrollOffset(), y+((int) (height/1.5)));
         g.setClip(oldClip);
         this.scrollBar.draw(g);
     }

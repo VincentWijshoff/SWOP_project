@@ -86,14 +86,19 @@ public class GUIButton extends GUIObject{
      * @param g the graphics needed to draw each object
      */
     @Override
-    public void draw(Graphics g){
+    public void draw(Graphics g, int... paneOffsets){
+        int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
+        int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
+        int x = this.coordX + xOffset;
+        int y = this.coordY + yOffset;
+
         g.setColor(buttonColor);
-        g.fillRect(this.coordX, this.coordY, width, height);
+        g.fillRect(x, y, width, height);
         g.setColor(Color.BLACK);
-        g.drawRect(this.coordX, this.coordY, width, height); // border
-        int txtPos = (int) (this.height / 2) + this.coordY + (this.fontMetricsHandler.getFontMetrics().getHeight() / 2) - 5;
+        g.drawRect(x, y, width, height); // border
+        int txtPos = (int) (this.height / 2) + y + (this.fontMetricsHandler.getFontMetrics().getHeight() / 2) - 5;
         // this.coordY+((int) (height/1.5))
-        g.drawString(this.text, this.coordX+5, txtPos);
+        g.drawString(this.text, x+5, txtPos);
     }
 
     /**

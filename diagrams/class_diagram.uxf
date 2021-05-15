@@ -1482,15 +1482,13 @@ rootPane</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2544</x>
-      <y>1568</y>
+      <x>2072</x>
+      <y>1496</y>
       <w>120</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>ScrollBarSlider
---
-moet nog algemeen 
-worden voor vert</panel_attributes>
+--</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1520,15 +1518,15 @@ worden voor vert</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2576</x>
-      <y>1640</y>
-      <w>32</w>
-      <h>80</h>
+      <x>2184</x>
+      <y>1528</y>
+      <w>128</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1552,7 +1550,7 @@ drawnGUIObjects</panel_attributes>
       <w>224</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>HorizontalScrollBar
+    <panel_attributes>/HorizontalScrollBar/
 --
 + getMaxSliderWidth(): int
 + getSliderStartX(): int
@@ -1563,8 +1561,8 @@ drawnGUIObjects</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2432</x>
-      <y>1880</y>
+      <x>2560</x>
+      <y>1904</y>
       <w>224</w>
       <h>120</h>
     </coordinates>
@@ -1583,15 +1581,15 @@ drawnGUIObjects</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2648</x>
+      <x>2776</x>
       <y>1616</y>
-      <w>144</w>
-      <h>352</h>
+      <w>112</w>
+      <h>376</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
 m2=1</panel_attributes>
-    <additional_attributes>150.0;10.0;150.0;410.0;10.0;410.0</additional_attributes>
+    <additional_attributes>110.0;10.0;110.0;440.0;10.0;440.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1611,11 +1609,11 @@ extends</panel_attributes>
       <x>2536</x>
       <y>1776</y>
       <w>64</w>
-      <h>120</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 extends</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -1625,7 +1623,7 @@ extends</panel_attributes>
       <w>224</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>VerticalScrollBar
+    <panel_attributes>/VerticalScrollBar/
 --
 + getMaxSliderWidth(): int
 + getSliderStartX(): int
@@ -1654,5 +1652,69 @@ extends</panel_attributes>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>10.0;10.0;180.0;10.0;180.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2304</x>
+      <y>1904</y>
+      <w>224</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>HorizontalPaneScrollBar
+--
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2536</x>
+      <y>1824</y>
+      <w>144</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0;160.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2416</x>
+      <y>1824</y>
+      <w>144</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>160.0;10.0;10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2048</x>
+      <y>1904</y>
+      <w>224</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>VerticalPaneScrollBar
+--
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2192</x>
+      <y>1776</y>
+      <w>64</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+extends</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
   </element>
 </diagram>

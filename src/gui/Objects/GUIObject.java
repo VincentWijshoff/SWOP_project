@@ -114,9 +114,7 @@ public abstract class GUIObject {
      * draw the object, this function should be overridden by each specific object
      * @param g the graphics needed to draw each object
      */
-    public void draw(Graphics g) { }
-
-    public void draw(Graphics g, int offsetX, int offsetY) { }
+    public void draw(Graphics g, int... offsets) { }
 
     /**
      * Get the list of all child objects

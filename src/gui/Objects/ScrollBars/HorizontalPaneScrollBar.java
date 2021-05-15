@@ -24,8 +24,6 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
 
         this.setBoundaries();
         setSlider(new ScrollbarSlider(this, 0,0,0,0));
-        //System.out.println(getPane().x + ", " + getPane().y + " - " + getPane().width + ", " + getPane().height);
-        //System.out.println(getSlider().coordX + ", " + getSlider().coordY + " - " + getSlider().width + ", " + getSlider().height);
     }
 
     public void updateDimensions() {
@@ -67,13 +65,12 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
      *          equal to the ratio of the inputfield-width and inputfield-text-width.
      */
     private int caculateSliderWidth() {
-        return this.getMaxSliderWidth();
-        /*int inputFieldWidth = this.getPane().width - this.getBuffer()*2;
-        int textWidth = this.getPane().getStringWidth(this.getPane().getText());
+        int availableWidth = this.getPane().width;
+        int contentWidth = this.getPane().getContentWidth();
         int maxSliderWidth = this.getMaxSliderWidth();
 
         // The text fits inside the inputfield:
-        if (textWidth < inputFieldWidth) {
+        if (contentWidth < availableWidth) {
             this.getSlider().canSlide = false;
             this.getPane().setXOffset(0); // Text have no offset.
             return maxSliderWidth;
@@ -81,8 +78,8 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
         // The text doesn't fit inside:
         else {
             this.getSlider().canSlide = true;
-            return (maxSliderWidth*maxSliderWidth)/textWidth;
-        }*/
+            return (maxSliderWidth*maxSliderWidth)/contentWidth;
+        }
     }
 
     /**
@@ -91,24 +88,20 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
      * @return the new x-coordinate of the slider.
      */
     public int calculateSliderX() {
-        return getSliderStartX();
-        /*int offset = this.getPane().getXOffset();
+        int offset = this.getPane().getXOffset();
 
         // Moves the slider according to what text is displayed (automatic updating for KeyEvents).
         if (offset == 0) return getSliderStartX();
-        else if (offset == calcMaxOffset(this.getPane().getText())) return getSliderEndX() - getSlider().width;
-        else return getSliderStartX() + (offset*(-1) * this.getPane().width / this.getPane().getStringWidth(this.getPane().getText()));*/
+        else if (offset == calcMaxOffset()) return getSliderEndX() - getSlider().width;
+        else return getSliderStartX() + (offset*(-1) * this.getPane().width / this.getPane().getContentWidth());
     }
 
     /**
      * Calculates the maximum valid offset based on the length of the given guiObjects.
-     * @param guiObjects the guiObjects
      * @return the maximum amount of pixels the objects can be moved.
      */
-    public int calcMaxOffset(ArrayList<GUIObject> guiObjects) {
-        // TODO: implement
-        // return getSliderStartX() - (Math.abs(this.getPane().getStringWidth(text) - getMaxSliderWidth()+10));
-        return 0;
+    public int calcMaxOffset() {
+        return getSliderStartX() - (Math.abs(this.getPane().getContentWidth() - getMaxSliderWidth()+10));
     }
 
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
@@ -126,10 +119,8 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
 
     private double rest = 0;
 
-    public void slide(int sliderMovement) {/*
-        FontMetrics fm = this.getPane().getFontMetrics();
-
-        double rel = ((double) fm.stringWidth(this.getPane().getText()))   // rel = 1.8            1.9
+    public void slide(int sliderMovement) {
+        double rel = ((double) this.getPane().getContentWidth())   // rel = 1.8            1.9
                 / ((double) getMaxSliderWidth());
 
         // (int vs double mest) zorgt ervoor dat de scrollbar beetje nauwkeuriger is
@@ -147,9 +138,9 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
         if (getSlider().coordX == getSliderStartX() || this.getPane().getXOffset() > 0) this.getPane().setXOffset(0);
         // Max right offset
         else if (getSlider().coordX + getSlider().width >= getSliderEndX())
-            this.getPane().setXOffset(this.calcMaxOffset(this.getPane().getDrawnGUIObjects()));
+            this.getPane().setXOffset(this.calcMaxOffset());
 
-    */}
+    }
 
     /**
      * Sets scrollbar properties using the input field dimensions.
