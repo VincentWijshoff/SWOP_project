@@ -1,5 +1,7 @@
 package gui.Objects.ScrollBars;
 
+import java.awt.*;
+
 public abstract class ScrollBar {
 
     // The 'scrollbar' is the gray area in which the 'scrollbar slider' can move.
@@ -17,7 +19,7 @@ public abstract class ScrollBar {
      * Used to calculate the maximum amount of pixels the content can move.
      * @return the amount.
      */
-    public abstract int calcMaxOffset();
+    //public abstract int calcMaxOffset();
 
     /**
      * The method used to slide, each scrollbar needs one.
@@ -28,7 +30,7 @@ public abstract class ScrollBar {
      * Drawing the scrollbar. This method should call the draw method from its
      * slider as well.
      */
-    public abstract void draw();
+    public abstract void draw(Graphics g);
 
 
     public ScrollbarSlider getSlider() { return this.slider; }

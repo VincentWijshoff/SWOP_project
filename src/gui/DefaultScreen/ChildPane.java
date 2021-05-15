@@ -2,6 +2,7 @@ package gui.DefaultScreen;
 
 import browsrhtml.BrowsrDocumentValidator;
 import gui.Objects.GUIObject;
+import gui.Objects.ScrollBars.HorizontalPaneScrollBar;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
@@ -16,8 +17,12 @@ import java.util.Set;
 
 public class ChildPane extends Pane {
 
+    private HorizontalPaneScrollBar horScrollBar;
+    private int xOffset = 0;
+    private int yOffset = 0;
+
     private Set<GUIObject> drawnGUIObjects = new HashSet<>(); // the set off gui objects
-    public static final int xOffset = 5; // the x offset to draw all objects
+    public static final int xBorderOffset = 5; // the x offset to draw all objects
     private String address;
 
 
@@ -29,7 +34,19 @@ public class ChildPane extends Pane {
         this.screen = screen;
         this.address = screen.getAddress();
         this.loader = new HtmlLoader(this);
+        this.horScrollBar = new HorizontalPaneScrollBar(this);
     }
+
+    public int getXOffset() { return this.xOffset; }
+
+    public void setXOffset(int amount) {
+        if (amount > 0) this.xOffset = 0;
+        else if (amount < this.horScrollBar.calcMaxOffset(this.getDrawnGUIObjects())) this.xOffset = this.horScrollBar.calcMaxOffset(this.getDrawnGUIObjects());
+        else this.xOffset = amount;
+
+        this.horScrollBar.getSlider().coordX = this.horScrollBar.calculateSliderX();
+    }
+
 
     /**
      * Handle a key event on this pane
@@ -176,9 +193,14 @@ public class ChildPane extends Pane {
         if(this.isInFocus){
             g.drawRect(this.x + 2, this.y + 2, this.width - 4, this.height - 4);
         }
+
+        Shape oldClip = g.getClip();
+        g.setClip(this.x, this.y, this.width, this.height);
         for (GUIObject obj : this.getDrawnGUIObjects()) {
             obj.draw(g);
         }
+        g.setClip(oldClip);
+        if (this.getHorScrollBar() != null) this.getHorScrollBar().draw(g);
     }
 
     /**
@@ -220,6 +242,7 @@ public class ChildPane extends Pane {
         int yDiv = y - this.y;
         this.updateGUIPositions(xDiv, yDiv);
         this.setDimensions(x, y, width, height);
+        this.getHorScrollBar().updateDimensions();
     }
 
     /**
@@ -229,7 +252,7 @@ public class ChildPane extends Pane {
     public void addGUIObject(GUIObject obj) {
         this.drawnGUIObjects.add(obj);
 
-        obj.setPosition(obj.coordX + this.x + ChildPane.xOffset, obj.coordY + this.y);
+        obj.setPosition(obj.coordX + this.x + ChildPane.xBorderOffset, obj.coordY + this.y);
 
         obj.setFontMetricsHandler(this.screen.getFontMetricsHandler());
         obj.setPageLoader(this.screen.getPageLoader());
@@ -347,4 +370,7 @@ public class ChildPane extends Pane {
     public void clearDocObjects(){
         this.drawnGUIObjects.clear();
     }
+
+    public HorizontalPaneScrollBar getHorScrollBar() { return this.horScrollBar; }
+
 }

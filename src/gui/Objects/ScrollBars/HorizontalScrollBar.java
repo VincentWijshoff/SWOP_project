@@ -1,6 +1,8 @@
 package gui.Objects.ScrollBars;
 
-public class HorizontalScrollBar extends ScrollBar {
+import java.awt.*;
+
+public abstract class HorizontalScrollBar extends ScrollBar {
 
     private static final int horScrollBarHeight = 15;
     private static final int sliderHeight = 13;
@@ -14,14 +16,14 @@ public class HorizontalScrollBar extends ScrollBar {
      */
     public HorizontalScrollBar() {
         this.setScrollbarHeight(horScrollBarHeight);
-        this.setSlider(new ScrollbarSlider(this, getSliderStartX(), getScrollbarCoordY()+1, this.getMaxSliderWidth(), sliderHeight));
+        //this.setSlider(new ScrollbarSlider(this, getSliderStartX(), getScrollbarCoordY()+1, this.getMaxSliderWidth(), sliderHeight));
     }
 
-    public int calcMaxOffset() { return 0; } //TODO: implement for panes
 
     public void slide() { } //TODO: implement for panes
 
-    public void draw() { }  //TODO: implement for panes
+    public void draw(Graphics g) {}
+
 
     /**
      * Used to calculate the maximum width the slider of this scrollbar can have,
@@ -29,8 +31,6 @@ public class HorizontalScrollBar extends ScrollBar {
      * @return the maximum slider (should always be positive).
      */
     public int getMaxSliderWidth() { return Math.max(this.getScrollbarWidth() - this.getBuffer()*2, 0); }
-
-    // Defines the possible slide room (most left and right x-coords).
 
     /**
      * Used to get the starting x-coordinate of the slider. Can also be

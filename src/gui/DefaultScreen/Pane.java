@@ -136,4 +136,5 @@ public abstract class Pane {
      * @param height the height to set this pane to
      */
     protected abstract void updateDimensions(int x, int y, int width, int height);
+
 }

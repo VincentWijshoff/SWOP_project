@@ -1,7 +1,9 @@
 package gui.Objects.ScrollBars;
 
+import java.awt.*;
+
 public class VerticalScrollBar extends ScrollBar {
-    @Override
+
     public int calcMaxOffset() {
 
         return 0;
@@ -13,7 +15,7 @@ public class VerticalScrollBar extends ScrollBar {
     }
 
     @Override
-    public void draw() {
+    public void draw(Graphics g) {
 
     }
 }

@@ -16,6 +16,7 @@ import java.util.HashSet;
 public class GUIInput extends GUIObject {
 
     public InputScrollBar scrollBar;
+    private int offset = 0;
 
     // needed parameters
     private int startSelected = 0;              // The starting selected position
@@ -27,8 +28,6 @@ public class GUIInput extends GUIObject {
     private boolean inFocus = false;            // is the input in focus?
     private boolean initialClick = true;        // is the click an initial click
     private boolean pageLoaderInput = false;    // is the input the address bar input?
-
-    //public int textPos = 0;
 
     /**
      * Constructor, it will set the current text as the given parameter
@@ -223,8 +222,8 @@ public class GUIInput extends GUIObject {
         return this.getStringWidth(text) <= this.width - 5;
     }
 
-    private int offset = 0;
     public int getOffset() { return this.offset; }
+
     public void setOffset(int amount) {
         if (amount > 0) this.offset = 0;
         else if (amount < this.scrollBar.calcMaxOffset(this.getText())) this.offset = this.scrollBar.calcMaxOffset(this.getText());

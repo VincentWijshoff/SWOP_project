@@ -47,7 +47,7 @@ public class HtmlTests {
         Pane rootPane = screen.getPane();
 
         assertTrue(testName, rootPane.getDrawnGUIObjects().size() == 1);
-        assertTrue(testName, containsGUILinkWithPos(ChildPane.xOffset, rootPane.y, "TEXT", "", rootPane.getDrawnGUIObjects()));
+        assertTrue(testName, containsGUILinkWithPos(ChildPane.xBorderOffset, rootPane.y, "TEXT", "", rootPane.getDrawnGUIObjects()));
     }
 
     @Test
@@ -67,9 +67,9 @@ public class HtmlTests {
 
         ArrayList<GUIObject> renderedObjects = rootPane.getDrawnGUIObjects();
         assertTrue(testName, rootPane.getDrawnGUIObjects().size() == 4);
-        assertTrue(testName, containsGUILinkWithPos(ChildPane.xOffset, rootPane.y, "TEXT", "a.html", renderedObjects));
-        assertTrue(testName, containsGUILinkWithPos(ChildPane.xOffset, rootPane.y + 2*fm.getHeight() + 2*GUITable.yMargin, "Text", "b.html", renderedObjects));
-        assertTrue(testName, containsGUILinkWithPos(ChildPane.xOffset, rootPane.y + fm.getHeight() + GUITable.yMargin, "TEXT", "", renderedObjects));
+        assertTrue(testName, containsGUILinkWithPos(ChildPane.xBorderOffset, rootPane.y, "TEXT", "a.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWithPos(ChildPane.xBorderOffset, rootPane.y + 2*fm.getHeight() + 2*GUITable.yMargin, "Text", "b.html", renderedObjects));
+        assertTrue(testName, containsGUILinkWithPos(ChildPane.xBorderOffset, rootPane.y + fm.getHeight() + GUITable.yMargin, "TEXT", "", renderedObjects));
 
     }
 
@@ -89,9 +89,9 @@ public class HtmlTests {
 
         ArrayList<GUIObject> renderedObjects = rootPane.getDrawnGUIObjects();
         assertTrue(testName, rootPane.getDrawnGUIObjects().size() == 4); //3 GUIStrings
-        assertTrue(testName, containsGUIStringWithPos(ChildPane.xOffset, rootPane.y, "DATA", renderedObjects));
-        assertTrue(testName, containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("DATA") + GUITable.xMargin, rootPane.y + fm.getHeight() + GUITable.yMargin, "SECOND COLUMN", renderedObjects));
-        assertTrue(testName, containsGUIStringWithPos(ChildPane.xOffset, rootPane.y + fm.getHeight() + GUITable.yMargin, "DATA", renderedObjects));
+        assertTrue(testName, containsGUIStringWithPos(ChildPane.xBorderOffset, rootPane.y, "DATA", renderedObjects));
+        assertTrue(testName, containsGUIStringWithPos(ChildPane.xBorderOffset + fm.stringWidth("DATA") + GUITable.xMargin, rootPane.y + fm.getHeight() + GUITable.yMargin, "SECOND COLUMN", renderedObjects));
+        assertTrue(testName, containsGUIStringWithPos(ChildPane.xBorderOffset, rootPane.y + fm.getHeight() + GUITable.yMargin, "DATA", renderedObjects));
     }
 
     @Test
@@ -116,19 +116,19 @@ public class HtmlTests {
 
         ArrayList<GUIObject> renderedObjects = rootPane.getDrawnGUIObjects();
         assertTrue(testName, rootPane.getDrawnGUIObjects().size() == 11); //9 GUIString
-        assertTrue("UC_4.j", containsGUIStringWithPos(ChildPane.xOffset, rootPane.y, "HTML elements partially supported by Browsr:", renderedObjects));
+        assertTrue("UC_4.j", containsGUIStringWithPos(ChildPane.xBorderOffset, rootPane.y, "HTML elements partially supported by Browsr:", renderedObjects));
 
-        assertTrue("UC_4.d", containsGUILinkWithPos(ChildPane.xOffset, rootPane.y + fm.getHeight() + GUITable.yMargin, "a", "a.html", renderedObjects));
-        assertTrue("UC_4.g", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + fm.getHeight() + GUITable.yMargin, "Hyperlink anchors", renderedObjects));
+        assertTrue("UC_4.d", containsGUILinkWithPos(ChildPane.xBorderOffset, rootPane.y + fm.getHeight() + GUITable.yMargin, "a", "a.html", renderedObjects));
+        assertTrue("UC_4.g", containsGUIStringWithPos(ChildPane.xBorderOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + fm.getHeight() + GUITable.yMargin, "Hyperlink anchors", renderedObjects));
 
-        assertTrue("UC_4.e", containsGUILinkWithPos(ChildPane.xOffset, rootPane.y + 2*fm.getHeight() + 2*GUITable.yMargin, "table", "table.html", renderedObjects));
-        assertTrue("UC_4.c", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 2*fm.getHeight() + 2*GUITable.yMargin, "Tables", renderedObjects));
+        assertTrue("UC_4.e", containsGUILinkWithPos(ChildPane.xBorderOffset, rootPane.y + 2*fm.getHeight() + 2*GUITable.yMargin, "table", "table.html", renderedObjects));
+        assertTrue("UC_4.c", containsGUIStringWithPos(ChildPane.xBorderOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 2*fm.getHeight() + 2*GUITable.yMargin, "Tables", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWithPos(ChildPane.xOffset, rootPane.y + 3*fm.getHeight() + 3*GUITable.yMargin, "tr", "tr.html", renderedObjects));
-        assertTrue("UC_4.i", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 3*fm.getHeight() + 3*GUITable.yMargin, "Table rows", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(ChildPane.xBorderOffset, rootPane.y + 3*fm.getHeight() + 3*GUITable.yMargin, "tr", "tr.html", renderedObjects));
+        assertTrue("UC_4.i", containsGUIStringWithPos(ChildPane.xBorderOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 3*fm.getHeight() + 3*GUITable.yMargin, "Table rows", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWithPos(ChildPane.xOffset,  rootPane.y  + 4*fm.getHeight() + 4*GUITable.yMargin, "td", "td.html", renderedObjects));
-        assertTrue("UC_4.f", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 4*fm.getHeight() + 4*GUITable.yMargin, "Table cells containing table data", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(ChildPane.xBorderOffset,  rootPane.y  + 4*fm.getHeight() + 4*GUITable.yMargin, "td", "td.html", renderedObjects));
+        assertTrue("UC_4.f", containsGUIStringWithPos(ChildPane.xBorderOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 4*fm.getHeight() + 4*GUITable.yMargin, "Table cells containing table data", renderedObjects));
     }
 
 }

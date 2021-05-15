@@ -55,19 +55,19 @@ public class UseCaseTest {
         assertEquals("UC_4.a", screen.getAddress(), "https://people.cs.kuleuven.be/~bart.jacobs/browsrtest.html");
         ArrayList<GUIObject> renderedObjects = rootPane.getDrawnGUIObjects();
         assertTrue("UC_4.b", renderedObjects.size() == 11);
-        assertTrue("UC_4.j", containsGUIStringWithPos(ChildPane.xOffset, rootPane.y, "HTML elements partially supported by Browsr:", renderedObjects));
+        assertTrue("UC_4.j", containsGUIStringWithPos(ChildPane.xBorderOffset, rootPane.y, "HTML elements partially supported by Browsr:", renderedObjects));
 
-        assertTrue("UC_4.d", containsGUILinkWithPos(ChildPane.xOffset, rootPane.y + fm.getHeight() + GUITable.yMargin, "a", "a.html", renderedObjects));
-        assertTrue("UC_4.g", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + fm.getHeight() + GUITable.yMargin, "Hyperlink anchors", renderedObjects));
+        assertTrue("UC_4.d", containsGUILinkWithPos(ChildPane.xBorderOffset, rootPane.y + fm.getHeight() + GUITable.yMargin, "a", "a.html", renderedObjects));
+        assertTrue("UC_4.g", containsGUIStringWithPos(ChildPane.xBorderOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + fm.getHeight() + GUITable.yMargin, "Hyperlink anchors", renderedObjects));
 
-        assertTrue("UC_4.e", containsGUILinkWithPos(ChildPane.xOffset, rootPane.y + 2*fm.getHeight() + 2*GUITable.yMargin, "table", "table.html", renderedObjects));
-        assertTrue("UC_4.c", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 2*fm.getHeight() + 2*GUITable.yMargin, "Tables", renderedObjects));
+        assertTrue("UC_4.e", containsGUILinkWithPos(ChildPane.xBorderOffset, rootPane.y + 2*fm.getHeight() + 2*GUITable.yMargin, "table", "table.html", renderedObjects));
+        assertTrue("UC_4.c", containsGUIStringWithPos(ChildPane.xBorderOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 2*fm.getHeight() + 2*GUITable.yMargin, "Tables", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWithPos(ChildPane.xOffset, rootPane.y + 3*fm.getHeight() + 3*GUITable.yMargin, "tr", "tr.html", renderedObjects));
-        assertTrue("UC_4.i", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 3*fm.getHeight() + 3*GUITable.yMargin, "Table rows", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(ChildPane.xBorderOffset, rootPane.y + 3*fm.getHeight() + 3*GUITable.yMargin, "tr", "tr.html", renderedObjects));
+        assertTrue("UC_4.i", containsGUIStringWithPos(ChildPane.xBorderOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 3*fm.getHeight() + 3*GUITable.yMargin, "Table rows", renderedObjects));
 
-        assertTrue("UC_4.h", containsGUILinkWithPos(ChildPane.xOffset,  rootPane.y  + 4*fm.getHeight() + 4*GUITable.yMargin, "td", "td.html", renderedObjects));
-        assertTrue("UC_4.f", containsGUIStringWithPos(ChildPane.xOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 4*fm.getHeight() + 4*GUITable.yMargin, "Table cells containing table data", renderedObjects));
+        assertTrue("UC_4.h", containsGUILinkWithPos(ChildPane.xBorderOffset,  rootPane.y  + 4*fm.getHeight() + 4*GUITable.yMargin, "td", "td.html", renderedObjects));
+        assertTrue("UC_4.f", containsGUIStringWithPos(ChildPane.xBorderOffset + fm.stringWidth("table") + GUITable.xMargin, rootPane.y + 4*fm.getHeight() + 4*GUITable.yMargin, "Table cells containing table data", renderedObjects));
         //This page has 4 GUILinks and 5 GUIStrings
 
         //5 User navigates to a desired webpage. (using hyperlink)
@@ -75,7 +75,7 @@ public class UseCaseTest {
         for(GUIObject obj : rootPane.getDrawnGUIObjects()){
             if(obj instanceof GUILink){
                 //press a hyperlink
-                obj.handleMouseEvent(ChildPane.xOffset, rootPane.y + fm.getHeight() + GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
+                obj.handleMouseEvent(ChildPane.xBorderOffset, rootPane.y + fm.getHeight() + GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
                 //all hyperlinks will navigate to a non-browsr webpage -> show error document
                 href = ((GUILink) obj).getHref();
                 break;
@@ -106,7 +106,7 @@ public class UseCaseTest {
         for(GUIObject obj : rootPane.getDrawnGUIObjects()){
             if(obj instanceof GUIInput){
                 GUIInput input = (GUIInput) obj;
-                obj.handleMouseEvent(ChildPane.xOffset + fm.stringWidth("Maximum number of words to show") + GUITable.xMargin, rootPane.y + fm.getHeight() + 3*GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
+                obj.handleMouseEvent(ChildPane.xBorderOffset + fm.stringWidth("Maximum number of words to show") + GUITable.xMargin, rootPane.y + fm.getHeight() + 3*GUITable.yMargin, MouseEvent.MOUSE_PRESSED, 1);
                 assertTrue("UC_3.a", input.getInFocus());
                 typeString(window, "test input");
                 assertEquals("UC_3.b", input.getText(), "test input");
