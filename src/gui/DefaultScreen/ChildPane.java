@@ -3,6 +3,7 @@ package gui.DefaultScreen;
 import browsrhtml.BrowsrDocumentValidator;
 import gui.Objects.GUIObject;
 import gui.Objects.ScrollBars.HorizontalPaneScrollBar;
+import gui.Objects.ScrollBars.VerticalPaneScrollBar;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
@@ -18,6 +19,7 @@ import java.util.Set;
 public class ChildPane extends Pane {
 
     private HorizontalPaneScrollBar horScrollBar;
+    private VerticalPaneScrollBar verScrollBar;
     private int xOffset = 0;
     private int yOffset = 0;
 
@@ -35,6 +37,7 @@ public class ChildPane extends Pane {
         this.address = screen.getAddress();
         this.loader = new HtmlLoader(this);
         this.horScrollBar = new HorizontalPaneScrollBar(this);
+        this.verScrollBar = new VerticalPaneScrollBar(this);
     }
 
     public int getXOffset() { return this.xOffset; }
@@ -50,11 +53,11 @@ public class ChildPane extends Pane {
     public int getYOffset() { return this.yOffset; }
 
     public void setYOffset(int amount) {
-//        if (amount > 0) this.yOffset = 0;
-//        else if (amount < this.verScrollBar.calcMaxOffset()) this.yOffset = this.verScrollBar.calcMaxOffset();
-//        else this.yOffset = amount;
-//
-//        this.verScrollBar.getSlider().coordY = this.verScrollBar.calculateSliderY();
+        if (amount > 0) this.yOffset = 0;
+        else if (amount < this.verScrollBar.calcMaxOffset()) this.yOffset = this.verScrollBar.calcMaxOffset();
+        else this.yOffset = amount;
+
+        //this.verScrollBar.getSlider().coordY = this.verScrollBar.calculateSliderY();
     }
 
 
@@ -103,6 +106,7 @@ public class ChildPane extends Pane {
             this.setOutFocus();
         }
         if (this.getHorScrollBar().isOnScrollBar(x, y)) this.getHorScrollBar().handleMouseEvent(id, x, y, clickCount);
+        else if (this.getVerScrollBar().isOnScrollBar(x, y)) this.getVerScrollBar().handleMouseEvent(id, x, y, clickCount);
         else drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
     }
 
@@ -216,6 +220,7 @@ public class ChildPane extends Pane {
         }
         g.setClip(oldClip);
         if (this.getHorScrollBar() != null) this.getHorScrollBar().draw(g);
+        if (this.getVerScrollBar() != null) this.getVerScrollBar().draw(g);
     }
 
     /**
@@ -258,6 +263,7 @@ public class ChildPane extends Pane {
         this.updateGUIPositions(xDiv, yDiv);
         this.setDimensions(x, y, width, height);
         this.getHorScrollBar().updateDimensions();
+        this.getVerScrollBar().updateDimensions();
     }
 
     /**
@@ -388,11 +394,22 @@ public class ChildPane extends Pane {
 
     public HorizontalPaneScrollBar getHorScrollBar() { return this.horScrollBar; }
 
+    public VerticalPaneScrollBar getVerScrollBar() { return this.verScrollBar; }
+
     public int getContentWidth() {
         int max = 0;
         for (GUIObject guiObject : this.getDrawnGUIObjects()) {
             //System.out.println(guiObject.getClass().getName() + " = " + guiObject.coordX + " + "+ guiObject.width);
             max = Math.max(max, guiObject.coordX + guiObject.width);
+        }
+        return max;
+    }
+
+    public int getContentHeight() {
+        int max = 0;
+        for (GUIObject guiObject : this.getDrawnGUIObjects()) {
+            //System.out.println(guiObject.getClass().getName() + " = " + guiObject.coordX + " + "+ guiObject.width);
+            max = Math.max(max, guiObject.coordY + guiObject.height - this.y);
         }
         return max;
     }

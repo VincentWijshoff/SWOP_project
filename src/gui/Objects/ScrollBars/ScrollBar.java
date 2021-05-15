@@ -23,14 +23,22 @@ public abstract class ScrollBar {
 
     /**
      * The method used to slide, each scrollbar needs one.
+     * @param movement the amount to slide
      */
-    public abstract void slide();
+    public abstract void slide(int movement);
 
     /**
      * Drawing the scrollbar. This method should call the draw method from its
      * slider as well.
      */
     public abstract void draw(Graphics g);
+
+    /**
+     * Used to get the boundaries which the slider cannot cross.
+     * @return the most 'extreme' coordinate of the slider.
+     */
+    public abstract int getSliderStart();
+    public abstract int getSliderEnd();
 
 
     public ScrollbarSlider getSlider() { return this.slider; }

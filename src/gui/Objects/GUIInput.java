@@ -349,7 +349,7 @@ public class GUIInput extends GUIObject {
 
                         } else {
                             int preCursorTextLen = this.getStringWidth(text.substring(0, cursorPosition));
-                            if (preCursorTextLen + this.getInputScrollOffset() + coordX + 10 > this.scrollBar.getSliderEndX()) {
+                            if (preCursorTextLen + this.getInputScrollOffset() + coordX + 10 > this.scrollBar.getSliderEnd()) {
                                 //move string to left, so the new char plus the cursor (|) fits the box
                                 this.setOffset(getInputScrollOffset() - this.getStringWidth(text.charAt(cursorPosition) + "|"));
                             }

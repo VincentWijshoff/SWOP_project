@@ -8,11 +8,12 @@ import java.awt.event.MouseEvent;
  */
 public class ScrollbarSlider {
 
-    HorizontalScrollBar horizontalScrollBar;
+    ScrollBar scrollBar;
+    boolean isHorizontal;
     public int coordX, coordY, width, height;
 
     // Relative position of click in the slider
-    int cursorStartX;
+    int cursorStart;
 
     // Slider properties
     boolean canSlide = false;
@@ -21,13 +22,34 @@ public class ScrollbarSlider {
 
     /**
      * Create a new ScrollbarSlider
+     * @param scrollBar The scrollbar
      * @param x         The x position of the slider
      * @param y         The y position of the slider
      * @param width     The width of the slider
      * @param height    The height of the slider
      */
-    public ScrollbarSlider(HorizontalScrollBar horizontalScrollBar, int x, int y, int width, int height) {
-        this.horizontalScrollBar = horizontalScrollBar;
+    public ScrollbarSlider(HorizontalScrollBar scrollBar, int x, int y, int width, int height) {
+        this.scrollBar = scrollBar;
+        this.isHorizontal = true;
+
+        this.coordX = x;
+        this.coordY = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    /**
+     * Create a new ScrollbarSlider
+     * @param scrollBar The scrollbar
+     * @param x         The x position of the slider
+     * @param y         The y position of the slider
+     * @param width     The width of the slider
+     * @param height    The height of the slider
+     */
+    public ScrollbarSlider(VerticalScrollBar scrollBar, int x, int y, int width, int height) {
+        this.scrollBar = scrollBar;
+        this.isHorizontal = false;
+
         this.coordX = x;
         this.coordY = y;
         this.width = width;
@@ -71,21 +93,36 @@ public class ScrollbarSlider {
         if (id == MouseEvent.MOUSE_PRESSED) {
             this.isSliding = true;
             this.sliderColor = Color.LIGHT_GRAY;
-            this.cursorStartX = x-coordX;
+            this.cursorStart = this.isHorizontal ? x-coordX : y-coordY;
         }
 
         // User is dragging the slider, change coordX
         else if (id == MouseEvent.MOUSE_DRAGGED && this.isSliding) {
-            int newSliderCoordX = x-this.cursorStartX;
+            if (isHorizontal) {
+                int newSliderCoordX = x-this.cursorStart;
 
-            // Keep the slider within scrollbar boundaries
-            if ((newSliderCoordX > this.horizontalScrollBar.getSliderStartX()) && (newSliderCoordX+this.width < this.horizontalScrollBar.getSliderEndX())) {
-                this.coordX = newSliderCoordX; // Slide with mouse
-            } else if (newSliderCoordX <= this.horizontalScrollBar.getSliderStartX()) {
-                this.coordX = this.horizontalScrollBar.getSliderStartX(); // Slide most left
-            } else {
-                this.coordX = this.horizontalScrollBar.getSliderEndX()-this.width; // Slide most right
+                // Keep the slider within scrollbar boundaries
+                if ((newSliderCoordX > this.scrollBar.getSliderStart()) && (newSliderCoordX+this.width < this.scrollBar.getSliderEnd())) {
+                    this.coordX = newSliderCoordX; // Slide with mouse
+                } else if (newSliderCoordX <= this.scrollBar.getSliderStart()) {
+                    this.coordX = this.scrollBar.getSliderStart(); // Slide most left
+                } else {
+                    this.coordX = this.scrollBar.getSliderEnd()-this.width; // Slide most right
+                }
             }
+            else {
+                int newSliderCoordY = y-this.cursorStart;
+
+                // Keep the slider within scrollbar boundaries
+                if ((newSliderCoordY > this.scrollBar.getSliderStart()) && (newSliderCoordY+this.height < this.scrollBar.getSliderEnd())) {
+                    this.coordY = newSliderCoordY; // Slide with mouse
+                } else if (newSliderCoordY <= this.scrollBar.getSliderStart()) {
+                    this.coordY = this.scrollBar.getSliderStart(); // Slide most up
+                } else {
+                    this.coordY = this.scrollBar.getSliderEnd()-this.height; // Slide most down
+                }
+            }
+
         }
 
         // User stops dragging

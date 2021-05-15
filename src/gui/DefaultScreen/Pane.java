@@ -1,6 +1,7 @@
 package gui.DefaultScreen;
 
 import gui.Objects.GUIObject;
+import gui.Objects.ScrollBars.HorizontalPaneScrollBar;
 import html.HtmlLoader;
 
 import java.awt.*;
@@ -136,4 +137,5 @@ public abstract class Pane {
      * @param height the height to set this pane to
      */
     protected abstract void updateDimensions(int x, int y, int width, int height);
+
 }
