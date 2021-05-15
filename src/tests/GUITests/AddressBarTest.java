@@ -3,20 +3,32 @@ package tests.GUITests;
 import gui.*;
 import gui.DefaultScreen.AddressBar;
 import gui.DefaultScreen.DefaultScreen;
+import html.HtmlLoader;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.InvocationTargetException;
+
 import static tests.TestUtil.*;
 
-
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AddressBarTest {
 
-	Window window = new Window("TestBrowser");
-	DefaultScreen screen = new DefaultScreen(window);
+	Window window;
+	DefaultScreen screen;
 
 	static final int aBarX = 5; // position of the input field of the addressbar
 	static final int aBarY = 8;
+
+	@BeforeAll
+	public void setup() throws InvocationTargetException, InterruptedException {
+		this.window = new Window("TestBrowser");
+		this.screen = new DefaultScreen(window);
+		java.awt.EventQueue.invokeAndWait(this.window::show);
+	}
 
 	@Test
 	void testAddressBarSetAndGetAddress() throws  RuntimeException {
@@ -82,6 +94,7 @@ class AddressBarTest {
 		final String testName = "testAddressBarArrowUse";
 
 		AddressBar a = new AddressBar("testAddressBar", screen);
+
 
 		String initialAddress = a.getAddress();
 
