@@ -37,6 +37,7 @@ public class GUIInput extends GUIObject {
         super(x, y, width, height);
         this.text = startTxt;
         this.scrollBar = new InputScrollBar(this);
+        this.height += scrollBar.getScrollbarHeight();
     }
 
     /**
@@ -53,6 +54,7 @@ public class GUIInput extends GUIObject {
         this.text = startTxt;
         this.pageLoaderInput = pageLoader;
         this.scrollBar = new InputScrollBar(this);
+        this.height += scrollBar.getScrollbarHeight();
     }
 
     /**
@@ -66,18 +68,7 @@ public class GUIInput extends GUIObject {
         super(x, y, width, height);
         this.text = "";
         this.scrollBar = new InputScrollBar(this);
-    }
-
-    /**
-     * Construct a GUIInput
-     * @param text  Set the default text in the input bar
-     */
-    public GUIInput(String text) {
-        super();
-        this.text = text;
-        this.width = 100;
-        this.height = 15;
-        this.scrollBar = new InputScrollBar(this);
+        this.height += scrollBar.getScrollbarHeight();
     }
 
     /**
@@ -88,6 +79,7 @@ public class GUIInput extends GUIObject {
         this.width = 100;
         this.height = 15;
         this.scrollBar = new InputScrollBar(this);
+        this.height += scrollBar.getScrollbarHeight();
     }
 
     /**
@@ -95,11 +87,8 @@ public class GUIInput extends GUIObject {
      */
     @Override
     public void updateDimensions() {
-        // set the height to the height off a string
-        this.height = this.getFontMetrics().getHeight();
-        // because the string will be in the middle off the text box, and we want it to be in the middle of a row
-        // we set the y coordinate a bit lower
-        this.coordY += (int) (this.height/6);
+        // set the height to the height of a string + scrollbar height
+        this.height = this.getFontMetrics().getHeight() + scrollBar.getScrollbarHeight();
     }
 
     /**
@@ -622,8 +611,8 @@ public class GUIInput extends GUIObject {
         int y = this.coordY + yOffset;
 
         g.setColor(Color.BLACK);
-        g.drawRect(x, y, width, height+this.scrollBar.getScrollbarHeight()); // border
-        g.clearRect(x+1, y+1, width-1, height+this.scrollBar.getScrollbarHeight()-1); // actual address bar (white part)
+        g.drawRect(x, y, width, height); // border
+        g.clearRect(x+1, y+1, width-1, height-1); // actual address bar (white part)
 
         String viewedAddress = this.getText();
         if(inFocus && !this.isSelecting()){
@@ -637,7 +626,7 @@ public class GUIInput extends GUIObject {
             int tmp = (int) g.getFontMetrics().getStringBounds(this.getText(), g).getHeight();
             int[] xCords = this.getSelectedPositions(g);
             g.fillRect(x+5 + this.getInputScrollOffset() + xCords[0],
-                    y+3 + ((int) (height/1.5)) - tmp,
+                    y+3 + ((int) ((height - scrollBar.getScrollbarHeight())/1.5)) - tmp,
                     xCords[1] - xCords[0],
                     tmp); // text background
             g.setColor(Color.BLACK);
@@ -646,7 +635,7 @@ public class GUIInput extends GUIObject {
         Shape oldClip = g.getClip();
         g.setClip(x, y, this.width, this.height);
         setOffset(getInputScrollOffset()); // Is needed to check for edge cases
-        g.drawString(viewedAddress, x+5 + getInputScrollOffset(), y+((int) (height/1.5)));
+        g.drawString(viewedAddress, x+5 + getInputScrollOffset(), y +((int) ((height - scrollBar.getScrollbarHeight())/1.5)));
         g.setClip(oldClip);
         this.scrollBar.draw(g);
     }
@@ -682,7 +671,7 @@ public class GUIInput extends GUIObject {
     @Override
     public HashSet<GUIObject> copy() {
         HashSet<GUIObject> cpy = new HashSet<>();
-        GUIInput copy = new GUIInput(this.text, this.coordX, this.coordY, this.width, this.height);
+        GUIInput copy = new GUIInput(this.text, this.coordX, this.coordY, this.width, this.height - scrollBar.getScrollbarHeight());
         copy.name = this.name;
         copy.pageLoaderInput = this.pageLoaderInput;
         copy.prevText = this.prevText;

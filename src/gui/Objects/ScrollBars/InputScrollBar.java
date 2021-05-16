@@ -54,7 +54,7 @@ public class InputScrollBar extends HorizontalScrollBar {
         setScrollbarWidth(getAvailableWidth() );
 
         setScrollbarCoordX(this.getInputField().coordX);
-        setScrollBarCoordY(this.getInputField().coordY + this.getInputField().height);
+        setScrollBarCoordY(this.getInputField().coordY + this.getInputField().height - getScrollbarHeight());
     }
 
 
