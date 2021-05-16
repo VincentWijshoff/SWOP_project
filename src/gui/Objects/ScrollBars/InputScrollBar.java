@@ -26,24 +26,6 @@ public class InputScrollBar extends HorizontalScrollBar {
     private int getSliderStartY() { return this.getInputField().coordY+this.getInputField().height+1; }
 
 
-    public void draw(Graphics g) {
-        // Possible resize of the screen.
-        setBoundaries();
-
-        // Update the width of the slider.
-        getSlider().width = caculateSliderWidth();
-
-        // Reposition the slider so it matches the visible text.
-        getSlider().coordX = calculateSliderX();
-
-        // Scrollbar outline
-        g.setColor(Color.GRAY);
-        g.fillRect(getScrollbarCoordX(), getScrollbarCoordY()-1, getScrollbarWidth(), getScrollbarHeight()+2);
-
-        // Scrollbar slider
-        getSlider().draw(g);
-    }
-
 
     /**
      * The width of the scrollbar slider is dependant on the width and content of the input field.
@@ -93,19 +75,6 @@ public class InputScrollBar extends HorizontalScrollBar {
         return getSliderStart() - (Math.abs(this.getInputField().getStringWidth(text) - getMaxSliderWidth()+10));
     }
 
-    public void handleMouseEvent(int id, int x, int y, int clickCount) {
-        if (getSlider().isOnSlider(x, y) || getSlider().isSliding) {
-            int sliderXInit = getSlider().coordX;
-            getSlider().handleMouseEvent(id, x, y, clickCount);
-
-            // Slide the difference between the old and new x:
-            this.slide(sliderXInit - getSlider().coordX);
-
-        } else {
-            System.out.println("Clicked next to scrollbar slider!");
-        }
-    }
-
     private double rest = 0;
 
     public void slide(int sliderMovement) {
@@ -139,7 +108,7 @@ public class InputScrollBar extends HorizontalScrollBar {
      * @post The width of the total scrollbar = the width of the InputField.
      * @post The x- and y-coordinate of the scrollbar = the x- and y-coordinate of the InputField.
      */
-    private void setBoundaries() {
+    public void setBoundaries() {
         setScrollbarWidth(this.getInputField().width);
 
         setScrollbarCoordX(this.getInputField().coordX);

@@ -34,24 +34,6 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
     private int getSliderStartY() { return this.getPane().y + this.getPane().height+1 - getScrollbarHeight(); }
 
 
-    public void draw(Graphics g) {
-        // Possible resize of the screen.
-        setBoundaries();
-
-        // Update the width of the slider.
-        getSlider().width = caculateSliderWidth();
-
-        // Reposition the slider so it matches the visible text.
-        getSlider().coordX = calculateSliderX();
-
-        // Scrollbar outline
-        g.setColor(Color.GRAY);
-        g.fillRect(getScrollbarCoordX(), getScrollbarCoordY()-1, getScrollbarWidth(), getScrollbarHeight()+2);
-
-        // Scrollbar slider
-        getSlider().draw(g);
-    }
-
 
     /**
      * The width of the scrollbar slider is dependant on the width and content of the input field.
@@ -103,21 +85,6 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
         return getSliderStart() - (Math.abs(this.getPane().getContentWidth() - getMaxSliderWidth()+10));
     }
 
-    public void handleMouseEvent(int id, int x, int y, int clickCount) {
-        if (getSlider().isOnSlider(x, y) || getSlider().isSliding) {
-            int sliderXInit = getSlider().coordX;
-            getSlider().handleMouseEvent(id, x, y, clickCount);
-
-            // Slide the difference between the old and new x:
-            this.slide(sliderXInit - getSlider().coordX);
-
-        } else {
-            System.out.println("Clicked next to scrollbar slider!");
-        }
-    }
-
-    private double rest = 0;
-
     public void slide(int sliderMovement) {
         if (sliderMovement == 0) return;
 
@@ -143,7 +110,7 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
      * @post The width of the total scrollbar = the width of the pane.
      * @post The x- and y-coordinate of the scrollbar are set correctly (bottom left corner).
      */
-    private void setBoundaries() {
+    public void setBoundaries() {
         setScrollbarWidth(this.getPane().width-15);
 
         setScrollbarCoordX(this.getPane().x);
