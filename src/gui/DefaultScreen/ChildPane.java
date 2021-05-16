@@ -2,7 +2,8 @@ package gui.DefaultScreen;
 
 import browsrhtml.BrowsrDocumentValidator;
 import gui.Objects.GUIObject;
-import gui.Objects.ScrollBars.HorizontalPaneScrollBar;
+import gui.Objects.ScrollBars.HorizontalScrollBar;
+import gui.Objects.ScrollBars.Scrollable;
 import gui.Objects.ScrollBars.VerticalPaneScrollBar;
 import html.HtmlLoader;
 import localDocuments.Docs;
@@ -16,9 +17,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ChildPane extends Pane {
+public class ChildPane extends Pane implements Scrollable {
 
-    private HorizontalPaneScrollBar horScrollBar;
+    private HorizontalScrollBar horScrollBar;
     private VerticalPaneScrollBar verScrollBar;
     private int xOffset = 0;
     private int yOffset = 0;
@@ -36,7 +37,7 @@ public class ChildPane extends Pane {
         this.screen = screen;
         this.address = screen.getAddress();
         this.loader = new HtmlLoader(this);
-        this.horScrollBar = new HorizontalPaneScrollBar(this);
+        this.horScrollBar = new HorizontalScrollBar(this);
         this.verScrollBar = new VerticalPaneScrollBar(this);
     }
 
@@ -44,8 +45,7 @@ public class ChildPane extends Pane {
 
     public void setXOffset(int amount) {
         if (amount >= 0) this.xOffset = 0;
-        else if (amount < this.horScrollBar.calcMaxOffset()) this.xOffset = this.horScrollBar.calcMaxOffset();
-        else this.xOffset = amount;
+        else this.xOffset = Math.max(amount, this.horScrollBar.calcMaxOffset());
 
         this.horScrollBar.getSlider().coordX = this.horScrollBar.calculateSliderX();
     }
@@ -54,8 +54,7 @@ public class ChildPane extends Pane {
 
     public void setYOffset(int amount) {
         if (amount > 0) this.yOffset = 0;
-        else if (amount < this.verScrollBar.calcMaxOffset()) this.yOffset = this.verScrollBar.calcMaxOffset();
-        else this.yOffset = amount;
+        else this.yOffset = Math.max(amount, this.verScrollBar.calcMaxOffset());
 
         //this.verScrollBar.getSlider().coordY = this.verScrollBar.calculateSliderY();
     }
@@ -392,9 +391,44 @@ public class ChildPane extends Pane {
         this.drawnGUIObjects.clear();
     }
 
-    public HorizontalPaneScrollBar getHorScrollBar() { return this.horScrollBar; }
+    public HorizontalScrollBar getHorScrollBar() { return this.horScrollBar; }
 
     public VerticalPaneScrollBar getVerScrollBar() { return this.verScrollBar; }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getOffset() {
+        return getXOffset();
+    }
+
+    @Override
+    public void setOffset(int offset) {
+        setXOffset(offset);
+    }
+
+    @Override
+    public int getAvailableWidth() {
+        return width  - 15;
+    }
 
     public int getContentWidth() {
         int max = 0;

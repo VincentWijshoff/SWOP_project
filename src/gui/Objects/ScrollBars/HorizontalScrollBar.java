@@ -2,10 +2,11 @@ package gui.Objects.ScrollBars;
 
 import java.awt.*;
 
-public abstract class HorizontalScrollBar extends ScrollBar {
+public class HorizontalScrollBar extends ScrollBar {
 
     private static final int horScrollBarHeight = 15;
     private static final int sliderHeight = 13;
+    private Scrollable scrollable;
 
     public static int getSliderHeight() { return sliderHeight; }
 
@@ -13,9 +14,14 @@ public abstract class HorizontalScrollBar extends ScrollBar {
      * Constructor of the HorizontalScrollBar. Sets the height to a constant,
      * because this should never change.
      */
-    public HorizontalScrollBar() {
+    public HorizontalScrollBar(Scrollable scrollable) {
         setScrollbarHeight(horScrollBarHeight);
-        //this.setSlider(new ScrollbarSlider(this, getSliderStartX(), getScrollbarCoordY()+1, this.getMaxSliderWidth(), sliderHeight));
+
+        this.scrollable = scrollable;
+
+        this.setBoundaries();
+        setSlider(new ScrollbarSlider(this, 0,0,0,0));
+        updateDimensions();
     }
 
     public void updateDimensions() {
@@ -47,13 +53,13 @@ public abstract class HorizontalScrollBar extends ScrollBar {
         return getSliderStart() - (Math.abs(getContentWidth() - getMaxSliderWidth()+10));
     }
 
-    public abstract int getContentWidth();
+    public int getContentWidth() {return scrollable.getContentWidth();}
 
-    public abstract int getOffset();
+    public int getOffset() {return scrollable.getOffset();}
 
-    public abstract void setOffset(int offset);
+    public void setOffset(int offset) {scrollable.setOffset(offset);}
 
-    public abstract int getAvailableWidth();
+    public int getAvailableWidth() {return scrollable.getAvailableWidth();}
 
     public void slide(int sliderMovement) {
         if (sliderMovement == 0) return;
@@ -76,6 +82,7 @@ public abstract class HorizontalScrollBar extends ScrollBar {
     public void draw(Graphics g) {
         // Possible resize of the screen.
         setBoundaries();
+        updateDimensions();
 
         // Update the width of the slider.
         getSlider().width = calculateSliderWidth();
@@ -130,8 +137,22 @@ public abstract class HorizontalScrollBar extends ScrollBar {
         else return getSliderStart() + (offset*(-1) * getAvailableWidth() / getContentWidth());
     }
 
-    public abstract void setBoundaries();
+    public int getX() {return scrollable.getX();}
+    public int getY() {return scrollable.getY();}
+    public int getHeight() {return scrollable.getHeight();}
 
+    /**
+     * Sets scrollbar properties using the input field dimensions.
+     * Needed for when user resizes the window.
+     * @post The width of the total scrollbar = the width of the pane.
+     * @post The x- and y-coordinate of the scrollbar are set correctly (bottom left corner).
+     */
+    public void setBoundaries() {
+        setScrollbarWidth(getAvailableWidth());
+
+        setScrollbarCoordX(getX());
+        setScrollBarCoordY(getY() + getHeight() - getScrollbarHeight());
+    }
     /**
      * Used to calculate the maximum width the slider of this scrollbar can have,
      * based on the total width of the scrollbar and the buffer.
@@ -153,5 +174,5 @@ public abstract class HorizontalScrollBar extends ScrollBar {
      */
     public int getSliderEnd() { return this.getSliderStart() + this.getMaxSliderWidth(); }
 
-    public abstract int getSliderStartY();
+    public int getSliderStartY() { return getScrollbarCoordY() + 1; }
 }

@@ -1,6 +1,7 @@
 package gui.Objects;
 
-import gui.Objects.ScrollBars.InputScrollBar;
+import gui.Objects.ScrollBars.HorizontalScrollBar;
+import gui.Objects.ScrollBars.Scrollable;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -13,9 +14,9 @@ import java.util.HashSet;
 /**
  * An input bar
  */
-public class GUIInput extends GUIObject {
+public class GUIInput extends GUIObject implements Scrollable {
 
-    public InputScrollBar scrollBar;
+    public HorizontalScrollBar scrollBar;
     private int offset = 0;
 
     // needed parameters
@@ -36,7 +37,7 @@ public class GUIInput extends GUIObject {
     public GUIInput(String startTxt, int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = startTxt;
-        this.scrollBar = new InputScrollBar(this);
+        this.scrollBar = new HorizontalScrollBar(this);
         this.height += scrollBar.getScrollbarHeight();
     }
 
@@ -53,7 +54,7 @@ public class GUIInput extends GUIObject {
         super(x, y, width, height);
         this.text = startTxt;
         this.pageLoaderInput = pageLoader;
-        this.scrollBar = new InputScrollBar(this);
+        this.scrollBar = new HorizontalScrollBar(this);
         this.height += scrollBar.getScrollbarHeight();
     }
 
@@ -67,7 +68,7 @@ public class GUIInput extends GUIObject {
     public GUIInput(int x, int y, int width, int height){
         super(x, y, width, height);
         this.text = "";
-        this.scrollBar = new InputScrollBar(this);
+        this.scrollBar = new HorizontalScrollBar(this);
         this.height += scrollBar.getScrollbarHeight();
     }
 
@@ -78,7 +79,7 @@ public class GUIInput extends GUIObject {
         super();
         this.width = 100;
         this.height = 15;
-        this.scrollBar = new InputScrollBar(this);
+        this.scrollBar = new HorizontalScrollBar(this);
         this.height += scrollBar.getScrollbarHeight();
     }
 
@@ -213,12 +214,46 @@ public class GUIInput extends GUIObject {
 
     public int getInputScrollOffset() { return this.offset; }
 
+    @Override
+    public int getX() {
+        return coordX;
+    }
+
+    @Override
+    public int getY() {
+        return coordY;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getOffset() {
+        return getInputScrollOffset();
+    }
+
     public void setOffset(int amount) {
         if (amount > 0) this.offset = 0;
-        else if (amount < this.scrollBar.calcMaxOffset()) this.offset = this.scrollBar.calcMaxOffset();
-        else this.offset = amount;
+        else this.offset = Math.max(amount, this.scrollBar.calcMaxOffset());
 
         this.scrollBar.getSlider().coordX = this.scrollBar.calculateSliderX();
+    }
+
+    @Override
+    public int getAvailableWidth() {
+        return width;
+    }
+
+    @Override
+    public int getContentWidth() {
+        return getFontMetrics().stringWidth(getText());
     }
 
 

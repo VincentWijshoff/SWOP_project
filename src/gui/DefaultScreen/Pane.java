@@ -1,7 +1,6 @@
 package gui.DefaultScreen;
 
 import gui.Objects.GUIObject;
-import gui.Objects.ScrollBars.HorizontalPaneScrollBar;
 import html.HtmlLoader;
 
 import java.awt.*;
