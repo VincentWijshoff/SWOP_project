@@ -400,7 +400,7 @@ public class ChildPane extends Pane {
         int max = 0;
         for (GUIObject guiObject : this.getDrawnGUIObjects()) {
             //System.out.println(guiObject.getClass().getName() + " = " + guiObject.coordX + " + "+ guiObject.width);
-            max = Math.max(max, guiObject.coordX + guiObject.width);
+            max = Math.max(max, guiObject.coordX - this.x + guiObject.width);
         }
         return max;
     }
