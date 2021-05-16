@@ -119,19 +119,15 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
     private double rest = 0;
 
     public void slide(int sliderMovement) {
+        if (sliderMovement == 0) return;
+
+        System.out.println(sliderMovement);
         double rel = ((double) this.getPane().getContentWidth())            // rel = 1.8            1.9
                 / ((double) getMaxSliderWidth());
 
-        // (int vs double mest) zorgt ervoor dat de scrollbar beetje nauwkeuriger is
-        rest += rel - Math.floor(rel);                                      // rest = 0.8           1.7
-        double usableRest = Math.floor(rest);                               // usableRest = 0       1.0
-        rest -= usableRest;                                                 // rest = 0.8           0.7
-        rel = Math.floor(rel) + usableRest;                                 // rel = 1.0 + 0 = 1    1.0 + 1.0 = 2
+        double relMovement = sliderMovement * rel;
 
-        int relMovement = sliderMovement * (int) rel;
-
-        // Swiped
-        if(relMovement != 0) this.getPane().setXOffset(this.getPane().getXOffset() + relMovement);
+        this.getPane().setXOffset(this.getPane().getXOffset() + (int) relMovement);
 
         // Max left offset
         if (getSlider().coordX == getSliderStart() || this.getPane().getXOffset() > 0) this.getPane().setXOffset(0);
