@@ -85,24 +85,19 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
         return getSliderStart() - (Math.abs(this.getPane().getContentWidth() - getMaxSliderWidth()+10));
     }
 
-    public void slide(int sliderMovement) {
-        if (sliderMovement == 0) return;
-
-        System.out.println(sliderMovement);
-        double rel = ((double) this.getPane().getContentWidth())            // rel = 1.8            1.9
-                / ((double) getMaxSliderWidth());
-
-        double relMovement = sliderMovement * rel;
-
-        this.getPane().setXOffset(this.getPane().getXOffset() + (int) relMovement);
-
-        // Max left offset
-        if (getSlider().coordX == getSliderStart() || this.getPane().getXOffset() > 0) this.getPane().setXOffset(0);
-        // Max right offset
-        else if (getSlider().coordX + getSlider().width >= getSliderEnd())
-            this.getPane().setXOffset(this.calcMaxOffset());
-
+    public int getContentWidth() {
+        return this.getPane().getContentWidth();
     }
+
+    public int getOffset() {
+        return this.getPane().getXOffset();
+    }
+
+    public void setOffset(int offset) {
+        this.getPane().setXOffset(offset);
+    }
+
+
 
     /**
      * Sets scrollbar properties using the input field dimensions.

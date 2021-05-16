@@ -226,7 +226,7 @@ public class GUIInput extends GUIObject {
 
     public void setOffset(int amount) {
         if (amount > 0) this.offset = 0;
-        else if (amount < this.scrollBar.calcMaxOffset(this.getText())) this.offset = this.scrollBar.calcMaxOffset(this.getText());
+        else if (amount < this.scrollBar.calcMaxOffset()) this.offset = this.scrollBar.calcMaxOffset();
         else this.offset = amount;
 
         this.scrollBar.getSlider().coordX = this.scrollBar.calculateSliderX();
@@ -252,7 +252,7 @@ public class GUIInput extends GUIObject {
         //check if the string needs to be moved (if it became too big for the inputField)
         if(!this.textFits(text) && this.cursorPosition == text.length()){
             //set the position so the last character is on last position of the inputField
-            this.setOffset(this.scrollBar.calcMaxOffset(text));
+            this.setOffset(this.scrollBar.calcMaxOffset());
         } else if(textFits(text)){
             //the entire string fits, so position = 0
             this.setOffset(0);
@@ -280,7 +280,7 @@ public class GUIInput extends GUIObject {
         //check if the string needs to be moved (if it became too big for the inputField)
         if(!this.textFits(text) && this.cursorPosition == text.length()){
             //set the position so the last character is on last position of the inputField
-            this.setOffset(this.scrollBar.calcMaxOffset(text));
+            this.setOffset(this.scrollBar.calcMaxOffset());
 
         }else if(this.textFits(text)){
             //the entire string fits, so position = 0
@@ -345,7 +345,7 @@ public class GUIInput extends GUIObject {
                                 //this.getStringWidth(text) > this.frameWrapper.getHorizontalScrollbar().getMaxSliderWidth()){
 
                             //set the position so the last character is on last position of the inputField
-                            this.setOffset(this.scrollBar.calcMaxOffset(text));
+                            this.setOffset(this.scrollBar.calcMaxOffset());
 
                         } else {
                             int preCursorTextLen = this.getStringWidth(text.substring(0, cursorPosition));
@@ -379,7 +379,7 @@ public class GUIInput extends GUIObject {
             //check if the string needs to be moved (if it became too big for the inputField)
             if(!this.textFits(text) && this.cursorPosition == text.length()){
                 //set the position so the last character is on last position of the inputField
-                this.setOffset(this.scrollBar.calcMaxOffset(text));
+                this.setOffset(this.scrollBar.calcMaxOffset());
 
             } else if(this.textFits(text)){
                 this.setOffset(0);
@@ -412,7 +412,7 @@ public class GUIInput extends GUIObject {
             //check if the string needs to be moved (if it became too big for the inputField)
             if(!this.textFits(text) && this.cursorPosition == text.length()){
                 //set the position so the last character is on last position of the inputField
-                this.setOffset(this.scrollBar.calcMaxOffset(text));
+                this.setOffset(this.scrollBar.calcMaxOffset());
             } else if (this.textFits(text)) {
                 this.setOffset(0);
             }
@@ -453,7 +453,7 @@ public class GUIInput extends GUIObject {
         this.cursorPosition = this.text.length();
         if(!this.textFits(text) && this.cursorPosition == text.length()){
             //set the position so the last character is on last position of the inputField
-            this.setOffset(this.scrollBar.calcMaxOffset(text));
+            this.setOffset(this.scrollBar.calcMaxOffset());
         } else{
             this.setOffset(0);
         }

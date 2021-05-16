@@ -62,44 +62,29 @@ public class InputScrollBar extends HorizontalScrollBar {
 
         // Moves the slider according to what text is displayed (automatic updating for KeyEvents).
         if (offset == 0) return getSliderStart();
-        else if (offset == calcMaxOffset(this.getInputField().getText())) return getSliderEnd() - getSlider().width;
+        else if (offset == calcMaxOffset()) return getSliderEnd() - getSlider().width;
         else return getSliderStart() + (offset*(-1) * this.getInputField().width / this.getInputField().getStringWidth(this.getInputField().getText()));
     }
 
     /**
      * Calculates the maximum valid offset based on the length of the given string.
-     * @param text the text
      * @return the maximum amount of pixels the string can be moved
      */
-    public int calcMaxOffset(String text) {
-        return getSliderStart() - (Math.abs(this.getInputField().getStringWidth(text) - getMaxSliderWidth()+10));
+    public int calcMaxOffset() {
+        return getSliderStart() - (Math.abs(getContentWidth() - getMaxSliderWidth()+10));
     }
 
-    private double rest = 0;
-
-    public void slide(int sliderMovement) {
+    public int getContentWidth() {
         FontMetrics fm = this.inputField.getFontMetrics();
+        return  fm.stringWidth(this.inputField.getText());
+    }
 
-        double rel = ((double) fm.stringWidth(this.inputField.getText()))   // rel = 1.8            1.9
-                / ((double) getMaxSliderWidth());
+    public int getOffset() {
+        return this.getInputField().getInputScrollOffset();
+    }
 
-        // (int vs double mest) zorgt ervoor dat de scrollbar beetje nauwkeuriger is
-        rest += rel - Math.floor(rel);                                      // rest = 0.8           1.7
-        double usableRest = Math.floor(rest);                               // usableRest = 0       1.0
-        rest -= usableRest;                                                 // rest = 0.8           0.7
-        rel = Math.floor(rel) + usableRest;                                 // rel = 1.0 + 0 = 1    1.0 + 1.0 = 2
-
-        int relMovement = sliderMovement * (int) rel;
-
-        // Swiped
-        if(relMovement != 0) this.getInputField().setOffset(this.getInputField().getInputScrollOffset() + relMovement);
-
-        // Max left offset
-        if (getSlider().coordX == getSliderStart() || this.getInputField().getInputScrollOffset() > 0) this.getInputField().setOffset(0);
-        // Max right offset
-        else if (getSlider().coordX + getSlider().width >= getSliderEnd())
-            this.getInputField().setOffset(this.calcMaxOffset(this.getInputField().getText()));
-
+    public void setOffset(int offset) {
+        this.getInputField().setOffset(offset);
     }
 
     /**

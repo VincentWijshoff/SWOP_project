@@ -31,7 +31,31 @@ public abstract class HorizontalScrollBar extends ScrollBar {
         }
     }
 
-    public abstract void slide(int movement);
+    public abstract int calcMaxOffset();
+
+    public abstract int getContentWidth();
+
+    public abstract int getOffset();
+
+    public abstract void setOffset(int offset);
+
+    public void slide(int sliderMovement) {
+        if (sliderMovement == 0) return;
+
+        double rel = ((double) getContentWidth())            // rel = 1.8            1.9
+                / ((double) getMaxSliderWidth());
+
+        double relMovement = sliderMovement * rel;
+
+        //Swiped
+        setOffset(getOffset() + (int) relMovement);
+
+        // Max left offset
+        if (getSlider().coordX == getSliderStart() || getOffset() > 0) setOffset(0);
+            // Max right offset
+        else if (getSlider().coordX + getSlider().width >= getSliderEnd())
+            setOffset(this.calcMaxOffset());
+    }
 
     public void draw(Graphics g) {
         // Possible resize of the screen.
