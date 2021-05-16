@@ -52,7 +52,7 @@ public class InputScrollBar extends HorizontalScrollBar {
      *          if the text doesn't fit, the slider will have a width so that the ratio between slider and scrollbar is
      *          equal to the ratio of the inputfield-width and inputfield-text-width.
      */
-    private int caculateSliderWidth() {
+    public int calculateSliderWidth() {
         int inputFieldWidth = this.getInputField().width - this.getBuffer()*2;
         int textWidth = this.getInputField().getStringWidth(this.getInputField().getText());
         int maxSliderWidth = this.getMaxSliderWidth();

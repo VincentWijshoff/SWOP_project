@@ -38,7 +38,7 @@ public class VerticalPaneScrollBar extends VerticalScrollBar {
         setBoundaries();
 
         // Update the width of the slider.
-        getSlider().height = caculateSliderHeight();
+        getSlider().height = calculateSliderHeight();
 
         // Reposition the slider so it matches the visible text.
         getSlider().coordY = calculateSliderY();
@@ -59,7 +59,7 @@ public class VerticalPaneScrollBar extends VerticalScrollBar {
      *          if the text doesn't fit, the slider will have a width so that the ratio between slider and scrollbar is
      *          equal to the ratio of the inputfield-width and inputfield-text-width.
      */
-    private int caculateSliderHeight() {
+    private int calculateSliderHeight() {
         int availableHeight = this.getPane().height;
         int contentHeight = this.getPane().getContentHeight();
         int maxSliderHeight = this.getMaxSliderHeight();
