@@ -10,7 +10,6 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
     // The inputField is the element the scrollbar is attached to.
     private ChildPane pane;
 
-
     /**
      * Constructor for Scrollbar
      * @param pane the ChildPane that will use the scrollbar
@@ -26,14 +25,6 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
     // Slider has to at the bottom of the field.
     public int getSliderStartY() { return this.getPane().y + this.getPane().height+1 - getScrollbarHeight(); }
 
-    /**
-     * Calculates the maximum valid offset based on the width of the given guiObjects.
-     * @return the maximum amount of pixels the objects can be moved.
-     */
-    public int calcMaxOffset() {
-        return getSliderStart() - (Math.abs(this.getPane().getContentWidth() - getMaxSliderWidth()+10));
-    }
-
     public int getContentWidth() {
         return this.getPane().getContentWidth();
     }
@@ -47,7 +38,7 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
     }
 
     public int getAvailableWidth() {
-        return this.getPane().width;
+        return this.getPane().width  - 15;
     }
 
     /**
@@ -57,7 +48,7 @@ public class HorizontalPaneScrollBar extends HorizontalScrollBar {
      * @post The x- and y-coordinate of the scrollbar are set correctly (bottom left corner).
      */
     public void setBoundaries() {
-        setScrollbarWidth(this.getPane().width);
+        setScrollbarWidth(getAvailableWidth());
 
         setScrollbarCoordX(this.getPane().x);
         setScrollBarCoordY(this.getPane().y + this.getPane().height - getScrollbarHeight());

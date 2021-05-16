@@ -26,13 +26,6 @@ public class InputScrollBar extends HorizontalScrollBar {
     // Slider has to be below the InputField.
     public int getSliderStartY() { return this.getInputField().coordY+this.getInputField().height+1; }
 
-    /**
-     * Calculates the maximum valid offset based on the length of the given string.
-     * @return the maximum amount of pixels the string can be moved
-     */
-    public int calcMaxOffset() {
-        return getSliderStart() - (Math.abs(getContentWidth() - getMaxSliderWidth()+10));
-    }
 
     public int getContentWidth() {
         FontMetrics fm = this.inputField.getFontMetrics();
@@ -58,7 +51,7 @@ public class InputScrollBar extends HorizontalScrollBar {
      * @post The x- and y-coordinate of the scrollbar = the x- and y-coordinate of the InputField.
      */
     public void setBoundaries() {
-        setScrollbarWidth(this.getInputField().width - 15);
+        setScrollbarWidth(getAvailableWidth() );
 
         setScrollbarCoordX(this.getInputField().coordX);
         setScrollBarCoordY(this.getInputField().coordY + this.getInputField().height);

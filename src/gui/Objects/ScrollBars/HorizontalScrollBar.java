@@ -39,7 +39,13 @@ public abstract class HorizontalScrollBar extends ScrollBar {
         }
     }
 
-    public abstract int calcMaxOffset();
+    /**
+     * Calculates the maximum valid offset based on the width of the given guiObjects.
+     * @return the maximum amount of pixels the objects can be moved.
+     */
+    public int calcMaxOffset() {
+        return getSliderStart() - (Math.abs(getContentWidth() - getMaxSliderWidth()+10));
+    }
 
     public abstract int getContentWidth();
 
