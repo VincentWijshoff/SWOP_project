@@ -163,6 +163,10 @@ public class GUIInput extends GUIObject implements Scrollable {
             return;
         }
         if(modifier == KeyEvent.SHIFT_DOWN_MASK){
+            if (!this.isSelecting()) {
+                this.startSelected = this.cursorPosition;
+                this.endSelected = this.cursorPosition;
+            }
             this.shifting = true;
         }else if(modifier == 0){
             this.shifting = false;
@@ -239,8 +243,6 @@ public class GUIInput extends GUIObject implements Scrollable {
 
 
     public void setOffset(int amount) {
-        System.out.println("setOffset() amount:" + amount);
-        System.out.println("setOffset() calcMaxOffset():" + this.scrollBar.calcMaxOffset());
         if (amount > 0) this.offset = 0;
         else this.offset = Math.max(amount, this.scrollBar.calcMaxOffset());
 
@@ -326,26 +328,43 @@ public class GUIInput extends GUIObject implements Scrollable {
                 this.cursorPosition = Math.min(this.startSelected, this.endSelected);
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
-            } else {
-                if (this.cursorPosition > 0) {
-                    this.cursorPosition--;
+            }
+            else {
+                if (this.cursorPosition != 0) this.cursorPosition--; // Move cursor if possible
 
-                    //if user is moving left with cursor and is close to left bound, move text as well
-                    int preCursorTextLen = this.getStringWidth(text.substring(0, cursorPosition));
-                    if(preCursorTextLen+this.getOffset() < coordX){
-                        //move string to right, so the new char plus the cursor (|) fits the box
-                        this.setOffset(getOffset() + this.getStringWidth(text.charAt(cursorPosition) + "|"));
-                    }
-
-                    this.startSelected = this.cursorPosition;
-                    this.endSelected = this.cursorPosition;
+                // If all the text fits, keep the offset of the text 0.
+                if (this.textFits(text)) {
+                    this.setOffset(0);
+                    return;
                 }
             }
         } else{
-            //left arrow while pressing shift
             if(this.endSelected > 0){
                 this.endSelected--;
             }
+        }
+        this.updateOffsetOnLeftArrow();
+    }
+
+    private void updateOffsetOnLeftArrow() {
+        int positionToUse = cursorPosition;
+        if (isSelecting()) {
+            positionToUse = this.endSelected;
+        }
+        // If cursor at the end, no offset
+        if (positionToUse == 0) {
+            this.setOffset(0);
+        }
+        else {
+            int pos = positionToUse == text.length() ? text.length()-1 : positionToUse;
+            int afterCursorTextLen = this.getStringWidth(text.substring(pos, text.length()-1));
+            int currentOffset = getOffset();
+            int futureOffset = Math.min(0, this.scrollBar.calcMaxOffset() + this.getStringWidth(text.substring(pos, text.length()-1) + "|") - this.scrollBar.getScrollbarWidth() + 10);
+            // If cursor at the edge, change offset
+            if (afterCursorTextLen >= this.width - 20 && currentOffset < futureOffset) {
+                this.setOffset(futureOffset);
+            }
+
         }
     }
 
@@ -359,36 +378,44 @@ public class GUIInput extends GUIObject implements Scrollable {
                 this.cursorPosition = Math.max(this.startSelected, this.endSelected);
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
-            } else {
-                if (this.cursorPosition < this.text.length()) {
-                    this.cursorPosition++;
+            }
 
-                    if(this.cursorPosition != this.text.length()) {
-                        //if user is moving right with cursor and is close to right bound, move text as well
-                        if(this.cursorPosition == this.text.length()-1 &&
-                                !this.textFits(text)) {
-                                //this.getStringWidth(text) > this.frameWrapper.getHorizontalScrollbar().getMaxSliderWidth()){
+            else {
+                if (this.cursorPosition != this.text.length()) this.cursorPosition++; // Move cursor if possible
 
-                            //set the position so the last character is on last position of the inputField
-                            this.setOffset(this.scrollBar.calcMaxOffset());
-
-                        } else {
-                            int preCursorTextLen = this.getStringWidth(text.substring(0, cursorPosition));
-                            if (preCursorTextLen + this.getOffset() + coordX + 10 > this.scrollBar.getSliderEnd()) {
-                                //move string to left, so the new char plus the cursor (|) fits the box
-                                this.setOffset(getOffset() - this.getStringWidth(text.charAt(cursorPosition) + "|"));
-                            }
-                        }
-                    }
-
-                    this.startSelected = this.cursorPosition;
-                    this.endSelected = this.cursorPosition;
+                // If all the text fits, keep the offset of the text 0.
+                if (this.textFits(text)) {
+                    this.setOffset(0);
+                    return;
                 }
             }
         } else{
             if(this.endSelected < this.text.length()){
                 this.endSelected++;
             }
+        }
+        this.updateOffsetOnRightArrow();
+    }
+
+    private void updateOffsetOnRightArrow() {
+        int positionToUse = cursorPosition;
+        if (isSelecting()) {
+            positionToUse = this.endSelected;
+        }
+
+        // If cursor at the end, max offset
+        if (positionToUse == this.text.length()) {
+            this.setOffset(this.scrollBar.calcMaxOffset());
+        }
+        else {
+            int preCursorTextLen = this.getStringWidth(text.substring(0, positionToUse));
+            int currentOffset = getOffset();
+            int futureOffset = (-1)*(this.getStringWidth(text.substring(0, positionToUse) + "|") - this.scrollBar.getScrollbarWidth() + 10);
+            // If cursor at the edge, change offset
+            if (preCursorTextLen >= this.width - 20 && futureOffset < currentOffset) {
+                this.setOffset(futureOffset);
+            }
+
         }
     }
 
@@ -650,6 +677,9 @@ public class GUIInput extends GUIObject implements Scrollable {
         g.drawRect(x, y, width, height); // border
         g.clearRect(x+1, y+1, width-1, height-1); // actual address bar (white part)
 
+        Shape oldClip = g.getClip();
+        g.setClip(x, y, this.width, this.height);
+
         String viewedAddress = this.getText();
         if(inFocus && !this.isSelecting()){
             // when the address bar is in focus, a text cursor needs to be shown at the correct position of the current string
@@ -670,8 +700,7 @@ public class GUIInput extends GUIObject implements Scrollable {
             g.setColor(Color.BLACK);
         }
 
-        Shape oldClip = g.getClip();
-        g.setClip(x, y, this.width, this.height);
+
         g.drawString(viewedAddress, x+ScrollBar.getBuffer() + getOffset(), y +((int) ((height - scrollBar.getScrollbarHeight())/1.5)));
         g.setClip(oldClip);
         this.scrollBar.draw(g, xOffset, yOffset);
