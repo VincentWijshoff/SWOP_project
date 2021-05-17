@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>96</x>
+      <y>196</y>
+      <w>892</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>title=Click and move on vertical scrollbar
+obj=User~a ACTOR EXECUTION
+obj=:CanvasWindow~b EXECUTION
+obj=:DefaultScreen~c EXECUTION
+obj=:Pane~d EXECUTION
+obj=:VerticalScrollBar~e EXECUTION
+obj=:HorizontalScrollBar~f EXECUTION
+obj=:GUIObject~g EXECUTION
+
+a-&gt;b : Mouse Click;
+b-&gt;c : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
+c-&gt;d : handleMouseEvent(ID, x, y, clickCount);
+
+combinedFragment=opt~loop2 d g
+
+d: [isOnScrollBar(x, y)]
+d-&gt;e : handleMouseEvent(ID, x, y, clickCount);
+ref=e e :VerticalScrollbar handle click
+
+tick=
+..=loop2 ; d : [isOnScrollBar(x, y) == True ]
+
+d-&gt;f : handleMouseEvent(ID, x, y, clickCount);
+ref=f f :HorizontalScrollbar handle click
+
+tick=
+..=loop2 ; d : [ else ]
+	combinedFragment=loop~loop1 d g;
+		d: [ obj : drawnGUIObjects ]
+		d-&gt;g: handleMouseEvent(ID, x, y, clickCount);
+		ref=c c :GUIObject handle click
+		ref=g g: GuiObject Handle click
+	--=loop1
+
+--=loop2
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
