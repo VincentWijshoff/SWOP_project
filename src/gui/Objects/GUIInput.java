@@ -361,7 +361,7 @@ public class GUIInput extends GUIObject implements Scrollable {
             int currentOffset = getOffset();
             int futureOffset = Math.min(0, this.scrollBar.calcMaxOffset() + this.getStringWidth(text.substring(pos, text.length()-1) + "|") - this.scrollBar.getScrollbarWidth() + 10);
             // If cursor at the edge, change offset
-            if (afterCursorTextLen >= this.width - 20 && currentOffset < futureOffset) {
+            if (afterCursorTextLen >= this.width - 10 && currentOffset < futureOffset) {
                 this.setOffset(futureOffset);
             }
 
