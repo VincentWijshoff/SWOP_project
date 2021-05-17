@@ -423,63 +423,41 @@ public class GUIInput extends GUIObject implements Scrollable {
      * When the user pressed the backspace button
      */
     private void onBackSpace(){
-        //backspace
-        if (this.startSelected != this.endSelected) {
+        int widthToRemove;
+        if (this.isSelecting()) {
+            widthToRemove = this.getStringWidth(this.getSelectedText());
             this.text = replaceSelected(this.startSelected, this.endSelected, this.text, "");
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-
-            //check if the string needs to be moved (if it became too big for the inputField)
-            if(!this.textFits(text) && this.cursorPosition == text.length()){
-                //set the position so the last character is on last position of the inputField
-                this.setOffset(this.scrollBar.calcMaxOffset());
-
-            } else if(this.textFits(text)){
-                this.setOffset(0);
-            }
-
-            this.startSelected = this.cursorPosition;
-            this.endSelected = this.cursorPosition;
         } else {
-            if (this.cursorPosition > 0) {
-                this.text = this.removeAt(this.text, --this.cursorPosition);
-                if(cursorPosition!= 0) {
-                    //add the length of the deleted char, so we move the text right
-                    this.setOffset(getOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition - 1))));
-                }
-                this.startSelected = this.cursorPosition;
-                this.endSelected = this.cursorPosition;
-            }
+            if (this.cursorPosition == 0) return;
+            widthToRemove = this.getStringWidth(String.valueOf(text.charAt(cursorPosition-1)));
+            this.text = this.removeAt(this.text, --this.cursorPosition);
+
         }
+        if (this.textFits(text) || cursorPosition == 0) this.setOffset(0);
+        else if (!this.textFits(text) && this.cursorPosition == text.length()) this.setOffset(this.scrollBar.calcMaxOffset());
+        else this.setOffset(getOffset() + widthToRemove);
+
+        this.startSelected = this.cursorPosition;
+        this.endSelected = this.cursorPosition;
     }
 
     /**
      * When the user pressed the delete button
      */
     private void onDelete(){
-        //delete
-        if (this.startSelected != this.endSelected) {
+        if (this.isSelecting()) {
             this.text = replaceSelected(this.startSelected, this.endSelected, this.text, "");
             this.cursorPosition = Math.min(this.startSelected, this.endSelected);
-
-            //check if the string needs to be moved (if it became too big for the inputField)
-            if(!this.textFits(text) && this.cursorPosition == text.length()){
-                //set the position so the last character is on last position of the inputField
-                this.setOffset(this.scrollBar.calcMaxOffset());
-            } else if (this.textFits(text)) {
-                this.setOffset(0);
-            }
-            this.startSelected = this.cursorPosition;
-            this.endSelected = this.cursorPosition;
         } else {
-            if (this.cursorPosition < this.text.length()) {
-                //add the length of the deleted char, so we move the text right
-                this.setOffset(getOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition))));
-
-                this.text = this.removeAt(this.text, this.cursorPosition);
-                this.startSelected = this.cursorPosition;
-                this.endSelected = this.cursorPosition;
-            }
+            if (this.cursorPosition == text.length()) return;
+            this.text = this.removeAt(this.text, this.cursorPosition);
         }
+        if (this.textFits(text) || cursorPosition == 0) this.setOffset(0);
+        else if (!this.textFits(text) && this.cursorPosition == text.length()) this.setOffset(this.scrollBar.calcMaxOffset());
+
+        this.startSelected = this.cursorPosition;
+        this.endSelected = this.cursorPosition;
     }
 
     /**
@@ -541,6 +519,13 @@ public class GUIInput extends GUIObject implements Scrollable {
         String beginWord = word.substring(0, start);
         String endWord = word.substring(fin);
         return beginWord + replacement + endWord;
+    }
+
+    private String getSelectedText() {
+        int a = this.startSelected;
+        int b = this.endSelected;
+        if (a < b) return text.substring(a, b);
+        else return text.substring(b, a);
     }
 
     /**
