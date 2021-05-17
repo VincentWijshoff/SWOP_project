@@ -64,8 +64,8 @@ a-&gt;a+: selectNone()
     <coordinates>
       <x>0</x>
       <y>0</y>
-      <w>1328</w>
-      <h>640</h>
+      <w>1648</w>
+      <h>544</h>
     </coordinates>
     <panel_attributes>title=Handle user mouse click in DefaultScreen
 obj=User~a ACTOR EXECUTION
@@ -79,8 +79,7 @@ obj=:GUIObject~g EXECUTION
 a-&gt;b : Mouse Click;
 b-&gt;c : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
 c-&gt;d : handleMouseEvent(ID, x, y, clickCount);
-d-&gt;g : handleMouseEvent(ID, x, y, clickCount);
-ref=g g :GUIObject handle click
+ref=d d :HandlemouseEvent on Pane
 
 
 c-&gt;e : handleMouseEvent(ID, x, y, clickCount);

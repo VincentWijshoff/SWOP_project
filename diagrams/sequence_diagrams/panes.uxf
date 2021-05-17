@@ -1,39 +1,124 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>4</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>0</x>
-      <y>20</y>
-      <w>2280</w>
-      <h>840</h>
+      <x>100</x>
+      <y>12</y>
+      <w>952</w>
+      <h>380</h>
     </coordinates>
-    <panel_attributes>title=Split pane
-obj=User~a ACTOR EXECUTION
-obj=:CanvasWindow~b EXECUTION
-obj=:DefaultScreen~c EXECUTION
-obj=:ChildPane~d EXECUTION
-obj=:ParentPane~e 
-obj=:ChildPane~f 
+    <panel_attributes>title=Split ChildPane
+obj=parent :ParentPane~a EXECUTION
+obj=child :ChildPane~b EXECUTION
+obj=:ParentPane~c
+obj=child1 :ChildPane~d
+obj=child2 :ChildPane~e
 
-a-&gt;b : Mouse Click;
-b-&gt;c : handleMouseEvent(ID, x, y, clickCount, button, modifiers);
-c-&gt;d : handleMouseEvent(ID, x, y, clickCount);
-d-&gt;e : parent = new ParentPane();on=e
-d-&gt;d+ : guiCopy = getCopyOfObjects()
+found-&gt;a : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+a-&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
+
+b-&gt;c : newParent = new ParentPane(); on=c;
+b-&gt;c : setDimensions(this.x, this.y, this.width, this.height);
+b-&gt;c : setParentPane(parent);
+b-&gt;a : changeChild(newParent, this);
+b-&gt;d : child1 = newChildPane(); on=d;
+b-&gt;e : child2 = newChildPane(); on=e;
+b-&gt;c : setChildren(child1, child2);
+b-&gt;b + : cop1Objects = copyOfObjects();
 tick=
-d-&gt;f : child1 = new ChildPane(); on=f
-d-&gt;f : child1.setObjects(guiCopy);
-d-&gt;f : child2 = new ChildPane(); on=f
-d-&gt;f : child2.setObjects(guiCopy);
-d-&gt;e : parent.setChildren(child1, child2)
-d-&gt;e : parent.setDimension(this.x, this.y, this.width, this.height)
-d-&gt;e : parent. updatDimensions()
-e-&gt;f : child1.updateDimensions()
-e-&gt;f : child2.updateDimensions()
+b-&gt;d : setGUIObjects(copy1Objects);
+b-&gt;b + : cop2Objects = copyOfObjects();
+tick=
+b-&gt;e : setGUIObjects(copy2Objects);
+c-&gt;d : setDimensions(x, y, width, height);
+c-&gt;e : setDimensions(x, y, width, height)
+b-&gt;c : setInFocus();
+b-&gt;d : setInFocus();
+off=b;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>692</x>
+      <y>400</y>
+      <w>388</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>title=HandlemouseEvent on ChildPane
+obj=:ChildPane~a EXECUTION
+obj=:GUIObject~b EXECUTION
 
-</panel_attributes>
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
+a-&gt;b : handleMouseEvent(ID, x, y, clickCount);
+ref=b b :GUIObject handle click</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>100</x>
+      <y>400</y>
+      <w>588</w>
+      <h>296</h>
+    </coordinates>
+    <panel_attributes>title=HandlemouseEvent on ParentPane
+obj=:ParentPane~a EXECUTION
+obj=child1 :Pane~b EXECUTION
+obj=child2 :Pane~c EXECUTION
+
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
+combinedFragment=alt~loop2 a c; 
+a: [ child1.isOnPane(x, y) ]
+
+a-&gt;b : setInFocus();
+a-&gt;c : setOutFocus();
+
+..=loop2 ; a : [ child2.isOnPane(x, y) ]
+
+a-&gt;c : setInFocus();
+a-&gt;b : setOutFocus();
+
+--=loop2
+
+combinedFragment=alt~loop1 a c;
+a : [ child1.isInFocsu() ]
+
+a-&gt;b : handleMouseEvent(ID, x, y, clickCount);
+ref=b b :HandlemouseEvent on Pane
+
+ ..=loop1 ; a : [ child2.isInFocsu() ]
+
+a-&gt;c : handleMouseEvent(ID, x, y, clickCount);
+ref=c c :HandlemouseEvent on Pane
+
+ --=loop1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSequenceAllInOne</id>
+    <coordinates>
+      <x>100</x>
+      <y>704</y>
+      <w>756</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>title=Close ChildPane
+obj=parent1 :ParentPane~a EXECUTION
+obj=parent2 :ParentPane~b EXECUTION
+obj=child1 :ChildPane~c EXECUTION
+obj=child2 :ChildPane~d EXECUTION
+
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
+a-&gt;b : handleMouseEvent(ID, x, y, clickCount);
+b-&gt;c : handleMouseEvent(ID, x, y, clickCount);
+c-&gt;b : removeChild(this);
+b-&gt;d : setParentPane(parent1);
+b-&gt;a : switchChild(this, child2);
+b-&gt;d : updateDimension(this.x, this.y, this.width, this.height);
+off=b; off=c;</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
