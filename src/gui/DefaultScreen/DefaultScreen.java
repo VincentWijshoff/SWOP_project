@@ -174,9 +174,9 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader, Pa
         this.bookmarkBar.handleMouseEvent(id, x, y, clickCount);
         this.addressBar.handleMouseEvent(id, x, y, clickCount);
 
-        if (this.rootPane.isOnPane(x, y)) {
+        //if (this.rootPane.isOnPane(x, y)) {
             this.rootPane.handleMouseEvent(id, x, y, clickCount);
-        }
+        //}
     }
 
     /**

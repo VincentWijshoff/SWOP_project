@@ -1,6 +1,7 @@
 package gui.Objects;
 
 import gui.Objects.ScrollBars.HorizontalScrollBar;
+import gui.Objects.ScrollBars.ScrollBar;
 import gui.Objects.ScrollBars.Scrollable;
 
 import java.awt.*;
@@ -102,6 +103,8 @@ public class GUIInput extends GUIObject implements Scrollable {
     public void handleMouseEvent(int x, int y, int id, int clickCount){
         if (this.scrollBar.isOnScrollBar(x, y)) {
             this.scrollBar.handleMouseEvent(id, x, y, clickCount);
+            this.inFocus = true;
+            return;
         } else if (!this.isInGUIObject(x, y)) {
             this.selectNone();
             this.inFocus = false;
@@ -236,6 +239,8 @@ public class GUIInput extends GUIObject implements Scrollable {
 
 
     public void setOffset(int amount) {
+        System.out.println("setOffset() amount:" + amount);
+        System.out.println("setOffset() calcMaxOffset():" + this.scrollBar.calcMaxOffset());
         if (amount > 0) this.offset = 0;
         else this.offset = Math.max(amount, this.scrollBar.calcMaxOffset());
 
@@ -667,9 +672,9 @@ public class GUIInput extends GUIObject implements Scrollable {
 
         Shape oldClip = g.getClip();
         g.setClip(x, y, this.width, this.height);
-        g.drawString(viewedAddress, x+5 + getOffset(), y +((int) ((height - scrollBar.getScrollbarHeight())/1.5)));
+        g.drawString(viewedAddress, x+ScrollBar.getBuffer() + getOffset(), y +((int) ((height - scrollBar.getScrollbarHeight())/1.5)));
         g.setClip(oldClip);
-        this.scrollBar.draw(g);
+        this.scrollBar.draw(g, xOffset, yOffset);
     }
 
     /**

@@ -60,10 +60,13 @@ public class ScrollbarSlider {
      * Draw the slider
      * @param g the graphics needed to draw the object
      */
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int... paneOffsets) {
+        int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
+        int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
+
         Color oldColor = g.getColor();
         g.setColor(this.sliderColor);
-        g.fillRect(coordX, coordY, width, height);
+        g.fillRect(coordX + xOffset, coordY + yOffset, width, height);
         g.setColor(oldColor);
     }
 

@@ -31,7 +31,7 @@ public abstract class ScrollBar {
      * Drawing the scrollbar. This method should call the draw method from its
      * slider as well.
      */
-    public abstract void draw(Graphics g);
+    public abstract void draw(Graphics g, int... paneOffsets);
 
     /**
      * Used to get the boundaries which the slider cannot cross.
@@ -48,7 +48,7 @@ public abstract class ScrollBar {
     public int getScrollbarHeight() { return this.scrollbarHeight; }
     public int getScrollbarCoordX() { return this.scrollBarCoordX; }
     public int getScrollbarCoordY() { return this.scrollBarCoordY; }
-    public int getBuffer() { return buffer; }
+    public static int getBuffer() { return buffer; }
 
     public void setScrollbarWidth(int width) { this.scrollbarWidth = width; }
     public void setScrollbarHeight(int height) { this.scrollbarHeight = height; }

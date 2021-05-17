@@ -50,7 +50,7 @@ public class HorizontalScrollBar extends ScrollBar {
      * @return the maximum amount of pixels the objects can be moved.
      */
     public int calcMaxOffset() {
-        return getSliderStart() - (Math.abs(getContentWidth() - getMaxSliderWidth()+10));
+        return (-1) * (Math.abs(getContentWidth() - this.getScrollbarWidth() + 10));
     }
 
     public int getContentWidth() {return scrollable.getContentWidth();}
@@ -68,18 +68,24 @@ public class HorizontalScrollBar extends ScrollBar {
                 / ((double) getMaxSliderWidth());
 
         double relMovement = sliderMovement * rel;
-
+        System.out.println(relMovement);
+        System.out.println(getOffset() + (int) relMovement);
+        System.out.println("Before: " + this.getOffset());
         //Swiped
         setOffset(getOffset() + (int) relMovement);
+        System.out.println("After: " + this.getOffset());
 
         // Max left offset
-        if (getSlider().coordX == getSliderStart() || getOffset() > 0) setOffset(0);
+        if (/*getSlider().coordX == getSliderStart() ||*/ getOffset() > 0) setOffset(0);
             // Max right offset
         else if (getSlider().coordX + getSlider().width >= getSliderEnd())
             setOffset(this.calcMaxOffset());
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int... paneOffsets) {
+        int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
+        int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
+
         // Possible resize of the screen.
         updateDimensions();
 
@@ -91,10 +97,10 @@ public class HorizontalScrollBar extends ScrollBar {
 
         // Scrollbar outline
         g.setColor(Color.GRAY);
-        g.fillRect(getScrollbarCoordX(), getScrollbarCoordY()-1, getScrollbarWidth(), getScrollbarHeight()+2);
+        g.fillRect(getScrollbarCoordX() + xOffset, getScrollbarCoordY()-1 + yOffset, getScrollbarWidth(), getScrollbarHeight()+2);
 
         // Scrollbar slider
-        getSlider().draw(g);
+        getSlider().draw(g, xOffset, yOffset);
     }
 
     /**
@@ -105,7 +111,7 @@ public class HorizontalScrollBar extends ScrollBar {
      *          equal to the ratio of the inputfield-width and inputfield-text-width.
      */
     public int calculateSliderWidth() {
-        int availableWidth = getAvailableWidth();
+        int availableWidth = getAvailableWidth() - ScrollBar.getBuffer()*2;
         int contentWidth = getContentWidth();
         int maxSliderWidth = this.getMaxSliderWidth();
 
@@ -130,8 +136,17 @@ public class HorizontalScrollBar extends ScrollBar {
     public int calculateSliderX() {
         int offset = getOffset();
 
+//        if (this.getContentWidth() > 0 && this.getScrollbarWidth() < 300) {
+//            System.out.println(this.toString());
+//            System.out.println((offset == 0) + ": " + getSliderStart());
+//            System.out.println((offset == calcMaxOffset()) + ": " + (getSliderEnd() - getSlider().width));
+//            if (getContentWidth() != 0) System.out.println(getSliderStart() + (offset*(-1) * getAvailableWidth() / getContentWidth()));
+//            System.out.println("-------------");
+//        }
+
+
         // Moves the slider according to what text is displayed (automatic updating for KeyEvents).
-        if (offset == 0) return getSliderStart();
+        if (offset == 0 /*|| getSlider().width == getMaxSliderWidth()*/) return getSliderStart();
         else if (offset == calcMaxOffset()) return getSliderEnd() - getSlider().width;
         else return getSliderStart() + (offset*(-1) * getAvailableWidth() / getContentWidth());
     }

@@ -33,7 +33,10 @@ public class VerticalPaneScrollBar extends VerticalScrollBar {
     private int getSliderStartX() { return this.getPane().x + this.getPane().width+1 - getScrollbarWidth(); }
 
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int... paneOffsets) {
+        int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
+        int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
+
         // Possible resize of the screen.
         setBoundaries();
 
@@ -45,10 +48,10 @@ public class VerticalPaneScrollBar extends VerticalScrollBar {
 
         // Scrollbar outline
         g.setColor(Color.GRAY);
-        g.fillRect(getScrollbarCoordX()-1, getScrollbarCoordY(), getScrollbarWidth()+2, getScrollbarHeight());
+        g.fillRect(getScrollbarCoordX()-1 + xOffset, getScrollbarCoordY() + yOffset, getScrollbarWidth()+2, getScrollbarHeight());
 
         // Scrollbar slider
-        getSlider().draw(g);
+        getSlider().draw(g, xOffset, yOffset);
     }
 
 

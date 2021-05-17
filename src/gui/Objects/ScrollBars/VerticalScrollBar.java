@@ -20,7 +20,7 @@ public abstract class VerticalScrollBar extends ScrollBar {
 
     public abstract void slide(int movement);
 
-    public abstract void draw(Graphics g);
+    public abstract void draw(Graphics g, int... paneOffsets);
 
     /**
      * Used to calculate the maximum height the slider of this scrollbar can have,
