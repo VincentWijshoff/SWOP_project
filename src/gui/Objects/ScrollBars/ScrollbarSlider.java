@@ -63,7 +63,6 @@ public class ScrollbarSlider {
     public void draw(Graphics g, int... paneOffsets) {
         int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
         int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
-
         Color oldColor = g.getColor();
         g.setColor(this.sliderColor);
         g.fillRect(coordX + xOffset, coordY + yOffset, width, height);
@@ -112,12 +111,10 @@ public class ScrollbarSlider {
                 } else {
                     this.coordX = this.scrollBar.getSliderEnd()-this.width; // Slide most right
                 }
-            }
-            else {
+            } else {
                 int newSliderCoordY = y-this.cursorStart;
-
                 // Keep the slider within scrollbar boundaries
-                if ((newSliderCoordY > this.scrollBar.getSliderStart()) && (newSliderCoordY+this.height < this.scrollBar.getSliderEnd())) {
+                if ((newSliderCoordY > this.scrollBar.getSliderStart())/* && (newSliderCoordY+this.height < this.scrollBar.getSliderEnd())*/) {
                     this.coordY = newSliderCoordY; // Slide with mouse
                 } else if (newSliderCoordY <= this.scrollBar.getSliderStart()) {
                     this.coordY = this.scrollBar.getSliderStart(); // Slide most up

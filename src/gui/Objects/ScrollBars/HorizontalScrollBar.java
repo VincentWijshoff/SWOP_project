@@ -55,9 +55,9 @@ public class HorizontalScrollBar extends ScrollBar {
 
     public int getContentWidth() {return scrollable.getContentWidth();}
 
-    public int getOffset() {return scrollable.getOffset();}
+    public int getOffset() {return scrollable.getOffset(true);}
 
-    public void setOffset(int offset) {scrollable.setOffset(offset);}
+    public void setOffset(int offset) {scrollable.setOffset(offset, true);}
 
     public int getAvailableWidth() {return scrollable.getAvailableWidth();}
 
@@ -68,12 +68,12 @@ public class HorizontalScrollBar extends ScrollBar {
                 / ((double) getMaxSliderWidth());
 
         double relMovement = sliderMovement * rel;
-        System.out.println(relMovement);
-        System.out.println(getOffset() + (int) relMovement);
-        System.out.println("Before: " + this.getOffset());
+//        System.out.println(relMovement);
+//        System.out.println(getOffset() + (int) relMovement);
+//        System.out.println("Before: " + this.getOffset());
         //Swiped
         setOffset(getOffset() + (int) relMovement);
-        System.out.println("After: " + this.getOffset());
+//        System.out.println("After: " + this.getOffset());
 
         // Max left offset
         if (/*getSlider().coordX == getSliderStart() ||*/ getOffset() > 0) setOffset(0);
@@ -100,7 +100,7 @@ public class HorizontalScrollBar extends ScrollBar {
         g.fillRect(getScrollbarCoordX() + xOffset, getScrollbarCoordY()-1 + yOffset, getScrollbarWidth(), getScrollbarHeight()+2);
 
         // Scrollbar slider
-        getSlider().draw(g, xOffset, yOffset);
+        getSlider().draw(g, xOffset, 0);
     }
 
     /**
