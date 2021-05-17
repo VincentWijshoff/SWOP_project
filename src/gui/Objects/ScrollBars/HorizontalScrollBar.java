@@ -75,7 +75,6 @@ public class HorizontalScrollBar extends ScrollBar {
 
     public void setOffset(int offset) {scrollable.setOffset(offset, true);}
 
-
     /**
      * @return the width of the screen or input box
      */
@@ -92,12 +91,8 @@ public class HorizontalScrollBar extends ScrollBar {
                 / ((double) getMaxSliderWidth());
 
         double relMovement = sliderMovement * rel;
-//        System.out.println(relMovement);
-//        System.out.println(getOffset() + (int) relMovement);
-//        System.out.println("Before: " + this.getOffset());
         //Swiped
         setOffset(getOffset() + (int) relMovement);
-//        System.out.println("After: " + this.getOffset());
 
         // Max left offset
         if (/*getSlider().coordX == getSliderStart() ||*/ getOffset() > 0) setOffset(0);

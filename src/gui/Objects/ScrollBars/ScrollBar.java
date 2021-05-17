@@ -52,10 +52,14 @@ public abstract class ScrollBar {
      */
     public abstract int getSliderEnd();
 
+    public abstract void handleMouseEvent(int id, int x, int y, int clickCount);
 
+    public abstract void updateDimensions();
+
+    public abstract void setBoundaries();
     /**
-     * @return the slider of this scrollbar
-     */
+         * @return the slider of this scrollbar
+         */
     public ScrollbarSlider getSlider() { return this.slider; }
 
     /**
@@ -107,6 +111,8 @@ public abstract class ScrollBar {
      * @param y y-coordinate to set to this scrollbar
      */
     public void setScrollBarCoordY(int y) { this.scrollBarCoordY = y; }
+
+
 
     /**
      * Check if the given coordinates collide with the position of this object

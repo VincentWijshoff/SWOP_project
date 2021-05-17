@@ -50,7 +50,6 @@ public class VerticalScrollBar extends ScrollBar {
 
     public int getSliderWidth() { return sliderWidth; }
 
-
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
         if (getSlider().isOnSlider(x, y) || getSlider().isSliding) {
             int sliderYInit = getSlider().coordY;
