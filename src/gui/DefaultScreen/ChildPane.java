@@ -266,6 +266,38 @@ public class ChildPane extends Pane implements Scrollable {
     }
 
     /**
+     * gets the right most position off the pane
+     */
+    @Override
+    int getRightMost() {
+        return this.x;
+    }
+
+    /**
+     * gets the left most position off the pane
+     */
+    @Override
+    int getLeftMost() {
+        return this.x + this.width;
+    }
+
+    /**
+     * gets the top most position off the pane
+     */
+    @Override
+    int getTopMost() {
+        return this.y + this.height;
+    }
+
+    /**
+     * gets the bottom most position off the pane
+     */
+    @Override
+    int getBottomMost() {
+        return this.y;
+    }
+
+    /**
      * add a GUIObject to the list off gui objects
      * @param obj the object that needs to be added
      */

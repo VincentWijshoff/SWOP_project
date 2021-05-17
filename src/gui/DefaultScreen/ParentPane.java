@@ -125,11 +125,15 @@ public class ParentPane extends Pane{
             // update positions off children
             if(child1.x == child2.x){
                 // the line can only go to 10 pixels from borders
-                if (Math.abs(this.y - y) >= lineBounds && Math.abs(this.y + this.height - y) >= lineBounds) {
+                Pane topPane = this.child1.y > this.child2.y ? child2 : child1;
+                Pane bottomPane = this.child1.y > this.child2.y ? child1 : child2;
+                if (Math.abs(topPane.getBottomMost() - y) >= lineBounds && Math.abs(bottomPane.getTopMost() - y) >= lineBounds) {
                     this.linePosition = y;
                 }
             }else{
-                if(Math.abs(this.x - x) >= lineBounds && Math.abs(this.x + this.width - x) >= lineBounds) {
+                Pane leftPane = this.child1.x > this.child2.x ? child2 : child1;
+                Pane rightPane = this.child1.x > this.child2.x ? child1 : child2;
+                if(Math.abs(leftPane.getRightMost() - x) >= lineBounds && Math.abs(rightPane.getLeftMost() - x) >= lineBounds) {
                     this.linePosition = x;
                 }
             }
@@ -141,6 +145,62 @@ public class ParentPane extends Pane{
             } else {
                 child2.handleMouseEvent(id, x, y, clickCount);
             }
+        }
+    }
+
+    /**
+     * gets the right most position off the pane
+     */
+    @Override
+    int getRightMost(){
+        if(child1.x > child2.x){
+            return child1.getRightMost();
+        }else if(child2.x > child1.x){
+            return child2.getRightMost();
+        }else{
+            return Math.max(child1.getRightMost(), child2.getRightMost());
+        }
+    }
+
+    /**
+     * gets the left most position off the pane
+     */
+    @Override
+    int getLeftMost() {
+        if(child1.x > child2.x){
+            return child2.getLeftMost();
+        }else if(child2.x > child1.x){
+            return child1.getLeftMost();
+        }else{
+            return Math.min(child1.getLeftMost(), child2.getLeftMost());
+        }
+    }
+
+    /**
+     * gets the top most position off the pane
+     */
+    @Override
+    int getTopMost() {
+        if(child1.y > child2.y){
+            return child2.getTopMost();
+        }else if(child2.y > child1.y){
+            return child1.getTopMost();
+        }else{
+            return Math.min(child1.getTopMost(), child2.getTopMost());
+        }
+    }
+
+    /**
+     * gets the bottom most position off the pane
+     */
+    @Override
+    int getBottomMost() {
+        if(child1.y > child2.y){
+            return child1.getBottomMost();
+        }else if(child2.y > child1.y){
+            return child2.getBottomMost();
+        }else{
+            return Math.max(child1.getBottomMost(), child2.getBottomMost());
         }
     }
 

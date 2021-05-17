@@ -124,55 +124,10 @@ public class HtmlLoader {
                     handleTable();
                 else if(value.equals("form"))
                     handleForm();
-                else if(value.equals("iframe"))
-                    handleIframe();
             }
             lexer.eatToken();
             type = lexer.getTokenType();
             value = lexer.getTokenValue();
-        }
-    }
-
-    private void handleIframe() {
-        Iframe iframe = new Iframe();
-        lexer.eatToken();
-        updateIframe(iframe);
-        iframe.accept(this.contentSpanVisitor);
-        this.pane.addGUIObjects(this.contentSpanVisitor.getObjects());
-    }
-
-    /**
-     * Update the iframe object
-     * @param iframe
-     */
-    private void updateIframe(Iframe iframe) {
-        HtmlLexer.TokenType type = lexer.getTokenType();
-        String value = lexer.getTokenValue();
-        while(!(type == HtmlLexer.TokenType.OPEN_END_TAG && value.equals("iframe"))){
-            if(type == HtmlLexer.TokenType.IDENTIFIER){
-                addProperty(iframe, value);
-            }
-            lexer.eatToken();
-            type = lexer.getTokenType();
-            value = lexer.getTokenValue();
-        }
-    }
-
-    /**
-     * Setter of a property of the iframe object
-     * src, height or width
-     */
-    private void addProperty(Iframe iframe, String property){
-        lexer.eatToken();//EQUALS
-        lexer.eatToken();
-        String value = lexer.getTokenValue();
-
-        if(property.equals("src")){
-            iframe.setSrc(value);
-        }else if (property.equals("height")){
-            iframe.setHeight(Integer.parseInt(value));
-        }else if(property.equals("width")){
-            iframe.setWidth(Integer.parseInt(value));
         }
     }
 
