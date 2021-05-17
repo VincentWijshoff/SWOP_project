@@ -19,8 +19,8 @@ import java.util.Set;
 
 public class ChildPane extends Pane implements Scrollable {
 
-    private HorizontalScrollBar horScrollBar;
-    private VerticalScrollBar verScrollBar;
+    private final HorizontalScrollBar horScrollBar;
+    private final VerticalScrollBar verScrollBar;
     private int xOffset = 0;
     private int yOffset = 0;
 

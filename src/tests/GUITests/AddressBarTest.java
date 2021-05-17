@@ -3,7 +3,6 @@ package tests.GUITests;
 import gui.*;
 import gui.DefaultScreen.AddressBar;
 import gui.DefaultScreen.DefaultScreen;
-import html.HtmlLoader;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

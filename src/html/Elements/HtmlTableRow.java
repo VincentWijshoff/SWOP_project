@@ -11,7 +11,7 @@ public class HtmlTableRow extends ContentSpan {
     /**
      * Create a new HtmlTableRow object, and initialize it with the given table
      */
-    public HtmlTableRow(HtmlTable table){
+    public HtmlTableRow(){
         tableData = new ArrayList<>();
     }
 

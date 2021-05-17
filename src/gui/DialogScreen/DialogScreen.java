@@ -2,7 +2,6 @@ package gui.DialogScreen;
 
 import commands.BrowsrOperation;
 import events.*;
-import gui.DefaultScreen.DefaultScreen;
 import gui.Objects.GUIObject;
 import gui.Screen;
 import gui.Window;
@@ -25,7 +24,7 @@ public abstract class DialogScreen implements Screen, FontMetricsHandler {
     /**
      * construct a dialog screen
      * @param window the window that should have this dialogscreen
-     * @param prevScreen the DefaultSCreen that was shown before this dialog screen
+     * @param prevScreen the DefaultScreen that was shown before this dialog screen
      */
     public DialogScreen(Window window, Screen prevScreen){
         this.window = window;

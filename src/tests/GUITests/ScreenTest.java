@@ -140,8 +140,6 @@ public class ScreenTest {
         Screen oldScreen = this.window.getCurrentScreen();
         assertTrue("testScreenBookmarkScreen", oldScreen instanceof DefaultScreen);
         DefaultScreen defScreen = (DefaultScreen) oldScreen;
-        // we save the amount of old bookmarks for later
-        int oldMarksSize = defScreen.getBookmarkBar().getBookmarks().getChildObjects().size();
         // if ctrl + d is pressed a new dialog screen should be loaded
         this.window.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_D, 'd', KeyEvent.CTRL_DOWN_MASK);
         assertTrue("testScreenBookmarkScreen", this.window.getCurrentScreen() instanceof SaveBookmarkScreen);
@@ -250,7 +248,6 @@ public class ScreenTest {
         GUIButton but1 = (GUIButton) obj.get(5);
         but1.handleMouseEvent(but1.coordX + 1, but1.coordY + 1, MouseEvent.MOUSE_RELEASED, 1);
         // we clicked the cancel button, we should be back to the old screen with the exact same value in the input
-        Screen newScreen = this.window.getCurrentScreen();
         assertTrue("testScreenReturnExactState", oldScreen instanceof DefaultScreen);
         DefaultScreen newdef = (DefaultScreen) oldScreen;
         ArrayList<GUIObject> newObjects = newdef.getPane().getDrawnGUIObjects();

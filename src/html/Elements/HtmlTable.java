@@ -29,7 +29,7 @@ public class HtmlTable extends ContentSpan {
      * Add a new (empty) row to the table
      */
     public HtmlTableRow addRow() {
-        HtmlTableRow row = new HtmlTableRow(this);
+        HtmlTableRow row = new HtmlTableRow();
         tableRows.add(row);
         return row;
     }

@@ -203,7 +203,7 @@ public class HorizontalScrollBar extends ScrollBar {
      * based on the total width of the scrollbar and the buffer.
      * @return the maximum slider width (should always be positive).
      */
-    public int getMaxSliderWidth() { return Math.max(this.getScrollbarWidth() - this.getBuffer()*2, 0); }
+    public int getMaxSliderWidth() { return Math.max(this.getScrollbarWidth() - getBuffer()*2, 0); }
 
     /**
      * Used to get the starting x-coordinate of the slider. Can also be

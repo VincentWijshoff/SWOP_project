@@ -5,8 +5,8 @@ import gui.Objects.GUILink;
 
 public class AddBookmarkOperation implements BrowsrOperation {
 
-    private String name;        // the name off the bookmark
-    private String address;     // the address off the bookmark
+    private final String name;        // the name off the bookmark
+    private final String address;     // the address off the bookmark
 
     /**
      * Create the add bookmark operation

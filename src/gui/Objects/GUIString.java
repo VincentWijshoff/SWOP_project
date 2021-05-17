@@ -10,7 +10,7 @@ import java.util.HashSet;
  */
 public class GUIString extends GUIObject {
 
-    String text;    // the text of this string
+    final String text;    // the text of this string
 
     /**
      * Create a new GUIString object

@@ -18,13 +18,11 @@ import static tests.TestUtil.*;
 public class BookmarkBarTest {
 
     Window window;
-    FontMetrics fm;
 
     @BeforeAll
     public void setup() throws InvocationTargetException, InterruptedException {
         this.window = new Window("TestBrowser");
         java.awt.EventQueue.invokeAndWait(this.window::show);
-        fm = window.getFontMetrics();
     }
 
     @Test

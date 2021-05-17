@@ -22,13 +22,11 @@ import static tests.TestUtil.*;
 public class PaneTest {
 
     Window window;
-    FontMetrics fm;
 
     @BeforeAll
     public void setup() throws InvocationTargetException, InterruptedException {
         this.window = new Window("TestBrowser");
         java.awt.EventQueue.invokeAndWait(this.window::show);
-        fm = window.getFontMetrics();
     }
 
     @Test
@@ -186,7 +184,6 @@ public class PaneTest {
         // click simulation on the screen to set focus on a child pane
         scr.handleMouseEvent(MouseEvent.MOUSE_PRESSED,10,50, 1, 0, 0);
         ChildPane initPane = scr.getFocusedPane();
-        ArrayList<GUIObject> startObjects = initPane.getDrawnGUIObjects();
         // we split the pane vertically
         scr.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_V, 'v', KeyEvent.CTRL_DOWN_MASK);
         // the focused pane should not be the same anymore

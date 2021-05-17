@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 public class ScrollbarSlider {
 
     ScrollBar scrollBar;
-    boolean isHorizontal;
+    final boolean isHorizontal;
     public int coordX, coordY, width, height;
 
     // Relative position of click in the slider

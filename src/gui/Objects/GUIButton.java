@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A button object
@@ -96,7 +95,7 @@ public class GUIButton extends GUIObject{
         g.fillRect(x, y, width, height);
         g.setColor(Color.BLACK);
         g.drawRect(x, y, width, height); // border
-        int txtPos = (int) (this.height / 2) + y + (this.fontMetricsHandler.getFontMetrics().getHeight() / 2) - 5;
+        int txtPos = (this.height / 2) + y + (this.fontMetricsHandler.getFontMetrics().getHeight() / 2) - 5;
         // this.coordY+((int) (height/1.5))
         g.drawString(this.text, x+5, txtPos);
     }

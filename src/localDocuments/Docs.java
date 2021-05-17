@@ -1,6 +1,5 @@
 package localDocuments;
 
-import java.io.File;
 import java.util.Scanner;
 
 public abstract class Docs {

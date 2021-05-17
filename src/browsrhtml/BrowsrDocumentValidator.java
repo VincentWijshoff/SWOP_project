@@ -11,7 +11,7 @@ import browsrhtml.HtmlLexer.TokenType;
 
 public class BrowsrDocumentValidator {
 	
-	HtmlLexer lexer;
+	final HtmlLexer lexer;
 	
 	BrowsrDocumentValidator(Reader reader) {
 		lexer = new HtmlLexer(reader);

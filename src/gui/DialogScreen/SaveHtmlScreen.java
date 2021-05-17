@@ -51,13 +51,7 @@ public class SaveHtmlScreen extends DialogScreen{
         GUIButton saveBtn = new GUIButton("Save", 150, 180, 100, 30);
 
         cnclBtn.setMouseEvent(this::onCancel);
-        saveBtn.setMouseEvent(() -> {
-            try {
-                SaveHtmlScreen.this.onSaveFile();
-            } catch (IOException e){
-                SaveHtmlScreen.this.onCancel();
-            }
-        });
+        saveBtn.setMouseEvent(() -> SaveHtmlScreen.this.onSaveFile());
         this.addGUIObject(cnclBtn);
         this.addGUIObject(saveBtn);
         this.getGUIObjects().forEach(obj -> obj.setFontMetricsHandler(this));
@@ -73,9 +67,8 @@ public class SaveHtmlScreen extends DialogScreen{
 
     /**
      * Called when the save to html button was pressed
-     * @throws IOException  Throws an error when the saving to a file went wrong
      */
-    private void onSaveFile() throws IOException {
+    private void onSaveFile() {
         System.out.println("Saving to file: " + this.fileName.getText());
         String file = this.fileName.getText();
 
