@@ -4,7 +4,7 @@ import browsrhtml.BrowsrDocumentValidator;
 import gui.Objects.GUIObject;
 import gui.Objects.ScrollBars.HorizontalScrollBar;
 import gui.Objects.ScrollBars.Scrollable;
-import gui.Objects.ScrollBars.VerticalPaneScrollBar;
+import gui.Objects.ScrollBars.VerticalScrollBar;
 import html.HtmlLoader;
 import localDocuments.Docs;
 
@@ -20,7 +20,7 @@ import java.util.Set;
 public class ChildPane extends Pane implements Scrollable {
 
     private HorizontalScrollBar horScrollBar;
-    private VerticalPaneScrollBar verScrollBar;
+    private VerticalScrollBar verScrollBar;
     private int xOffset = 0;
     private int yOffset = 0;
 
@@ -38,7 +38,7 @@ public class ChildPane extends Pane implements Scrollable {
         this.address = screen.getAddress();
         this.loader = new HtmlLoader(this);
         this.horScrollBar = new HorizontalScrollBar(this);
-        this.verScrollBar = new VerticalPaneScrollBar(this);
+        this.verScrollBar = new VerticalScrollBar(this);
     }
 
     public int getXOffset() { return this.xOffset; }
@@ -425,7 +425,7 @@ public class ChildPane extends Pane implements Scrollable {
 
     public HorizontalScrollBar getHorScrollBar() { return this.horScrollBar; }
 
-    public VerticalPaneScrollBar getVerScrollBar() { return this.verScrollBar; }
+    public VerticalScrollBar getVerScrollBar() { return this.verScrollBar; }
 
     @Override
     public int getX() {
@@ -448,18 +448,29 @@ public class ChildPane extends Pane implements Scrollable {
     }
 
     @Override
-    public int getOffset() {
-        return getXOffset();
+    public int getOffset(boolean horizontal) {
+        if(horizontal)
+            return getXOffset();
+        else
+            return getYOffset();
     }
 
     @Override
-    public void setOffset(int offset) {
-        setXOffset(offset);
+    public void setOffset(int offset, boolean horizontal) {
+        if(horizontal)
+            setXOffset(offset);
+        else
+            setYOffset(offset);
     }
 
     @Override
     public int getAvailableWidth() {
         return width  - 15;
+    }
+
+    @Override
+    public int getAvailableHeight() {
+        return height - 15;
     }
 
     public int getContentWidth() {
