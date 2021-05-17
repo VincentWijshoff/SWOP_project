@@ -137,4 +137,24 @@ public abstract class Pane {
      */
     protected abstract void updateDimensions(int x, int y, int width, int height);
 
+    /**
+     * gets the right most position off the pane
+     */
+    abstract int getRightMost();
+
+    /**
+     * gets the left most position off the pane
+     */
+    abstract int getLeftMost();
+
+    /**
+     * gets the top most position off the pane
+     */
+    abstract int getTopMost();
+
+    /**
+     * gets the bottom most position off the pane
+     */
+    abstract int getBottomMost();
+
 }
