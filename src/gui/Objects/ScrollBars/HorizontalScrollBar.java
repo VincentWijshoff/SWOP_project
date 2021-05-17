@@ -81,7 +81,6 @@ public class HorizontalScrollBar extends ScrollBar {
 
     public void draw(Graphics g) {
         // Possible resize of the screen.
-        setBoundaries();
         updateDimensions();
 
         // Update the width of the slider.

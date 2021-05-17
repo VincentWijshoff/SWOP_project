@@ -212,7 +212,7 @@ public class GUIInput extends GUIObject implements Scrollable {
         return this.getStringWidth(text) <= this.width - 5;
     }
 
-    public int getInputScrollOffset() { return this.offset; }
+    public int getOffset() { return this.offset; }
 
     @Override
     public int getX() {
@@ -234,10 +234,6 @@ public class GUIInput extends GUIObject implements Scrollable {
         return width;
     }
 
-    @Override
-    public int getOffset() {
-        return getInputScrollOffset();
-    }
 
     public void setOffset(int amount) {
         if (amount > 0) this.offset = 0;
@@ -331,9 +327,9 @@ public class GUIInput extends GUIObject implements Scrollable {
 
                     //if user is moving left with cursor and is close to left bound, move text as well
                     int preCursorTextLen = this.getStringWidth(text.substring(0, cursorPosition));
-                    if(preCursorTextLen+this.getInputScrollOffset() < coordX){
+                    if(preCursorTextLen+this.getOffset() < coordX){
                         //move string to right, so the new char plus the cursor (|) fits the box
-                        this.setOffset(getInputScrollOffset() + this.getStringWidth(text.charAt(cursorPosition) + "|"));
+                        this.setOffset(getOffset() + this.getStringWidth(text.charAt(cursorPosition) + "|"));
                     }
 
                     this.startSelected = this.cursorPosition;
@@ -373,9 +369,9 @@ public class GUIInput extends GUIObject implements Scrollable {
 
                         } else {
                             int preCursorTextLen = this.getStringWidth(text.substring(0, cursorPosition));
-                            if (preCursorTextLen + this.getInputScrollOffset() + coordX + 10 > this.scrollBar.getSliderEnd()) {
+                            if (preCursorTextLen + this.getOffset() + coordX + 10 > this.scrollBar.getSliderEnd()) {
                                 //move string to left, so the new char plus the cursor (|) fits the box
-                                this.setOffset(getInputScrollOffset() - this.getStringWidth(text.charAt(cursorPosition) + "|"));
+                                this.setOffset(getOffset() - this.getStringWidth(text.charAt(cursorPosition) + "|"));
                             }
                         }
                     }
@@ -416,7 +412,7 @@ public class GUIInput extends GUIObject implements Scrollable {
                 this.text = this.removeAt(this.text, --this.cursorPosition);
                 if(cursorPosition!= 0) {
                     //add the length of the deleted char, so we move the text right
-                    this.setOffset(getInputScrollOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition - 1))));
+                    this.setOffset(getOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition - 1))));
                 }
                 this.startSelected = this.cursorPosition;
                 this.endSelected = this.cursorPosition;
@@ -445,7 +441,7 @@ public class GUIInput extends GUIObject implements Scrollable {
         } else {
             if (this.cursorPosition < this.text.length()) {
                 //add the length of the deleted char, so we move the text right
-                this.setOffset(getInputScrollOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition))));
+                this.setOffset(getOffset() + this.getStringWidth(Character.toString(this.text.charAt(cursorPosition))));
 
                 this.text = this.removeAt(this.text, this.cursorPosition);
                 this.startSelected = this.cursorPosition;
@@ -655,12 +651,14 @@ public class GUIInput extends GUIObject implements Scrollable {
             viewedAddress = this.addChar(viewedAddress, '|', this.getCursorPosition());
         }
 
+        setOffset(getOffset()); // Is needed to check for edge cases
+
         if(this.isSelecting()){
             //the text is selected so a blue background needs to be drawn
             g.setColor(Color.CYAN);
             int tmp = (int) g.getFontMetrics().getStringBounds(this.getText(), g).getHeight();
             int[] xCords = this.getSelectedPositions(g);
-            g.fillRect(x+5 + this.getInputScrollOffset() + xCords[0],
+            g.fillRect(x+5 + this.getOffset() + xCords[0],
                     y+3 + ((int) ((height - scrollBar.getScrollbarHeight())/1.5)) - tmp,
                     xCords[1] - xCords[0],
                     tmp); // text background
@@ -669,8 +667,7 @@ public class GUIInput extends GUIObject implements Scrollable {
 
         Shape oldClip = g.getClip();
         g.setClip(x, y, this.width, this.height);
-        setOffset(getInputScrollOffset()); // Is needed to check for edge cases
-        g.drawString(viewedAddress, x+5 + getInputScrollOffset(), y +((int) ((height - scrollBar.getScrollbarHeight())/1.5)));
+        g.drawString(viewedAddress, x+5 + getOffset(), y +((int) ((height - scrollBar.getScrollbarHeight())/1.5)));
         g.setClip(oldClip);
         this.scrollBar.draw(g);
     }
