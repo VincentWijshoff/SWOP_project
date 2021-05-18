@@ -37,7 +37,9 @@ public class VerticalScrollBar extends ScrollBar {
      */
     public int getSliderStartY() { return this.getScrollbarCoordY() + getBuffer(); }
 
-    public int getSliderStartX() { return scrollable.getAvailableWidth() - 1; }
+    public int getSliderStartX() {
+        return scrollable.getX() + scrollable.getAvailableWidth() - 1;
+    }
 
     /**
      * Used to calculate the maximum height the slider of this scrollbar can have,
