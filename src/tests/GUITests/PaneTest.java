@@ -29,6 +29,8 @@ public class PaneTest {
         java.awt.EventQueue.invokeAndWait(this.window::show);
     }
 
+    // this is use case 4.9
+
     @Test
     void testPaneInitial() throws RuntimeException, InterruptedException, InvocationTargetException {
         this.setup();
@@ -37,7 +39,10 @@ public class PaneTest {
         DefaultScreen scr = (DefaultScreen) this.window.getCurrentScreen();
         Pane initPane = scr.getPane();
         assertTrue( "testPaneInitial", initPane instanceof ChildPane);
+        assertTrue("testPaneInitial", initPane.getFocusedPane() == initPane);
     }
+
+    // This test is the first part of Use Case 4.7
 
     @Test
     void testPaneSplitHorizontal() throws RuntimeException, InterruptedException, InvocationTargetException {
@@ -88,6 +93,8 @@ public class PaneTest {
             this.isEqualObject(startObj, c1Obj, testName);
             this.isEqualObject(startObj, c2Obj, testName);
         }
+        // one of the 2 children has to be in focus
+        assertTrue(testName, parent.getFocusedPane() == c1 || parent.getFocusedPane() == c2);
     }
 
     /**
@@ -122,6 +129,8 @@ public class PaneTest {
             }
         }
     }
+
+    // this is the second test for use case 4.7
 
     @Test
     void testPaneSplitVertical() throws RuntimeException, InterruptedException, InvocationTargetException {
@@ -172,7 +181,10 @@ public class PaneTest {
             this.isEqualObject(startObj, c1Obj, testName);
             this.isEqualObject(startObj, c2Obj, testName);
         }
+        assertTrue(testName, parent.getFocusedPane() == c1 || parent.getFocusedPane() == c2);
     }
+
+    // this is use case 4.10
 
     @Test
     void testPaneDragSeparator() throws RuntimeException, InterruptedException, InvocationTargetException {
@@ -198,9 +210,11 @@ public class PaneTest {
         // pressing 4 pixels below t should drag it to that position
         scr.handleMouseEvent(MouseEvent.MOUSE_PRESSED, parent.x + 10, startPos + 4, 1, 0, 0);
         assertEquals(testName, parent.linePosition, startPos + 4);
-        // finaly we check if one of the children was moved down
+        // finally we check if one of the children was moved down, so layout was updated accordingly
         assertTrue(testName, parent.linePosition == parent.child1.y || parent.linePosition == parent.child2.y);
     }
+
+    // this is use case 4.8
 
     @Test
     void testPaneRejoin() throws RuntimeException, InterruptedException, InvocationTargetException {
