@@ -192,7 +192,7 @@ extends</panel_attributes>
       <x>2672</x>
       <y>1296</y>
       <w>304</w>
-      <h>328</h>
+      <h>352</h>
     </coordinates>
     <panel_attributes>GUIInput
 --
@@ -220,6 +220,8 @@ extends</panel_attributes>
 + getStringWidth(String): int
 + setOffset(Int): void
 - textFits(): boolean
+- updateOffsetOnLeftArrow(): void
+- updateOffsetOnRightArrow(): void
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -1632,10 +1634,10 @@ extends</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2120</x>
-      <y>1408</y>
+      <x>2112</x>
+      <y>1368</y>
       <w>216</w>
-      <h>168</h>
+      <h>192</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 Scrollable
@@ -1644,8 +1646,10 @@ Scrollable
 + getY();
 + getHeight();
 + getWidth();
-+ getOffset(boolean);
-+ setOffset(int, boolean);
++ getXOffset();
++ setXOffset(int);
++ getYOffset();
++ setYOffset(int);
 + getAvailableWidth();
 + getAvailableHeight();
 + getContentWidth();
@@ -1657,43 +1661,43 @@ Scrollable
     <coordinates>
       <x>1952</x>
       <y>992</y>
-      <w>184</w>
-      <h>496</h>
+      <w>176</w>
+      <h>456</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
 &lt;&lt;implements&gt;&gt;
 
 </panel_attributes>
-    <additional_attributes>210.0;580.0;10.0;580.0;10.0;10.0</additional_attributes>
+    <additional_attributes>200.0;530.0;10.0;530.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2328</x>
-      <y>1432</y>
-      <w>360</w>
+      <x>2320</x>
+      <y>1392</y>
+      <w>368</w>
       <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.
 &lt;&lt;implements&gt;&gt;
 
 </panel_attributes>
-    <additional_attributes>10.0;20.0;430.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;440.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2328</x>
-      <y>1472</y>
-      <w>104</w>
-      <h>128</h>
+      <x>2320</x>
+      <y>1432</y>
+      <w>112</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
 m2=1..*
 scrollable
 </panel_attributes>
-    <additional_attributes>10.0;20.0;90.0;20.0;90.0;140.0</additional_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0;100.0;190.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>

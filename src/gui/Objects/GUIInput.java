@@ -17,7 +17,9 @@ import java.util.HashSet;
  */
 public class GUIInput extends GUIObject implements Scrollable {
 
+    //the horizontal scrollbar attached
     public HorizontalScrollBar scrollBar;
+    //the offset of the text
     private int offset = 0;
 
     // needed parameters
@@ -211,41 +213,68 @@ public class GUIInput extends GUIObject implements Scrollable {
         }
     }
 
+    /**
+     * @return the width of the given text
+     */
     public int getStringWidth(String text) {
         return this.getFontMetrics().stringWidth(text);
     }
 
+    /**
+     * Check if the given text fits the inputField
+     */
     private boolean textFits(String text) {
         return this.getStringWidth(text) <= this.width - 5;
     }
 
+    /**
+     * @return the offset
+     */
     public int getOffset() { return this.offset; }
 
+    /**
+     * @return the x-coordinate of the inputField
+     */
     @Override
     public int getX() {
         return coordX;
     }
 
+    /**
+     * @return the y-coordinate of the inputField
+     */
     @Override
     public int getY() {
         return coordY;
     }
 
+    /**
+     * @return the height of the inputField
+     */
     @Override
     public int getHeight() {
         return height;
     }
 
+    /**
+     * @return the width of the inputField
+     */
     @Override
     public int getWidth() {
         return width;
     }
 
+    /**
+     * @return the xOffset of the inputField (same as offset)
+     */
     @Override
     public int getXOffset() {
         return getOffset();
     }
 
+    /**
+     * @param amount the new offset (if allowed)
+     */
     @Override
     public void setXOffset(int amount) {
         if (amount > 0) this.offset = 0;
@@ -254,6 +283,9 @@ public class GUIInput extends GUIObject implements Scrollable {
         this.scrollBar.getSlider().coordX = this.scrollBar.calculateSliderX();
     }
 
+    /**
+     * @return the yOffset of the inputField, always 0 since GUIInput has no vertical aspect
+     */
     @Override
     public int getYOffset() {
         return 0;
@@ -264,26 +296,37 @@ public class GUIInput extends GUIObject implements Scrollable {
         return;
     }
 
+    /**
+     * @return the availableWidth == width
+     */
     @Override
     public int getAvailableWidth() {
         return width;
     }
 
+    /**
+     * @return the availableHeight == height
+     */
     @Override
     public int getAvailableHeight() {
         return height;
     }
 
+    /**
+     * @return the width of the text inside the inputField
+     */
     @Override
     public int getContentWidth() {
         return getFontMetrics().stringWidth(getText());
     }
 
+    /**
+     * @return the height of the inputField
+     */
     @Override
     public int getContentHeight() {
         return height;
     }
-
 
     /**
      * When the user pressed a char on the keyboard
@@ -371,6 +414,9 @@ public class GUIInput extends GUIObject implements Scrollable {
         this.updateOffsetOnLeftArrow();
     }
 
+    /**
+     * update the offset, if left arrow is pressed
+     */
     private void updateOffsetOnLeftArrow() {
         int positionToUse = cursorPosition;
         if (isSelecting()) {
@@ -389,7 +435,6 @@ public class GUIInput extends GUIObject implements Scrollable {
             if (afterCursorTextLen >= this.width - 20 && currentOffset < futureOffset) {
                 this.setXOffset(futureOffset);
             }
-
         }
     }
 
@@ -422,6 +467,9 @@ public class GUIInput extends GUIObject implements Scrollable {
         this.updateOffsetOnRightArrow();
     }
 
+    /**
+     * update the offset, if right arrow is pressed
+     */
     private void updateOffsetOnRightArrow() {
         int positionToUse = cursorPosition;
         if (isSelecting()) {
@@ -440,7 +488,6 @@ public class GUIInput extends GUIObject implements Scrollable {
             if (preCursorTextLen >= this.width - 20 && futureOffset < currentOffset) {
                 this.setXOffset(futureOffset);
             }
-
         }
     }
 
@@ -545,6 +592,9 @@ public class GUIInput extends GUIObject implements Scrollable {
         return beginWord + replacement + endWord;
     }
 
+    /**
+     * @return the part of the text that is selected
+     */
     private String getSelectedText() {
         int a = this.startSelected;
         int b = this.endSelected;
