@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>6</zoom_level>
+  <zoom_level>10</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>288</x>
-      <y>558</y>
-      <w>306</w>
-      <h>138</h>
+      <x>90</x>
+      <y>1040</y>
+      <w>510</w>
+      <h>230</h>
     </coordinates>
     <panel_attributes>title=ScrollbarSlider handle click
 obj=:ScrollbarSlider~a EXECUTION
@@ -29,27 +29,29 @@ a-&gt;a +: good luck with this!
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>276</x>
-      <y>12</y>
-      <w>582</w>
-      <h>246</h>
+      <x>90</x>
+      <y>0</y>
+      <w>970</w>
+      <h>510</h>
     </coordinates>
     <panel_attributes>title=VerticalScrollBar handle click
-obj=:VerticalScrollBar~a EXECUTION
-obj=:Scroll	barSlider~b EXECUTION
+obj=:VerticalScrollBar~a
+obj=:Scroll	barSlider~b
 
 
-found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);on=a;
 
-b-&gt;&gt;&gt;a : oldY = getCoordY()
+a-&gt;b : oldY = getCoordY();on=b;
+off=b;
 
-a-&gt;b : handleMouseEvent(ID, x, y, clickCount);
+a-&gt;b : handleMouseEvent(ID, x, y, clickCount);on=b;
 ref=b b: ScrollbarSlider Handle click
-
-tick=
-b-&gt;&gt;&gt;a : newY = getCoordY()
-a-&gt;a +: this.slide(oldY - newY)
-
+off=b;
+a-&gt;b : newY = getCoordY();on=b;
+off=b;
+a-&gt;a +: this.slide(oldY - newY);
+on=a;
+off=a;
 
 </panel_attributes>
     <additional_attributes/>
@@ -57,26 +59,29 @@ a-&gt;a +: this.slide(oldY - newY)
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>288</x>
-      <y>288</y>
-      <w>582</w>
-      <h>246</h>
+      <x>90</x>
+      <y>520</y>
+      <w>970</w>
+      <h>510</h>
     </coordinates>
     <panel_attributes>title=HorizontalScrollBar handle click
-obj=:HorizontalScrollBar~a EXECUTION
-obj=:Scroll	barSlider~b EXECUTION
+obj=:HorizontalScrollBar~a
+obj=:Scroll	barSlider~b
 
 
-found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
+found-&gt;a : handleMouseEvent(ID, x, y, clickCount);on=a;
 
-b-&gt;&gt;&gt;a : oldX = getCoordX()
+a-&gt;b : oldX = getCoordX();on=b;
+off=b;
 
-a-&gt;b : handleMouseEvent(ID, x, y, clickCount);
+a-&gt;b : handleMouseEvent(ID, x, y, clickCount);on=b;
 ref=b b: ScrollbarSlider Handle click
-
-tick=
-b-&gt;&gt;&gt;a : newX = getCoordX()
-a-&gt;a +: this.slide(oldX - newX)
+off=b;
+a-&gt;b : newX = getCoordX();on=b;
+off=b;
+a-&gt;a +: this.slide(oldX - newX);
+on=a;
+off=a;
 
 
 </panel_attributes>
