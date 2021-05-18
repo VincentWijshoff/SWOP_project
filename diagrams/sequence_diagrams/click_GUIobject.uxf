@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>8</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>856</x>
-      <y>1072</y>
-      <w>408</w>
-      <h>200</h>
+      <x>648</x>
+      <y>978</y>
+      <w>306</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>title=GUIString handle click
 obj=:GUIString~a EXECUTION
@@ -20,10 +20,10 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>856</x>
-      <y>1296</y>
-      <w>408</w>
-      <h>200</h>
+      <x>984</x>
+      <y>978</y>
+      <w>306</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>title=GUIRectangle handle click
 obj=:GUIRectangle~a EXECUTION
@@ -36,25 +36,44 @@ a-&gt;lost: return;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>856</x>
-      <y>672</y>
-      <w>416</w>
-      <h>392</h>
+      <x>630</x>
+      <y>480</y>
+      <w>594</w>
+      <h>486</h>
     </coordinates>
     <panel_attributes>title=GUIInput handle click
 obj=:GUIInput~a EXECUTION
+obj=:HorizontalScrollBar~b
 
 found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
+
+
+combinedFragment=alt~loop2 a b; 
+a: [ this.scrollBar.isOnScrollBar(x, y) ]
+
+a-&gt;b: handleMouseEvent(ID, x, y, clickCount); on=b;
+ref=b b :HorizontalScrollBar handle click
+off=b;
+
+--=loop2
+tick=
+
+
+
 combinedFragment=alt~loop2 a a; 
 a: [ ID == MouseEvent.MOUSE_PRESSED &amp;&amp; this.initialClick ]
 
 a-&gt;a+: selectAll()
-tick=
+on=a
+off=a;
 ..=loop2 ; a : [ ID == MouseEvent.MOUSE_PRESSED &amp;&amp; clickCount % 2 == 0 ]
 a-&gt;a+: selectAll()
-tick=
+on=a
+off=a;
 ..=loop2 ; a : [ ID == MouseEvent.MOUSE_PRESSED ]
 a-&gt;a+: selectNone()
+on=a
+off=a;
 --=loop2
 </panel_attributes>
     <additional_attributes/>
@@ -64,8 +83,8 @@ a-&gt;a+: selectNone()
     <coordinates>
       <x>0</x>
       <y>0</y>
-      <w>1648</w>
-      <h>544</h>
+      <w>1236</w>
+      <h>408</h>
     </coordinates>
     <panel_attributes>title=Handle user mouse click in DefaultScreen
 obj=User~a ACTOR EXECUTION
@@ -94,10 +113,10 @@ ref=g g :GUIObject handle click</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>8</x>
-      <y>1160</y>
-      <w>816</w>
-      <h>368</h>
+      <x>6</x>
+      <y>870</y>
+      <w>612</w>
+      <h>276</h>
     </coordinates>
     <panel_attributes>title=GUITable handle click
 obj=:GUITable~a EXECUTION
@@ -118,10 +137,10 @@ combinedFragment=loop~loopid a c;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>8</x>
-      <y>648</y>
-      <w>792</w>
-      <h>272</h>
+      <x>6</x>
+      <y>486</y>
+      <w>594</w>
+      <h>204</h>
     </coordinates>
     <panel_attributes>title=GUIButton handle click
 obj=:GUIButton~a EXECUTION
@@ -140,10 +159,10 @@ a-&gt;b: run()
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>8</x>
-      <y>928</y>
-      <w>776</w>
-      <h>224</h>
+      <x>6</x>
+      <y>696</y>
+      <w>582</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>title=GUILink handle click
 obj=:GUILink~a EXECUTION
