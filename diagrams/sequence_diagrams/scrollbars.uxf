@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>90</x>
-      <y>1040</y>
-      <w>510</w>
-      <h>230</h>
+      <x>98</x>
+      <y>728</y>
+      <w>364</w>
+      <h>336</h>
     </coordinates>
     <panel_attributes>title=ScrollbarSlider handle click
 obj=:ScrollbarSlider~a EXECUTION
@@ -16,9 +16,19 @@ obj=:ScrollbarSlider~a EXECUTION
 
 found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
 
-a-&gt;a +: good luck with this!
+combinedFragment=opt~loop2 a a
 
+a: [id == MouseEvent.MOUSE_PRESSED]
+a-&gt;a +: startClick(x, y)
 
+tick=
+..=loop2 ; a: [id == MouseEvent.MOUSE_DRAGGED &amp;&amp; this.isSliding]
+a-&gt;a +: drag(x, y)
+
+tick=
+..=loop2 ; a: [id == MouseEvent.MOUSE_RELEASED]
+a-&gt;a +: releaseClick()
+--=loop2
 
 
 
@@ -29,10 +39,10 @@ a-&gt;a +: good luck with this!
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>90</x>
+      <x>98</x>
       <y>0</y>
-      <w>970</w>
-      <h>510</h>
+      <w>679</w>
+      <h>357</h>
     </coordinates>
     <panel_attributes>title=VerticalScrollBar handle click
 obj=:VerticalScrollBar~a
@@ -59,10 +69,10 @@ off=a;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>90</x>
-      <y>520</y>
-      <w>970</w>
-      <h>510</h>
+      <x>98</x>
+      <y>364</y>
+      <w>679</w>
+      <h>357</h>
     </coordinates>
     <panel_attributes>title=HorizontalScrollBar handle click
 obj=:HorizontalScrollBar~a

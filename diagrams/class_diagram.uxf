@@ -1484,7 +1484,7 @@ rootPane</panel_attributes>
       <x>1968</x>
       <y>1680</y>
       <w>224</w>
-      <h>176</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>ScrollBarSlider
 --
@@ -1495,7 +1495,10 @@ rootPane</panel_attributes>
 --
 + draw(Graphics, int...): void
 + isOnSlider(int, int): void
-+ handleMouseEvent(int, int, int, int): void</panel_attributes>
++ handleMouseEvent(int, int, int, int): void
+- startClick(int, int): void
+- drag(int, int): void
+- releaseClick(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
