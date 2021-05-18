@@ -23,8 +23,11 @@ public interface Scrollable {
     int getWidth();
 
 
-    int getOffset(boolean horizontal);
-    void setOffset(int offset, boolean horizontal);
+    int getXOffset();
+    void setXOffset(int offset);
+
+    int getYOffset();
+    void setYOffset(int offset);
 
 
     /**

@@ -41,8 +41,10 @@ public class ChildPane extends Pane implements Scrollable {
         this.verScrollBar = new VerticalScrollBar(this);
     }
 
+    @Override
     public int getXOffset() { return this.xOffset; }
 
+    @Override
     public void setXOffset(int amount) {
         if (amount >= 0) this.xOffset = 0;
         else this.xOffset = Math.max(amount, this.horScrollBar.calcMaxOffset());
@@ -50,8 +52,10 @@ public class ChildPane extends Pane implements Scrollable {
         this.horScrollBar.getSlider().coordX = this.horScrollBar.calculateSliderX();
     }
 
+    @Override
     public int getYOffset() { return this.yOffset; }
 
+    @Override
     public void setYOffset(int amount) {
         if (amount > 0) this.yOffset = 0;
         else this.yOffset = Math.max(amount, this.verScrollBar.calcMaxOffset());
@@ -445,22 +449,6 @@ public class ChildPane extends Pane implements Scrollable {
     @Override
     public int getWidth() {
         return width;
-    }
-
-    @Override
-    public int getOffset(boolean horizontal) {
-        if(horizontal)
-            return getXOffset();
-        else
-            return getYOffset();
-    }
-
-    @Override
-    public void setOffset(int offset, boolean horizontal) {
-        if(horizontal)
-            setXOffset(offset);
-        else
-            setYOffset(offset);
     }
 
     @Override

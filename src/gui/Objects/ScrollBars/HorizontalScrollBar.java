@@ -69,9 +69,9 @@ public class HorizontalScrollBar extends ScrollBar {
      */
     public int getContentWidth() {return scrollable.getContentWidth();}
 
-    public int getOffset() {return scrollable.getOffset(true);}
+    public int getOffset() {return scrollable.getXOffset();}
 
-    public void setOffset(int offset) {scrollable.setOffset(offset, true);}
+    public void setOffset(int offset) {scrollable.setXOffset(offset);}
 
     /**
      * @return the width of the screen or input box

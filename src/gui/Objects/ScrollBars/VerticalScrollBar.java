@@ -71,9 +71,9 @@ public class VerticalScrollBar extends ScrollBar {
 
     public int getContentHeight() {return scrollable.getContentHeight();}
 
-    public int getOffset() {return scrollable.getOffset(false);}
+    public int getOffset() {return scrollable.getYOffset();}
 
-    public void setOffset(int offset) {scrollable.setOffset(offset, false);}
+    public void setOffset(int offset) {scrollable.setYOffset(offset);}
 
     public int getAvailableHeight() {return scrollable.getAvailableHeight();}
 
