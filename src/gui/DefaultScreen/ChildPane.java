@@ -126,6 +126,8 @@ public class ChildPane extends Pane implements Scrollable {
         this.address = address.toString();
         isValidBrowsrPage(address);
         this.loader.initialise(address);
+        xOffset = 0;
+        yOffset = 0;
         loader.loadPage();
     }
 
