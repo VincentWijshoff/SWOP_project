@@ -4,6 +4,12 @@ import java.awt.*;
 
 public abstract class ScrollBar {
 
+    Scrollable scrollable;
+
+    public ScrollBar(Scrollable scrollable) {
+        this.scrollable = scrollable;
+    }
+
     /**
      * The 'scrollbar' is the gray area in which the 'scrollbar slider' can move.
      */
@@ -112,7 +118,20 @@ public abstract class ScrollBar {
      */
     public void setScrollBarCoordY(int y) { this.scrollBarCoordY = y; }
 
+    /**
+     * @return return x-coordinate of this scrollbar's scrollable
+     */
+    public int getX() {return scrollable.getX();}
 
+    /**
+     * @return return y-coordinate of this scrollbar's scrollable
+     */
+    public int getY() {return scrollable.getY();}
+
+    /**
+     * @return return the height of this scrollbar's scrollable
+     */
+    public int getHeight() {return scrollable.getHeight();}
 
     /**
      * Check if the given coordinates collide with the position of this object

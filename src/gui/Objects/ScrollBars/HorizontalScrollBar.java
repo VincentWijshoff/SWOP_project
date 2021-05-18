@@ -6,7 +6,6 @@ public class HorizontalScrollBar extends ScrollBar {
 
     private static final int horScrollBarHeight = 15;
     private static final int sliderHeight = 13;
-    private Scrollable scrollable;
 
     /**
      * @return the height of this scrollbar's slider
@@ -18,9 +17,8 @@ public class HorizontalScrollBar extends ScrollBar {
      * because this should never change.
      */
     public HorizontalScrollBar(Scrollable scrollable) {
+        super(scrollable);
         setScrollbarHeight(horScrollBarHeight);
-
-        this.scrollable = scrollable;
 
         this.setBoundaries();
         setSlider(new ScrollbarSlider(this, 0,0,0,0));
@@ -165,21 +163,6 @@ public class HorizontalScrollBar extends ScrollBar {
         else if (offset == calcMaxOffset()) return getSliderEnd() - getSlider().width;
         else return getSliderStart() + (offset*(-1) * getAvailableWidth() / getContentWidth());
     }
-
-    /**
-     * @return return x-coordinate of this scrollbar's scrollable
-     */
-    public int getX() {return scrollable.getX();}
-
-    /**
-     * @return return y-coordinate of this scrollbar's scrollable
-     */
-    public int getY() {return scrollable.getY();}
-
-    /**
-     * @return return the height of this scrollbar's scrollable
-     */
-    public int getHeight() {return scrollable.getHeight();}
 
     /**
      * Sets scrollbar properties using the input field dimensions.

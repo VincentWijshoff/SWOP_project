@@ -6,16 +6,14 @@ public class VerticalScrollBar extends ScrollBar {
 
     private static final int verScrollBarWidth = 15;
     private static final int sliderWidth = 13;
-    private Scrollable scrollable;
 
     /**
      * Constructor of the HorizontalScrollBar. Sets the height to a constant,
      * because this should never change.
      */
     public VerticalScrollBar(Scrollable scrollable) {
+        super(scrollable);
         setScrollbarWidth(verScrollBarWidth);
-
-        this.scrollable = scrollable;
 
         this.setBoundaries();
         setSlider(new ScrollbarSlider(this, 0,0,0,0));
@@ -161,24 +159,11 @@ public class VerticalScrollBar extends ScrollBar {
     public int calculateSliderY() {
         int offset = getOffset();
 
-//        if (this.getContentWidth() > 0 && this.getScrollbarWidth() < 300) {
-//            System.out.println(this.toString());
-//            System.out.println((offset == 0) + ": " + getSliderStart());
-//            System.out.println((offset == calcMaxOffset()) + ": " + (getSliderEnd() - getSlider().width));
-//            if (getContentWidth() != 0) System.out.println(getSliderStart() + (offset*(-1) * getAvailableWidth() / getContentWidth()));
-//            System.out.println("-------------");
-//        }
-
-
         // Moves the slider according to what text is displayed (automatic updating for KeyEvents).
         if (offset == 0 /*|| getSlider().width == getMaxSliderWidth()*/) return getSliderStartY();
         else if (offset == calcMaxOffset()) return getSliderEnd() - getSlider().height;
         else return getSliderStartY() + (offset*(-1) * getAvailableHeight() / getContentHeight());
     }
-
-    public int getX() {return scrollable.getX();}
-    public int getY() {return scrollable.getY();}
-    public int getHeight() {return scrollable.getHeight();}
 
     /**
      * Sets scrollbar properties using the input field dimensions.
