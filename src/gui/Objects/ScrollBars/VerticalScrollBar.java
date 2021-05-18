@@ -4,7 +4,9 @@ import java.awt.*;
 
 public class VerticalScrollBar extends ScrollBar {
 
+    //width of scrollbar
     private static final int verScrollBarWidth = 15;
+    //width of slider
     private static final int sliderWidth = 13;
 
     /**
@@ -20,6 +22,9 @@ public class VerticalScrollBar extends ScrollBar {
         updateDimensions();
     }
 
+    /**
+     * Calculate the dimensions of this scrollbar and its slider
+     */
     public void updateDimensions() {
         this.setBoundaries();
         getSlider().coordX = getSliderStartX();
@@ -27,7 +32,6 @@ public class VerticalScrollBar extends ScrollBar {
 
         getSlider().width = getSliderWidth();
         getSlider().height = getMaxSliderHeight();
-
     }
 
     /**
@@ -37,6 +41,10 @@ public class VerticalScrollBar extends ScrollBar {
      */
     public int getSliderStartY() { return this.getScrollbarCoordY() + getBuffer(); }
 
+    /**
+     * Used to get the x-coordinate of the slider.
+     * @return the left most valid x-coordinate of the slider.
+     */
     public int getSliderStartX() {
         return scrollable.getX() + scrollable.getAvailableWidth() - 1;
     }
@@ -48,8 +56,18 @@ public class VerticalScrollBar extends ScrollBar {
      */
     public int getMaxSliderHeight() { return Math.max(this.getScrollbarHeight() - getBuffer()*2, 0); }
 
+    /**
+     * @return the width of the slider
+     */
     public int getSliderWidth() { return sliderWidth; }
 
+    /**
+     * Handle a mouse event on this vertical scrollbar
+     * @param id The id of the mouse event
+     * @param x The x coordinate of the mouse event
+     * @param y The y coordinate of the mouse event
+     * @param clickCount The click count of the mouse event
+     */
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
         if (getSlider().isOnSlider(x, y) || getSlider().isSliding) {
             int sliderYInit = getSlider().coordY;
@@ -57,36 +75,51 @@ public class VerticalScrollBar extends ScrollBar {
 
             // Slide the difference between the old and new x:
             this.slide(sliderYInit - getSlider().coordY);
-
         } else {
             System.out.println("Clicked next to scrollbar slider!");
         }
     }
 
     /**
-     * Calculates the maximum valid offset based on the heights of the given guiObjects.
+     * Calculates the maximum valid offset based on the heights of the contents of the scrollable.
      * @return the maximum amount of pixels the objects can be moved.
      */
     public int calcMaxOffset() {
         return (-1) * (Math.abs(getContentHeight() - this.getScrollbarHeight() + 10));
     }
 
+    /**
+     * @return the height of the content of the scrollable
+     */
     public int getContentHeight() {return scrollable.getContentHeight();}
 
+    /**
+     * @return the yOffset of the scrollable
+     */
     public int getOffset() {return scrollable.getYOffset();}
 
+    /**
+     * @param offset the new YOffset of the scrollable
+     */
     public void setOffset(int offset) {scrollable.setYOffset(offset);}
 
+    /**
+     * @return the width of the scrollable
+     */
     public int getAvailableHeight() {return scrollable.getAvailableHeight();}
 
     /**
-     * Used to get the right boundary which the slider cannot cross.
-     * @return the most right valid x-coordinate of the slider.
+     * Used to get the top boundary which the slider cannot cross.
+     * @return the most top valid Y-coordinate of the slider.
      */
     public int getSliderEnd() {
         return this.getSliderStartY() + this.getMaxSliderHeight();
     }
 
+    /**
+     * Slide this scrollbar
+     * @param sliderMovement how much to move the scrollbar
+     */
     public void slide(int sliderMovement) {
         if (sliderMovement == 0) return;
 
@@ -104,6 +137,11 @@ public class VerticalScrollBar extends ScrollBar {
             setOffset(this.calcMaxOffset());
     }
 
+    /**
+     * draw the scrollbar
+     * @param g The graphics needed to draw the scrollbar
+     * @param paneOffsets offsets to apply
+     */
     public void draw(Graphics g, int... paneOffsets) {
         //int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
         int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
@@ -126,14 +164,20 @@ public class VerticalScrollBar extends ScrollBar {
         getSlider().draw(g, 0, yOffset);
     }
 
+    /**
+     * @return the start y coordinate of the slider
+     */
     @Override
     public int getSliderStart() {
         return getSliderStartY();
     }
 
     /**
-     * The height of the scrollbar slider is dependant on the height and content of the pane.
+     * The height of the scrollbarSlider is dependant of the height of the scrollable and the height of its content.
      * @return the height of the slider
+     * @post    if the content fits inside the scrollable, the slider will have its max size.
+     *          if the content doesn't fit, the slider will have a height such that the ratio between slider and
+     *          scrollbar is equal to the ratio of the scrollable height and of its content height.
      */
     public int calculateSliderHeight() {
         int availableHeight= getAvailableHeight() - ScrollBar.getBuffer()*2;
@@ -156,7 +200,7 @@ public class VerticalScrollBar extends ScrollBar {
     /**
      * Calculates the position of the scrollbar slider. Automatically updates
      * when the user presses keys.
-     * @return the new x-coordinate of the slider.
+     * @return the new y-coordinate of the slider.
      */
     public int calculateSliderY() {
         int offset = getOffset();
@@ -168,9 +212,9 @@ public class VerticalScrollBar extends ScrollBar {
     }
 
     /**
-     * Sets scrollbar properties using the input field dimensions.
-     * Needed for when user resizes the window.
-     * @post The width of the total scrollbar = the width of the pane.
+     * Sets scrollbar properties using the dimensions of the scrollable.
+     * Needed when user resizes the window.
+     * @post The height of the total scrollbar = the (available) height of the scrollable.
      * @post The x- and y-coordinate of the scrollbar are set correctly (bottom left corner).
      */
     public void setBoundaries() {

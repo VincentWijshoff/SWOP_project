@@ -8,8 +8,11 @@ import java.awt.event.MouseEvent;
  */
 public class ScrollbarSlider {
 
+    //the corresponding scrollbar
     ScrollBar scrollBar;
+    //the slider belongs to a horizontal scrollbar or not?
     final boolean isHorizontal;
+    //dimensions of the slider
     public int coordX, coordY, width, height;
 
     // Relative position of click in the slider
@@ -58,7 +61,7 @@ public class ScrollbarSlider {
 
     /**
      * Draw the slider
-     * @param g the graphics needed to draw the object
+     * @param g the graphics needed to draw the slider
      */
     public void draw(Graphics g, int... paneOffsets) {
         int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
@@ -84,8 +87,8 @@ public class ScrollbarSlider {
 
     /**
      * Handles the interaction between the user's mouse and the slider
-     * @param id            The id off the mouse event
-     * @param clickCount    The click count off the user
+     * @param id            The id of the mouse event
+     * @param clickCount    The click count of the user
      */
     public void handleMouseEvent(int id, int x, int y, int clickCount){
         System.out.println("Clicked on scrollbar slider!");

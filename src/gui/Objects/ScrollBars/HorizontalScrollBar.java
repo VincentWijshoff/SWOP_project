@@ -4,7 +4,9 @@ import java.awt.*;
 
 public class HorizontalScrollBar extends ScrollBar {
 
+    //height of the scrollbar
     private static final int horScrollBarHeight = 15;
+    //height of the slider
     private static final int sliderHeight = 13;
 
     /**
@@ -57,7 +59,7 @@ public class HorizontalScrollBar extends ScrollBar {
     }
 
     /**
-     * Calculates the maximum valid offset based on the width of the given guiObjects.
+     * Calculates the maximum valid offset based on the width of the contents of the scrollable.
      * @return the maximum amount of pixels the objects can be moved.
      */
     public int calcMaxOffset() {
@@ -65,16 +67,22 @@ public class HorizontalScrollBar extends ScrollBar {
     }
 
     /**
-     * @return the full width of the content in the screen or input box
+     * @return the full width of the content in the scrollable
      */
     public int getContentWidth() {return scrollable.getContentWidth();}
 
+    /**
+     * @return the xOffset of the scrollable
+     */
     public int getOffset() {return scrollable.getXOffset();}
 
+    /**
+     * @param offset the new xOffset of the scrollable
+     */
     public void setOffset(int offset) {scrollable.setXOffset(offset);}
 
     /**
-     * @return the width of the screen or input box
+     * @return the width of the scrollable
      */
     public int getAvailableWidth() {return scrollable.getAvailableWidth();}
 
@@ -100,8 +108,8 @@ public class HorizontalScrollBar extends ScrollBar {
     }
 
     /**
-     * draw the screen
-     * @param g The graphics needed to draw the screen
+     * draw the scrollbar
+     * @param g The graphics needed to draw the scrollbar
      * @param paneOffsets offsets to apply
      */
     public void draw(Graphics g, int... paneOffsets) {
@@ -126,11 +134,11 @@ public class HorizontalScrollBar extends ScrollBar {
     }
 
     /**
-     * The width of the scrollbar slider is dependant on the width and content of the input field.
+     * The width of the scrollbarSlider is dependant of the width of the scrollable and the width of its content.
      * @return the width of the slider
-     * @post    if the text fits inside the input field, the slider will have its max size.
-     *          if the text doesn't fit, the slider will have a width so that the ratio between slider and scrollbar is
-     *          equal to the ratio of the inputfield-width and inputfield-text-width.
+     * @post    if the content fits inside the scrollable, the slider will have its max size.
+     *          if the content doesn't fit, the slider will have a width such that the ratio between slider and
+     *          scrollbar is equal to the ratio of the scrollable width and of its content width.
      */
     public int calculateSliderWidth() {
         int availableWidth = getAvailableWidth() - ScrollBar.getBuffer()*2;
@@ -151,8 +159,7 @@ public class HorizontalScrollBar extends ScrollBar {
     }
 
     /**
-     * Calculates the position of the scrollbar slider. Automatically updates
-     * when the user presses keys.
+     * Calculates the position of the scrollbar slider. Automatically updates when the user presses keys.
      * @return the new x-coordinate of the slider.
      */
     public int calculateSliderX() {
@@ -165,9 +172,9 @@ public class HorizontalScrollBar extends ScrollBar {
     }
 
     /**
-     * Sets scrollbar properties using the input field dimensions.
-     * Needed for when user resizes the window.
-     * @post The width of the total scrollbar = the width of the pane.
+     * Sets scrollbar properties using the dimensions of the scrollable.
+     * Needed when user resizes the window.
+     * @post The width of the total scrollbar = the (available) width of the scrollable.
      * @post The x- and y-coordinate of the scrollbar are set correctly (bottom left corner).
      */
     public void setBoundaries() {
@@ -176,6 +183,7 @@ public class HorizontalScrollBar extends ScrollBar {
         setScrollbarCoordX(getX());
         setScrollBarCoordY(getY() + getHeight() - getScrollbarHeight());
     }
+
     /**
      * Used to calculate the maximum width the slider of this scrollbar can have,
      * based on the total width of the scrollbar and the buffer.
@@ -189,7 +197,6 @@ public class HorizontalScrollBar extends ScrollBar {
      * @return the most left valid x-coordinate of the slider.
      */
     public int getSliderStart() { return this.getScrollbarCoordX() + getBuffer(); }
-
 
     /**
      * Used to get the right boundary which the slider cannot cross.
