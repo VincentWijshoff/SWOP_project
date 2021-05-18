@@ -110,7 +110,7 @@ public class ChildPane extends Pane implements Scrollable {
         }
         if (this.getHorScrollBar().isOnScrollBar(x, y)) this.getHorScrollBar().handleMouseEvent(id, x, y, clickCount);
         else if (this.getVerScrollBar().isOnScrollBar(x, y)) this.getVerScrollBar().handleMouseEvent(id, x, y, clickCount);
-        else drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x, y, id, clickCount));
+        else drawnGUIObjects.forEach(obj -> obj.handleMouseEvent(x - getXOffset(), y - getYOffset(), id, clickCount));
     }
 
     /**
