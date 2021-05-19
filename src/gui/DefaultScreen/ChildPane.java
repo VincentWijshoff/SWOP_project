@@ -41,9 +41,15 @@ public class ChildPane extends Pane implements Scrollable {
         this.verScrollBar = new VerticalScrollBar(this);
     }
 
+    /**
+     * @return xOffset of this childpane
+     */
     @Override
     public int getXOffset() { return this.xOffset; }
 
+    /**
+     * @param amount the new xOffset of this childpane
+     */
     @Override
     public void setXOffset(int amount) {
         if (amount >= 0) this.xOffset = 0;
@@ -52,9 +58,16 @@ public class ChildPane extends Pane implements Scrollable {
         this.horScrollBar.getSlider().coordX = this.horScrollBar.calculateSliderX();
     }
 
+
+    /**
+     * @return return yOffset of this childpane
+     */
     @Override
     public int getYOffset() { return this.yOffset; }
 
+    /**
+     * @param amount the new YOffset of this childpane
+     */
     @Override
     public void setYOffset(int amount) {
         if (amount > 0) this.yOffset = 0;
@@ -62,7 +75,6 @@ public class ChildPane extends Pane implements Scrollable {
 
         //this.verScrollBar.getSlider().coordY = this.verScrollBar.calculateSliderY();
     }
-
 
     /**
      * Handle a key event on this pane
@@ -431,40 +443,67 @@ public class ChildPane extends Pane implements Scrollable {
         this.drawnGUIObjects.clear();
     }
 
+    /**
+     * @return the horizontal scrollbar of this childpane
+     */
     public HorizontalScrollBar getHorScrollBar() { return this.horScrollBar; }
 
+    /**
+     * @return the vertical scrollbar of this childpane
+     */
     public VerticalScrollBar getVerScrollBar() { return this.verScrollBar; }
 
+    /**
+     * @return x-coordinate of this childpane
+     */
     @Override
     public int getX() {
         return x;
     }
 
+    /**
+     * @return y-coordinate of this childpane
+     */
     @Override
     public int getY() {
         return y;
     }
 
+    /**
+     * @return height of this childpane
+     */
     @Override
     public int getHeight() {
         return height;
     }
 
+    /**
+     * @return width of this childpane
+     */
     @Override
     public int getWidth() {
         return width;
     }
 
+    /**
+     * @return the available width of the childpane
+     */
     @Override
     public int getAvailableWidth() {
         return width  - 15;
     }
 
+    /**
+     * @return the available height of the childpane
+     */
     @Override
     public int getAvailableHeight() {
         return height - 15;
     }
 
+    /**
+     * @return the width of the content of this childpane
+     */
     public int getContentWidth() {
         int max = 0;
         for (GUIObject guiObject : this.getDrawnGUIObjects()) {
@@ -474,6 +513,9 @@ public class ChildPane extends Pane implements Scrollable {
         return max;
     }
 
+    /**
+     * @return the height of the content of this childpane
+     */
     public int getContentHeight() {
         int max = 0;
         for (GUIObject guiObject : this.getDrawnGUIObjects()) {
