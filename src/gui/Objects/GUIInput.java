@@ -19,7 +19,7 @@ import java.util.HashSet;
 public class GUIInput extends GUIObject implements Scrollable {
 
     //the horizontal scrollbar attached
-    public HorizontalScrollBar scrollBar;
+    private HorizontalScrollBar scrollBar;
     //the offset of the text
     private int offset = 0;
 
@@ -210,6 +210,8 @@ public class GUIInput extends GUIObject implements Scrollable {
                     // we assume a key was pressed that needs to be shown but is not a normal char
                     this.onCharPress(keyChar);
                 }
+                this.getScrollBar().getSlider().setWidth(this.getScrollBar().calculateSliderWidth());
+                this.getScrollBar().getSlider().setCoordX(this.getScrollBar().calculateSliderX());
             }
         }
     }
@@ -831,4 +833,6 @@ public class GUIInput extends GUIObject implements Scrollable {
     public String getFormOutput(){
         return this.name + "=" + URLEncoder.encode(this.text, StandardCharsets.UTF_8);
     }
+
+    public HorizontalScrollBar getScrollBar() { return this.scrollBar; }
 }

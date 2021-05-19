@@ -161,7 +161,8 @@ public class HorizontalScrollBar extends ScrollBar {
         // The objects don't fit inside:
         else {
             this.getSlider().canSlide(true);
-            return (maxSliderWidth*maxSliderWidth)/contentWidth;
+            if (contentWidth == 0) return maxSliderWidth;
+            else return (maxSliderWidth*maxSliderWidth)/contentWidth;
         }
     }
 

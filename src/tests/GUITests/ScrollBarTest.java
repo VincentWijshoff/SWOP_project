@@ -3,6 +3,7 @@ package tests.GUITests;
 import gui.DefaultScreen.AddressBar;
 import gui.DefaultScreen.ChildPane;
 import gui.DefaultScreen.DefaultScreen;
+import gui.Objects.GUIInput;
 import gui.Objects.GUIString;
 import gui.Objects.ScrollBars.HorizontalScrollBar;
 import gui.Objects.ScrollBars.ScrollBar;
@@ -10,6 +11,7 @@ import gui.Objects.ScrollBars.ScrollbarSlider;
 import gui.Objects.ScrollBars.VerticalScrollBar;
 import gui.Window;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -33,7 +35,7 @@ class ScrollBarTest {
 	VerticalScrollBar verScrollBar;
 	ScrollbarSlider verSlider;
 
-	@BeforeAll
+	@BeforeEach
 	public void setup() throws InvocationTargetException, InterruptedException {
 		this.window = new Window("TestBrowser");
 		this.screen = (DefaultScreen) this.window.getCurrentScreen();
@@ -207,5 +209,80 @@ class ScrollBarTest {
 			assertEquals(testName, initialSliderYv, verSlider.getCoordY());
 
 		}
+	}
+
+	@Test
+	void testInputScrollBar() {
+		final String testName = "testSlidingWithMouse";
+		final String startTxt = "This is a pretty long test message to test scrollbars for InputFields";
+		GUIInput inputField = new GUIInput(startTxt, 10, 0, 100, 20);
+		inputField.setFontMetricsHandler(screen);
+		HorizontalScrollBar scrollBar = inputField.getScrollBar();
+		assertTrue(testName, scrollBar != null);
+		scrollBar.updateDimensions();
+		scrollBar.getSlider().setWidth(scrollBar.calculateSliderWidth());
+
+		assertEquals(testName, scrollBar.getScrollbarCoordX(), 10);
+		assertEquals(testName, scrollBar.getScrollbarCoordY(), 20);
+		assertEquals(testName, scrollBar.getScrollbarWidth(), 100);
+		assertEquals(testName, scrollBar.getScrollbarHeight(), HorizontalScrollBar.getScrollBarHeight());
+		assertEquals(testName, scrollBar.getSlider().getCoordX(), scrollBar.getSliderStart());
+		assertEquals(testName, scrollBar.getSlider().getCoordY(), scrollBar.getSliderStartY());
+		assertEquals(testName, scrollBar.getSlider().getHeight(), HorizontalScrollBar.getSliderHeight());
+		int initialSliderWidth = (scrollBar.getMaxSliderWidth()*scrollBar.getMaxSliderWidth())/inputField.getContentWidth();
+		assertEquals(testName, scrollBar.getSlider().getWidth(), initialSliderWidth);
+
+		// Remove one char at the end:
+		inputField.handleMouseEvent(11, 1, MouseEvent.MOUSE_PRESSED, 1);
+		inputField.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0); // right arrow
+		// Slider should have moved to the max right position
+		assertEquals(testName, scrollBar.getSlider().getCoordX(), scrollBar.getSliderEnd() - scrollBar.getSlider().getWidth());
+		inputField.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); // backspace
+		// Slider width should have changed
+		assertFalse(testName, scrollBar.getSlider().getWidth() == initialSliderWidth);
+		assertEquals(testName, scrollBar.getSlider().getWidth(), (scrollBar.getMaxSliderWidth()*scrollBar.getMaxSliderWidth())/inputField.getContentWidth());
+		// Slider should still be in the max right position
+		assertEquals(testName, scrollBar.getSlider().getCoordX(), scrollBar.getSliderEnd() - scrollBar.getSlider().getWidth());
+
+		// Move all the way to the left
+		for (int i = 0; i < 5; i++) {
+			// First few don't move the scrollbar
+			inputField.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0); // left arrow
+			assertEquals(testName, scrollBar.getSlider().getCoordX(), scrollBar.getSliderEnd() - scrollBar.getSlider().getWidth());
+		}
+		for (int i = 0; i < inputField.getText().length()/2; i++) {
+			// Move cursor to about the middle of the InputField text
+			inputField.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0); // left arrow
+		}
+		// The scrollbar slider moved
+		assertEquals(testName, scrollBar.getSlider().getCoordX(), scrollBar.getSliderStart() + (scrollBar.getOffset()*(-1) * scrollBar.getAvailableWidth() / scrollBar.getContentWidth()));
+		for (int i = 0; i < inputField.getText().length()/2; i++) {
+			// Move cursor to start of InputField text
+			inputField.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_LEFT, ' ', 0); // left arrow
+		}
+		assertEquals(testName, scrollBar.getSlider().getCoordX(), scrollBar.getSliderStart());
+
+		// Clear the text of the InputField
+		inputField.setText("");
+		scrollBar.updateDimensions();
+		scrollBar.getSlider().setWidth(scrollBar.calculateSliderWidth());
+
+		// Only the width of the slider should have changed
+		assertEquals(testName, scrollBar.getScrollbarCoordX(), 10);
+		assertEquals(testName, scrollBar.getScrollbarCoordY(), 20);
+		assertEquals(testName, scrollBar.getScrollbarWidth(), 100);
+		assertEquals(testName, scrollBar.getScrollbarHeight(), HorizontalScrollBar.getScrollBarHeight());
+		assertEquals(testName, scrollBar.getSlider().getCoordX(), scrollBar.getSliderStart());
+		assertEquals(testName, scrollBar.getSlider().getCoordY(), scrollBar.getSliderStartY());
+		assertEquals(testName, scrollBar.getSlider().getHeight(), HorizontalScrollBar.getSliderHeight());
+		assertEquals(testName, scrollBar.getSlider().getWidth(), scrollBar.getMaxSliderWidth());
+	}
+
+	@Test
+	void testSlidingWithMouse() {
+		final String testName = "testSlidingWithMouse";
+		final String startTxt = "This is a pretty long test message to test scrollbars for InputFields";
+		GUIInput inputField = new GUIInput(startTxt, 10, 10, 100, 20);
+		//TODO
 	}
 }

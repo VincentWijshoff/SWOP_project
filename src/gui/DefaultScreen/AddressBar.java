@@ -34,7 +34,7 @@ public class AddressBar {
         this.inputField.setFontMetricsHandler(screen);
         this.inputField.setPageLoader(screen);
         this.screen = screen;
-        this.yLimit += this.inputField.scrollBar.getScrollbarHeight();
+        this.yLimit += this.inputField.getScrollBar().getScrollbarHeight();
     }
 
     /**
@@ -45,7 +45,7 @@ public class AddressBar {
         this.inputField.setFontMetricsHandler(screen);
         this.inputField.setPageLoader(screen);
         this.screen = screen;
-        this.yLimit += this.inputField.scrollBar.getScrollbarHeight();
+        this.yLimit += this.inputField.getScrollBar().getScrollbarHeight();
     }
 
     /**
@@ -95,7 +95,7 @@ public class AddressBar {
         return (X >= this.abX &&
                 X <= this.abX + this.w &&
                 Y >= this.abY &&
-                Y <= this.abY + this.h + this.inputField.scrollBar.getScrollbarHeight());
+                Y <= this.abY + this.h + this.inputField.getScrollBar().getScrollbarHeight());
     }
 
     /**
