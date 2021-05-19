@@ -7,6 +7,7 @@ import gui.Objects.ScrollBars.Scrollable;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -737,8 +738,8 @@ public class GUIInput extends GUIObject implements Scrollable {
         g.clearRect(x+1, y+1, width-1, height-1); // actual address bar (white part)
 
         Shape oldClip = g.getClip();
-        Rectangle newClip = new Rectangle(x, y, this.width, this.height);
-        Rectangle intersection = newClip.intersection((Rectangle) oldClip);
+        Rectangle2D newClip = new Rectangle(x, y, this.width, this.height);
+        Rectangle2D intersection = newClip.createIntersection((Rectangle2D) oldClip);
         g.setClip(intersection);
 
         String viewedAddress = this.getText();
