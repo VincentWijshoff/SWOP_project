@@ -737,7 +737,9 @@ public class GUIInput extends GUIObject implements Scrollable {
         g.clearRect(x+1, y+1, width-1, height-1); // actual address bar (white part)
 
         Shape oldClip = g.getClip();
-        g.setClip(x, y, this.width, this.height);
+        Rectangle newClip = new Rectangle(x, y, this.width, this.height);
+        Rectangle intersection = newClip.intersection((Rectangle) oldClip);
+        g.setClip(intersection);
 
         String viewedAddress = this.getText();
         if(inFocus && !this.isSelecting()){
