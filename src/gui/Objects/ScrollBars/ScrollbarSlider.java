@@ -152,31 +152,70 @@ public class ScrollbarSlider {
         this.sliderColor = Color.WHITE;
     }
 
+    /**
+     * @return the scrollbar of this slider
+     */
     public ScrollBar getScrollBar() { return this.scrollBar; }
 
+    /**
+     * @return the x-coordinate of this slider
+     */
     public int getCoordX() { return this.coordX; }
 
+    /**
+     * @return the y-coordinate of this slider
+     */
     public int getCoordY() { return this.coordY; }
 
+    /**
+     * @return the width of this slider
+     */
     public int getWidth() { return this.width; }
 
+    /**
+     * @return the height of this slider
+     */
     public int getHeight() { return this.height; }
 
     public Color getSliderColor() { return this.sliderColor; }
 
+    /**
+     * @param x the new x-coordinate for this slider
+     */
     public void setCoordX(int x) { this.coordX = x; }
 
+    /**
+     * @param y the new y-coordinate for this slider
+     */
     public void setCoordY(int y) { this.coordY = y; }
 
+    /**
+     * @param width the new width for this slider
+     */
     public void setWidth(int width) { this.width = width; }
 
+    /**
+     * @param height the new height for this slider
+     */
     public void setHeight(int height) { this.height = height; }
 
+    /**
+     * @return true if this slider is horizontal
+     */
     public boolean isHorizontal() { return this.isHorizontal; }
 
+    /**
+     * @return true if this slider can slide
+     */
     public boolean canSlide() { return this.canSlide; }
 
+    /**
+     * @param b set if this slider can slide
+     */
     public void canSlide(boolean b) { this.canSlide = b; }
 
+    /**
+     * @return true if this slider is sliding
+     */
     public boolean isSliding() { return this.isSliding; }
 }
