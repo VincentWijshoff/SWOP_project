@@ -143,6 +143,7 @@ public class VerticalScrollBar extends ScrollBar {
      * @param paneOffsets offsets to apply
      */
     public void draw(Graphics g, int... paneOffsets) {
+        Color oldColor = g.getColor();
         //int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;
         int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
 
@@ -157,8 +158,8 @@ public class VerticalScrollBar extends ScrollBar {
 
         // Scrollbar outline
         g.setColor(Color.GRAY);
-
         g.fillRect(getScrollbarCoordX()-2, getScrollbarCoordY() + yOffset, getScrollbarWidth(), getScrollbarHeight()+2);
+        g.setColor(oldColor);
 
         // Scrollbar slider
         getSlider().draw(g, 0, yOffset);
