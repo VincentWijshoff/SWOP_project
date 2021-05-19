@@ -86,6 +86,7 @@ public class ParentPane extends Pane{
      */
     void updateChildren(){
         // update the children with new line position
+        if (child1 == null || child2 == null) return;
         if(child1.x == child2.x){
                 child1.updateDimensions(this.x, this.y, this.width, this.linePosition - this.y);
                 child2.updateDimensions(this.x, this.linePosition, this.width, this.height + this.y - this.linePosition);
