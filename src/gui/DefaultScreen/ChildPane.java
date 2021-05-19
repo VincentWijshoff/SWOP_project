@@ -213,9 +213,10 @@ public class ChildPane extends Pane implements Scrollable {
         if(this.isInFocus){
             g.drawRect(this.x + 2, this.y + 2, this.width - 4, this.height - 4);
         }
-
+        int verScrollbarWidth = 0;
+        if (this.getVerScrollBar() != null) verScrollbarWidth = this.getVerScrollBar().getScrollbarWidth();
         Shape oldClip = g.getClip();
-        g.setClip(this.x, this.y, this.width, this.height);
+        g.setClip(this.x, this.y, this.width-verScrollbarWidth, this.height);
         this.setXOffset(this.getXOffset()); // Needed to check edge cases
         this.setYOffset(this.getYOffset()); // Needed to check edge cases
         int xScrollOffset = this.getXOffset();
@@ -223,6 +224,7 @@ public class ChildPane extends Pane implements Scrollable {
         for (GUIObject obj : this.getDrawnGUIObjects()) {
             obj.draw(g, xScrollOffset, yScrollOffset);
         }
+
         g.setClip(oldClip);
         if (this.getHorScrollBar() != null) this.getHorScrollBar().draw(g);
         if (this.getVerScrollBar() != null) this.getVerScrollBar().draw(g);
