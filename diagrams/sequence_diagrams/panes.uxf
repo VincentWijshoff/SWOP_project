@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>4</zoom_level>
+  <zoom_level>3</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>0</x>
-      <y>0</y>
-      <w>952</w>
-      <h>504</h>
+      <x>99</x>
+      <y>30</y>
+      <w>714</w>
+      <h>378</h>
     </coordinates>
     <panel_attributes>title=Split ChildPane
 obj=parent :ParentPane~a EXECUTION
@@ -17,36 +17,36 @@ obj=child1 :ChildPane~d CREATED_LATER
 obj=child2 :ChildPane~e CREATED_LATER
 
 found-&gt;a : handleKeyEvent(keyID, keyCode, keyChar, modifiers);
-a-&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);on=b;
+a-&gt;&gt;&gt;b : handleKeyEvent(keyID, keyCode, keyChar, modifiers);on=b;
 
-b-&gt;c : newParent = new ParentPane();
-b-&gt;c : setDimensions(this.x, this.y, this.width, this.height);on=c;
+b-&gt;&gt;&gt;c : newParent = new ParentPane();
+b-&gt;&gt;&gt;c : setDimensions(this.x, this.y, this.width, this.height);on=c;
 off=c;
-b-&gt;c : setParentPane(parent);on=c;
+b-&gt;&gt;&gt;c : setParentPane(parent);on=c;
 off=c;
-b-&gt;a : changeChild(newParent, this);on=a;
+b-&gt;&gt;&gt;a : changeChild(newParent, this);on=a;
 off=a;
-b-&gt;d : child1 = new ChildPane();
-b-&gt;e : child2 = new ChildPane();
-b-&gt;c : setChildren(child1, child2);on=c;
+b-&gt;&gt;&gt;d : child1 = new ChildPane();
+b-&gt;&gt;&gt;e : child2 = new ChildPane();
+b-&gt;&gt;&gt;c : setChildren(child1, child2);on=c;
 off=c;
-b-&gt;b + : cop1Objects = copyOfObjects();
+b-&gt;&gt;&gt;b + : cop1Objects = copyOfObjects();
 on=b
 off=b
-b-&gt;d : setGUIObjects(copy1Objects);on=d;
+b-&gt;&gt;&gt;d : setGUIObjects(copy1Objects);on=d;
 off=d;
-b-&gt;b + : cop2Objects = copyOfObjects();
+b-&gt;&gt;&gt;b + : cop2Objects = copyOfObjects();
 on=b
 off=b
-b-&gt;e : setGUIObjects(copy2Objects);on=e;
+b-&gt;&gt;&gt;e : setGUIObjects(copy2Objects);on=e;
 off=e;
-c-&gt;d : setDimensions(x, y, width, height);on=d;
+c-&gt;&gt;&gt;d : setDimensions(x, y, width, height);on=d;
 off=d;
-c-&gt;e : setDimensions(x, y, width, height);on=e;
+c-&gt;&gt;&gt;e : setDimensions(x, y, width, height);on=e;
 off=e;
-b-&gt;c : setInFocus();on=c;
+b-&gt;&gt;&gt;c : setInFocus();on=c;
 off=c;
-b-&gt;d : setInFocus();on=d;
+b-&gt;&gt;&gt;d : setInFocus();on=d;
 off=d;
 off=b;</panel_attributes>
     <additional_attributes/>
@@ -54,10 +54,10 @@ off=b;</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>0</x>
-      <y>508</y>
-      <w>588</w>
-      <h>356</h>
+      <x>99</x>
+      <y>411</y>
+      <w>441</w>
+      <h>267</h>
     </coordinates>
     <panel_attributes>title=HandlemouseEvent on ParentPane
 obj=:ParentPane~a EXECUTION
@@ -68,16 +68,16 @@ found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
 combinedFragment=alt~loop2 a c; 
 a: [ child1.isOnPane(x, y) ]
 
-a-&gt;b : setInFocus();on=b;
+a-&gt;&gt;&gt;b : setInFocus();on=b;
 off=b;
-a-&gt;c : setOutFocus();on=c;
+a-&gt;&gt;&gt;c : setOutFocus();on=c;
 off=c;
 
 ..=loop2 ; a : [ child2.isOnPane(x, y) ]
 
-a-&gt;c : setInFocus();on=c;
+a-&gt;&gt;&gt;c : setInFocus();on=c;
 off=c;
-a-&gt;b : setOutFocus();on=b;
+a-&gt;&gt;&gt;b : setOutFocus();on=b;
 off=b;
 
 --=loop2
@@ -85,13 +85,13 @@ off=b;
 combinedFragment=alt~loop1 a c;
 a : [ child1.isInFocsu() ]
 
-a-&gt;b : handleMouseEvent(ID, x, y, clickCount);on=b;
+a-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount);on=b;
 ref=b b :HandlemouseEvent on Pane
 off=b;
 
  ..=loop1 ; a : [ child2.isInFocsu() ]
 
-a-&gt;c : handleMouseEvent(ID, x, y, clickCount);on=c;
+a-&gt;&gt;&gt;c : handleMouseEvent(ID, x, y, clickCount);on=c;
 ref=c c :HandlemouseEvent on Pane
 off=c;
 
@@ -101,10 +101,10 @@ off=c;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>0</x>
-      <y>868</y>
-      <w>756</w>
-      <h>236</h>
+      <x>99</x>
+      <y>681</y>
+      <w>567</w>
+      <h>177</h>
     </coordinates>
     <panel_attributes>title=Close ChildPane
 obj=parent1 :ParentPane~a EXECUTION
@@ -113,16 +113,16 @@ obj=child1 :ChildPane~c
 obj=child2 :ChildPane~d
 
 found-&gt;a : handleMouseEvent(ID, x, y, clickCount);
-a-&gt;b : handleMouseEvent(ID, x, y, clickCount);on=b;
-b-&gt;c : handleMouseEvent(ID, x, y, clickCount);on=c;
-c-&gt;b : removeChild(this);on=b;
+a-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount);on=b;
+b-&gt;&gt;&gt;c : handleMouseEvent(ID, x, y, clickCount);on=c;
+c-&gt;&gt;&gt;b : removeChild(this);on=b;
 off=b;
 off=c;
-b-&gt;d : setParentPane(parent1);on=d;
+b-&gt;&gt;&gt;d : setParentPane(parent1);on=d;
 off=d;
-b-&gt;a : switchChild(this, child2);on=a;
+b-&gt;&gt;&gt;a : switchChild(this, child2);on=a;
 off=a;
-b-&gt;d : updateDimension(this.x, this.y, this.width, this.height);on=d;
+b-&gt;&gt;&gt;d : updateDimension(this.x, this.y, this.width, this.height);on=d;
 off=d;
 off=b;</panel_attributes>
     <additional_attributes/>
@@ -130,10 +130,10 @@ off=b;</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>616</x>
-      <y>532</y>
-      <w>800</w>
-      <h>284</h>
+      <x>561</x>
+      <y>429</y>
+      <w>600</w>
+      <h>213</h>
     </coordinates>
     <panel_attributes>title=HandlemouseEvent on ChildPane
 obj=:ChildPane~d EXECUTION
@@ -145,20 +145,20 @@ found-&gt;d : handleMouseEvent(ID, x, y, clickCount);
 combinedFragment=opt~loop2 d g
 
 d: [this.verScrollBar.isOnScrollBar(x, y)]
-d-&gt;e : handleMouseEvent(ID, x, y, clickCount);
+d-&gt;&gt;&gt;e : handleMouseEvent(ID, x, y, clickCount);
 ref=e e :VerticalScrollbar handle click
 
 tick=
 ..=loop2 ; d : [this.horScrollBar.isOnScrollBar(x, y)]
 
-d-&gt;f : handleMouseEvent(ID, x, y, clickCount);
+d-&gt;&gt;&gt;f : handleMouseEvent(ID, x, y, clickCount);
 ref=f f :HorizontalScrollBar handle click
 
 tick=
 ..=loop2 ; d : [ else ]
 	combinedFragment=loop~loop1 d g;
 		d: [ obj : drawnGUIObjects ]
-		d-&gt;g: handleMouseEvent(ID, x, y, clickCount);
+		d-&gt;&gt;&gt;g: handleMouseEvent(ID, x, y, clickCount);
 		
 		ref=g g: GuiObject Handle click
 	--=loop1

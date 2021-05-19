@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>6</zoom_level>
+  <zoom_level>12</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>198</x>
-      <y>624</y>
-      <w>312</w>
-      <h>366</h>
+      <x>192</x>
+      <y>1248</y>
+      <w>624</w>
+      <h>732</h>
     </coordinates>
     <panel_attributes>title=ScrollbarSlider handle click
 obj=:ScrollbarSlider~a
@@ -18,18 +18,18 @@ found-&gt;a : handleMouseEvent(ID, x, y, clickCount);on=a;
 
 combinedFragment=opt~loop2 a a
 
-a: [id == MouseEvent.MOUSE_PRESSED]
-a-&gt;a +: startClick(x, y);
+a: [ id == MouseEvent.MOUSE_PRESSED ]
+a-&gt;&gt;&gt;a +: startClick(x, y);
 on=a
 off=a;
 
-..=loop2 ; a: [id == MouseEvent.MOUSE_DRAGGED &amp;&amp; this.isSliding]
-a-&gt;a +: drag(x, y)
+..=loop2 ; a: [ id == MouseEvent.MOUSE_DRAGGED &amp;&amp; this.isSliding ]
+a-&gt;&gt;&gt;a +: drag(x, y)
 on=a
 off=a;
 tick=
-..=loop2 ; a: [id == MouseEvent.MOUSE_RELEASED]
-a-&gt;a +: releaseClick()
+..=loop2 ; a: [ id == MouseEvent.MOUSE_RELEASED ]
+a-&gt;&gt;&gt;a +: releaseClick()
 on=a
 off=a;
 --=loop2
@@ -43,10 +43,10 @@ off=a;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>198</x>
+      <x>192</x>
       <y>0</y>
-      <w>582</w>
-      <h>306</h>
+      <w>1164</w>
+      <h>612</h>
     </coordinates>
     <panel_attributes>title=VerticalScrollBar handle click
 obj=:VerticalScrollBar~a
@@ -55,15 +55,15 @@ obj=:Scroll	barSlider~b
 
 found-&gt;a : handleMouseEvent(ID, x, y, clickCount);on=a;
 
-a-&gt;b : oldY = getCoordY();on=b;
+a-&gt;&gt;&gt;b : oldY = getCoordY();on=b;
 off=b;
 
-a-&gt;b : handleMouseEvent(ID, x, y, clickCount);on=b;
+a-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount);on=b;
 ref=b b: ScrollbarSlider Handle click
 off=b;
-a-&gt;b : newY = getCoordY();on=b;
+a-&gt;&gt;&gt;b : newY = getCoordY();on=b;
 off=b;
-a-&gt;a +: this.slide(oldY - newY);
+a-&gt;&gt;&gt;a +: this.slide(oldY - newY);
 on=a;
 off=a;
 
@@ -73,10 +73,10 @@ off=a;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>198</x>
-      <y>312</y>
-      <w>582</w>
-      <h>306</h>
+      <x>192</x>
+      <y>624</y>
+      <w>1164</w>
+      <h>612</h>
     </coordinates>
     <panel_attributes>title=HorizontalScrollBar handle click
 obj=:HorizontalScrollBar~a
@@ -85,15 +85,15 @@ obj=:Scroll	barSlider~b
 
 found-&gt;a : handleMouseEvent(ID, x, y, clickCount);on=a;
 
-a-&gt;b : oldX = getCoordX();on=b;
+a-&gt;&gt;&gt;b : oldX = getCoordX();on=b;
 off=b;
 
-a-&gt;b : handleMouseEvent(ID, x, y, clickCount);on=b;
+a-&gt;&gt;&gt;b : handleMouseEvent(ID, x, y, clickCount);on=b;
 ref=b b: ScrollbarSlider Handle click
 off=b;
-a-&gt;b : newX = getCoordX();on=b;
+a-&gt;&gt;&gt;b : newX = getCoordX();on=b;
 off=b;
-a-&gt;a +: this.slide(oldX - newX);
+a-&gt;&gt;&gt;a +: this.slide(oldX - newX);
 on=a;
 off=a;
 
