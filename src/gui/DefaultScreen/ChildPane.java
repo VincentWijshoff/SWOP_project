@@ -41,9 +41,15 @@ public class ChildPane extends Pane implements Scrollable {
         this.verScrollBar = new VerticalScrollBar(this);
     }
 
+    /**
+     * @return xOffset of this childpane
+     */
     @Override
     public int getXOffset() { return this.xOffset; }
 
+    /**
+     * @param amount the new xOffset of this childpane
+     */
     @Override
     public void setXOffset(int amount) {
         if (amount >= 0) this.xOffset = 0;
@@ -52,9 +58,16 @@ public class ChildPane extends Pane implements Scrollable {
         this.horScrollBar.getSlider().setCoordX(this.horScrollBar.calculateSliderX());
     }
 
+
+    /**
+     * @return return yOffset of this childpane
+     */
     @Override
     public int getYOffset() { return this.yOffset; }
 
+    /**
+     * @param amount the new YOffset of this childpane
+     */
     @Override
     public void setYOffset(int amount) {
         if (amount > 0) this.yOffset = 0;
@@ -62,7 +75,6 @@ public class ChildPane extends Pane implements Scrollable {
 
         //this.verScrollBar.getSlider().coordY = this.verScrollBar.calculateSliderY();
     }
-
 
     /**
      * Handle a key event on this pane
@@ -213,9 +225,10 @@ public class ChildPane extends Pane implements Scrollable {
         if(this.isInFocus){
             g.drawRect(this.x + 2, this.y + 2, this.width - 4, this.height - 4);
         }
-
+        int verScrollbarWidth = 0;
+        if (this.getVerScrollBar() != null) verScrollbarWidth = this.getVerScrollBar().getScrollbarWidth();
         Shape oldClip = g.getClip();
-        g.setClip(this.x, this.y, this.width, this.height);
+        g.setClip(this.x, this.y, this.width-verScrollbarWidth, this.height);
         this.setXOffset(this.getXOffset()); // Needed to check edge cases
         this.setYOffset(this.getYOffset()); // Needed to check edge cases
         int xScrollOffset = this.getXOffset();
@@ -223,6 +236,7 @@ public class ChildPane extends Pane implements Scrollable {
         for (GUIObject obj : this.getDrawnGUIObjects()) {
             obj.draw(g, xScrollOffset, yScrollOffset);
         }
+
         g.setClip(oldClip);
         if (this.getHorScrollBar() != null) this.getHorScrollBar().draw(g);
         if (this.getVerScrollBar() != null) this.getVerScrollBar().draw(g);
@@ -429,40 +443,67 @@ public class ChildPane extends Pane implements Scrollable {
         this.drawnGUIObjects.clear();
     }
 
+    /**
+     * @return the horizontal scrollbar of this childpane
+     */
     public HorizontalScrollBar getHorScrollBar() { return this.horScrollBar; }
 
+    /**
+     * @return the vertical scrollbar of this childpane
+     */
     public VerticalScrollBar getVerScrollBar() { return this.verScrollBar; }
 
+    /**
+     * @return x-coordinate of this childpane
+     */
     @Override
     public int getX() {
         return x;
     }
 
+    /**
+     * @return y-coordinate of this childpane
+     */
     @Override
     public int getY() {
         return y;
     }
 
+    /**
+     * @return height of this childpane
+     */
     @Override
     public int getHeight() {
         return height;
     }
 
+    /**
+     * @return width of this childpane
+     */
     @Override
     public int getWidth() {
         return width;
     }
 
+    /**
+     * @return the available width of the childpane
+     */
     @Override
     public int getAvailableWidth() {
         return Math.max(0, width  - 15);
     }
 
+    /**
+     * @return the available height of the childpane
+     */
     @Override
     public int getAvailableHeight() {
         return Math.max(0, height - 15);
     }
 
+    /**
+     * @return the width of the content of this childpane
+     */
     public int getContentWidth() {
         int max = 0;
         for (GUIObject guiObject : this.getDrawnGUIObjects()) {
@@ -472,6 +513,9 @@ public class ChildPane extends Pane implements Scrollable {
         return max;
     }
 
+    /**
+     * @return the height of the content of this childpane
+     */
     public int getContentHeight() {
         int max = 0;
         for (GUIObject guiObject : this.getDrawnGUIObjects()) {
