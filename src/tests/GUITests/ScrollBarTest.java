@@ -3,6 +3,7 @@ package tests.GUITests;
 import gui.DefaultScreen.AddressBar;
 import gui.DefaultScreen.ChildPane;
 import gui.DefaultScreen.DefaultScreen;
+import gui.DefaultScreen.ParentPane;
 import gui.Objects.GUIInput;
 import gui.Objects.GUIString;
 import gui.Objects.ScrollBars.HorizontalScrollBar;
@@ -213,7 +214,7 @@ class ScrollBarTest {
 
 	@Test
 	void testInputScrollBar() {
-		final String testName = "testSlidingWithMouse";
+		final String testName = "testInputScrollBar";
 		final String startTxt = "This is a pretty long test message to test scrollbars for InputFields";
 		GUIInput inputField = new GUIInput(startTxt, 10, 0, 100, 20);
 		inputField.setFontMetricsHandler(screen);
@@ -237,6 +238,8 @@ class ScrollBarTest {
 		inputField.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_RIGHT, ' ', 0); // right arrow
 		// Slider should have moved to the max right position
 		assertEquals(testName, scrollBar.getSlider().getCoordX(), scrollBar.getSliderEnd() - scrollBar.getSlider().getWidth());
+		inputField.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); // backspace
+		inputField.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); // backspace
 		inputField.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_BACK_SPACE, ' ', 0); // backspace
 		// Slider width should have changed
 		assertFalse(testName, scrollBar.getSlider().getWidth() == initialSliderWidth);
@@ -282,7 +285,63 @@ class ScrollBarTest {
 	void testSlidingWithMouse() {
 		final String testName = "testSlidingWithMouse";
 		final String startTxt = "This is a pretty long test message to test scrollbars for InputFields";
-		GUIInput inputField = new GUIInput(startTxt, 10, 10, 100, 20);
-		//TODO
+		GUIInput inputField = new GUIInput(startTxt, 0, 0, 50, 20);
+		inputField.setFontMetricsHandler(screen);
+		HorizontalScrollBar scrollBar = inputField.getScrollBar();
+		assertTrue(testName, scrollBar != null);
+		scrollBar.updateDimensions();
+		scrollBar.getSlider().setWidth(scrollBar.calculateSliderWidth());
+
+		// Check initial state
+		assertEquals(testName, scrollBar.getScrollbarCoordX(), 0);
+		assertEquals(testName, scrollBar.getScrollbarCoordY(), 20);
+		assertEquals(testName, scrollBar.getScrollbarWidth(), 50);
+		assertEquals(testName, scrollBar.getScrollbarHeight(), HorizontalScrollBar.getScrollBarHeight());
+		assertEquals(testName, scrollBar.getSlider().getCoordX(), scrollBar.getSliderStart());
+		assertEquals(testName, scrollBar.getSlider().getCoordY(), scrollBar.getSliderStartY());
+		assertEquals(testName, scrollBar.getSlider().getHeight(), HorizontalScrollBar.getSliderHeight());
+		int initialSliderWidth = (scrollBar.getMaxSliderWidth()*scrollBar.getMaxSliderWidth())/inputField.getContentWidth();
+		assertEquals(testName, scrollBar.getSlider().getWidth(), initialSliderWidth);
+
+		// Click on slider
+		assertEquals(testName, scrollBar.getSlider().getSliderColor(), Color.WHITE);
+		scrollBar.handleMouseEvent(MouseEvent.MOUSE_PRESSED, scrollBar.getSlider().getCoordX()+1, scrollBar.getSlider().getCoordY()+1, 1);
+		assertEquals(testName, scrollBar.getSlider().getSliderColor(), Color.LIGHT_GRAY);
+		assertTrue(testName, scrollBar.getSlider().isSliding());
+
+		// Move 10 pixels right
+		scrollBar.handleMouseEvent(MouseEvent.MOUSE_DRAGGED, scrollBar.getSlider().getCoordX()+11, scrollBar.getSlider().getCoordY()+1, 1);
+		assertEquals(testName, scrollBar.getSlider().getSliderColor(), Color.LIGHT_GRAY);
+		assertTrue(testName, scrollBar.getSlider().isSliding());
+		// Width should be the same, but the x coordinate of the slider should have changed.
+		assertEquals(testName, scrollBar.getSlider().getWidth(), initialSliderWidth);
+		int xAfterSlidingRight = scrollBar.getSlider().getCoordX();
+		assertFalse(testName,xAfterSlidingRight == scrollBar.getSliderStart());
+		assertEquals(testName, xAfterSlidingRight, scrollBar.getSliderStart() + (scrollBar.getOffset()*(-1) * scrollBar.getAvailableWidth() / scrollBar.getContentWidth()));
+		assertEquals(testName, xAfterSlidingRight, scrollBar.calculateSliderX());
+
+		// Move 5 pixels left
+		scrollBar.handleMouseEvent(MouseEvent.MOUSE_DRAGGED, scrollBar.getSlider().getCoordX()+6, scrollBar.getSlider().getCoordY()+1, 1);
+		assertEquals(testName, scrollBar.getSlider().getSliderColor(), Color.LIGHT_GRAY);
+		assertTrue(testName, scrollBar.getSlider().isSliding());
+		// Width should be the same, but the x coordinate of the slider should have changed.
+		assertEquals(testName, scrollBar.getSlider().getWidth(), initialSliderWidth);
+		int xAfterSlidingLeft = scrollBar.getSlider().getCoordX();
+		assertFalse(testName,xAfterSlidingLeft == scrollBar.getSliderStart());
+		assertFalse(testName,xAfterSlidingLeft == xAfterSlidingRight);
+		assertEquals(testName, xAfterSlidingLeft, scrollBar.getSliderStart() + (scrollBar.getOffset()*(-1) * scrollBar.getAvailableWidth() / scrollBar.getContentWidth()));
+		assertEquals(testName, xAfterSlidingLeft, scrollBar.calculateSliderX());
+
+		// Release click
+		scrollBar.handleMouseEvent(MouseEvent.MOUSE_RELEASED, scrollBar.getSlider().getCoordX()+6, scrollBar.getSlider().getCoordY()+1, 1);
+		assertEquals(testName, scrollBar.getSlider().getSliderColor(), Color.WHITE);
+		assertFalse(testName, scrollBar.getSlider().isSliding());
+		int xAfterReleasing = scrollBar.getSlider().getCoordX();
+		assertFalse(testName,xAfterReleasing == scrollBar.getSliderStart());
+		assertFalse(testName,xAfterReleasing == xAfterSlidingRight);
+		assertTrue(testName,xAfterReleasing == xAfterSlidingLeft);
+		assertEquals(testName, xAfterReleasing, scrollBar.getSliderStart() + (scrollBar.getOffset()*(-1) * scrollBar.getAvailableWidth() / scrollBar.getContentWidth()));
+		assertEquals(testName, xAfterReleasing, scrollBar.calculateSliderX());
 	}
+
 }
