@@ -113,8 +113,9 @@ public abstract class GUIObject {
     /**
      * draw the object, this function should be overridden by each specific object
      * @param g the graphics needed to draw each object
+     * @param paneOffsets the amount of pixels to add because of pane scrolling
      */
-    public void draw(Graphics g, int... offsets) { }
+    public void draw(Graphics g, int... paneOffsets) { }
 
     /**
      * Get the list of all child objects

@@ -83,6 +83,7 @@ public class GUIButton extends GUIObject{
     /**
      * Draw the button
      * @param g the graphics needed to draw each object
+     * @param paneOffsets the amount of pixels to add because of pane scrolling
      */
     @Override
     public void draw(Graphics g, int... paneOffsets){

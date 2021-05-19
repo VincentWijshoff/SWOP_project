@@ -7,7 +7,7 @@ import java.awt.*;
  */
 public abstract class ScrollBar {
 
-    //the scrollable object this scrollbar belongs too
+    // The scrollable object this scrollbar belongs to
     Scrollable scrollable;
 
     /**
@@ -18,7 +18,7 @@ public abstract class ScrollBar {
         this.scrollable = scrollable;
     }
 
-    //the dimensions of the scrollbar
+    // The dimensions of the scrollbar
     private int scrollbarWidth, scrollbarHeight, scrollBarCoordX, scrollBarCoordY;
 
     /**

@@ -134,7 +134,7 @@ public class ScrollbarSlider {
         } else {
             int newSliderCoordY = y-this.cursorStart;
             // Keep the slider within scrollbar boundaries
-            if ((newSliderCoordY > this.scrollBar.getSliderStart())/* && (newSliderCoordY+this.height < this.scrollBar.getSliderEnd())*/) {
+            if ((newSliderCoordY > this.scrollBar.getSliderStart())) {
                 this.coordY = newSliderCoordY; // Slide with mouse
             } else if (newSliderCoordY <= this.scrollBar.getSliderStart()) {
                 this.coordY = this.scrollBar.getSliderStart(); // Slide most up

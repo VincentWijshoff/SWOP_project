@@ -27,6 +27,7 @@ public class GUIRectangle extends GUIObject{
     /**
      * Draw the rectangle
      * @param g the graphics needed to draw each object
+     * @param paneOffsets the amount of pixels to add because of pane scrolling
      */
     public void draw(Graphics g, int... paneOffsets) {
         int xOffset = paneOffsets.length == 2 ? paneOffsets[0] : 0;

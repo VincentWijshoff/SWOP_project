@@ -1,9 +1,7 @@
 package tests.GUITests;
 
-import gui.DefaultScreen.AddressBar;
 import gui.DefaultScreen.ChildPane;
 import gui.DefaultScreen.DefaultScreen;
-import gui.DefaultScreen.ParentPane;
 import gui.Objects.GUIInput;
 import gui.Objects.GUIString;
 import gui.Objects.ScrollBars.HorizontalScrollBar;
@@ -11,7 +9,6 @@ import gui.Objects.ScrollBars.ScrollBar;
 import gui.Objects.ScrollBars.ScrollbarSlider;
 import gui.Objects.ScrollBars.VerticalScrollBar;
 import gui.Window;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

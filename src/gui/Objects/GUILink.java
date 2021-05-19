@@ -44,6 +44,7 @@ public class GUILink extends GUIString {
     /**
      * draw the GUILink
      * @param g the graphics needed to draw the GUILink
+     * @param paneOffsets the amount of pixels to add because of pane scrolling
      */
     @Override
     public void draw(Graphics g, int... paneOffsets) {

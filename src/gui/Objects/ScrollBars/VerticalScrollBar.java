@@ -127,7 +127,7 @@ public class VerticalScrollBar extends ScrollBar {
     public void slide(int sliderMovement) {
         if (sliderMovement == 0) return;
 
-        double rel = ((double) getContentHeight())            // rel = 1.8            1.9
+        double rel = ((double) getContentHeight())
                 / ((double) getMaxSliderHeight());
 
         double relMovement = sliderMovement * rel;
@@ -135,7 +135,7 @@ public class VerticalScrollBar extends ScrollBar {
         setOffset(getOffset() + (int) relMovement);
 
         // Max left offset
-        if (/*getSlider().coordX == getSliderStart() ||*/ getOffset() > 0) setOffset(0);
+        if (getOffset() > 0) setOffset(0);
             // Max right offset
         else if (getSlider().getCoordY() + getSlider().getHeight() >= getSliderEnd())
             setOffset(this.calcMaxOffset());
@@ -211,7 +211,7 @@ public class VerticalScrollBar extends ScrollBar {
         int offset = getOffset();
 
         // Moves the slider according to what text is displayed (automatic updating for KeyEvents).
-        if (offset == 0 /*|| getSlider().width == getMaxSliderWidth()*/) return getSliderStartY();
+        if (offset == 0) return getSliderStartY();
         else if (offset == calcMaxOffset()) return getSliderEnd() - getSlider().getHeight();
         else return getSliderStartY() + (offset*(-1) * getAvailableHeight() / getContentHeight());
     }

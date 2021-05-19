@@ -726,7 +726,8 @@ public class GUIInput extends GUIObject implements Scrollable {
 
     /**
      * Draw the input box and only the input box containing the current text
-     * @param g         the java drawing graphics
+     * @param g the java drawing graphics
+     * @param paneOffsets the amount of pixels to add because of pane scrolling
      */
     @Override
     public void draw(Graphics g, int... paneOffsets) {
