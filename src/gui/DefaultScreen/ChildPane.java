@@ -49,7 +49,7 @@ public class ChildPane extends Pane implements Scrollable {
         if (amount >= 0) this.xOffset = 0;
         else this.xOffset = Math.max(amount, this.horScrollBar.calcMaxOffset());
 
-        this.horScrollBar.getSlider().coordX = this.horScrollBar.calculateSliderX();
+        this.horScrollBar.getSlider().setCoordX(this.horScrollBar.calculateSliderX());
     }
 
     @Override
@@ -455,12 +455,12 @@ public class ChildPane extends Pane implements Scrollable {
 
     @Override
     public int getAvailableWidth() {
-        return width  - 15;
+        return Math.max(0, width  - 15);
     }
 
     @Override
     public int getAvailableHeight() {
-        return height - 15;
+        return Math.max(0, height - 15);
     }
 
     public int getContentWidth() {

@@ -9,19 +9,19 @@ import java.awt.event.MouseEvent;
 public class ScrollbarSlider {
 
     //the corresponding scrollbar
-    ScrollBar scrollBar;
+    private ScrollBar scrollBar;
     //the slider belongs to a horizontal scrollbar or not?
-    final boolean isHorizontal;
+    private final boolean isHorizontal;
     //dimensions of the slider
-    public int coordX, coordY, width, height;
+    private int coordX, coordY, width, height;
 
     // Relative position of click in the slider
-    int cursorStart;
+    private int cursorStart;
 
     // Slider properties
-    boolean canSlide = false;
-    boolean isSliding = false;
-    Color sliderColor = Color.WHITE;
+    private boolean canSlide = false;
+    private boolean isSliding = false;
+    private Color sliderColor = Color.WHITE;
 
     /**
      * Create a new ScrollbarSlider
@@ -68,7 +68,7 @@ public class ScrollbarSlider {
         int yOffset = paneOffsets.length == 2 ? paneOffsets[1] : 0;
         Color oldColor = g.getColor();
         g.setColor(this.sliderColor);
-        g.fillRect(coordX + xOffset, coordY + yOffset, width, height);
+        g.fillRect(this.coordX + xOffset, this.coordY + yOffset, this.width, this.height);
         g.setColor(oldColor);
     }
 
@@ -152,4 +152,29 @@ public class ScrollbarSlider {
         this.sliderColor = Color.WHITE;
     }
 
+    public ScrollBar getScrollBar() { return this.scrollBar; }
+
+    public int getCoordX() { return this.coordX; }
+
+    public int getCoordY() { return this.coordY; }
+
+    public int getWidth() { return this.width; }
+
+    public int getHeight() { return this.height; }
+
+    public void setCoordX(int x) { this.coordX = x; }
+
+    public void setCoordY(int y) { this.coordY = y; }
+
+    public void setWidth(int width) { this.width = width; }
+
+    public void setHeight(int height) { this.height = height; }
+
+    public boolean isHorizontal() { return this.isHorizontal; }
+
+    public boolean canSlide() { return this.canSlide; }
+
+    public void canSlide(boolean b) { this.canSlide = b; }
+
+    public boolean isSliding() { return this.isSliding; }
 }

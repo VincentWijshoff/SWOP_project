@@ -10,9 +10,14 @@ public class HorizontalScrollBar extends ScrollBar {
     private static final int sliderHeight = 13;
 
     /**
-     * @return the height of this scrollbar's slider
+     * @return the (static final) var for the height of the scrollbar's slider.
      */
     public static int getSliderHeight() { return sliderHeight; }
+
+    /**
+     * @return the (static final) var for the height of the scrollbar.
+     */
+    public static int getScrollBarHeight() { return horScrollBarHeight; }
 
     /**
      * Constructor of the HorizontalScrollBar. Sets the height to a constant,
@@ -32,10 +37,10 @@ public class HorizontalScrollBar extends ScrollBar {
      */
     public void updateDimensions() {
         this.setBoundaries();
-        getSlider().coordX = getSliderStart();
-        getSlider().coordY = getSliderStartY();
-        getSlider().width = getMaxSliderWidth();
-        getSlider().height = getSliderHeight();
+        getSlider().setCoordX(getSliderStart());
+        getSlider().setCoordY(getSliderStartY());
+        getSlider().setWidth(getMaxSliderWidth());
+        getSlider().setHeight(getSliderHeight());
     }
 
     /**
@@ -46,12 +51,12 @@ public class HorizontalScrollBar extends ScrollBar {
      * @param clickCount The click count of the mouse event
      */
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
-        if (getSlider().isOnSlider(x, y) || getSlider().isSliding) {
-            int sliderXInit = getSlider().coordX;
+        if (getSlider().isOnSlider(x, y) || getSlider().isSliding()) {
+            int sliderXInit = getSlider().getCoordX();
             getSlider().handleMouseEvent(id, x, y, clickCount);
 
             // Slide the difference between the old and new x:
-            this.slide(sliderXInit - getSlider().coordX);
+            this.slide(sliderXInit - getSlider().getCoordX());
 
         } else {
             System.out.println("Clicked next to scrollbar slider!");
@@ -103,7 +108,7 @@ public class HorizontalScrollBar extends ScrollBar {
         // Max left offset
         if (/*getSlider().coordX == getSliderStart() ||*/ getOffset() > 0) setOffset(0);
             // Max right offset
-        else if (getSlider().coordX + getSlider().width >= getSliderEnd())
+        else if (getSlider().getCoordX() + getSlider().getWidth() >= getSliderEnd())
             setOffset(this.calcMaxOffset());
     }
 
@@ -121,10 +126,10 @@ public class HorizontalScrollBar extends ScrollBar {
         updateDimensions();
 
         // Update the width of the slider.
-        getSlider().width = calculateSliderWidth();
+        getSlider().setWidth(calculateSliderWidth());
 
         // Reposition the slider so it matches the visible text.
-        getSlider().coordX = calculateSliderX();
+        getSlider().setCoordX(calculateSliderX());
 
         // Scrollbar outline
         g.setColor(Color.GRAY);
@@ -132,7 +137,7 @@ public class HorizontalScrollBar extends ScrollBar {
         g.setColor(oldColor);
 
         // Scrollbar slider
-        getSlider().draw(g, xOffset, 0);
+        getSlider().draw(g, xOffset, yOffset);
     }
 
     /**
@@ -149,13 +154,13 @@ public class HorizontalScrollBar extends ScrollBar {
 
         // The objects fit inside the pane:
         if (contentWidth < availableWidth) {
-            this.getSlider().canSlide = false;
+            this.getSlider().canSlide(false);
             setOffset(0); // No offset.
             return maxSliderWidth;
         }
         // The objects don't fit inside:
         else {
-            this.getSlider().canSlide = true;
+            this.getSlider().canSlide(true);
             return (maxSliderWidth*maxSliderWidth)/contentWidth;
         }
     }
@@ -169,7 +174,7 @@ public class HorizontalScrollBar extends ScrollBar {
 
         // Moves the slider according to what text is displayed (automatic updating for KeyEvents).
         if (offset == 0 /*|| getSlider().width == getMaxSliderWidth()*/) return getSliderStart();
-        else if (offset == calcMaxOffset()) return getSliderEnd() - getSlider().width;
+        else if (offset == calcMaxOffset()) return getSliderEnd() - getSlider().getWidth();
         else return getSliderStart() + (offset*(-1) * getAvailableWidth() / getContentWidth());
     }
 

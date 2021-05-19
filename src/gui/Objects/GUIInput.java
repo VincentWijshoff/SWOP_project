@@ -280,7 +280,7 @@ public class GUIInput extends GUIObject implements Scrollable {
         if (amount > 0) this.offset = 0;
         else this.offset = Math.max(amount, this.scrollBar.calcMaxOffset());
 
-        this.scrollBar.getSlider().coordX = this.scrollBar.calculateSliderX();
+        this.scrollBar.getSlider().setCoordX(this.scrollBar.calculateSliderX());
     }
 
     /**
@@ -301,7 +301,7 @@ public class GUIInput extends GUIObject implements Scrollable {
      */
     @Override
     public int getAvailableWidth() {
-        return width;
+        return Math.max(width, 0);
     }
 
     /**
@@ -309,7 +309,7 @@ public class GUIInput extends GUIObject implements Scrollable {
      */
     @Override
     public int getAvailableHeight() {
-        return height;
+        return Math.max(height, 0);
     }
 
     /**
@@ -325,7 +325,7 @@ public class GUIInput extends GUIObject implements Scrollable {
      */
     @Override
     public int getContentHeight() {
-        return height;
+    return Math.max(height, 0);
     }
 
     /**

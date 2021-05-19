@@ -27,11 +27,10 @@ public class VerticalScrollBar extends ScrollBar {
      */
     public void updateDimensions() {
         this.setBoundaries();
-        getSlider().coordX = getSliderStartX();
-        getSlider().coordY = getSliderStartY();
-
-        getSlider().width = getSliderWidth();
-        getSlider().height = getMaxSliderHeight();
+        getSlider().setCoordX(getSliderStartX());
+        getSlider().setCoordY(getSliderStartY());
+        getSlider().setWidth(getSliderWidth());
+        getSlider().setHeight(getMaxSliderHeight());
     }
 
     /**
@@ -69,12 +68,12 @@ public class VerticalScrollBar extends ScrollBar {
      * @param clickCount The click count of the mouse event
      */
     public void handleMouseEvent(int id, int x, int y, int clickCount) {
-        if (getSlider().isOnSlider(x, y) || getSlider().isSliding) {
-            int sliderYInit = getSlider().coordY;
+        if (getSlider().isOnSlider(x, y) || getSlider().isSliding()) {
+            int sliderYInit = getSlider().getCoordY();
             getSlider().handleMouseEvent(id, x, y, clickCount);
 
             // Slide the difference between the old and new x:
-            this.slide(sliderYInit - getSlider().coordY);
+            this.slide(sliderYInit - getSlider().getCoordY());
         } else {
             System.out.println("Clicked next to scrollbar slider!");
         }
@@ -133,7 +132,7 @@ public class VerticalScrollBar extends ScrollBar {
         // Max left offset
         if (/*getSlider().coordX == getSliderStart() ||*/ getOffset() > 0) setOffset(0);
             // Max right offset
-        else if (getSlider().coordY + getSlider().height >= getSliderEnd())
+        else if (getSlider().getCoordY() + getSlider().getHeight() >= getSliderEnd())
             setOffset(this.calcMaxOffset());
     }
 
@@ -151,10 +150,10 @@ public class VerticalScrollBar extends ScrollBar {
         updateDimensions();
 
         // Update the height of the slider.
-        getSlider().height = calculateSliderHeight();
+        getSlider().setHeight(calculateSliderHeight());
 
         // Reposition the slider so it matches the visible text.
-        getSlider().coordY = calculateSliderY();
+        getSlider().setCoordY(calculateSliderY());
 
         // Scrollbar outline
         g.setColor(Color.GRAY);
@@ -187,13 +186,13 @@ public class VerticalScrollBar extends ScrollBar {
 
         // The objects fit inside the pane:
         if (contentHeight < availableHeight) {
-            this.getSlider().canSlide = false;
+            this.getSlider().canSlide(false);
             setOffset(0); // No offset.
             return maxSliderHeight;
         }
         // The objects don't fit inside:
         else {
-            this.getSlider().canSlide = true;
+            this.getSlider().canSlide(true);
             return (maxSliderHeight*maxSliderHeight)/contentHeight;
         }
     }
@@ -208,7 +207,7 @@ public class VerticalScrollBar extends ScrollBar {
 
         // Moves the slider according to what text is displayed (automatic updating for KeyEvents).
         if (offset == 0 /*|| getSlider().width == getMaxSliderWidth()*/) return getSliderStartY();
-        else if (offset == calcMaxOffset()) return getSliderEnd() - getSlider().height;
+        else if (offset == calcMaxOffset()) return getSliderEnd() - getSlider().getHeight();
         else return getSliderStartY() + (offset*(-1) * getAvailableHeight() / getContentHeight());
     }
 
