@@ -30,9 +30,9 @@ public class SaveBookmarkScreen extends DialogScreen{
     }
 
 //      a text input field for
-//      the name of the bookmark, preceded by a label “Name”, and a text input field
-//      for the URL of the bookmark, preceded by a label “URL”, with the current URL
-//      pre-filled, and two buttons: an “Add Bookmark” button and a “Cancel” button.
+//      the name of the bookmark, preceded by a label "Name", and a text input field
+//      for the URL of the bookmark, preceded by a label "URL", with the current URL
+//      pre-filled, and two buttons: an Add "Bookmark" button and a "Cancel" button.
 //      Clicking the Add Bookmark button adds the bookmark to the end of the list of
 //      bookmarks and closes the dialog screen; clicking the Cancel button simply closes
 //      the dialog screen.
