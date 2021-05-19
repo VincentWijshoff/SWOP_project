@@ -21,8 +21,7 @@ public abstract class TestUtil {
     public static void assertFalse(String testName, boolean b) {
         if (b) fail(testName);
     }
-    public static void assertEquals(String testName, String a, String b) {if(!a.equals(b)) fail(testName); }
-    public static void assertEquals(String testName, int a, int b) {if(a != b) fail(testName); }
+    public static <T> void assertEquals(String testName, T a, T b) {if(!a.equals(b)) fail(testName); }
 
     public static void typeString(Window window, String string) {
         for (char c: string.toCharArray()) {
@@ -86,6 +85,12 @@ public abstract class TestUtil {
             }
         }
         return false;
+    }
+
+    public static String repeatString(String toRepeat, int n) {
+        String result = toRepeat;
+        while (--n > 0) result += toRepeat;
+        return result;
     }
 
 }

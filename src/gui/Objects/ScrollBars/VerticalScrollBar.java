@@ -10,6 +10,16 @@ public class VerticalScrollBar extends ScrollBar {
     private static final int sliderWidth = 13;
 
     /**
+     * @return the (static final) var for the width of the scrollbar's slider.
+     */
+    public static int getSliderWidth() { return sliderWidth; }
+
+    /**
+     * @return the (static final) var for the width of the scrollbar.
+     */
+    public static int getScrollBarWidth() { return verScrollBarWidth; }
+
+    /**
      * Constructor of the HorizontalScrollBar. Sets the height to a constant,
      * because this should never change.
      */
@@ -28,7 +38,7 @@ public class VerticalScrollBar extends ScrollBar {
     public void updateDimensions() {
         this.setBoundaries();
         getSlider().setCoordX(getSliderStartX());
-        getSlider().setCoordY(getSliderStartY());
+        getSlider().setCoordY(getSliderStart());
         getSlider().setWidth(getSliderWidth());
         getSlider().setHeight(getMaxSliderHeight());
     }
@@ -54,11 +64,6 @@ public class VerticalScrollBar extends ScrollBar {
      * @return the maximum slider height (should always be positive).
      */
     public int getMaxSliderHeight() { return Math.max(this.getScrollbarHeight() - getBuffer()*2, 0); }
-
-    /**
-     * @return the width of the slider
-     */
-    public int getSliderWidth() { return sliderWidth; }
 
     /**
      * Handle a mouse event on this vertical scrollbar

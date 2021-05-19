@@ -162,6 +162,8 @@ public class ScrollbarSlider {
 
     public int getHeight() { return this.height; }
 
+    public Color getSliderColor() { return this.sliderColor; }
+
     public void setCoordX(int x) { this.coordX = x; }
 
     public void setCoordY(int y) { this.coordY = y; }

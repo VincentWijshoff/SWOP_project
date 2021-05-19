@@ -315,7 +315,8 @@ public class ChildPane extends Pane implements Scrollable {
         obj.setFontMetricsHandler(this.screen.getFontMetricsHandler());
         obj.setPageLoader(this.screen.getPageLoader());
         obj.updateDimensions();
-
+        getHorScrollBar().updateDimensions();
+        getVerScrollBar().updateDimensions();
     }
 
     /**
@@ -467,7 +468,7 @@ public class ChildPane extends Pane implements Scrollable {
         int max = 0;
         for (GUIObject guiObject : this.getDrawnGUIObjects()) {
             //System.out.println(guiObject.getClass().getName() + " = " + guiObject.coordX + " + "+ guiObject.width);
-            max = Math.max(max, guiObject.coordX - this.x + guiObject.width);
+            max = Math.max(max, guiObject.coordX + guiObject.width - this.x);
         }
         return max;
     }

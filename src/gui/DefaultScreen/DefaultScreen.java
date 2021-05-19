@@ -32,7 +32,7 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader, Pa
         this.addressBar = new AddressBar("WelcomeDoc.html", this);
         this.bookmarkBar = new BookmarkBar(this.addressBar.yLimit, this);
         this.rootPane = new ChildPane(this);
-        this.rootPane.setDimensions(0, this.addressBar.yLimit + this.bookmarkBar.getHeight(), this.getWidth(), this.getHeight() - this.rootPane.y);
+        this.rootPane.setDimensions(0, this.addressBar.yLimit + this.bookmarkBar.getHeight(), 0, 0);
         this.rootPane.setInFocus();
     }
 
@@ -140,13 +140,11 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader, Pa
         this.rootPane.updateDimensions(0, paneYPos, this.getWidth(), this.getHeight() - paneYPos);
         this.rootPane.draw(g);
         // Draw AddressBar
-        this.bookmarkBar.draw(g, this.window.getWidth());
-        this.addressBar.draw(g, this.window.getWidth());
+        this.bookmarkBar.draw(g, this.getWidth());
+        this.addressBar.draw(g, this.getWidth());
     }
 
-    public int getWidth(){
-        return this.window.getWidth();
-    }
+    public int getWidth() { return this.window.getWidth(); }
 
     public int getHeight(){
         return this.window.getHeight();
