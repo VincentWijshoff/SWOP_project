@@ -127,7 +127,11 @@ public class DefaultScreen implements Screen, FontMetricsHandler, PageLoader, Pa
      */
     @Override
     public void execute(BrowsrOperation operation) {
-        operation.execute(this);
+        if(operation.uses(this)){
+            operation.execute(this);
+        }else{
+            throw new RuntimeException("An operation was received that could not be executed");
+        }
     }
 
     /**

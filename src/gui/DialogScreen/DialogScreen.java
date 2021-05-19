@@ -118,6 +118,10 @@ public abstract class DialogScreen implements Screen, FontMetricsHandler {
      */
     @Override
     public void execute(BrowsrOperation browsrOperation) {
-        this.previousScreen.execute(browsrOperation);
+        if(browsrOperation.uses(this)){
+            browsrOperation.execute(this);
+        }else {
+            this.previousScreen.execute(browsrOperation);
+        }
     }
 }

@@ -1173,7 +1173,7 @@ fontMetricsHandler</panel_attributes>
 - name: String
 - address: String
 --
-+ execute(DefaultScreen): void  </panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1187,7 +1187,8 @@ fontMetricsHandler</panel_attributes>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 BrowsrOperation
 --
-execute(DefaultScreen) : void</panel_attributes>
+execute(Screen) : void
+uses(Screen) : boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1229,7 +1230,7 @@ m2=
 - name: String
 - htmlCode: String
 --
-+ execute(DefaultScreen): void  </panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

@@ -1,6 +1,6 @@
 package commands;
 
-import gui.DefaultScreen.DefaultScreen;
+import gui.Screen;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -26,7 +26,7 @@ public class SaveHTMLOperation implements BrowsrOperation {
      * @param screen    The default screen needed for the operation
      */
     @Override
-    public void execute(DefaultScreen screen) {
+    public void execute(Screen screen) {
         if(!this.name.endsWith(".html")){
             this.name += ".html";
         }
@@ -44,6 +44,18 @@ public class SaveHTMLOperation implements BrowsrOperation {
         }catch(IOException e){
             System.out.println("Something went wrong saving the file!");
         }
+    }
+
+    /**
+     * Checks if the specific screen is used to execute the operation
+     *
+     * @param screen the screen that is possibly needed
+     * @return true if the given screen is needed to execute the operation
+     */
+    @Override
+    public boolean uses(Screen screen) {
+        // because this operation does not need knowledge of the screen, it can always be executed
+        return true;
     }
 
 
