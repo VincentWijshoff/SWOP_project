@@ -7,8 +7,6 @@ import gui.Objects.GUIString;
 import gui.Screen;
 import gui.Window;
 
-import java.io.IOException;
-
 /**
  * Save a screen to an .html file
  */
