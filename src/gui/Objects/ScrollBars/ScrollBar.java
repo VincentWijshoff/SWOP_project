@@ -120,7 +120,7 @@ public abstract class ScrollBar {
     /**
      * @param width the updated width of the scrollbar
      */
-    public void setScrollbarWidth(int width) { Math.max(this.scrollbarWidth = width, 0); }
+    public void setScrollbarWidth(int width) { this.scrollbarWidth = Math.max(width, 0); }
 
     /**
      * @param height the updated height of the scrollbar
