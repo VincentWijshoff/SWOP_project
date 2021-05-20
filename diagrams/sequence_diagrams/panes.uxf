@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>3</zoom_level>
+  <zoom_level>4</zoom_level>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>99</x>
-      <y>30</y>
-      <w>714</w>
-      <h>378</h>
+      <x>0</x>
+      <y>0</y>
+      <w>952</w>
+      <h>504</h>
     </coordinates>
     <panel_attributes>title=Split ChildPane
 obj=parent :ParentPane~a EXECUTION
@@ -54,10 +54,10 @@ off=b;</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>99</x>
-      <y>411</y>
-      <w>441</w>
-      <h>267</h>
+      <x>0</x>
+      <y>508</y>
+      <w>588</w>
+      <h>356</h>
     </coordinates>
     <panel_attributes>title=HandlemouseEvent on ParentPane
 obj=:ParentPane~a EXECUTION
@@ -101,10 +101,10 @@ off=c;
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>99</x>
-      <y>681</y>
-      <w>567</w>
-      <h>177</h>
+      <x>0</x>
+      <y>868</y>
+      <w>756</w>
+      <h>236</h>
     </coordinates>
     <panel_attributes>title=Close ChildPane
 obj=parent1 :ParentPane~a EXECUTION
@@ -130,41 +130,44 @@ off=b;</panel_attributes>
   <element>
     <id>UMLSequenceAllInOne</id>
     <coordinates>
-      <x>561</x>
-      <y>429</y>
-      <w>600</w>
-      <h>213</h>
+      <x>616</x>
+      <y>532</y>
+      <w>800</w>
+      <h>324</h>
     </coordinates>
     <panel_attributes>title=HandlemouseEvent on ChildPane
-obj=:ChildPane~d EXECUTION
-obj=:VerticalScrollBar~e EXECUTION
-obj=:HorizontalScrollBar~f EXECUTION
-obj=:GUIObject~g EXECUTION
+obj=:ChildPane~d 
+obj=:VerticalScrollBar~e
+obj=:HorizontalScrollBar~f
+obj=:GUIObject~g
 
-found-&gt;d : handleMouseEvent(ID, x, y, clickCount);
+found-&gt;d : handleMouseEvent(ID, x, y, clickCount);on=d
 combinedFragment=opt~loop2 d g
 
-d: [this.verScrollBar.isOnScrollBar(x, y)]
-d-&gt;&gt;&gt;e : handleMouseEvent(ID, x, y, clickCount);
+d: [ this.verScrollBar.isOnScrollBar(x, y) ]
+d-&gt;&gt;&gt;e : handleMouseEvent(ID, x, y, clickCount);on=e
 ref=e e :VerticalScrollbar handle click
+off=e
 
 tick=
-..=loop2 ; d : [this.horScrollBar.isOnScrollBar(x, y)]
+..=loop2 ; d : [ this.horScrollBar.isOnScrollBar(x, y) ]
 
-d-&gt;&gt;&gt;f : handleMouseEvent(ID, x, y, clickCount);
+d-&gt;&gt;&gt;f : handleMouseEvent(ID, x, y, clickCount);on=f
 ref=f f :HorizontalScrollBar handle click
-
+off=f
 tick=
 ..=loop2 ; d : [ else ]
 	combinedFragment=loop~loop1 d g;
 		d: [ obj : drawnGUIObjects ]
-		d-&gt;&gt;&gt;g: handleMouseEvent(ID, x, y, clickCount);
+		d-&gt;&gt;&gt;g: handleMouseEvent(ID, x, y, clickCount);on=g
 		
 		ref=g g: GuiObject Handle click
+		off=g
 	--=loop1
 
 --=loop2
-</panel_attributes>
+
+off=d</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
